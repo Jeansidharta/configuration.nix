@@ -7,6 +7,7 @@
   wallpaper-manager-unwrapped,
 
   eww-bar-selector-flake,
+  backlight-flake,
   bspwm-desktops-report-flake,
   window-title-watcher-flake,
   volume-watcher-flake,
@@ -28,6 +29,7 @@ let
   theme = import ./theme.nix;
 
   eww-bar-selector = eww-bar-selector-flake.outputs.defaultPackage.${system};
+  backlight = backlight-flake.outputs.defaultPackage.${system};
   bspwm-desktops-report = bspwm-desktops-report-flake.outputs.packages.${system}.default;
   window-title-watcher = window-title-watcher-flake.outputs.packages.${system}.default;
   volume-watcher = volume-watcher-flake.outputs.packages.${system}.default;
@@ -44,6 +46,7 @@ in
           bspwm-desktops-report
           window-title-watcher
           volume-watcher
+          backlight
           ;
         neovim = neovim-with-plugins.packages.${system}.default;
         wallpaper-manager = prev.callPackage (import ./derivations/wrappers/wallpaper-manager.nix) {

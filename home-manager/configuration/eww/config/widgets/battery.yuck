@@ -1,13 +1,13 @@
 (defwidget battery
   []
   (eventbox
-    :tooltip "${round(EWW_BATTERY.BAT0.capacity, 0)}%"
+    :tooltip "${round(EWW_BATTERY.total_avg, 0)}%"
     :cursor "pointer"
     (box
       :space-evenly false
       :spacing 4
       (image
-        :path {EWW_BATTERY.BAT0.status == "Full" || EWW_BATTERY.BAT0.status == "Charging" ? "./icons/battery-charging.svg" :
+        :path {EWW_BATTERY.BAT1.status == "Full" || EWW_BATTERY.BAT1.status == "Charging" ? "./icons/battery-charging.svg" :
                EWW_BATTERY.total_avg <= 12 ? "./icons/battery0.svg" :
                EWW_BATTERY.total_avg <= 24 ? "./icons/battery1.svg" :
                EWW_BATTERY.total_avg <= 36 ? "./icons/battery2.svg" :

@@ -30,6 +30,7 @@ in
         "${pkgs.mypkgs.bspwm-desktops-report}/bin"
         "${pkgs.mypkgs.window-title-watcher}/bin"
         "${pkgs.mypkgs.volume-watcher}/bin"
+        "${pkgs.mypkgs.backlight}/bin"
         "${pkgs.eww}/bin"
         "${pkgs.bspwm}/bin"
         "${pkgs.pulseaudio}/bin"

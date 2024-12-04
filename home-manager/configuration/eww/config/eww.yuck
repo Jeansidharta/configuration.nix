@@ -6,6 +6,7 @@
 (include "./widgets/wifi-list.yuck")
 (include "./widgets/media.yuck")
 (include "./widgets/power.yuck")
+(include "./widgets/battery.yuck")
 (include "./widgets/window-name.yuck")
 (include "./widgets/monitor-backlight.yuck")
 (include "./widgets/performance.yuck")
@@ -59,7 +60,8 @@
     (backdrop :bar_type bar_type
       ; (wifi_icon)
       (pulse_audio_volume)
-      ; (monitor_backlight)
+      (battery)
+      (monitor_backlight)
       (power))))
 
 (defwindow top_bar_split

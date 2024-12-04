@@ -24,15 +24,15 @@ fn main() {
     let mut args = std::env::args();
 
     args.next(); // skip program name
-    let command = args.next().unwrap();
+    let command = args.next().expect("Missing argument");
     let new_value = match command.as_str() {
         "set" => handle_set(&mut args),
         "offset" => handle_offset(&mut args),
         _ => panic!(),
     };
 
-    Command::new("xbacklight")
-        .args(["-set", &new_value.to_string()])
+    Command::new("light")
+        .args(["-S", &new_value.to_string()])
         .output()
         .unwrap();
 

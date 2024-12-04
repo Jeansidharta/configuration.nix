@@ -26,10 +26,10 @@
             :max 100
             :width 1
             :value monitor_backlight_value
-            :onchange "~/.config/eww/scripts/backlight/target/release/backlight set {}")))
+            :onchange "backlight set {}")))
       (eventbox
         :timeout 1000
-        :onscroll "~/.config/eww/scripts/backlight/target/release/backlight offset ${monitor_backlight_value} {}"
+        :onscroll "backlight offset ${monitor_backlight_value} {}"
         (box
           :spacing -8
           (image

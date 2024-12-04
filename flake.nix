@@ -31,6 +31,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    backlight = {
+      url = "path:./home-manager/configuration/eww/scripts/backlight";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     wallpaper-manager-unwrapped = {
       url = "github:jeansidharta/wallpaper-manager";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -69,6 +73,7 @@
       bspwm-desktops-report,
       window-title-watcher,
       volume-watcher,
+      backlight,
       ...
     }:
     let
@@ -84,6 +89,7 @@
             neovim-with-plugins
             wallpaper-manager-unwrapped
             ;
+          backlight-flake = backlight;
           eww-bar-selector-flake = eww-bar-selector;
           bspwm-desktops-report-flake = bspwm-desktops-report;
           window-title-watcher-flake = window-title-watcher;
