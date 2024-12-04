@@ -6,12 +6,20 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
         nixpkgs.follows = "nixpkgs-stable";
         darwin.follows = "";
       };
+    };
+    secrets = {
+      url = "path:./secrets";
     };
 
     splatmoji = {
@@ -25,7 +33,7 @@
     };
 
     wallpaper-manager-unwrapped = {
-      url = "path:/home/sidharta/projects/wallpaper-manager";
+      url = "github:jeansidharta/wallpaper-manager";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
@@ -49,11 +57,11 @@
 
   outputs =
     {
-      self,
       nixpkgs-unstable,
       nixpkgs-stable,
       home-manager,
       agenix,
+      disko,
 
       splatmoji,
       neovim-with-plugins,
@@ -63,48 +71,62 @@
       window-title-watcher,
       volume-watcher,
       ...
-    }@inputs:
+    }:
+    let
+
+      overlays =
+        system:
+        (import ./overlays.nix {
+          inherit
+            system
+            splatmoji
+            nixpkgs-stable
+            nixpkgs-unstable
+            neovim-with-plugins
+            wallpaper-manager-unwrapped
+            ;
+          eww-bar-selector-flake = eww-bar-selector;
+          bspwm-desktops-report-flake = bspwm-desktops-report;
+          window-title-watcher-flake = window-title-watcher;
+          volume-watcher-flake = volume-watcher;
+        });
+    in
     {
       nixosConfigurations = {
         obsidian =
           let
             system = "x86_64-linux";
+            hostname = "obsidian";
+            main-user = "sidharta";
           in
           nixpkgs-stable.lib.nixosSystem {
             inherit system;
             modules = [
-              ./configuration.nix
+              ./hosts/common/configuration.nix
+              ./hosts/obsidian/configuration.nix
               home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  users.sidharta = import ./home-manager/home.nix;
-                  extraSpecialArgs = {
-                    inherit self system;
-                  };
-                };
-              }
+              (import ./home-manager/nixos-module.nix { inherit hostname main-user; })
+              ("${disko}/module.nix")
+              (overlays system)
               agenix.nixosModules.default
-              {
-                _module.args = {
-                  inherit inputs;
-                };
-              }
-              (import ./overlays.nix {
-                inherit
-                  system
-                  splatmoji
-                  nixpkgs-stable
-                  nixpkgs-unstable
-                  neovim-with-plugins
-                  wallpaper-manager-unwrapped
-                  ;
-                eww-bar-selector-flake = eww-bar-selector;
-                bspwm-desktops-report-flake = bspwm-desktops-report;
-                window-title-watcher-flake = window-title-watcher;
-                volume-watcher-flake = volume-watcher;
-              })
+            ];
+          };
+        graphite =
+          let
+            system = "x86_64-linux";
+            hostname = "graphite";
+            main-user = "sidharta";
+          in
+          nixpkgs-stable.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./hosts/common/configuration.nix
+              ./hosts/graphite/configuration.nix
+              home-manager.nixosModules.home-manager
+              (import ./home-manager/nixos-module.nix { inherit hostname main-user; })
+              ("${disko}/module.nix")
+              (overlays system)
+              agenix.nixosModules.default
             ];
           };
       };

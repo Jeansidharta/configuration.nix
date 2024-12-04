@@ -92,6 +92,22 @@
         "type": "github"
       }
     },
+    "disko": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1733168902,
+        "narHash": "sha256-8dupm9GfK+BowGdQd7EHK5V61nneLfr9xR6sc5vtDi0=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "785c1e02c7e465375df971949b8dcbde9ec362e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "dressing": {
       "flake": false,
       "locked": {
@@ -669,11 +685,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1733016324,
-        "narHash": "sha256-8qwPSE2g1othR1u4uP86NXxm6i7E9nHPyJX3m3lx7Q4=",
+        "lastModified": 1733220138,
+        "narHash": "sha256-Yh5XZ9yVurrcYdNTSWxYgW4+EJ0pcOqgM1043z9JaRc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7e1ca67996afd8233d9033edd26e442836cc2ad6",
+        "rev": "bcb68885668cccec12276bbb379f8f2557aa06ce",
         "type": "github"
       },
       "original": {
@@ -685,11 +701,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1733015953,
-        "narHash": "sha256-t4BBVpwG9B4hLgc6GUBuj3cjU7lP/PJfpTHuSqE+crk=",
+        "lastModified": 1733212471,
+        "narHash": "sha256-M1+uCoV5igihRfcUKrr1riygbe73/dzNnzPsmaLCmpo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ac35b104800bff9028425fec3b6e8a41de2bbfff",
+        "rev": "55d15ad12a74eb7d4646254e13638ad0c4128776",
         "type": "github"
       },
       "original": {
@@ -937,6 +953,7 @@
       "inputs": {
         "agenix": "agenix",
         "bspwm-desktops-report": "bspwm-desktops-report",
+        "disko": "disko",
         "eww-bar-selector": "eww-bar-selector",
         "home-manager": "home-manager_2",
         "neovim-with-plugins": "neovim-with-plugins",
@@ -1008,7 +1025,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-ulI3hMc1Mo0R/dno65l7YUEqZs9IIi6qcxQyIuJPZm8=",
+        "narHash": "sha256-fzKz8dcBzQDZjhXLpZPXIdNhPLf6p4NDDMWGXg2FK+4=",
         "path": "./derivations/splatmoji",
         "type": "path"
       },
@@ -1349,14 +1366,17 @@
         "utils": "utils_4"
       },
       "locked": {
-        "lastModified": 1723187733,
-        "narHash": "sha256-yo4Nq7yHeYqWHXVnzUK7VXHWu6Nx1ph+mJKEdKj+9Tk=",
-        "path": "/home/sidharta/projects/wallpaper-manager",
-        "type": "path"
+        "lastModified": 1733293962,
+        "narHash": "sha256-pgv2Mtd60IIproLS+2+ve262taObTkw+lR491qKE1R8=",
+        "owner": "jeansidharta",
+        "repo": "wallpaper-manager",
+        "rev": "9bf5a871f7ad9862e20217a017b61f128c7dd6e0",
+        "type": "github"
       },
       "original": {
-        "path": "/home/sidharta/projects/wallpaper-manager",
-        "type": "path"
+        "owner": "jeansidharta",
+        "repo": "wallpaper-manager",
+        "type": "github"
       }
     },
     "window-title-watcher": {
