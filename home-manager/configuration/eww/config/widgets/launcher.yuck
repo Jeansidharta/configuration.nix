@@ -1,0 +1,26 @@
+(defwidget launcher-item
+  [name]
+  (box name))
+
+(defwidget launcher
+  []
+  (box
+    :class "launcher-container"
+    :orientation "vertical"
+    :vexpand true
+    :space-evenly false
+    (box
+      :class "content-container"
+      :orientation "vertical"
+      :vexpand true
+      :space-evenly false
+      (input :hexpand true)
+      (box
+        :vexpand true
+        :orientation "vertical"
+        :valign "start"
+        :class "items-constainer"
+        (launcher-item :name "test")
+        (launcher-item :name "test")
+        (launcher-item :name "test")
+        (launcher-item :name "test")))))

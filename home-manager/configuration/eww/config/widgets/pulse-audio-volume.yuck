@@ -1,0 +1,41 @@
+(defvar volume_expand false)
+
+(deflisten volume_info :initial "{\"volume\": 0, \"is_muted\": false}"
+  `volume-watcher`)
+
+(defwidget pulse_audio_volume
+  []
+  (eventbox
+    :onhover "eww update volume_expand=true"
+    :onhoverlost "eww update volume_expand=false"
+    :halign "start"
+    :tooltip "${volume_info.volume}%"
+    :cursor "pointer"
+    :class "pulse-audio-volume-container"
+    (box
+      :space-evenly false
+      (revealer
+        :reveal {volume_expand && !volume_info.is_muted}
+        :transition "slideleft"
+        :duration "550ms"
+        :width 0
+        (box
+          :width 150
+          (scale
+            :class "scale"
+            :min 0
+            :max 100
+            :width 1
+            :value {volume_info.volume}
+            :onchange "pamixer --unmute && pamixer --set-volume {}")))
+      (eventbox
+        :onclick "pamixer --toggle-mute"
+        :onscroll "pamixer --unmute && pamixer $(test '{}' = 'up' && echo '--increase') $(test '{}' = 'down' && echo '--decrease') 2"
+        (box
+          ;; :orientation "v"
+          :spacing -8
+          (image
+            :path {volume_info.is_muted ? "./icons/volume-off.svg" : "./icons/volume.svg"}
+            :image-width 30
+            :image-height 30
+            :class "icon"))))))

@@ -1,0 +1,26 @@
+@use "./colors";
+
+.monitor-backlight-container {
+  scale contents {
+  }
+
+  scale trough {
+    background-color: colors.$color-fg;
+    border-radius: 100px;
+    border-color: transparent;
+  }
+
+  scale slider {
+    all: unset;
+    min-width: 1px;
+    min-height: 16px;
+    border-radius: 100px;
+    border-color: transparent;
+  }
+
+  scale highlight {
+    background-color: colors.$color-pink;
+    border-radius: 100px;
+    border-color: transparent;
+  }
+}

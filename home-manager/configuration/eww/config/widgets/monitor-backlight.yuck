@@ -1,0 +1,39 @@
+
+(defvar expand_monitor_backlight false)
+(defvar monitor_backlight_value 100)
+
+(defwidget monitor_backlight
+  []
+  (eventbox
+    :onhover "eww update expand_monitor_backlight=true"
+    :onhoverlost "eww update expand_monitor_backlight=false"
+    :halign "start"
+    :tooltip "${monitor_backlight_value}%"
+    :cursor "pointer"
+    :class "monitor-backlight-container"
+    (box
+      :space-evenly false
+      (revealer
+        :reveal expand_monitor_backlight
+        :transition "slideleft"
+        :duration "550ms"
+        :width 0
+        (box
+          :width 150
+          (scale
+            :class "scale"
+            :min 1
+            :max 100
+            :width 1
+            :value monitor_backlight_value
+            :onchange "~/.config/eww/scripts/backlight/target/release/backlight set {}")))
+      (eventbox
+        :timeout 1000
+        :onscroll "~/.config/eww/scripts/backlight/target/release/backlight offset ${monitor_backlight_value} {}"
+        (box
+          :spacing -8
+          (image
+            :path "icons/light.svg"
+            :image-width 30
+            :image-height 30
+            :class "icon"))))))

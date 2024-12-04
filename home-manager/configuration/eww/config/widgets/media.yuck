@@ -1,0 +1,56 @@
+(defvar show_media true)
+(deflisten status :initial "" "playerctl --follow status")
+(deflisten title :initial "" "playerctl --follow metadata title")
+(deflisten icon :initial "" "~/.config/eww/scripts/media-image/target/release/media-image")
+
+(defvar media_is_open false)
+
+(defwidget media
+  []
+  (box
+    :visible show_media
+    :space-evenly false
+    :spacing 4
+    :style "padding: 0 8px; border-radius: 8px"
+    (eventbox
+      :active {title != ""}
+      :onclick "eww update media_is_open=${media_is_open ? "false" : "true"}"
+      :cursor "pointer"
+      (image
+        :path "./icons/music-note.svg"
+        :image-width 30
+        :image-height 30))
+
+      
+    (revealer
+      :reveal {media_is_open && title != ""}
+      :transition "slideleft"
+      (box
+        :orientation "horizontal"
+        :space-evenly false
+        :spacing 12
+        (overlay
+          (box :width 400)
+          (box :width 400 :halign "start" :space-evenly false title))))
+    (box
+      (eventbox
+        :cursor "pointer"
+        :onclick "playerctl previous"
+        (image
+          :path "./icons/fast-rewind.svg"
+          :image-width 30
+          :image-height 30))
+      (eventbox
+        :cursor "pointer"
+        :onclick "playerctl ${status == "Playing" ? "pause" : "play"}"
+        (image
+          :path {status == "Playing"  ? "./icons/pause.svg" : "./icons/play.svg"}
+          :image-width 40
+          :image-height 40))
+      (eventbox
+        :cursor "pointer"
+        :onclick "playerctl next"
+        (image
+          :path "./icons/fast-forward.svg"
+          :image-width 30
+          :image-height 30)))))

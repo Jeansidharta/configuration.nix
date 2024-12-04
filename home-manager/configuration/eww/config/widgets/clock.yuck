@@ -1,0 +1,10 @@
+(defwidget clock
+  []
+  (eventbox
+    :onclick "eww open calendar"
+    :cursor "pointer"
+    (box
+      :space-evenly false
+      :spacing 12
+      (image :path "./icons/calendar.svg" :image-width 30 :image-height 30)
+      {formattime(EWW_TIME, "%b %d  |  %k:%M")})))

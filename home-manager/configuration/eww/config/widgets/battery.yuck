@@ -1,0 +1,20 @@
+(defwidget battery
+  []
+  (eventbox
+    :tooltip "${round(EWW_BATTERY.BAT0.capacity, 0)}%"
+    :cursor "pointer"
+    (box
+      :space-evenly false
+      :spacing 4
+      (image
+        :path {EWW_BATTERY.BAT0.status == "Full" || EWW_BATTERY.BAT0.status == "Charging" ? "./icons/battery-charging.svg" :
+               EWW_BATTERY.total_avg <= 12 ? "./icons/battery0.svg" :
+               EWW_BATTERY.total_avg <= 24 ? "./icons/battery1.svg" :
+               EWW_BATTERY.total_avg <= 36 ? "./icons/battery2.svg" :
+               EWW_BATTERY.total_avg <= 48 ? "./icons/battery3.svg" :
+               EWW_BATTERY.total_avg <= 60 ? "./icons/battery4.svg" :
+               EWW_BATTERY.total_avg <= 72 ? "./icons/battery5.svg" :
+               EWW_BATTERY.total_avg <= 90 ? "./icons/battery6.svg" :
+                "./icons/battery-full.svg"}
+        :image-width 30
+        :image-height 30))))

@@ -1,0 +1,37 @@
+(defvar power_open false)
+
+(defwidget power
+  []
+  (eventbox
+    :cursor "pointer"
+    :onhover "eww update power_open=true"
+    :onhoverlost "eww update power_open=false"
+    (box
+      :space-evenly false
+      (revealer
+        :reveal power_open
+        :transition "slideleft"
+        (box
+          (eventbox
+            :onclick "systemctl suspend"
+            :cursor "pointer"
+            (image
+              :style "border-radius: 100%; padding: 0 4px;"
+              :path "./icons/sleep.svg"
+              :image-width 30 
+              :image-height 30))
+          (eventbox
+            :onclick "reboot"
+            (image
+              :style "border-radius: 100%; padding: 0 4px;"
+              :path "./icons/restart.svg"
+              :image-width 30 
+              :image-height 30))))
+      (eventbox
+        :cursor "pointer"
+        :onclick "printf \"Yes\\n|No\\n\" | rofi -sep \"|\" -dmenu | xargs -I INPUT test INPUT = Yes && systemctl poweroff"
+        (image
+          :style "border-radius: 100%; padding: 0 4px;"
+          :path "./icons/power.svg"
+          :image-width 30 
+          :image-height 30))))) 

@@ -1,0 +1,98 @@
+diff --git a/lib/functions b/lib/functions
+index c7c8858..6772433 100644
+--- a/lib/functions
++++ b/lib/functions
+@@ -74,10 +74,10 @@ collect_data_files() {
+         echo "Warning: specified language '${lang}' not present in included database.." 1>&2
+       fi
+     done
+-  elif [ -z "${disable_emoji_db}" ] && [ -d '/usr/share/splatmoji/data/emoji' ]; then
++  elif [ -z "${disable_emoji_db}" ] && [ -d '@DATA_DIR@/emoji' ]; then
+     for lang in "${languages_[@]}"; do
+-      if [ -f "/usr/share//splatmoji/data/emoji/${lang}.tsv" ]; then
+-        datafiles=("${datafiles[@]}" "/usr/share//splatmoji/data/emoji/${lang}.tsv")
++      if [ -f "@DATA_DIR@/emoji/${lang}.tsv" ]; then
++        datafiles=("${datafiles[@]}" "@DATA_DIR@/emoji/${lang}.tsv")
+       else
+         echo "Warning: specified language '${lang}' not present in included database.." 1>&2
+       fi
+@@ -89,8 +89,8 @@ collect_data_files() {
+   datafiles=()
+   if [ -z "${disable_emoticon_db}" ] && [ -s "${PROGDIR}/data/emoticons/emoticons.tsv" ]; then
+     datafiles=("${datafiles[@]}" "${PROGDIR}/data/emoticons/emoticons.tsv")
+-  elif [ -z "${disable_emoticon_db}" ] && [ -s '/usr/share/splatmoji/data/emoticons/emoticons.tsv' ]; then
+-    datafiles=("${datafiles[@]}" '/usr/share/splatmoji/data/emoticons/emoticons.tsv')
++  elif [ -z "${disable_emoticon_db}" ] && [ -s '@DATA_DIR@/emoticons/emoticons.tsv' ]; then
++    datafiles=("${datafiles[@]}" '@DATA_DIR@/emoticons/emoticons.tsv')
+   fi
+   datafiles_list_=("${datafiles_list_[@]}" "${datafiles[@]}")
+ 
+@@ -148,12 +148,12 @@ escape_selection() {
+     string="${string//$'\u7d'/\\$'\u7d'}"
+     string="${string//$'\u7e'/\\$'\u7e'}"
+   elif [ "${escape_style}" == 'json' ]; then
+-    if ! type jq >/dev/null 2>&1; then
++    if ! type @jq@ >/dev/null 2>&1; then
+       # shellcheck disable=SC2016
+       echo 'In order to use JSON escaping, please ensure the utility `jq` is installed and in your $PATH' 1>&2
+       return 1
+     fi
+-    string="$(jq --raw-input '.' <<< "${string}")"
++    string="$(@jq@ --raw-input '.' <<< "${string}")"
+     string="${string%\"}"
+     string="${string#\"}"
+   elif [ "${escape_style}" == 'rfm' ]; then
+@@ -224,8 +224,8 @@ get_config_file() {
+     conffile="${XDG_CONFIG_HOME:-${HOME}/.config}/splatmoji/splatmoji.config"
+   elif [ -s "${PROGDIR}/splatmoji.config" ]; then
+     conffile="${PROGDIR}/splatmoji.config"
+-  elif [ -s '/etc/xdg/splatmoji/splatmoji.config' ]; then
+-    conffile='/etc/xdg/splatmoji/splatmoji.config'
++  elif [ -s '@CONFIG_FILE@' ]; then
++    conffile='@CONFIG_FILE@'
+   fi
+ 
+   echo "${conffile}"
+diff --git a/splatmoji b/splatmoji
+index 9636c62..7273b95 100755
+--- a/splatmoji
++++ b/splatmoji
+@@ -12,7 +12,7 @@ readonly PROGDIR="$( cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" &&
+ if [ -s "${PROGDIR}/lib/functions" ]; then
+   source "${PROGDIR}/lib/functions"
+ else
+-  source '/usr/lib/splatmoji/functions'
++  source '@LIB_DIR@/functions'
+ fi
+ 
+ main() {
+@@ -30,10 +30,10 @@ main() {
+   conffile="$(get_config_file)"
+   declare -A config
+   config['history_length']=5
+-  config['paste_command']='xdotool key ctrl+v'
+-  config['rofi_command']="rofi -dmenu -p '' -i -monitor -2"
+-  config['xdotool_command']='xdotool sleep 0.2 type --delay 100'
+-  config['xsel_command']='xsel -b -i'
++  config['paste_command']='@xdotool@ key ctrl+v'
++  config['rofi_command']="@rofi@ -dmenu -p '' -i -monitor -2"
++  config['xdotool_command']='@xdotool@ sleep 0.2 type --delay 100'
++  config['xsel_command']='@xsel@ -b -i'
+   get_config "${conffile}" config
+   if [ -n "${VERBOSE}" ]; then
+     echo 1>&2
+diff --git a/splatmoji.config b/splatmoji.config
+index 93513c0..480b5bb 100644
+--- a/splatmoji.config
++++ b/splatmoji.config
+@@ -1,6 +1,6 @@
+ # history_file=/home/myusername/.local/state/splatmoji/history
+ history_length=5
+-paste_command=xdotool key ctrl+v
+-rofi_command=rofi -dmenu -p '' -i -monitor -2
+-xdotool_command=xdotool sleep 0.2 type --delay 100
+-xsel_command=xsel -b -i
++paste_command=@xdotool@ key ctrl+v
++rofi_command=@rofi@ -dmenu -p '' -i -monitor -2
++xdotool_command=@xdotool@ sleep 0.2 type --delay 100
++xsel_command=@xsel@ -b -i

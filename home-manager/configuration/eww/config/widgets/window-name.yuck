@@ -1,0 +1,7 @@
+(deflisten current_window :initial "" "window-title-watcher")
+
+(defwidget window_name [] 
+  (scroll
+    :hexpand true
+    (box
+      current_window)))

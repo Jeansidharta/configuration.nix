@@ -1,0 +1,81 @@
+(defvar searching_for_wifi false)
+(defvar wifi_script `~/.config/eww/scripts/wifi/target/release/wifi`)
+
+(defpoll wifi_networks
+  :initial "{ \"items\": [], \"selected\": null }"
+  :run-while searching_for_wifi
+  :interval "10s"
+  "eww update searching_for_wifi=true && ~/.config/eww/scripts/wifi/target/release/wifi list && eww update searching_for_wifi=false")
+
+(defwidget
+  wifi_network
+  [wifi_network]
+  (eventbox
+    :cursor "pointer"
+    (box
+      :orientation "horizontal"
+      :class "network-item"
+      :space-evenly false
+      :spacing 12
+      :width 500
+      (literal :content "(box :width 4 :class \"network-item-strength-ball\" :style \"background-color: ${wifi_network.signal_strength_color};\" \"\")")
+      (image :visible {wifi_network.security != ""} :path "./icons/lock.svg" :image-width 20 :image-height 20)
+       
+      (box :halign "start" {wifi_network.ssid}))))
+
+(defwidget wifi_selected []
+  (box
+    :class "selected-newtork-container"
+    :orientation "vertical"
+    :halign "start"
+    :space-evenly false
+    (box
+      :halign "start"
+      :space-evenly false
+      :spacing 12
+      (literal :content "(box :width 4 :class \"network-item-strength-ball\" :style \"background-color: ${wifi_networks.selected?.signal_strength_color ?: "#FF0000"};\" \"\")")
+      (box {wifi_networks.selected?.ssid}))
+    (eventbox :cursor "pointer" :onclick "echo \"${wifi_networks.ipv4}\" | xclip -selection clipboard && notify-send \"IPv4 copied to clipboard\"" :halign "start" {wifi_networks.ipv4})
+    (eventbox :cursor "pointer" :onclick "echo \"${wifi_networks.ipv6}\" | xclip -selection clipboard && notify-send \"IPv6 copied to clipboard\"" :halign "start" {wifi_networks.ipv6})))
+  
+
+(defwidget wifi_list_renderer
+  []
+  (box
+    :halign "start"
+    :space-evenly false
+    :orientation "vertical"
+    (box
+      :space-evenly false
+      :spacing 12
+      (eventbox
+        :halign "start"
+        :cursor "pointer"
+        :onclick "eww update searching_for_wifi=true"
+        (image 
+          :style "margin: 16px 0;"
+          :path "./icons/refresh.svg" :image-width 30 :image-height 30))
+      (checkbox)
+      (eventbox
+        :halign "start"
+        :cursor "pointer"
+        :onclick "eww update searching_for_wifi=true"
+        (image 
+          :style "margin: 16px 0;"
+          :path "./icons/refresh.svg" :image-width 30 :image-height 30)))
+    (wifi_selected)
+    (scroll
+      :vscroll true
+      :hscroll false
+      :height 300
+      (box
+        :orientation "vertical"
+        (for wifi_network in {wifi_networks.items}
+          (wifi_network :wifi_network wifi_network))))))
+
+(defwidget wifi_list
+  []
+  (box
+    :class "wifi-list-container"
+    (literal
+      :content {searching_for_wifi ? "(box \"Loading...\")" : "(wifi_list_renderer)"})))

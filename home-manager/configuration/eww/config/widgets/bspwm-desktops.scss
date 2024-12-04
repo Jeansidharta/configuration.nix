@@ -1,0 +1,32 @@
+@use "./colors";
+
+.bspwm_monitors_container {
+  .desktop-container {
+    .desktop-box {
+      border-radius: 100%;
+      &.free {
+        background-color: colors.$color-grey;
+      }
+      &.unfree {
+        background-color: colors.$color-base;
+      }
+      &.focused {
+        background-color: colors.$color-pink;
+      }
+      &.urgent {
+        background-color: colors.$color-red;
+      }
+    }
+  }
+
+  .monitor-box {
+    &.focused {
+      border-color: colors.$color-pink;
+    }
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    padding: 4px 8px;
+  }
+}
