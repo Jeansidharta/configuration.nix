@@ -8,7 +8,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
       flake = false;
     };
     agenix = {

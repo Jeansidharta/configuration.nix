@@ -7,6 +7,7 @@
 {
   disko.devices = {
     disk = {
+      device = "nvme0n1";
       main = {
         type = "disk";
         content = {
