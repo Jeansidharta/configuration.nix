@@ -128,11 +128,14 @@
             modules = [
               ./hosts/common/configuration.nix
               ./hosts/obsidian/configuration.nix
+              ./hardware/target/hardware-configuration.nix
+              ./hardware/target/disko-config.nix
               home-manager.nixosModules.home-manager
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
                   ./hosts/common/home-manager/default.nix
+                  ./hosts/obsidian/home-manager.nix
                 ];
               })
               ("${disko}/module.nix")
@@ -151,6 +154,8 @@
             modules = [
               ./hosts/common/configuration.nix
               ./hosts/graphite/configuration.nix
+              ./hardware/target/hardware-configuration.nix
+              ./hardware/target/disko-config.nix
               home-manager.nixosModules.home-manager
               (home-manager-module {
                 inherit hostname main-user;
