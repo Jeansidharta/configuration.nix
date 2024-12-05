@@ -1,6 +1,6 @@
 @use "./widgets/bspwm-desktops";
 @use "./widgets/pulse-audio-volume";
-// @use "./widgets/monitor-backlight";
+@use "./widgets/monitor-backlight";
 // @use "./widgets/wifi-list";
 // @use "./widgets/launcher";
 @use "./colors";
@@ -13,9 +13,11 @@ window {
 
 .main-container {
   padding: 4px 16px;
+
   &.solid {
     background-color: colors.$color-background-solid;
   }
+
   &.split {
     background-color: transparent;
     // margin: 0 0 15px 0;
@@ -27,9 +29,7 @@ window {
   border: 1px solid colors.$color-base;
   border-radius: 8px;
   padding: 0px 16px;
-  // &.split {
-    margin: 5px 0 0 0;
-    box-shadow: 0 0 4px black;
-    padding: 5px 16px;
-  // }
+  margin: 5px 0 0 0;
+  box-shadow: 0 0 4px black;
+  padding: 5px 16px;
 }

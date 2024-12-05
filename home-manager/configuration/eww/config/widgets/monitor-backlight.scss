@@ -1,9 +1,6 @@
 @use "./colors";
 
 .monitor-backlight-container {
-  scale contents {
-  }
-
   scale trough {
     background-color: colors.$color-fg;
     border-radius: 100px;
