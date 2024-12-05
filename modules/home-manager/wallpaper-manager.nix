@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  main-user,
   ...
 }:
 with lib;
@@ -18,21 +19,24 @@ in
     wallpapers-dir = mkOption {
       type = types.str;
       description = "Directory containing the user's wallpapers";
-      default = "~/wallpapers";
+      default = "/home/${main-user}/wallpapers/live";
     };
 
     cache-dir = mkOption {
       type = types.str;
       description = "Where the program's cache will be stored";
-      default = "~/.local/state/wallpaper-manager";
+      default = "/home/${main-user}/.local/state/wallpaper-manager";
     };
 
     package = mkOption {
       type = types.package;
       description = "The wallpaper manager package";
+      default = pkgs.mypkgs.wallpaper-manager;
     };
 
-    enableZshIntegration = mkEnableOption "Enable Zsh integration";
+    enableZshIntegration = mkEnableOption "Enable Zsh integration" // {
+      default = true;
+    };
   };
 
   config =
