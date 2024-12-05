@@ -107,7 +107,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.${main-user} = {
-              imports = imports ++ import ./home-manager/modules/default.nix;
+              imports = imports ++ import ./modules/home-manager/default.nix;
             };
             extraSpecialArgs = {
               inherit hostname main-user;
@@ -132,7 +132,7 @@
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
-                  ./home-manager/hosts/common.nix
+                  ./hosts/common/home-manager/default.nix
                 ];
               })
               ("${disko}/module.nix")
@@ -155,8 +155,8 @@
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
-                  ./home-manager/hosts/common.nix
-                  ./home-manager/hosts/graphite.nix
+                  ./hosts/common/home-manager/default.nix
+                  ./hosts/graphite/home-manager.nix
                 ];
               })
               ("${disko}/module.nix")

@@ -6,8 +6,6 @@
   ...
 }:
 {
-  imports = import ../modules/default.nix;
-
   nixpkgs.config.allowUnfree = true;
 
   home.pointerCursor = {
@@ -18,7 +16,7 @@
   };
 
   xsession.enable = true;
-  xsession.windowManager.bspwm = import ../configuration/bspwm.nix { inherit config pkgs; };
+  xsession.windowManager.bspwm = import ./bspwm.nix { inherit config pkgs; };
 
   home.packages = with pkgs; [
     # === Regular Desktop ===
@@ -66,11 +64,11 @@
 
   home.stateVersion = "24.05";
 
-  programs.wezterm = import ../configuration/wezterm.nix { inherit ; };
-  programs.ewwCustom = import ../configuration/eww.nix { inherit pkgs; };
-  programs.zsh = import ../configuration/zsh.nix { inherit pkgs; };
-  programs.starship = import ../configuration/starship.nix { inherit ; };
-  programs.git = import ../configuration/git.nix { inherit ; };
+  programs.wezterm = import ./wezterm.nix { inherit ; };
+  programs.ewwCustom = import ./eww.nix { inherit pkgs; };
+  programs.zsh = import ./zsh.nix { inherit pkgs; };
+  programs.starship = import ./starship.nix { inherit ; };
+  programs.git = import ./git.nix { inherit ; };
   programs.btop.enable = true;
   programs.direnv.enable = true;
   programs.rofi = {
@@ -87,14 +85,14 @@
   };
 
   services.flameshot.enable = true;
-  services.picom = import ../configuration/picom.nix { inherit config pkgs; };
-  services.sxhkd-systemd = import ../configuration/sxhkd/default.nix { inherit config pkgs; };
-  services.wallpaper-manager = import ../configuration/wallpaper-manager.nix {
+  services.picom = import ./picom.nix { inherit config pkgs; };
+  services.sxhkd-systemd = import ./sxhkd/default.nix { inherit config pkgs; };
+  services.wallpaper-manager = import ./wallpaper-manager.nix {
     inherit (pkgs.mypkgs) wallpaper-manager;
   };
-  services.syncplay = import ../configuration/syncplay.nix { inherit ; };
+  services.syncplay = import ./syncplay.nix { inherit ; };
   services.dunst.enable = true;
   services.udiskie.enable = true;
   systemd.user.startServices = true;
-  systemd.user.services = import ../systemd-services.nix { inherit pkgs; };
+  systemd.user.services = import ./systemd-services.nix { inherit pkgs; };
 }
