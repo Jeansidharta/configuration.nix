@@ -92,7 +92,6 @@ in
           };
         }
       ) { };
-
       extraFiles = mapAttrs pkgs.writeText cfg.extraFiles;
       copyCommandExtraFiles = lib.concatMapStringsSep "\n" (
         file: "cp --no-preserve=mode ${file} $out/${file.name}"

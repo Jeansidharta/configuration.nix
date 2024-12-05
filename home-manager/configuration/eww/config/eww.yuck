@@ -60,7 +60,7 @@
     (backdrop :bar_type bar_type
       ; (wifi_icon)
       (pulse_audio_volume)
-      (battery)
+      (literal :content {"@enableBattery@" == "true" ? "battery" : ""})
       (monitor_backlight)
       (power))))
 

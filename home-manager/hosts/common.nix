@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  hostname,
+  main-user,
   ...
 }:
 {

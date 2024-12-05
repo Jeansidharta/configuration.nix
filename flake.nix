@@ -95,6 +95,25 @@
           window-title-watcher-flake = window-title-watcher;
           volume-watcher-flake = volume-watcher;
         });
+
+      home-manager-module =
+        {
+          hostname,
+          main-user,
+          imports,
+        }:
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.${main-user} = {
+              imports = imports ++ import ./home-manager/modules/default.nix;
+            };
+            extraSpecialArgs = {
+              inherit hostname main-user;
+            };
+          };
+        };
     in
     {
       nixosConfigurations = {
@@ -110,7 +129,12 @@
               ./hosts/common/configuration.nix
               ./hosts/obsidian/configuration.nix
               home-manager.nixosModules.home-manager
-              (import ./home-manager/nixos-module.nix { inherit hostname main-user; })
+              (home-manager-module {
+                inherit hostname main-user;
+                imports = [
+                  ./home-manager/hosts/common.nix
+                ];
+              })
               ("${disko}/module.nix")
               (overlays system)
               agenix.nixosModules.default
@@ -128,7 +152,13 @@
               ./hosts/common/configuration.nix
               ./hosts/graphite/configuration.nix
               home-manager.nixosModules.home-manager
-              (import ./home-manager/nixos-module.nix { inherit hostname main-user; })
+              (home-manager-module {
+                inherit hostname main-user;
+                imports = [
+                  ./home-manager/hosts/common.nix
+                  ./home-manager/hosts/graphite.nix
+                ];
+              })
               ("${disko}/module.nix")
               (overlays system)
               agenix.nixosModules.default
