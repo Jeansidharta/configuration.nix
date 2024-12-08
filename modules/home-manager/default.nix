@@ -4,4 +4,5 @@
   ./wallpaper-manager.nix
   ./eww.nix
   ./theming.nix
+  ./nitrogen.nix
 ]
