@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
@@ -8,4 +8,7 @@
       enableBattery = "true";
     };
   };
+  home.packages = [
+    pkgs.nitrogen
+  ];
 }
