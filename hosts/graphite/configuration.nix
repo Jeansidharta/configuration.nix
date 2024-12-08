@@ -21,4 +21,24 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
+
+  services.acpid.enable = true;
+  services.acpid.logEvents = true;
+
+  services.acpid.handlers.volumedown = {
+    event = "button/volumedown";
+    action = "${pkgs.pulseaudio}/bin/pamixer --unmute && ${pkgs.pulseaudio}/bin/pamixer --decrease 10";
+  };
+  services.acpid.handlers.volumeup = {
+    event = "button/volumeup";
+    action = "${pkgs.pulseaudio}/bin/pamixer --unmute && ${pkgs.pulseaudio}/bin/pamixer --increase 10";
+  };
+  services.acpid.handlers.backlightup = {
+    event = "video/brightnessup";
+    action = "${pkgs.libnotify}/bin/notify-send TODO";
+  };
+  services.acpid.handlers.backlightdown = {
+    event = "video/brightnessdown";
+    action = "${pkgs.libnotify}/bin/notify-send TODO";
+  };
 }
