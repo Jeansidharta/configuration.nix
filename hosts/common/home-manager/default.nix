@@ -87,7 +87,6 @@
   services.flameshot.enable = true;
   services.picom = import ./picom.nix { inherit config pkgs; };
   services.sxhkd-systemd = import ./sxhkd/default.nix { inherit config pkgs; };
-  services.syncplay = import ./syncplay.nix { inherit ; };
   services.dunst.enable = true;
   services.udiskie.enable = true;
   systemd.user.startServices = true;
