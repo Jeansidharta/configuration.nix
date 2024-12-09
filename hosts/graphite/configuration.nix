@@ -25,6 +25,10 @@
   services.acpid.enable = true;
   services.acpid.logEvents = true;
 
+  services.acpid.handlers.mute = {
+    event = "button/mute";
+    action = "${pkgs.pulseaudio}/bin/pamixer --toggle-mute";
+  };
   services.acpid.handlers.volumedown = {
     event = "button/volumedown";
     action = "${pkgs.pulseaudio}/bin/pamixer --unmute && ${pkgs.pulseaudio}/bin/pamixer --decrease 10";
@@ -32,6 +36,11 @@
   services.acpid.handlers.volumeup = {
     event = "button/volumeup";
     action = "${pkgs.pulseaudio}/bin/pamixer --unmute && ${pkgs.pulseaudio}/bin/pamixer --increase 10";
+  };
+
+  services.acpid.handlers.microphone = {
+    event = "video/f20";
+    action = "${pkgs.libnotify}/bin/notify-send TODO";
   };
   services.acpid.handlers.backlightup = {
     event = "video/brightnessup";

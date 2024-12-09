@@ -30,6 +30,8 @@ in
     "ls" = "eza";
     "xclip" = "xclip -selection clipboard";
 
+    "cdtmp" = "cd $(mktemp --dir)";
+
     "nvim-test" = "nix run /home/sidharta/.config/home-manager/derivations/neovim --no-net -- ";
   };
   # initExtra = ''
