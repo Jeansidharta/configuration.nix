@@ -1,3 +1,4 @@
+use clap::Parser;
 use std::{
     io::Read,
     process::{Command, Stdio},
@@ -10,7 +11,24 @@ use utils::{
 
 mod utils;
 
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long = "main-monitor")]
+    main_monitor: Option<String>,
+
+    #[arg(short, long = "list-monitors")]
+    list_monitors: bool,
+}
+
 fn main() {
+    let args = Args::parse();
+    if args.list_monitors {
+        detect_monitors()
+            .into_iter()
+            .for_each(|m| print!("{}\n", m.name));
+        return;
+    }
     let mut bspc = Command::new("bspc")
         .args([
             "subscribe",
@@ -28,10 +46,21 @@ fn main() {
 
     select_bar_according_to_gaps_and_state();
 
-    let main_monitor = detect_monitors()
-        .into_iter()
-        .find(|monitor| monitor.name == "HDMI-1")
-        .expect("Could not find main monitor");
+    let main_monitor = {
+        let mut monitors = detect_monitors();
+        if monitors.len() == 0 {
+            panic!("No monitors detected")
+        } else if args.main_monitor.is_some() {
+            monitors
+                .into_iter()
+                .find(|monitor| &monitor.name == args.main_monitor.as_ref().unwrap())
+                .expect("Could not find main monitor")
+        } else if monitors.len() == 1 {
+            monitors.pop().unwrap()
+        } else {
+            panic!("Multiple monitors found, but main monitor not specified");
+        }
+    };
 
     let mut buf = [0u8; 4096];
     loop {
