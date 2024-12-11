@@ -21,4 +21,6 @@ config.font = wezterm.font_with_fallback({ "JetBrains Mono", "NotoSans Nerd Font
 
 config.font_size = 14
 
+config.front_end = "WebGpu"
+
 return config

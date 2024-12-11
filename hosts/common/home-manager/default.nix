@@ -64,7 +64,7 @@
 
   home.stateVersion = "24.05";
 
-  programs.wezterm = import ./wezterm.nix { inherit ; };
+  programs.wezterm = import ./wezterm.nix { inherit pkgs; };
   programs.ewwCustom = import ./eww.nix { inherit pkgs; };
   programs.zsh = import ./zsh.nix { inherit pkgs; };
   programs.starship = import ./starship.nix { inherit ; };

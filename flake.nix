@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     disko = {
@@ -32,7 +32,7 @@
     };
 
     backlight = {
-      url = "path:./home-manager/configuration/eww/scripts/backlight";
+      url = "path:./hosts/common/home-manager/eww/scripts/backlight";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     wallpaper-manager-unwrapped = {
