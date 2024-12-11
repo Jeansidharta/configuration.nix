@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
@@ -9,4 +9,8 @@
     };
   };
   services.nitrogen.enable = true;
+
+  home.packages = [
+    pkgs.brightnessctl
+  ];
 }
