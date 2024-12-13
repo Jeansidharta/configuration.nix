@@ -6,5 +6,6 @@
   ...
 }:
 {
+  time.timeZone = "US/Eastern";
   networking.hostName = "obsidian";
 }

@@ -7,6 +7,7 @@
 }:
 {
   networking.hostName = "graphite";
+  time.timeZone = "America/Sao_Paulo";
 
   users.users.sidharta = {
     extraGroups = [
