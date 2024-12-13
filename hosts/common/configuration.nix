@@ -14,8 +14,6 @@
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
-  time.timeZone = "US/Eastern";
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -125,7 +123,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  # networking.firewall.enable = false;
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }

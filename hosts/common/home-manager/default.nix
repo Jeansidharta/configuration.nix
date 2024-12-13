@@ -20,38 +20,36 @@
 
   home.packages = with pkgs; [
     # === Regular Desktop ===
-    btop
-    firefox
-    xclip
-    peek
-    mpv
-    yazi
-    bat
-    sxiv
-    helvum
-    lmms
-    eza
-    plover.dev
-    splatmoji
-    xclip
-    orca-slicer
-    inkscape
-    htmlq
-    jq
-    pavucontrol
-    libnotify
-    yt-dlp
-    comma
-    unzip
 
-    qpwgraph
-    socat
-    usbutils
+    btop # Process manager
+    firefox # Browser
+    xclip # Clipboard software
+    peek # Record screen
+    mpv # Media player
+    yazi # TUI File manager
+    bat # Replacement for the gnu `cat` command
+    sxiv # Simple image viewer
+    lmms # Music production
+    eza # Replacement for the gnu `ls` command
+    plover.dev # Stenography software
+    splatmoji # Emoji / Emoticon selector
+    inkscape # Vector image editor
+    htmlq # CLI tool for filtering HTML pages
+    jq # CLI tool for filtering Json data
+    pavucontrol # GUI for changing audio stuff
+    libnotify # Send d-bus notification through the terminal
+    yt-dlp # Download youtube videos
+    comma # Install software before running it.
+    unzip # Unzip tool
 
-    kitty
+    helvum # Manipulate Pipewire connections
+    qpwgraph # Manipulate Pipewire connections
+    socat # Tool for connecting/debugging read/write interfaces
+    usbutils # Tool for manipulating USB
+    tmsu # File tagging tool
 
-    mypkgs.select-wallpaper
-    mypkgs.select-wallpaper-static
+    kitty # Backup terminal in case Wezterm dies
+
     mypkgs.neovim
 
     # === Non free ===

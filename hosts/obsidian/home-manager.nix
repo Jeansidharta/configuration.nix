@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
@@ -11,6 +11,12 @@
       enableBattery = "false";
     };
   };
+  home.packages = [
+    pkgs.orca-slicer
+
+    pkgs.mypkgs.select-wallpaper
+    pkgs.mypkgs.select-wallpaper-static
+  ];
   services.syncplay = {
     enable = true;
     disableReady = true;
