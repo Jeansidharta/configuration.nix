@@ -14,6 +14,13 @@
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
