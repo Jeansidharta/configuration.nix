@@ -56,16 +56,16 @@ pub fn detect_monitors() -> Vec<Monitor> {
 pub fn get_open_bar() -> Option<Bars> {
     let output = String::from_utf8(
         Command::new("eww")
-            .args(["windows", "--no-daemonize"])
+            .args(["active-windows", "--no-daemonize"])
             .output()
             .unwrap()
             .stdout,
     )
     .unwrap();
 
-    if output.contains("*top_bar_solid") {
+    if output.contains("top_bar_solid") {
         Some(Bars::Solid)
-    } else if output.contains("*top_bar_split") {
+    } else if output.contains("top_bar_split") {
         Some(Bars::Split)
     } else {
         None

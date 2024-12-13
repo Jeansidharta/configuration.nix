@@ -153,7 +153,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-z74Kstl/WUKbT4ldxUJdTxJaOWu3FO3RXdAssNbUWPs=",
+        "narHash": "sha256-M1o2Jy5Hp6Fv562L82LUx3bRSbV1IU3E5QaFKrS6RXE=",
         "path": "./derivations/eww-bar-selector",
         "type": "path"
       },
