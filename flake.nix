@@ -17,6 +17,10 @@
         darwin.follows = "";
       };
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     secrets = {
       url = "path:./secrets";
     };
@@ -65,6 +69,7 @@
       home-manager,
       agenix,
       disko,
+      nix-index-database,
 
       splatmoji,
       neovim-with-plugins,
@@ -114,6 +119,16 @@
             };
           };
         };
+      common-modules = system: [
+        ./hosts/common/configuration.nix
+        ./hardware/target/hardware-configuration.nix
+        ./hardware/target/disko-config.nix
+        nix-index-database.nixosModules.nix-index
+        home-manager.nixosModules.home-manager
+        ("${disko}/module.nix")
+        (overlays system)
+        agenix.nixosModules.default
+      ];
     in
     {
       nixosConfigurations = {
@@ -125,12 +140,8 @@
           in
           nixpkgs-stable.lib.nixosSystem {
             inherit system;
-            modules = [
-              ./hosts/common/configuration.nix
+            modules = (common-modules system) ++ [
               ./hosts/obsidian/configuration.nix
-              ./hardware/target/hardware-configuration.nix
-              ./hardware/target/disko-config.nix
-              home-manager.nixosModules.home-manager
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
@@ -138,9 +149,6 @@
                   ./hosts/obsidian/home-manager.nix
                 ];
               })
-              ("${disko}/module.nix")
-              (overlays system)
-              agenix.nixosModules.default
             ];
           };
         graphite =
@@ -151,12 +159,8 @@
           in
           nixpkgs-stable.lib.nixosSystem {
             inherit system;
-            modules = [
-              ./hosts/common/configuration.nix
+            modules = (common-modules system) ++ [
               ./hosts/graphite/configuration.nix
-              ./hardware/target/hardware-configuration.nix
-              ./hardware/target/disko-config.nix
-              home-manager.nixosModules.home-manager
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
@@ -164,9 +168,6 @@
                   ./hosts/graphite/home-manager.nix
                 ];
               })
-              ("${disko}/module.nix")
-              (overlays system)
-              agenix.nixosModules.default
             ];
           };
       };

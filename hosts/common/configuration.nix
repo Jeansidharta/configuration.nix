@@ -104,6 +104,7 @@
     package = pkgs.nix;
   };
 
+  programs.nix-index-database.comma.enable = true;
   programs = {
     neovim = {
       enable = true;

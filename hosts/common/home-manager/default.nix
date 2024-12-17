@@ -39,7 +39,6 @@
     pavucontrol # GUI for changing audio stuff
     libnotify # Send d-bus notification through the terminal
     yt-dlp # Download youtube videos
-    comma # Install software before running it.
     unzip # Unzip tool
 
     helvum # Manipulate Pipewire connections
