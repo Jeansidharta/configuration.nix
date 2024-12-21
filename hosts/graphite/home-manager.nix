@@ -1,12 +1,12 @@
 { pkgs, ... }:
 let
   rofi = "${pkgs.rofi-unwrapped}/bin/rofi";
-  tmsu = "${pkgs.tmsu}/bin/tmsu";
+  tmsu = "${pkgs.tmsu}/bin/tmsu --database ~/wallpapers/.tmsu/db";
   xargs = "${pkgs.findutils}/bin/xargs";
   feh = "${pkgs.feh}/bin/feh";
 
   select-wallpaper = pkgs.writeScriptBin "wallpaper" ''
-    ${rofi} -dmenu -p "Tags query" | ${xargs} ${tmsu} --database ~/wallpapers/.tmsu/db files static and | sxiv -o - | ${xargs} ${feh} --bg-fill
+    ${tmsu} tags --color never | ${rofi} -dmenu -p "Tags query" | ${xargs} ${tmsu} files | sxiv -o - | ${xargs} ${feh} --bg-fill
   '';
 in
 {

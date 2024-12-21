@@ -22,7 +22,6 @@
     # === Regular Desktop ===
 
     btop # Process manager
-    firefox # Browser
     xclip # Clipboard software
     peek # Record screen
     mpv # Media player
@@ -60,6 +59,18 @@
   ];
 
   home.stateVersion = "24.05";
+
+  programs.firefox = {
+    enable = true;
+    profiles.default = {
+      isDefault = true;
+      name = "default";
+      id = 0;
+      search.default = "Google";
+      settings = {
+      };
+    };
+  };
 
   programs.wezterm = import ./wezterm.nix { inherit pkgs; };
   programs.ewwCustom = import ./eww.nix { inherit pkgs; };
