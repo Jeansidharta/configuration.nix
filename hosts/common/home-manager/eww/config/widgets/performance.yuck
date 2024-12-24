@@ -25,4 +25,4 @@
       :space-evenly false
       :spacing 4
       (image :path "./icons/termometer.svg" :image-width 30 :image-height 30)
-      "${round(EWW_TEMPS.K10TEMP_TCCD1, 0)}°C")))
+      "${round(EWW_TEMPS.CORETEMP_CORE_0, 0)}°C")))
