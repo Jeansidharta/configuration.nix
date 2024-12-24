@@ -60,8 +60,8 @@
     (backdrop :bar_type bar_type
       ; (wifi_icon)
       (pulse_audio_volume)
-      (literal :content {"@enableBattery@" == "true" ? "(battery)" : ""})
-      (literal :content {"@enableBacklight@" == "true" ? "(monitor_backlight)" : ""})
+      (literal :valign "center" :vexpand true :halign "center" :content {"@enableBattery@" == "true" ? "(battery)" : ""})
+      (literal :valign "center" :vexpand true :halign "center" :content {"@enableBacklight@" == "true" ? "(monitor_backlight)" : ""})
       (power))))
 
 (defwindow top_bar_split
