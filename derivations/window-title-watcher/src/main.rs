@@ -1,5 +1,5 @@
 use anyhow::Result;
-use xcb::x::{Atom, EventMask, Window};
+use xcb::{x::{Atom, EventMask, Window}, Xid};
 
 fn get_window_title(
     conn: &xcb::Connection,
@@ -37,13 +37,16 @@ fn handle_active_window_change(
         reply.value::<xcb::x::Window>().get(0).cloned()
     };
     let net_active_window = match net_active_window {
-        Some(w) => w,
-        None => return Ok(None),
+        Some(w) => if w.resource_id() == 0 { None } else { Some(w) },
+        None => None,
     };
-    let window_title = get_window_title(conn, net_active_window, known_atoms)?;
-    println!("{window_title}");
-
-    Ok(Some(net_active_window))
+    if let Some(window) = net_active_window {
+        let title = get_window_title(conn, window, known_atoms)?;
+        println!("{title}");
+    } else {
+        println!("");
+    }
+    Ok(net_active_window)
 }
 fn subscribe_to_window_property_events(conn: &xcb::Connection, window: Window) -> Result<()> {
     let mut event_mask = xcb::x::EventMask::empty();
