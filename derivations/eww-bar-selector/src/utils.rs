@@ -88,11 +88,11 @@ pub fn use_solid_bar() {
         return;
     }
     Command::new("eww")
-        .args(["close", "top_bar_split", "--no-daemonize"])
+        .args(["open", "top_bar_solid", "--no-daemonize"])
         .output()
         .unwrap();
     Command::new("eww")
-        .args(["open", "top_bar_solid", "--no-daemonize"])
+        .args(["close", "top_bar_split", "--no-daemonize"])
         .output()
         .unwrap();
 }
@@ -102,11 +102,11 @@ pub fn use_split_bar() {
         return;
     }
     Command::new("eww")
-        .args(["close", "top_bar_solid", "--no-daemonize"])
+        .args(["open", "top_bar_split", "--no-daemonize"])
         .output()
         .unwrap();
     Command::new("eww")
-        .args(["open", "top_bar_split", "--no-daemonize"])
+        .args(["close", "top_bar_solid", "--no-daemonize"])
         .output()
         .unwrap();
 }

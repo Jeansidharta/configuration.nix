@@ -19,6 +19,10 @@ in
   options.programs.ewwCustom = {
     enable = mkEnableOption "eww";
 
+    systemdService = mkEnableOption "Wether to start with a systemd service" // {
+      default = false;
+    };
+
     package = mkOption {
       type = types.package;
       default = pkgs.eww;
@@ -105,6 +109,17 @@ in
     mkIf cfg.enable {
       home.packages = [ cfg.package ];
       xdg.configFile."eww".source = configDir;
+      systemd.user.services.eww = mkIf cfg.systemdService {
+        Unit = {
+          Description = "Eww bar";
+        };
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
+        Service = {
+          ExecStart = "${ewwCmd} daemon --no-daemonize";
+        };
+      };
 
       programs.bash.initExtra = mkIf cfg.enableBashIntegration ''
         if [[ $TERM != "dumb" ]]; then
