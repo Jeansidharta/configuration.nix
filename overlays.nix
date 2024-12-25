@@ -6,6 +6,7 @@
   neovim-with-plugins,
   wallpaper-manager-unwrapped,
 
+  envsub-flake,
   eww-bar-selector-flake,
   backlight-flake,
   bspwm-desktops-report-flake,
@@ -32,6 +33,7 @@ let
   bspwm-desktops-report = bspwm-desktops-report-flake.outputs.packages.${system}.default;
   window-title-watcher = window-title-watcher-flake.outputs.packages.${system}.default;
   volume-watcher = volume-watcher-flake.outputs.packages.${system}.default;
+  envsub = envsub-flake.outputs.packages.${system}.default;
 in
 {
   nixpkgs.overlays = [
@@ -45,6 +47,7 @@ in
           window-title-watcher
           volume-watcher
           backlight
+          envsub
           ;
         neovim = neovim-with-plugins.packages.${system}.default;
         wallpaper-manager = prev.callPackage (import ./derivations/wrappers/wallpaper-manager.nix) {

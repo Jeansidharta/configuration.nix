@@ -68,34 +68,6 @@ in
   config =
     with builtins;
     let
-      envsub = pkgs.callPackage (
-        {
-          lib,
-          fetchFromGitHub,
-          rustPlatform,
-        }:
-
-        rustPlatform.buildRustPackage rec {
-          pname = "envsub";
-          version = "0.1.3";
-
-          src = fetchFromGitHub {
-            owner = "stephenc";
-            repo = pname;
-            rev = "605623d4224986e0028e2dec9055891c2c46bfd6";
-            hash = "sha256-DYfGH/TnDTaG5799upg4HDNFiMYpkE64s2DNXJ+1NnE=";
-          };
-
-          cargoHash = "sha256-1b0nhfbk7g2XiplOeVB25VQV2E3Z7B9tqANYvhOO6AQ=";
-
-          meta = {
-            description = "substitutes the values of environment variables";
-            homepage = "https://github.com/stephenc/envsub";
-            license = lib.licenses.mit;
-            maintainers = [ ];
-          };
-        }
-      ) { };
       extraFiles = mapAttrs pkgs.writeText cfg.extraFiles;
       copyCommandExtraFiles = lib.concatMapStringsSep "\n" (
         file: "cp --no-preserve=mode ${file} $out/${file.name}"
@@ -103,7 +75,7 @@ in
       configDir = pkgs.runCommand "eww-config" ({ } // cfg.extraVariables) ''
                 cp -r --no-preserve=mode ${cfg.configDir} $out
                 ${copyCommandExtraFiles}
-        		find $out/ -type f -exec bash -c "cat {} | ${envsub}/bin/envsub -p @ -s @ > {}.tmp && mv {}.tmp {}" \;
+        		find $out/ -type f -exec bash -c "cat {} | ${pkgs.mypkgs.envsub}/bin/envsub -p @ -s @ > {}.tmp && mv {}.tmp {}" \;
       '';
     in
     mkIf cfg.enable {

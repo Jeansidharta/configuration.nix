@@ -35,7 +35,10 @@
       url = "github:jeansidharta/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
+    envsub = {
+      url = "path:./derivations/envsub";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     backlight = {
       url = "path:./hosts/common/home-manager/eww/scripts/backlight";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -73,6 +76,7 @@
       disko,
       nix-index-database,
 
+      envsub,
       splatmoji,
       neovim-with-plugins,
       wallpaper-manager-unwrapped,
@@ -96,6 +100,7 @@
             neovim-with-plugins
             wallpaper-manager-unwrapped
             ;
+          envsub-flake = envsub;
           backlight-flake = backlight;
           eww-bar-selector-flake = eww-bar-selector;
           bspwm-desktops-report-flake = bspwm-desktops-report;
