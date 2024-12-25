@@ -26,7 +26,6 @@ let
   # rawPkgsStable = nixpkgs-stable.legacyPackages.${system};
   rawPkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
   wallpaper-manager-raw = wallpaper-manager-unwrapped.defaultPackage.${system};
-  theme = import ./theme.nix;
 
   eww-bar-selector = eww-bar-selector-flake.outputs.defaultPackage.${system};
   backlight = backlight-flake.outputs.defaultPackage.${system};
@@ -37,7 +36,6 @@ in
 {
   nixpkgs.overlays = [
     (final: prev: {
-      inherit theme;
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;
       mypkgs = rec {

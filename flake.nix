@@ -6,6 +6,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
+    theme.url = "path:./theming";
     disko = {
       url = "github:nix-community/disko";
       flake = false;
@@ -67,6 +68,7 @@
       nixpkgs-unstable,
       nixpkgs-stable,
       home-manager,
+      theme,
       agenix,
       disko,
       nix-index-database,
@@ -112,7 +114,13 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.${main-user} = {
-              imports = imports ++ import ./modules/home-manager/default.nix;
+              imports =
+                imports
+                ++ import ./modules/home-manager/default.nix
+                ++ [
+                  theme.outputs.home-manager-module
+                  ./hosts/common/home-manager/default.nix
+                ];
             };
             extraSpecialArgs = {
               inherit hostname main-user;
@@ -145,7 +153,6 @@
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
-                  ./hosts/common/home-manager/default.nix
                   ./hosts/obsidian/home-manager.nix
                 ];
               })
@@ -164,7 +171,6 @@
               (home-manager-module {
                 inherit hostname main-user;
                 imports = [
-                  ./hosts/common/home-manager/default.nix
                   ./hosts/graphite/home-manager.nix
                 ];
               })
