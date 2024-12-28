@@ -13,15 +13,7 @@ window {
 
 .main-container {
   padding: 4px 16px;
-
-  &.solid {
-    background-color: colors.$color-background-solid;
-  }
-
-  &.split {
-    background-color: transparent;
-    // margin: 0 0 15px 0;
-  }
+  background-color: colors.$color-background-solid;
 }
 
 .backdrop {

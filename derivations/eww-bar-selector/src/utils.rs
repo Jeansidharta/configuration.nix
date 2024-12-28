@@ -1,11 +1,5 @@
 use std::process::Command;
 
-#[derive(PartialEq)]
-pub enum Bars {
-    Solid,
-    Split,
-}
-
 #[derive(Debug)]
 pub struct Monitor {
     pub id: String,
@@ -53,60 +47,23 @@ pub fn detect_monitors() -> Vec<Monitor> {
         .collect()
 }
 
-pub fn get_open_bar() -> Option<Bars> {
-    let output = String::from_utf8(
-        Command::new("eww")
-            .args(["active-windows", "--no-daemonize"])
-            .output()
-            .unwrap()
-            .stdout,
-    )
-    .unwrap();
-
-    if output.contains("top_bar_solid") {
-        Some(Bars::Solid)
-    } else if output.contains("top_bar_split") {
-        Some(Bars::Split)
-    } else {
-        None
-    }
-}
-
 pub fn close_all_bars() {
     Command::new("eww")
-        .args(["close", "top_bar_split", "--no-daemonize"])
-        .output()
-        .unwrap();
-    Command::new("eww")
-        .args(["close", "top_bar_solid", "--no-daemonize"])
+        .args(["update", "show_bar=false"])
         .output()
         .unwrap();
 }
 
 pub fn use_solid_bar() {
-    if get_open_bar() == Some(Bars::Solid) {
-        return;
-    }
     Command::new("eww")
-        .args(["open", "top_bar_solid", "--no-daemonize"])
-        .output()
-        .unwrap();
-    Command::new("eww")
-        .args(["close", "top_bar_split", "--no-daemonize"])
+        .args(["update", "show_background=true", "show_bar=true"])
         .output()
         .unwrap();
 }
 
 pub fn use_split_bar() {
-    if get_open_bar() == Some(Bars::Split) {
-        return;
-    }
     Command::new("eww")
-        .args(["open", "top_bar_split", "--no-daemonize"])
-        .output()
-        .unwrap();
-    Command::new("eww")
-        .args(["close", "top_bar_solid", "--no-daemonize"])
+        .args(["update", "show_background=false", "show_bar=true"])
         .output()
         .unwrap();
 }

@@ -1,3 +1,6 @@
+(defvar show_bar true)
+(defvar show_background false)
+
 (include "./widgets/bspwm-desktops.yuck")
 (include "./widgets/launcher.yuck")
 (include "./widgets/clock.yuck")
@@ -26,45 +29,15 @@
     (launcher))
 
 (defwidget backdrop
-  [bar_type ?hexpand]
+  [?hexpand]
   (box 
     :space-evenly false
     :spacing 12
     :hexpand {hexpand ?: false}
-    :class "backdrop ${bar_type == "solid" ? "solid" : "split"}"
+    :class "backdrop ${show_background ? "solid" : "split"}"
     (children)))
 
-(defvar show_bar true)
-
-(defwidget top_bar
-  [bar_type]
-  (box 
-    :visible show_bar
-    :spacing 32
-    :width 1920
-    :class "main-container ${bar_type == "solid" ? "solid" : "split"}"
-    :space-evenly false
-    (backdrop :bar_type bar_type
-      (bspwm_monitors))
-    (backdrop :bar_type bar_type
-      (performance))
-    (backdrop :hexpand true :bar_type bar_type
-      (window_name))
-    (backdrop :bar_type bar_type
-      (media))
-    (backdrop :bar_type bar_type
-      (box
-        :space-evenly false
-        :spacing 12
-        (clock)))
-    (backdrop :bar_type bar_type
-      ; (wifi_icon)
-      (pulse_audio_volume)
-      (literal :valign "center" :vexpand true :halign "center" :content {"@enableBattery@" == "true" ? "(battery)" : ""})
-      (literal :valign "center" :vexpand true :halign "center" :content {"@enableBacklight@" == "true" ? "(monitor_backlight)" : ""})
-      (power))))
-
-(defwindow top_bar_split
+(defwindow top_bar
     :monitor 0
     :geometry
     (geometry
@@ -77,22 +50,32 @@
     :reserve (struts :distance "70px" :side "top")
     :windowtype "dock"
     :wm-ignore false
-    (top_bar :bar_type "split"))
-
-(defwindow top_bar_solid
-    :monitor 0
-    :geometry
-    (geometry
-       :x "0%"
-       :y "0px"
-       :width "100%"
-       :height "70px"
-       :anchor "top center")
-    :stacking "bg"
-    :reserve (struts :distance "70px" :side "top")
-    :windowtype "dock"
-    :wm-ignore false
-    (top_bar :bar_type "solid"))
+    (box 
+      :visible show_bar
+      :spacing 32
+      :width 1920
+      :style {!show_background ? "background-color: transparent;" : ""}
+      :class "main-container"
+      :space-evenly false
+      (backdrop
+        (bspwm_monitors))
+      (backdrop
+        (performance))
+      (backdrop :hexpand true
+        (window_name))
+      (backdrop
+        (media))
+      (backdrop
+        (box
+          :space-evenly false
+          :spacing 12
+          (clock)))
+      (backdrop
+        ; (wifi_icon)
+        (pulse_audio_volume)
+        (literal :valign "center" :vexpand true :halign "center" :content {"@enableBattery@" == "true" ? "(battery)" : ""})
+        (literal :valign "center" :vexpand true :halign "center" :content {"@enableBacklight@" == "true" ? "(monitor_backlight)" : ""})
+        (power))))
 
 (defwindow calendar
   :monitor 0
