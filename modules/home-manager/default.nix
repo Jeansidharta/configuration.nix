@@ -4,4 +4,5 @@
   ./wallpaper-manager.nix
   ./eww.nix
   ./nitrogen.nix
+  ./ghostty.nix
 ]

@@ -64,6 +64,34 @@
           focused_border_color = primaryColor;
           presel_feedback_color = gray;
         };
+        programs.ghostty = {
+          settings.theme = "myTheme";
+          themes.myTheme = with colorsWithHash; {
+            palette = [
+              "0=${gray}"
+              "1=${lightYellow}"
+              "2=${pink}"
+              "3=${orange}"
+              "4=${blue}"
+              "5=${green}"
+              "6=${cyan}"
+              "7=${gray}"
+              "8=${gray}"
+              "9=${lightYellow}"
+              "10=${pink}"
+              "11=${orange}"
+              "12=${blue}"
+              "13=${green}"
+              "14=${cyan}"
+              "15=${gray}"
+            ];
+            # selection-background = "353749";
+            # selection-foreground = "cdd6f4";
+            foreground = bgLight;
+            cursor-color = bgLighter;
+            background = bgDarker;
+          };
+        };
 
         programs.ewwCustom = rec {
           extraVariables = with colorsWithHash; {

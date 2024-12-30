@@ -46,7 +46,7 @@
     usbutils # Tool for manipulating USB
     tmsu # File tagging tool
 
-    kitty # Backup terminal in case Wezterm dies
+    kitty # Backup terminal in case ghostty dies
 
     mypkgs.neovim
 
@@ -71,8 +71,19 @@
       };
     };
   };
-
-  programs.wezterm = import ./wezterm.nix { inherit pkgs; };
+  programs.ghostty = {
+    enable = true;
+    settings = {
+      window-decoration = false;
+      background-opacity = 0.8;
+      font-size = 14;
+      scrollback-limit = 10000;
+      shell-integration = "zsh";
+      clipboard-read = "allow";
+      gtk-single-instance = true;
+      window-padding-x = 5;
+    };
+  };
   programs.ewwCustom = import ./eww.nix { inherit pkgs; };
   programs.zsh = import ./zsh.nix { inherit pkgs; };
   programs.starship = import ./starship.nix { inherit ; };

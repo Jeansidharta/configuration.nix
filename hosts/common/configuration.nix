@@ -91,7 +91,6 @@
   environment.systemPackages = with pkgs; [
     wget
     git
-    wezterm
   ];
 
   nix = {

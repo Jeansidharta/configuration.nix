@@ -7,6 +7,9 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     theme.url = "path:./theming";
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
     disko = {
       url = "github:nix-community/disko";
       flake = false;
@@ -76,6 +79,7 @@
       disko,
       nix-index-database,
 
+      ghostty,
       envsub,
       splatmoji,
       neovim-with-plugins,
@@ -100,6 +104,8 @@
             neovim-with-plugins
             wallpaper-manager-unwrapped
             ;
+
+          ghostty-flake = ghostty;
           envsub-flake = envsub;
           backlight-flake = backlight;
           eww-bar-selector-flake = eww-bar-selector;

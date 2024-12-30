@@ -6,6 +6,7 @@
   neovim-with-plugins,
   wallpaper-manager-unwrapped,
 
+  ghostty-flake,
   envsub-flake,
   eww-bar-selector-flake,
   backlight-flake,
@@ -28,6 +29,7 @@ let
   rawPkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
   wallpaper-manager-raw = wallpaper-manager-unwrapped.defaultPackage.${system};
 
+  ghostty = ghostty-flake.packages.${system}.default;
   eww-bar-selector = eww-bar-selector-flake.outputs.defaultPackage.${system};
   backlight = backlight-flake.outputs.defaultPackage.${system};
   bspwm-desktops-report = bspwm-desktops-report-flake.outputs.packages.${system}.default;
@@ -38,6 +40,7 @@ in
 {
   nixpkgs.overlays = [
     (final: prev: {
+      inherit ghostty;
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;
       mypkgs = rec {

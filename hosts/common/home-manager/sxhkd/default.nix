@@ -34,7 +34,7 @@ in
       playerctlExe = "${playerctl}/bin/playerctl";
       splatmojiExe = "${splatmoji}/bin/splatmoji";
       bspcExe = "${bspwm}/bin/bspc";
-      weztermExe = "${wezterm}/bin/wezterm";
+      ghosttyExe = "${ghostty}/bin/ghostty";
       rofiExe = "${rofi-unwrapped}/bin/rofi";
       peekExe = "${peek}/bin/peek";
       mpcExe = "${mpc-cli}/bin/mpc";
@@ -44,7 +44,8 @@ in
       focusMonocleAwareExe = "${focus-monocle-aware}/bin/focus-monocle-aware";
     in
     {
-      "Print" = "${flameshotExe} gui --raw > /tmp/screenshot.png && ${xclipExe} -selection clipboard -t image/png /tmp/screenshot.png; pkill flameshot";
+      "Print" =
+        "${flameshotExe} gui --raw > /tmp/screenshot.png && ${xclipExe} -selection clipboard -t image/png /tmp/screenshot.png; pkill flameshot";
       "XF86AudioLowerVolume" = "${pamixerExe} -d 3";
       "XF86AudioMute" = "${pactlExe} set-sink-mute @DEFAULT_SINK@ toggle";
       "XF86AudioNext" = "${playerctlExe} next";
@@ -54,7 +55,7 @@ in
       "alt + e" = "${splatmojiExe} copy";
       "alt + shift + e" = "${splatmojiExe} type";
       "alt + F4" = "${bspcExe} node --close";
-      "alt + Return" = "${weztermExe}";
+      "alt + Return" = "${ghosttyExe}";
       "alt + b" = "${bspcExe} node --focus @brother";
       "alt + bracketleft" = "${bspcExe} node @parent --balance";
       "alt + comma" = "${bspcExe} node --focus any.floating.!focused";
@@ -84,7 +85,8 @@ in
       "alt + {_,shift +} equal" = "${bspcExe} node @parent --ratio -{5,0.1}";
       "alt + {_,shift +} minus" = "${bspcExe} node @parent --ratio +{5,0.1}";
       "alt + {j, i, k, l}" = "${bspcExe} node -v {-10 0, 0 -10, 0 10, 10 0 }";
-      "ctrl + Print" = "${flameshotExe} screen --path \"/home/sidharta/screenshots\" && ${notifySendExe} \"Screenshot saved\"";
+      "ctrl + Print" =
+        "${flameshotExe} screen --path \"/home/sidharta/screenshots\" && ${notifySendExe} \"Screenshot saved\"";
       "ctrl + shift + F1" = "${peekExe}";
       "shift + XF86AudioNext" = "${mpcExe} next";
       "shift + XF86AudioPlay" = "${mpcExe} toggle";
