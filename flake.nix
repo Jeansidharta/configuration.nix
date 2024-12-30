@@ -25,9 +25,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    secrets = {
-      url = "path:./secrets";
-    };
 
     splatmoji = {
       url = "path:./derivations/splatmoji";
