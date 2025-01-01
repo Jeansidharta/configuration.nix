@@ -80,12 +80,12 @@
 
   users.users.sidharta = {
     # passwordFile = config.age.secrets.userPassword.path;
-    password = "1234";
     name = "sidharta";
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
     packages = [ pkgs.home-manager ];
+    hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
   };
 
   environment.systemPackages = with pkgs; [
@@ -93,15 +93,17 @@
     git
   ];
 
+  age.secrets.nix-github-token.file = ../../secrets/nix-github-token.age;
   nix = {
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      access-tokens = "github.com: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";
     };
-    package = pkgs.nix;
+    extraOptions = ''
+      !include ${config.age.secrets.nix-github-token.path}
+    '';
   };
 
   programs.nix-index-database.comma.enable = true;
