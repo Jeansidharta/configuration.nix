@@ -93,7 +93,10 @@
     git
   ];
 
-  age.secrets.nix-github-token.file = ../../secrets/nix-github-token.age;
+  age.secrets.nix-github-token = {
+    file = ../../secrets/nix-github-token.age;
+    owner = "sidharta";
+  };
   nix = {
     settings = {
       experimental-features = [

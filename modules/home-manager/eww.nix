@@ -73,9 +73,9 @@ in
         file: "cp --no-preserve=mode ${file} $out/${file.name}"
       ) (attrValues extraFiles);
       configDir = pkgs.runCommand "eww-config" ({ } // cfg.extraVariables) ''
-                cp -r --no-preserve=mode ${cfg.configDir} $out
-                ${copyCommandExtraFiles}
-        		find $out/ -type f -exec bash -c "cat {} | ${pkgs.mypkgs.envsub}/bin/envsub -p @ -s @ > {}.tmp && mv {}.tmp {}" \;
+        cp -r --no-preserve=mode ${cfg.configDir} $out
+        ${copyCommandExtraFiles}
+        find $out/ -type f -exec bash -c "cat {} | ${pkgs.mypkgs.envsub}/bin/envsub -p @ -s @ > {}.tmp && mv {}.tmp {}" \;
       '';
     in
     mkIf cfg.enable {

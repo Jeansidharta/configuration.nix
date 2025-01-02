@@ -1,2 +1,0 @@
-reload:
-	eww reload
