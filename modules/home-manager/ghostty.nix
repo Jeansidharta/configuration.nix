@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.programs.ghostty;
+
   keyValueSettings = {
     listsAsDuplicateKeys = true;
     mkKeyValue = lib.generators.mkKeyValueDefault { } " = ";
@@ -16,7 +17,7 @@ in
   meta.maintainers = [ lib.maintainers.HeitorAugustoLN ];
 
   options.programs.ghostty = {
-    enable = lib.mkEnableOption "ghostty";
+    enable = lib.mkEnableOption "Ghostty";
 
     package = lib.mkPackageOption pkgs "ghostty" { };
 
@@ -77,11 +78,35 @@ in
       description = "Whether to clear default keybinds.";
     };
 
-    installBatSyntax = lib.mkEnableOption "installation of ghostty configuration syntax for bat" // {
+    installVimSyntax = lib.mkEnableOption "installation of Ghostty configuration syntax for Vim";
+
+    installBatSyntax = lib.mkEnableOption "installation of Ghostty configuration syntax for bat" // {
       default = true;
     };
 
-    installVimSyntax = lib.mkEnableOption "installation of ghostty configuration syntax for vim/neovim";
+    enableBashIntegration = lib.mkEnableOption ''
+      bash shell integration.
+
+      This is ensures that shell integration works in more scenarios, such as switching shells within Ghostty.
+      But it is not needed to have shell integration.
+      See <https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup> for more information
+    '';
+
+    enableFishIntegration = lib.mkEnableOption ''
+      fish shell integration.
+
+      This is ensures that shell integration works in more scenarios, such as switching shells within Ghostty.
+      But it is not needed to have shell integration.
+      See <https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup> for more information
+    '';
+
+    enableZshIntegration = lib.mkEnableOption ''
+      zsh shell integration.
+
+      This is ensures that shell integration works in more scenarios, such as switching shells within Ghostty.
+      But it is not needed to have shell integration.
+      See <https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup> for more information
+    '';
   };
 
   config = lib.mkIf cfg.enable (
@@ -93,6 +118,8 @@ in
           keybind = lib.mkBefore [ "clear" ];
         };
 
+        # MacOS also supports XDG configuration directory, so we use it for both
+        # Linux and macOS to reduce complexity
         xdg.configFile = lib.mkMerge [
           {
             "ghostty/config" = lib.mkIf (cfg.settings != { }) {
@@ -108,6 +135,11 @@ in
           ))
         ];
       }
+
+      (lib.mkIf cfg.installVimSyntax {
+        programs.vim.plugins = [ cfg.package.vim ];
+      })
+
       (lib.mkIf cfg.installBatSyntax {
         programs.bat = {
           syntaxes.ghostty = {
@@ -117,9 +149,31 @@ in
           config.map-syntax = [ "*/ghostty/config:Ghostty Config" ];
         };
       })
-      (lib.mkIf cfg.installVimSyntax {
-        programs.vim.plugins = [ cfg.package.vim ];
-        programs.neovim.plugins = [ cfg.package.vim ];
+
+      (lib.mkIf cfg.enableBashIntegration {
+        # Make order 101 to be placed exactly after bash completions, as Ghostty
+        # documentation suggests sourcing the script as soon as possible
+        programs.bash.initExtra = lib.mkOrder 101 ''
+          if [[ -n "''${GHOSTTY_RESOURCES_DIR}" ]]; then
+            builtin source "''${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+          fi
+        '';
+      })
+
+      (lib.mkIf cfg.enableFishIntegration {
+        programs.fish.shellInit = ''
+          if set -q GHOSTTY_RESOURCES_DIR
+            source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+          end
+        '';
+      })
+
+      (lib.mkIf cfg.enableZshIntegration {
+        programs.zsh.initExtra = ''
+          if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+            source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+          fi
+        '';
       })
     ]
   );
