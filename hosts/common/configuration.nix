@@ -48,7 +48,7 @@
 
   services.displayManager = {
     autoLogin.enable = true;
-    autoLogin.user = "sidharta";
+    autoLogin.user = config.users.users.sidharta.name;
   };
 
   # Enable sound.
@@ -98,6 +98,7 @@
     owner = "sidharta";
   };
   nix = {
+    allowedUsers = [ "@whell" ];
     settings = {
       experimental-features = [
         "nix-command"
@@ -132,11 +133,16 @@
   };
   programs.nix-ld.enable = true;
   services.openssh.enable = true;
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+
+  security.auditd.enable = true;
+  security.audit.enable = true;
+  security.audit.rules = [
+    "-a exit,always -F arch=b64 -S execve"
+  ];
+
+  system.stateVersion = "24.05";
 }
