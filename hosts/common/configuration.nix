@@ -98,7 +98,7 @@
     owner = "sidharta";
   };
   nix = {
-    allowedUsers = [ "@whell" ];
+    allowed-users = [ "@wheel" ];
     settings = {
       experimental-features = [
         "nix-command"
