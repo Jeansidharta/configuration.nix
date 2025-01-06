@@ -98,8 +98,8 @@
     owner = "sidharta";
   };
   nix = {
-    allowed-users = [ "@wheel" ];
     settings = {
+      allowed-users = [ "@wheel" ];
       experimental-features = [
         "nix-command"
         "flakes"

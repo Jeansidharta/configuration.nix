@@ -779,11 +779,11 @@
         "zls": "zls"
       },
       "locked": {
-        "lastModified": 1735833396,
-        "narHash": "sha256-FikX9i5N1wAZWb2jjH4GcDm55vIsgPBhTcPckHn07Mg=",
+        "lastModified": 1736152737,
+        "narHash": "sha256-XM8V38Xn23uQnf3KAldedXFyj8nzeDrCwGwgNJF99gw=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "a1c257bd8a9d72ee715807b4faff8a126c1969a8",
+        "rev": "8c47ea7ef6e1ddf32660fea9cae77ff4fe3217ea",
         "type": "github"
       },
       "original": {
