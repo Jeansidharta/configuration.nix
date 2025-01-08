@@ -33,6 +33,10 @@ in
       '';
     };
 
+    startingOpenWindow = mkOption {
+      type = types.str;
+    };
+
     extraFiles = mkOption {
       type = types.attrsOf types.str;
       default = { };
@@ -90,6 +94,11 @@ in
         };
         Service = {
           ExecStart = "${ewwCmd} daemon --no-daemonize";
+          ExecStartPost =
+            if cfg.startingOpenWindow != null then
+              "${ewwCmd} open --no-daemonize ${cfg.startingOpenWindow}"
+            else
+              "";
         };
       };
 

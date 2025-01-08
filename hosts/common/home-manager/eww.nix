@@ -3,6 +3,7 @@
   enable = true;
   configDir = ./eww/config;
   systemdService = true;
+  startingOpenWindow = "top_bar";
   package = pkgs.writeShellApplication {
     name = "eww";
     runtimeInputs = [
