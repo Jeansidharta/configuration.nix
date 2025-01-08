@@ -53,7 +53,7 @@
     (box 
       :visible show_bar
       :spacing 32
-      :width 1920
+      :width 1366
       :style {!show_background ? "background-color: transparent;" : ""}
       :class "main-container"
       :space-evenly false

@@ -7,9 +7,32 @@
 {
   disko.devices = {
     disk = {
-      main = {
+      hd = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/ata-ST1000LM035-1RK172_WL131ZMN";
+        content = {
+          type = "gpt";
+          partitions = {
+            root = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "cryptroot";
+                settings.allowDiscards = true;
+                # passwordFile = "/tmp/secret.key";
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/";
+                };
+              };
+            };
+          };
+        };
+      };
+      ssd = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_120_GB_180525804439";
         content = {
           type = "gpt";
           partitions = {
@@ -27,12 +50,20 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
-            root = {
+            plainSwap = {
+              size = "16G";
+              content = {
+                type = "swap";
+                discardPolicy = "both";
+                resumeDevice = true; # resume from hiberation from this device
+              };
+            };
+            nix = {
               size = "100%";
               content = {
                 type = "filesystem";
                 format = "ext4";
-                mountpoint = "/";
+                mountpoint = "/nix";
               };
             };
           };
