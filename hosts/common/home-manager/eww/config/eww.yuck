@@ -37,6 +37,15 @@
     :class "backdrop ${show_background ? "solid" : "split"}"
     (children)))
 
+(defwidget ifVariable
+  [var module]
+  (literal
+    :valign "center"
+    :vexpand true
+    :halign "center"
+    :content
+    {var == "true" ? "(${module})" : ""}))
+
 (defwindow top_bar
     :monitor 0
     :geometry
@@ -63,8 +72,7 @@
         (performance))
       (backdrop :hexpand true
         (window_name))
-      (backdrop
-        (media))
+      (ifVariable :var "@enableMedia@" :module "backdrop (media)")
       (backdrop
         (box
           :space-evenly false
@@ -73,8 +81,8 @@
       (backdrop
         ; (wifi_icon)
         (pulse_audio_volume)
-        (literal :valign "center" :vexpand true :halign "center" :content {"@enableBattery@" == "true" ? "(battery)" : ""})
-        (literal :valign "center" :vexpand true :halign "center" :content {"@enableBacklight@" == "true" ? "(monitor_backlight)" : ""})
+        (ifVariable :var "@enableBattery@" :module "battery")
+        (ifVariable :var "@enableBacklight@" :module "monitor_backlight")
         (power))))
 
 (defwindow calendar

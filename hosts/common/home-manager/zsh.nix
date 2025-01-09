@@ -32,7 +32,7 @@ in
 
     "cdtmp" = "cd $(mktemp --dir)";
 
-    "nvim-test" = "nix run /home/sidharta/.config/home-manager/derivations/neovim --no-net -- ";
+    "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net -- ";
   };
   # initExtra = ''
   # export NIX_BUILD_SHELL=${nix-zshell}

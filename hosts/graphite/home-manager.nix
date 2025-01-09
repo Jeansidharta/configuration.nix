@@ -16,6 +16,7 @@ in
     extraVariables = {
       enableBacklight = "true";
       enableBattery = "true";
+      enableMedia = "false";
     };
   };
   services.nitrogen.enable = true;
