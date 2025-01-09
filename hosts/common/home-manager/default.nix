@@ -66,7 +66,6 @@
       isDefault = true;
       name = "default";
       id = 0;
-      search.default = "Google";
       settings = {
       };
     };
