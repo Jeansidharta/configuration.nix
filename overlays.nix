@@ -13,6 +13,8 @@
   bspwm-desktops-report-flake,
   window-title-watcher-flake,
   volume-watcher-flake,
+
+  hyprland-overlays,
 }:
 {
   config,
@@ -39,8 +41,10 @@ let
 in
 {
   nixpkgs.overlays = [
+    hyprland-overlays.default
     (final: prev: {
       inherit ghostty;
+      wezterm = rawPkgsUnstable.wezterm;
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;
       mypkgs = rec {

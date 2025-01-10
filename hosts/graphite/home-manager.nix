@@ -19,7 +19,6 @@ in
       enableMedia = "false";
     };
   };
-  services.nitrogen.enable = true;
 
   home.packages = [
     pkgs.brightnessctl # Control monitor/keyboard brightness

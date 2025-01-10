@@ -14,6 +14,7 @@
       url = "github:nix-community/disko";
       flake = false;
     };
+    hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -75,6 +76,7 @@
       agenix,
       disko,
       nix-index-database,
+      hyprland,
 
       ghostty,
       envsub,
@@ -102,6 +104,7 @@
             wallpaper-manager-unwrapped
             ;
 
+          hyprland-overlays = hyprland.overlays;
           ghostty-flake = ghostty;
           envsub-flake = envsub;
           backlight-flake = backlight;
@@ -128,6 +131,7 @@
                 ++ [
                   theme.outputs.home-manager-module
                   ./hosts/common/home-manager/default.nix
+                  hyprland.homeManagerModules.default
                 ];
             };
             extraSpecialArgs = {
@@ -139,6 +143,7 @@
         ./hosts/common/configuration.nix
         ./hardware/target/hardware-configuration.nix
         ./hardware/target/disko-config.nix
+        hyprland.nixosModules.default
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         ("${disko}/module.nix")

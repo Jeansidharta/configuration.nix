@@ -6,6 +6,7 @@
   ...
 }:
 {
+  imports = [ ./hyprland.nix ];
   nixpkgs.config.allowUnfree = true;
 
   home.pointerCursor = {
@@ -14,9 +15,6 @@
     size = 48;
     gtk.enable = true;
   };
-
-  xsession.enable = true;
-  xsession.windowManager.bspwm = import ./bspwm.nix { inherit config pkgs; };
 
   home.packages = with pkgs; [
     # === Regular Desktop ===
@@ -70,19 +68,6 @@
       };
     };
   };
-  programs.ghostty = {
-    enable = true;
-    settings = {
-      window-decoration = false;
-      background-opacity = 0.8;
-      font-size = 14;
-      scrollback-limit = 10000;
-      shell-integration = "zsh";
-      clipboard-read = "allow";
-      gtk-single-instance = true;
-      window-padding-x = 5;
-    };
-  };
   programs.ewwCustom = import ./eww.nix { inherit pkgs; };
   programs.zsh = import ./zsh.nix { inherit pkgs; };
   programs.starship = import ./starship.nix { inherit ; };
@@ -91,7 +76,7 @@
   programs.direnv.enable = true;
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-unwrapped;
+    package = pkgs.rofi-wayland-unwrapped;
   };
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
@@ -103,10 +88,14 @@
   };
 
   services.flameshot.enable = true;
-  services.picom = import ./picom.nix { inherit config pkgs; };
-  services.sxhkd-systemd = import ./sxhkd/default.nix { inherit config pkgs; };
   services.dunst.enable = true;
   services.udiskie.enable = true;
   systemd.user.startServices = true;
   systemd.user.services = import ./systemd-services.nix { inherit pkgs; };
+
+  programs.wezterm = {
+    enable = true;
+    enableZshIntegration = true;
+    extraConfig = builtins.readFile ./wezterm.lua;
+  };
 }

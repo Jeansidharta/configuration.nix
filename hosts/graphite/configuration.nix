@@ -41,21 +41,21 @@
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"
   '';
 
-  specialisation.on_battery = {
-    inheritParentConfig = true;
-    configuration = {
-      system.nixos.tags = [ "on_battery" ];
-      hardware.bluetooth.enable = lib.mkForce false;
-      hardware.bluetooth.powerOnBoot = lib.mkForce false;
-      services.blueman.enable = lib.mkForce false;
-
-      home-manager.users.sidharta = {
-        services.picom.enable = lib.mkForce false;
-        programs.starship.enable = lib.mkForce false;
-        systemd.user.services.eww-bar-selector = lib.mkForce { };
-      };
-    };
-  };
+  # specialisation.on_battery = {
+  #   inheritParentConfig = true;
+  #   configuration = {
+  #     system.nixos.tags = [ "on_battery" ];
+  #     hardware.bluetooth.enable = lib.mkForce false;
+  #     hardware.bluetooth.powerOnBoot = lib.mkForce false;
+  #     services.blueman.enable = lib.mkForce false;
+  #
+  #     home-manager.users.sidharta = {
+  #       services.picom.enable = lib.mkForce false;
+  #       programs.starship.enable = lib.mkForce false;
+  #       systemd.user.services.eww-bar-selector = lib.mkForce { };
+  #     };
+  #   };
+  # };
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot

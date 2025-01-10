@@ -56,9 +56,9 @@
        :height "70px"
        :anchor "top center")
     :stacking "bg"
-    :reserve (struts :distance "70px" :side "top")
-    :windowtype "dock"
-    :wm-ignore false
+    :exclusive true
+    :focusable false
+    :stacking "fg"
     (box 
       :visible show_bar
       :spacing 32
@@ -67,11 +67,7 @@
       :class "main-container"
       :space-evenly false
       (backdrop
-        (bspwm_monitors))
-      (backdrop
         (performance))
-      (backdrop :hexpand true
-        (window_name))
       (ifVariable :var "@enableMedia@" :module "backdrop (media)")
       (backdrop
         (box

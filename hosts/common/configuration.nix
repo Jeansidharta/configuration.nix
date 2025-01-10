@@ -32,23 +32,26 @@
 
   services.timesyncd.enable = true;
   services.sshd.enable = true;
-  services.sshguard.enable = true;
-  services.sshguard.whitelist = [ "192.168.0.210" ];
   services.udisks2.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "intl";
+  programs.hyprland.enable = true;
+  services.greetd = {
+    settings = rec {
+      initial_session =
+        let
+          systemctl = "${pkgs.systemd}/bin/systemctl";
+          startup = pkgs.writeScript "startup" ''
+            ${systemctl} --user import-environment PATH
+            ${systemctl} --user start --wait hyprland-session.service
+          '';
+        in
+        {
+          user = "sidharta";
+          command = startup;
+        };
+      default_session = initial_session;
     };
-    windowManager.bspwm.enable = true;
-  };
-
-  services.displayManager = {
-    autoLogin.enable = true;
-    autoLogin.user = config.users.users.sidharta.name;
+    enable = true;
   };
 
   # Enable sound.
@@ -99,6 +102,10 @@
   };
   nix = {
     settings = {
+      # Enable hyprland cachix
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+
       allowed-users = [ "@wheel" ];
       experimental-features = [
         "nix-command"
