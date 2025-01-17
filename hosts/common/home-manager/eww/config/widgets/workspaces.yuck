@@ -1,0 +1,94 @@
+(deflisten workspaces-report :initial "[]" "workspaces-report")
+
+(defwidget workspace [workspace monitor_name is_monitor_focused]
+  (eventbox
+    :cursor "pointer"
+    :onclick
+      "bspc monitor --focus \"${monitor_name}\" && bspc desktop --focus \"${workspace.name}.local\""
+    :class "desktop-box ${workspace.isFocused ? "focused" : "unfocused"} ${workspace.windowsCount == 0 ? "free" : "unfree"} ${workspace.isUrgent ? "urgent" : "unurgent"}"
+    (box
+      :width 10
+      :height 10
+      :space-evenly false
+      :halign "start"
+      :valign "start")))
+      ;; :style "border: 1px solid red")))
+
+(defwidget workspace_monitor
+  [monitor]
+  (box
+    :space-evenly false
+    :spacing 12
+    :class "monitor-box ${monitor.isFocused ? "focused" : "unfocused"}"
+    (eventbox
+      :cursor "pointer"
+      :onscroll { monitor.isFocused ? "bspc desktop --focus $(test '{}' = 'up' && echo 'next.local') $(test '{}' = 'down' && echo 'prev.local')" : ""}
+     (box
+        :width 30
+        :height 30
+        :valign "center"
+        :orientation "vertical"
+        :space-evenly false
+        :class "desktop-container"
+        :spacing 1
+        (box
+          :width 30
+          :spacing 1
+          :space-evenly false
+          (workspace
+            :workspace {monitor.workspaces[6]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused})
+          (workspace
+            :workspace {monitor.workspaces[7]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused})
+          (workspace
+            :workspace {monitor.workspaces[8]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused}))
+        (box
+          :width 30
+          :space-evenly false
+          :spacing 1
+          (workspace
+            :workspace {monitor.workspaces[3]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused})
+          (workspace
+            :workspace {monitor.workspaces[4]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused})
+          (workspace
+            :workspace {monitor.workspaces[5]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused}))
+        (box
+          :width 30
+          :space-evenly false
+          :spacing 1
+          (workspace
+            :workspace {monitor.workspaces[0]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused})
+          (workspace
+            :workspace {monitor.workspaces[1]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused})
+          (workspace
+            :workspace {monitor.workspaces[2]}
+            :monitor_name {monitor.name}
+            :is_monitor_focused {monitor.isFocused}))))))
+  
+
+
+(defwidget 
+  workspaces
+  []
+  (box
+    :class "bspwm_monitors_container"
+    :spacing 12
+    :space-evenly false
+    (for monitor in workspaces-report
+      (workspace_monitor :monitor monitor))))
+

@@ -1,0 +1,7 @@
+.zig-cache
+zig-cache
+.zig-out
+zig-out
+.direnv
+result
+libs/

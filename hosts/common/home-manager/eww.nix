@@ -7,7 +7,7 @@
   package = pkgs.writeShellApplication {
     name = "eww";
     runtimeInputs = [
-      pkgs.mypkgs.bspwm-desktops-report
+      pkgs.mypkgs.workspaces-report
       pkgs.mypkgs.window-title-watcher
       pkgs.mypkgs.volume-watcher
       pkgs.mypkgs.backlight

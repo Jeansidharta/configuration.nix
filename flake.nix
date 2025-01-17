@@ -7,9 +7,6 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     theme.url = "path:./theming";
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
     disko = {
       url = "github:nix-community/disko";
       flake = false;
@@ -49,8 +46,8 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    bspwm-desktops-report = {
-      url = "path:./derivations/bspwm-desktops-report";
+    workspaces-report = {
+      url = "path:./derivations/workspaces-report";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     window-title-watcher = {
@@ -78,13 +75,12 @@
       nix-index-database,
       hyprland,
 
-      ghostty,
       envsub,
       splatmoji,
       neovim-with-plugins,
       wallpaper-manager-unwrapped,
       eww-bar-selector,
-      bspwm-desktops-report,
+      workspaces-report,
       window-title-watcher,
       volume-watcher,
       backlight,
@@ -105,11 +101,10 @@
             ;
 
           hyprland-overlays = hyprland.overlays;
-          ghostty-flake = ghostty;
           envsub-flake = envsub;
           backlight-flake = backlight;
           eww-bar-selector-flake = eww-bar-selector;
-          bspwm-desktops-report-flake = bspwm-desktops-report;
+          workspaces-report-flake = workspaces-report;
           window-title-watcher-flake = window-title-watcher;
           volume-watcher-flake = volume-watcher;
         });

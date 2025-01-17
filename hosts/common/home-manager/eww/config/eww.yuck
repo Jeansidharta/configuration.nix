@@ -1,7 +1,7 @@
 (defvar show_bar true)
 (defvar show_background false)
 
-(include "./widgets/bspwm-desktops.yuck")
+(include "./widgets/workspaces.yuck")
 (include "./widgets/launcher.yuck")
 (include "./widgets/clock.yuck")
 (include "./widgets/pulse-audio-volume.yuck")
@@ -66,6 +66,8 @@
       :style {!show_background ? "background-color: transparent;" : ""}
       :class "main-container"
       :space-evenly false
+      (backdrop
+        (workspaces))
       (backdrop
         (performance))
       (ifVariable :var "@enableMedia@" :module "backdrop (media)")

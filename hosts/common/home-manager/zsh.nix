@@ -14,21 +14,20 @@ let
         exec ${bashInteractive}/bin/bash "$@"
       fi
     '');
+
+  replace = pkgs.writeScript "replace" ''
+    mv "$1" "$1.old"
+    cp --dereference --no-preserve=mode "$1.old" "$1"
+  '';
 in
 {
   enable = true;
   autosuggestion.enable = true;
   shellAliases = {
-    "hm" = "home-manager";
     "ses" = "systemctl --user";
     "vim" = "nvim";
     "vi" = "nvim";
-    "ns" = "nix-shell";
-    "nsb" = "env -u NIX_BUILD_SHELL nix-shell";
-    "ne" = "nix-env";
-    "nb" = "nix-build";
     "ls" = "eza";
-    "xclip" = "xclip -selection clipboard";
 
     "cdtmp" = "cd $(mktemp --dir)";
 

@@ -6,11 +6,10 @@
   neovim-with-plugins,
   wallpaper-manager-unwrapped,
 
-  ghostty-flake,
   envsub-flake,
   eww-bar-selector-flake,
   backlight-flake,
-  bspwm-desktops-report-flake,
+  workspaces-report-flake,
   window-title-watcher-flake,
   volume-watcher-flake,
 
@@ -31,10 +30,9 @@ let
   rawPkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
   wallpaper-manager-raw = wallpaper-manager-unwrapped.defaultPackage.${system};
 
-  ghostty = ghostty-flake.packages.${system}.default;
   eww-bar-selector = eww-bar-selector-flake.outputs.defaultPackage.${system};
   backlight = backlight-flake.outputs.defaultPackage.${system};
-  bspwm-desktops-report = bspwm-desktops-report-flake.outputs.packages.${system}.default;
+  workspaces-report = workspaces-report-flake.outputs.packages.${system}.default;
   window-title-watcher = window-title-watcher-flake.outputs.packages.${system}.default;
   volume-watcher = volume-watcher-flake.outputs.packages.${system}.default;
   envsub = envsub-flake.outputs.packages.${system}.default;
@@ -43,14 +41,13 @@ in
   nixpkgs.overlays = [
     hyprland-overlays.default
     (final: prev: {
-      inherit ghostty;
       wezterm = rawPkgsUnstable.wezterm;
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;
       mypkgs = rec {
         inherit
           eww-bar-selector
-          bspwm-desktops-report
+          workspaces-report
           window-title-watcher
           volume-watcher
           backlight
