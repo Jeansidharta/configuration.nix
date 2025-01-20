@@ -37,6 +37,7 @@
     yt-dlp # Download youtube videos
     unzip # Unzip tool
     hyprpicker # Cool color picker
+    wpaperd
 
     helvum # Manipulate Pipewire connections
     qpwgraph # Manipulate Pipewire connections

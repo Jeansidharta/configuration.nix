@@ -25,6 +25,20 @@ in
     select-wallpaper
   ];
 
+  services.wpaperd = {
+    enable = true;
+    systemdService = true;
+    settings = {
+      default = {
+        path = "/home/sidharta/wallpapers/static";
+        apply-shadow = true;
+        duration = "10m";
+        sorting = "random";
+        mode = "stretch";
+      };
+    };
+  };
+
   programs.feh.enable = true;
   xsession.initExtra = ''
     test -f ~/.fehbg && ~/.fehbg

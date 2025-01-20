@@ -12,6 +12,10 @@
       flake = false;
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -30,7 +34,7 @@
     };
     wpaperd = {
       url = "github:danyspin97/wpaperd";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     neovim-with-plugins = {
@@ -80,6 +84,7 @@
       hyprland,
 
       wpaperd,
+      hyprpicker,
       envsub,
       splatmoji,
       neovim-with-plugins,
@@ -148,6 +153,12 @@
         home-manager.nixosModules.home-manager
         ("${disko}/module.nix")
         (overlays system)
+        {
+          nixpkgs.overlays = [
+            hyprpicker.overlays.default
+            wpaperd.overlays.default
+          ];
+        }
         agenix.nixosModules.default
         {
           environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
