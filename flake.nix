@@ -11,7 +11,7 @@
       url = "github:nix-community/disko";
       flake = false;
     };
-    hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+    hyprland.url = "github:hyprwm/Hyprland";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -26,6 +26,10 @@
 
     splatmoji = {
       url = "path:./derivations/splatmoji";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+    wpaperd = {
+      url = "github:danyspin97/wpaperd";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
@@ -75,6 +79,7 @@
       nix-index-database,
       hyprland,
 
+      wpaperd,
       envsub,
       splatmoji,
       neovim-with-plugins,

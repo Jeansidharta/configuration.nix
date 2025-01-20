@@ -235,8 +235,7 @@ pub fn main() !void {
 
     try monitors.print(stdout.any());
     while (true) {
-        const eventStruct = try hyprlandSocket.consumeEvent();
-        const event = eventStruct.parsedEvent;
+        const event = try hyprlandSocket.consumeEvent();
 
         switch (event) {
             .openwindow => |window| {

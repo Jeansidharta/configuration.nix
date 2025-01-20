@@ -70,7 +70,8 @@
         (workspaces))
       (backdrop
         (performance))
-      (ifVariable :var "@enableMedia@" :module "backdrop (media)")
+      (backdrop :hexpand true
+        (window_name))
       (backdrop
         (box
           :space-evenly false

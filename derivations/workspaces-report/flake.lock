@@ -37,11 +37,11 @@
     "hyprland-zsock": {
       "flake": false,
       "locked": {
-        "lastModified": 1737126985,
-        "narHash": "sha256-7qqG1L9QGbMtRX/aA9/BS8ZQcyVGGRKF7n3OxFt6hNE=",
+        "lastModified": 1737129229,
+        "narHash": "sha256-TJoZAhHsewCkEDP5BxukBScZlwMRphQlFMXSm8y+Y08=",
         "owner": "Jeansidharta",
         "repo": "hyprland-zsock",
-        "rev": "6149ec7a965d770cb68a30244a62ad19ae1083b6",
+        "rev": "c8494e092a6fda1d05afb4e341ac950d112af4f6",
         "type": "github"
       },
       "original": {

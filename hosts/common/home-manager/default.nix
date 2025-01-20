@@ -20,8 +20,7 @@
     # === Regular Desktop ===
 
     btop # Process manager
-    xclip # Clipboard software
-    peek # Record screen
+    wl-clipboard # Clipboard software
     mpv # Media player
     yazi # TUI File manager
     bat # Replacement for the gnu `cat` command
@@ -37,6 +36,7 @@
     libnotify # Send d-bus notification through the terminal
     yt-dlp # Download youtube videos
     unzip # Unzip tool
+    hyprpicker # Cool color picker
 
     helvum # Manipulate Pipewire connections
     qpwgraph # Manipulate Pipewire connections
