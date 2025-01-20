@@ -25,18 +25,17 @@ in
     select-wallpaper
   ];
 
-  services.wpaperd = {
+  programs.waypaper = {
+    enable = true;
+    settings = {
+      folder = "/home/sidharta/wallpapers";
+      subfolders = true;
+      sort = "random";
+    };
+  };
+  services.swww = {
     enable = true;
     systemdService = true;
-    settings = {
-      default = {
-        path = "/home/sidharta/wallpapers/static";
-        apply-shadow = true;
-        duration = "10m";
-        sorting = "random";
-        mode = "stretch";
-      };
-    };
   };
 
   programs.feh.enable = true;

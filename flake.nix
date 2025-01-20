@@ -32,11 +32,10 @@
       url = "path:./derivations/splatmoji";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    wpaperd = {
-      url = "github:danyspin97/wpaperd";
+    swww = {
+      url = "github:LGFae/swww";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
     neovim-with-plugins = {
       url = "github:jeansidharta/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -83,7 +82,7 @@
       nix-index-database,
       hyprland,
 
-      wpaperd,
+      swww,
       hyprpicker,
       envsub,
       splatmoji,
@@ -156,7 +155,7 @@
         {
           nixpkgs.overlays = [
             hyprpicker.overlays.default
-            wpaperd.overlays.default
+            swww.overlays.default
           ];
         }
         agenix.nixosModules.default

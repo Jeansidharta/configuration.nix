@@ -1,5 +1,6 @@
 [
   ./syncplay.nix
   ./eww.nix
-  ./wpaperd.nix
+  ./swww.nix
+  ./waypaper.nix
 ]
