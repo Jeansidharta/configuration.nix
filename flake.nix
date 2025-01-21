@@ -24,9 +24,19 @@
       inputs.hyprlang.follows = "hyprland/hyprlang";
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
+    hypridle = {
+      url = "github:hyprwm/hypridle";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.systems.follows = "hyprland/systems";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+      inputs.hyprlang.follows = "hyprland/hyprlang";
+    };
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.systems.follows = "hyprland/systems";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+      inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -97,6 +107,7 @@
       swww,
       hyprlock,
       hyprpicker,
+      hypridle,
       envsub,
       splatmoji,
       neovim-with-plugins,
@@ -168,9 +179,13 @@
           nixpkgs.overlays = [
             hyprlock.overlays.default
             hyprland.overlays.default
+            hypridle.overlays.default
             hyprpicker.overlays.default
             swww.overlays.default
-            (final: prev: { hyprlock = hyprlock.packages.${system}.default; })
+            (final: prev: {
+              hyprlock = hyprlock.packages.${system}.default;
+              hypridle = hypridle.packages.${system}.default;
+            })
           ];
         }
         agenix.nixosModules.default

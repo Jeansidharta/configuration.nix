@@ -8,6 +8,7 @@
 {
   imports = [
     ./hyprland.nix
+    ./hypridle.nix
     ./hyprlock.nix
     ./git.nix
     ./starship.nix
