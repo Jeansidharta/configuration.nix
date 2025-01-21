@@ -20,6 +20,13 @@ in
     systemdService = mkEnableOption "Wether to start with a systemd service" // {
       default = false;
     };
+
+    systemdTarget = lib.options.mkOption {
+      type = lib.types.str;
+      default = "graphical-session.target";
+      description = "What target the systemd service should be WantedBy";
+      defaultText = "graphical-session.target";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -30,7 +37,7 @@ in
         Description = "swww wallpaper engine";
       };
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = [ cfg.systemdTarget ];
       };
       Service = {
         ExecStart = "${swwwDaemonCmd}";

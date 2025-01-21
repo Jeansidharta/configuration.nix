@@ -23,6 +23,13 @@ in
       default = false;
     };
 
+    systemdTarget = lib.options.mkOption {
+      type = lib.types.str;
+      default = "graphical-session.target";
+      description = "What target the systemd service should be WantedBy";
+      defaultText = "graphical-session.target";
+    };
+
     package = mkOption {
       type = types.package;
       default = pkgs.eww;
@@ -90,7 +97,7 @@ in
           Description = "Eww bar";
         };
         Install = {
-          WantedBy = [ "graphical-session.target" ];
+          WantedBy = [ cfg.systemdTarget ];
         };
         Service = {
           ExecStart = "${ewwCmd} daemon --no-daemonize";

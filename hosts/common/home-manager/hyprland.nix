@@ -14,7 +14,6 @@
         splatmojiExe = "${pkgs.splatmoji}/bin/splatmoji";
         weztermExe = "${pkgs.wezterm}/bin/wezterm";
         rofiExe = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
-        peekExe = "${pkgs.peek}/bin/peek";
         mpcExe = "${pkgs.mpc-cli}/bin/mpc";
         notifySendExe = "${pkgs.libnotify}/bin/mpc";
       in
@@ -70,6 +69,7 @@
           ", XF86AudioPlay, exec, ${playerctlExe} play-pause"
           ", XF86AudioPrev, exec, ${playerctlExe} previous"
           ", XF86AudioRaiseVolume, exec, ${pamixerExe} -i 3"
+          "Alt_L, v, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
           "Alt_L, e, exec, ${splatmojiExe} copy"
           "Alt_L&Shift_L, e, exec, ${splatmojiExe} type"
           "Alt_L, F4, killactive, "

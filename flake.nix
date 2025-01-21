@@ -11,7 +11,10 @@
       url = "github:nix-community/disko";
       flake = false;
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -109,7 +112,6 @@
             wallpaper-manager-unwrapped
             ;
 
-          hyprland-overlays = hyprland.overlays;
           envsub-flake = envsub;
           backlight-flake = backlight;
           eww-bar-selector-flake = eww-bar-selector;
@@ -154,6 +156,7 @@
         (overlays system)
         {
           nixpkgs.overlays = [
+            hyprland.overlays.default
             hyprpicker.overlays.default
             swww.overlays.default
           ];

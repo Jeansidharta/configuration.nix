@@ -36,6 +36,11 @@ in
   services.swww = {
     enable = true;
     systemdService = true;
+    systemdTarget = "hyprland-session.target";
+  };
+  services.cliphist = {
+    enable = true;
+    systemdTarget = "hyprland-session.target";
   };
 
   programs.feh.enable = true;

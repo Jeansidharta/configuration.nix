@@ -12,8 +12,6 @@
   workspaces-report-flake,
   window-title-watcher-flake,
   volume-watcher-flake,
-
-  hyprland-overlays,
 }:
 {
   config,
@@ -39,7 +37,6 @@ let
 in
 {
   nixpkgs.overlays = [
-    hyprland-overlays.default
     (final: prev: {
       wezterm = rawPkgsUnstable.wezterm;
       pkgsUnstable = rawPkgsUnstable;
