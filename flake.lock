@@ -808,6 +808,46 @@
         "type": "github"
       }
     },
+    "hyprlock": {
+      "inputs": {
+        "hyprgraphics": [
+          "hyprland",
+          "hyprgraphics"
+        ],
+        "hyprlang": [
+          "hyprland",
+          "hyprlang"
+        ],
+        "hyprutils": [
+          "hyprland",
+          "hyprutils"
+        ],
+        "hyprwayland-scanner": [
+          "hyprland",
+          "hyprwayland-scanner"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "systems": [
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736953751,
+        "narHash": "sha256-hoc21ZMxcabYWGz4nB/jd6TdFqDY4KZoPLs/qNn0g0Q=",
+        "owner": "hyprwm",
+        "repo": "hyprlock",
+        "rev": "02639c27599b03c81dc1d0e031628224f5ad8d50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprlock",
+        "type": "github"
+      }
+    },
     "hyprpicker": {
       "inputs": {
         "hyprutils": "hyprutils_2",
@@ -1593,6 +1633,7 @@
         "eww-bar-selector": "eww-bar-selector",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
+        "hyprlock": "hyprlock",
         "hyprpicker": "hyprpicker",
         "neovim-with-plugins": "neovim-with-plugins",
         "nix-index-database": "nix-index-database",

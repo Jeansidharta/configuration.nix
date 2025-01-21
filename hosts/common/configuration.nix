@@ -54,6 +54,9 @@
     enable = true;
   };
 
+  # Required by Hyprlock
+  security.pam.services.hyprlock = { };
+
   # Enable sound.
   services.pipewire = {
     enable = true;

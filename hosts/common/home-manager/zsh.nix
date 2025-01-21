@@ -16,8 +16,13 @@ let
     '');
 
   replace = pkgs.writeScript "replace" ''
-    mv "$1" "$1.old"
-    cp --dereference --no-preserve=mode "$1.old" "$1"
+    if [[ -e "$1.old" ]]; then
+      rm -rfi "$1"
+      mv "$1.old" "$1"
+    else
+      mv "$1" "$1.old"
+      cp --dereference --no-preserve=mode "$1.old" "$1"
+    fi
   '';
 in
 {
@@ -33,6 +38,7 @@ in
       "cdtmp" = "cd $(mktemp --dir)";
 
       "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net -- ";
+      "replace" = "${replace}";
     };
     # initExtra = ''
     # export NIX_BUILD_SHELL=${nix-zshell}

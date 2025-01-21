@@ -15,6 +15,15 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.systems.follows = "hyprland/systems";
+      inputs.hyprgraphics.follows = "hyprland/hyprgraphics";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+      inputs.hyprlang.follows = "hyprland/hyprlang";
+      inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+    };
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -86,6 +95,7 @@
       hyprland,
 
       swww,
+      hyprlock,
       hyprpicker,
       envsub,
       splatmoji,
@@ -156,9 +166,11 @@
         (overlays system)
         {
           nixpkgs.overlays = [
+            hyprlock.overlays.default
             hyprland.overlays.default
             hyprpicker.overlays.default
             swww.overlays.default
+            (final: prev: { hyprlock = hyprlock.packages.${system}.default; })
           ];
         }
         agenix.nixosModules.default
