@@ -99,6 +99,24 @@
   services.udiskie.enable = true;
   systemd.user.startServices = true;
 
+  services.cliphist = {
+    enable = true;
+    systemdTarget = "hyprland-session.target";
+  };
+  services.swww = {
+    enable = true;
+    systemdService = true;
+    systemdTarget = "hyprland-session.target";
+  };
+  programs.waypaper = {
+    enable = true;
+    settings = {
+      folder = "/home/sidharta/wallpapers";
+      subfolders = true;
+      sort = "random";
+    };
+  };
+
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;

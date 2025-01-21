@@ -1,14 +1,11 @@
 { pkgs, ... }:
-let
-  rofi = "${pkgs.rofi-unwrapped}/bin/rofi";
-  tmsu = "${pkgs.tmsu}/bin/tmsu --database ~/wallpapers/.tmsu/db";
-  xargs = "${pkgs.findutils}/bin/xargs";
-  feh = "${pkgs.feh}/bin/feh";
+# rofi = "${pkgs.rofi-unwrapped}/bin/rofi";
+# tmsu = "${pkgs.tmsu}/bin/tmsu --database ~/wallpapers/.tmsu/db";
+# xargs = "${pkgs.findutils}/bin/xargs";
 
-  select-wallpaper = pkgs.writeScriptBin "wallpaper" ''
-    ${tmsu} tags --color never | ${rofi} -dmenu -p "Tags query" | ${xargs} ${tmsu} files | sxiv -o - | ${xargs} ${feh} --bg-fill
-  '';
-in
+# select-wallpaper = pkgs.writeScriptBin "wallpaper" ''
+# ${tmsu} tags --color never | ${rofi} -dmenu -p "Tags query" | ${xargs} ${tmsu} files | sxiv -o - | ${xargs} ${feh} --bg-fill
+# '';
 {
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
@@ -22,29 +19,5 @@ in
 
   home.packages = [
     pkgs.brightnessctl # Control monitor/keyboard brightness
-    select-wallpaper
   ];
-
-  programs.waypaper = {
-    enable = true;
-    settings = {
-      folder = "/home/sidharta/wallpapers";
-      subfolders = true;
-      sort = "random";
-    };
-  };
-  services.swww = {
-    enable = true;
-    systemdService = true;
-    systemdTarget = "hyprland-session.target";
-  };
-  services.cliphist = {
-    enable = true;
-    systemdTarget = "hyprland-session.target";
-  };
-
-  programs.feh.enable = true;
-  xsession.initExtra = ''
-    test -f ~/.fehbg && ~/.fehbg
-  '';
 }
