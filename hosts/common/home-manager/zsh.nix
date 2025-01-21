@@ -21,19 +21,21 @@ let
   '';
 in
 {
-  enable = true;
-  autosuggestion.enable = true;
-  shellAliases = {
-    "ses" = "systemctl --user";
-    "vim" = "nvim";
-    "vi" = "nvim";
-    "ls" = "eza";
+  programs.zsh = {
+    enable = true;
+    autosuggestion.enable = true;
+    shellAliases = {
+      "ses" = "systemctl --user";
+      "vim" = "nvim";
+      "vi" = "nvim";
+      "ls" = "eza";
 
-    "cdtmp" = "cd $(mktemp --dir)";
+      "cdtmp" = "cd $(mktemp --dir)";
 
-    "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net -- ";
+      "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net -- ";
+    };
+    # initExtra = ''
+    # export NIX_BUILD_SHELL=${nix-zshell}
+    # '';
   };
-  # initExtra = ''
-  # export NIX_BUILD_SHELL=${nix-zshell}
-  # '';
 }

@@ -6,7 +6,14 @@
   ...
 }:
 {
-  imports = [ ./hyprland.nix ];
+  imports = [
+    ./hyprland.nix
+    ./git.nix
+    ./starship.nix
+    ./zsh.nix
+    ./eww.nix
+    ./systemd-services.nix
+  ];
   nixpkgs.config.allowUnfree = true;
 
   home.pointerCursor = {
@@ -69,10 +76,6 @@
       };
     };
   };
-  programs.ewwCustom = import ./eww.nix { inherit pkgs; };
-  programs.zsh = import ./zsh.nix { inherit pkgs; };
-  programs.starship = import ./starship.nix { inherit ; };
-  programs.git = import ./git.nix { inherit ; };
   programs.btop.enable = true;
   programs.direnv.enable = true;
   programs.rofi = {
@@ -81,10 +84,13 @@
   };
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
-  programs.zk.enable = true;
-  programs.zk.settings = {
-    notebook = {
-      dir = "~/notes";
+
+  programs.zk = {
+    enable = true;
+    settings = {
+      notebook = {
+        dir = "~/notes";
+      };
     };
   };
 
@@ -92,7 +98,6 @@
   services.dunst.enable = true;
   services.udiskie.enable = true;
   systemd.user.startServices = true;
-  systemd.user.services = import ./systemd-services.nix { inherit pkgs; };
 
   programs.wezterm = {
     enable = true;
