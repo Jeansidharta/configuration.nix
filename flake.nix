@@ -12,31 +12,16 @@
       flake = false;
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:hyprwm/Hyprland/v0.45.2";
     };
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.systems.follows = "hyprland/systems";
-      inputs.hyprgraphics.follows = "hyprland/hyprgraphics";
-      inputs.hyprutils.follows = "hyprland/hyprutils";
-      inputs.hyprlang.follows = "hyprland/hyprlang";
-      inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
     hypridle = {
       url = "github:hyprwm/hypridle";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.systems.follows = "hyprland/systems";
-      inputs.hyprutils.follows = "hyprland/hyprutils";
-      inputs.hyprlang.follows = "hyprland/hyprlang";
     };
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.systems.follows = "hyprland/systems";
-      inputs.hyprutils.follows = "hyprland/hyprutils";
-      inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -185,6 +170,7 @@
             (final: prev: {
               hyprlock = hyprlock.packages.${system}.default;
               hypridle = hypridle.packages.${system}.default;
+              hyprland = hyprland.packages.${system}.default;
             })
           ];
         }
