@@ -111,6 +111,22 @@
         "type": "github"
       }
     },
+    "colorful-menu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737172195,
+        "narHash": "sha256-7Dk2Neg4NuUQ1tPsAW88PPx0kSBDsiQwYrwTmq4vI2g=",
+        "owner": "xzbdmw",
+        "repo": "colorful-menu.nvim",
+        "rev": "4a17385c4e229027eb6de0f4d3e095448ab3dec1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xzbdmw",
+        "repo": "colorful-menu.nvim",
+        "type": "github"
+      }
+    },
     "disko": {
       "flake": false,
       "locked": {
@@ -1270,6 +1286,7 @@
       "inputs": {
         "blink": "blink",
         "bufjump": "bufjump",
+        "colorful-menu": "colorful-menu",
         "dressing": "dressing",
         "fidget": "fidget",
         "git-conflict": "git-conflict",
@@ -1296,6 +1313,7 @@
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-notify": "nvim-notify",
         "oil": "oil",
+        "oil-git-status": "oil-git-status",
         "oil-lsp-diagnostics": "oil-lsp-diagnostics",
         "openscad-lsp": "openscad-lsp",
         "otter": "otter",
@@ -1303,7 +1321,6 @@
         "overseer": "overseer",
         "parinfer-rust": "parinfer-rust",
         "plenary": "plenary",
-        "smart-splits": "smart-splits",
         "snipe": "snipe",
         "sqlite": "sqlite",
         "status-col": "status-col",
@@ -1313,16 +1330,17 @@
         "tiny-glimmer": "tiny-glimmer",
         "tokyodark": "tokyodark",
         "treesitter": "treesitter",
+        "treewalker": "treewalker",
         "various-textobjs": "various-textobjs",
         "zk-nvim": "zk-nvim",
         "zls": "zls"
       },
       "locked": {
-        "lastModified": 1737469545,
-        "narHash": "sha256-BRaaDA6RmvAuPIQ5d29oK794+OTRhFIOl1Nv84ZVq9g=",
+        "lastModified": 1737520303,
+        "narHash": "sha256-dyiXXAIJ99+ydTjjuJtrAlb1MHtKWs+UkEaPVpykJ3U=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "20245eae4e0708e5daafc838e365d59bf474e109",
+        "rev": "3cbe2fb712f3fa399ed19983482006cfe05c491f",
         "type": "github"
       },
       "original": {
@@ -1673,6 +1691,22 @@
         "type": "github"
       }
     },
+    "oil-git-status": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736777807,
+        "narHash": "sha256-pz/+RF5woO4V5pNEp6gEsTaRNNqCQDrI6jFrNdtDmmY=",
+        "owner": "refractalize",
+        "repo": "oil-git-status.nvim",
+        "rev": "293021c42f9d725981616c26c05964c7e5a88a08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "refractalize",
+        "repo": "oil-git-status.nvim",
+        "type": "github"
+      }
+    },
     "oil-lsp-diagnostics": {
       "flake": false,
       "locked": {
@@ -1848,22 +1882,6 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
-        "type": "github"
-      }
-    },
-    "smart-splits": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1736527113,
-        "narHash": "sha256-YCs472ff+y1OAYuS/mUtoinEDSvqMT9tZ55eia8vchA=",
-        "owner": "mrjones2014",
-        "repo": "smart-splits.nvim",
-        "rev": "7266722346df921535ca3f317164a62069436b7c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrjones2014",
-        "repo": "smart-splits.nvim",
         "type": "github"
       }
     },
@@ -2350,6 +2368,22 @@
       "original": {
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
+        "type": "github"
+      }
+    },
+    "treewalker": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737256549,
+        "narHash": "sha256-pd9Yfz5oqmQZimxkCyrl6dAEh3TyDdcj/mfO1KGH4iQ=",
+        "owner": "aaronik",
+        "repo": "treewalker.nvim",
+        "rev": "9a29abe2141d930321a88c3a1ff9d914f4fd3257",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aaronik",
+        "repo": "treewalker.nvim",
         "type": "github"
       }
     },
