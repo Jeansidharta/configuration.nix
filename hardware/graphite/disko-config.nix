@@ -7,32 +7,6 @@
 {
   disko.devices = {
     disk = {
-      hd = {
-        type = "disk";
-        # 1 TiB HD 7200 RPM
-        device = "/dev/disk/by-id/ata-ST1000LM035-1RK172_WL131ZMN";
-        content = {
-          type = "gpt";
-          partitions = {
-            windows = {
-              size = "256G";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/windows";
-              };
-            };
-            home = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/home/sidharta";
-              };
-            };
-          };
-        };
-      };
       ssd = {
         type = "disk";
         # 128 GiB SSD

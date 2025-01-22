@@ -8,13 +8,6 @@
 {
   networking.hostName = "graphite";
   time.timeZone = "America/Sao_Paulo";
-  boot.initrd = {
-    availableKernelModules = [
-      "aesni_intel"
-      "cryptd"
-    ];
-    luks.devices.cryptroot.device = "/dev/disk/by-partlabel/disk-hd-root";
-  };
 
   users.users =
     let
