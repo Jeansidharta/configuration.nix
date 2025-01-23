@@ -20,7 +20,7 @@
       :space-evenly false
       :spacing 4
       (image :path "./icons/storage.svg" :image-width 30 :image-height 30)
-      "${round(EWW_DISK["/nix"].used_perc, 0)}%")
+      "${round(EWW_DISK["/"].used_perc, 0)}%")
     (box
       :space-evenly false
       :spacing 4
