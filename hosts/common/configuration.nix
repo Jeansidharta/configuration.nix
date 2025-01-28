@@ -128,9 +128,6 @@
       vimAlias = true;
       defaultEditor = true;
     };
-    steam = {
-      enable = true;
-    };
     zsh = {
       enable = true;
       ohMyZsh = {
