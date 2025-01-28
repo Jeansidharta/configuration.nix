@@ -21,7 +21,7 @@ let
       mv "$1.old" "$1"
     else
       mv "$1" "$1.old"
-      cp --dereference --no-preserve=mode "$1.old" "$1"
+      cp --dereference --no-preserve=mode -r "$1.old" "$1"
     fi
   '';
 in
