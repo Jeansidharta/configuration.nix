@@ -11,9 +11,7 @@
       url = "github:nix-community/disko";
       flake = false;
     };
-    yazi = {
-      url = "github:sxyazi/yazi";
-    };
+    yazi-custom.url = "path:./derivations/yazi";
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.45.2";
     };
@@ -93,7 +91,7 @@
       hyprland,
 
       swww,
-      yazi,
+      yazi-custom,
       hyprlock,
       hyprpicker,
       hypridle,
@@ -148,6 +146,7 @@
                   theme.outputs.home-manager-module
                   ./hosts/common/home-manager/default.nix
                   hyprland.homeManagerModules.default
+                  yazi-custom.homeManagerModules.default
                 ];
             };
             extraSpecialArgs = {
@@ -166,7 +165,7 @@
         (overlays system)
         {
           nixpkgs.overlays = [
-            yazi.overlays.default
+            yazi-custom.overlays.default
             hyprlock.overlays.default
             hyprland.overlays.default
             hypridle.overlays.default

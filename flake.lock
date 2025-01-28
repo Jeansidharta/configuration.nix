@@ -1934,7 +1934,7 @@
         "wallpaper-manager-unwrapped": "wallpaper-manager-unwrapped",
         "window-title-watcher": "window-title-watcher",
         "workspaces-report": "workspaces-report",
-        "yazi": "yazi"
+        "yazi-custom": "yazi-custom"
       }
     },
     "rust-analyzer-src": {
@@ -1957,6 +1957,7 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
+          "yazi-custom",
           "yazi",
           "nixpkgs"
         ]
@@ -2792,6 +2793,21 @@
         "owner": "sxyazi",
         "repo": "yazi",
         "type": "github"
+      }
+    },
+    "yazi-custom": {
+      "inputs": {
+        "yazi": "yazi"
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-qBJIwTI36Yhu8aIOOX10qWNgd/AvhMPXlzWyMyKTenc=",
+        "path": "./derivations/yazi",
+        "type": "path"
+      },
+      "original": {
+        "path": "./derivations/yazi",
+        "type": "path"
       }
     },
     "zig-flake": {

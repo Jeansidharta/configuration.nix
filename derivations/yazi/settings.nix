@@ -1,0 +1,39 @@
+{ pkgs, ... }:
+let
+  socat = "${pkgs.socat}/bin/socat";
+in
+{
+  programs.yazi.settings = {
+    log = {
+      enabled = false;
+    };
+    manager = {
+      show_hidden = false;
+      sort_dir_first = true;
+      show_symlink = true;
+    };
+    preview = {
+      wrap = "yes";
+      tab_size = 4;
+    };
+    opener = {
+      add-sub = [
+        {
+          run = ''
+            echo sub-add "'$0'" | ${socat} - /tmp/mpv.sock
+          '';
+          desc = "Add sub to MPV";
+        }
+      ];
+    };
+    open.prepend_rules = [
+      {
+        name = "*.{ass,srt,ssa,sty,sup,vtt}";
+        use = [
+          "add-sub"
+          "edit"
+        ];
+      }
+    ];
+  };
+}

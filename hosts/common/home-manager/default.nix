@@ -11,7 +11,6 @@
     ./hypridle.nix
     ./hyprlock.nix
     ./git.nix
-    ./yazi.nix
     ./starship.nix
     ./zsh.nix
     ./eww.nix
