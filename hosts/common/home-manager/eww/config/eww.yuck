@@ -58,7 +58,6 @@
     :stacking "bg"
     :exclusive true
     :focusable false
-    :stacking "fg"
     (box 
       :visible show_bar
       :spacing 32
