@@ -11,6 +11,9 @@
       url = "github:nix-community/disko";
       flake = false;
     };
+    yazi = {
+      url = "github:sxyazi/yazi";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.45.2";
     };
@@ -90,6 +93,7 @@
       hyprland,
 
       swww,
+      yazi,
       hyprlock,
       hyprpicker,
       hypridle,
@@ -162,6 +166,7 @@
         (overlays system)
         {
           nixpkgs.overlays = [
+            yazi.overlays.default
             hyprlock.overlays.default
             hyprland.overlays.default
             hypridle.overlays.default
