@@ -29,6 +29,7 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
   hardware.keyboard.qmk.enable = true;
+  hardware.graphics.enable = true;
 
   services.timesyncd.enable = true;
   services.sshd.enable = true;

@@ -9,6 +9,17 @@
   networking.hostName = "graphite";
   time.timeZone = "America/Sao_Paulo";
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vpl-gpu-rt
+    ];
+  };
+  hardware.graphics.extraPackages = with pkgs; [
+    vaapiIntel
+    intel-media-driver
+  ];
+
   users.users =
     let
       obsidianPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5TwFvhFpbcI1h7LAdC1FPo7Y/nYfwqYVjpZ0Ns9N7+";
