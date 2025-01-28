@@ -11,6 +11,7 @@
     ./hypridle.nix
     ./hyprlock.nix
     ./git.nix
+    ./yazi.nix
     ./starship.nix
     ./zsh.nix
     ./eww.nix
@@ -31,7 +32,6 @@
     btop # Process manager
     wl-clipboard # Clipboard software
     mpv # Media player
-    yazi # TUI File manager
     bat # Replacement for the gnu `cat` command
     sxiv # Simple image viewer
     lmms # Music production
