@@ -33,6 +33,12 @@
         };
         input = {
           follow_mouse = 2;
+          # Pulled from here:
+          # https://github.com/sulmone/X11/blob/master/share/X11/xkb/rules/base.lst
+          # kb_model = "pc105";
+          kb_layout = "us";
+          kb_variant = "alt-intl";
+          # kb_options = "grp:caps_toggle";
         };
         misc = {
           disable_autoreload = true;
@@ -52,15 +58,9 @@
           ", preferred, auto, 1"
           "eDP-1, 1366x768, 0x0, 1"
         ];
-        input = {
-          # Pulled from here:
-          # https://github.com/sulmone/X11/blob/master/share/X11/xkb/rules/base.lst
-          # kb_model = "pc105";
-          # kb_layout = "br";
-        };
         windowrulev2 = [
-            "float, class:waypaper"
-            "size 400 200, class:waypaper"
+          "float, class:waypaper"
+          "size 600 600, class:waypaper"
         ];
         bindm = [
           "${leaderKey}, mouse:272, movewindow"
