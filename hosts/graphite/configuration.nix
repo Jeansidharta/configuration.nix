@@ -9,16 +9,14 @@
   networking.hostName = "graphite";
   time.timeZone = "America/Sao_Paulo";
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt
+      vaapiIntel
+      intel-media-driver
     ];
   };
-  hardware.graphics.extraPackages = with pkgs; [
-    vaapiIntel
-    intel-media-driver
-  ];
 
   users.users =
     let
