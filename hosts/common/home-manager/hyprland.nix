@@ -15,7 +15,9 @@
         weztermExe = "${pkgs.wezterm}/bin/wezterm";
         rofiExe = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
         mpcExe = "${pkgs.mpc-cli}/bin/mpc";
-        notifySendExe = "${pkgs.libnotify}/bin/mpc";
+        notifySendExe = "${pkgs.libnotify}/bin/notify-send";
+        zsh = "${pkgs.zsh}/bin/zsh";
+        yazi = "${pkgs.yazi}/bin/yazi";
 
         leaderKey = "Super_L";
       in
@@ -81,7 +83,8 @@
           "${leaderKey}&Shift_L, e, exec, ${splatmojiExe} type"
           "${leaderKey}, F4, killactive, "
           # "${leaderKey}&Shift_L, F4, signal, 9"
-          "${leaderKey}, Return, exec, ${weztermExe}"
+          "${leaderKey}, Return, exec, ${weztermExe} start ${zsh} -c ${yazi}"
+          "${leaderKey}&Shift_L, Return, exec, ${weztermExe}"
           "${leaderKey}, f, fullscreen, 1"
           "${leaderKey}&Shift_L, f, fullscreen, 0"
           # "${leaderKey}, g, exec, ${toggleBordersExe}"

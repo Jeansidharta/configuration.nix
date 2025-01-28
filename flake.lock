@@ -1887,6 +1887,22 @@
         "type": "github"
       }
     },
+    "plugins": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738007154,
+        "narHash": "sha256-oXjOLLFF2NqLfbZFvAas65zTvWQYi+Qn/mx8WpauQK0=",
+        "owner": "yazi-rs",
+        "repo": "plugins",
+        "rev": "f202fa8969bd9c0c6ba6fb36066ae8044e73c9a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yazi-rs",
+        "repo": "plugins",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -2797,11 +2813,12 @@
     },
     "yazi-custom": {
       "inputs": {
+        "plugins": "plugins",
         "yazi": "yazi"
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-qBJIwTI36Yhu8aIOOX10qWNgd/AvhMPXlzWyMyKTenc=",
+        "narHash": "sha256-v5606RLI3jaHbNSSgfc+3Y06Nz7DOEvgBLxtZWvUbGA=",
         "path": "./derivations/yazi",
         "type": "path"
       },

@@ -15,6 +15,8 @@ in
     preview = {
       wrap = "yes";
       tab_size = 4;
+      max_width = 1000;
+      max_height = 1000;
     };
     opener = {
       add-sub = [
