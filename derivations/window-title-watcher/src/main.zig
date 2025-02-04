@@ -1,6 +1,7 @@
 const std = @import("std");
-const HyprlandEvents = @import("hyprland-zsock").events.HyprlandEventSocket;
-const HyprlandIpc = @import("hyprland-zsock").ipc;
+const HyprlandEvents = @import("hyprland-zsock").HyprlandEventSocket;
+const EventParseDiagnostics = @import("hyprland-zsock").EventParseDiagnostics;
+const HyprlandIpc = @import("hyprland-zsock").HyprlandIPC;
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -8,22 +9,23 @@ pub fn main() !void {
     const alloc = gpa.allocator();
     const stdout = std.io.getStdOut().writer().any();
 
-    var ipc = try HyprlandIpc.init();
+    var ipc = try HyprlandIpc.init(alloc);
 
     {
-        const activeWindow = try ipc.sendCommand(
-            alloc,
-            .activewindow,
-            void{},
-        );
+        const activeWindow = try ipc.requestActiveWindow();
         defer activeWindow.deinit();
-        try stdout.writeAll(activeWindow.variant.title);
+        try stdout.writeAll(activeWindow.parsed.title);
         try stdout.writeByte('\n');
     }
 
-    var eventListener = try HyprlandEvents.open();
+    var eventListener = try HyprlandEvents.init();
+    var diags: EventParseDiagnostics = undefined;
+    const stderr = std.io.getStdErr();
     while (true) {
-        const event = try eventListener.consumeEvent();
+        const event = eventListener.consumeEvent(&diags) catch {
+            try std.fmt.format(stderr, "Error consuming event: {any}\n", .{diags});
+            continue;
+        };
         switch (event) {
             .activewindow => |activeWindow| {
                 try stdout.writeAll(activeWindow.windowTitle);
