@@ -46,6 +46,8 @@
     unzip # Unzip tool
     hyprpicker # Cool color picker
     wpaperd
+    imhex # A very nice hex editor
+    libreoffice # Office suite
 
     helvum # Manipulate Pipewire connections
     qpwgraph # Manipulate Pipewire connections
