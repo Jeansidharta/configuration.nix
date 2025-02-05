@@ -119,7 +119,6 @@
           "${leaderKey}&Shift_L, 7, movetoworkspace, 7"
           "${leaderKey}&Shift_L, 8, movetoworkspace, 8"
           "${leaderKey}&Shift_L, 9, movetoworkspace, 9"
-          "${leaderKey}&Shift_L, 10, movetoworkspace, 10"
           "${leaderKey}, Left, movefocus, l"
           "${leaderKey}, Down, movefocus, d"
           "${leaderKey}, Up, movefocus, u"
