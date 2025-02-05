@@ -3,6 +3,9 @@ let
   dragon = "${pkgs.xdragon}/bin/xdragon";
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
   git = "${pkgs.git}/bin/git";
+  tmsu = "${pkgs.tmsu}/bin/tmsu";
+  rofi = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
+  xargs = "${pkgs.findutils}/bin/xargs";
 in
 {
   programs.yazi.keymap = {
@@ -60,6 +63,13 @@ in
         on = "<C-d>";
         run = "plugin diff";
         desc = "Diff the selected with the hovered file";
+      }
+      {
+        on = "<C-t>";
+        run = ''
+          shell '${tmsu} tags -1 | ${rofi} -dmenu | ${xargs} -I @@ ${tmsu} tag --tags="@@" $@'
+        '';
+        desc = "Apply a tag to selected files";
       }
     ];
   };

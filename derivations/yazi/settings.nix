@@ -18,6 +18,11 @@ in
       max_width = 1000;
       max_height = 1000;
     };
+    tasks = {
+      micro_workers = 3;
+      macro_workers = 3;
+      image_alloc = 4 * 1024 * 1024;
+    };
     opener = {
       add-sub = [
         {

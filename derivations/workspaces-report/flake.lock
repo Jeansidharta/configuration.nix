@@ -37,11 +37,11 @@
     "hyprland-zsock": {
       "flake": false,
       "locked": {
-        "lastModified": 1737129229,
-        "narHash": "sha256-TJoZAhHsewCkEDP5BxukBScZlwMRphQlFMXSm8y+Y08=",
+        "lastModified": 1738700600,
+        "narHash": "sha256-sfBP2yZwtShfxdh8F96ypOymAciHeUUCnlrmwHx80zU=",
         "owner": "Jeansidharta",
         "repo": "hyprland-zsock",
-        "rev": "c8494e092a6fda1d05afb4e341ac950d112af4f6",
+        "rev": "fee2077f9d17f0477dacbfbf153adae20e8afde7",
         "type": "github"
       },
       "original": {
@@ -53,8 +53,8 @@
     "nixpkgs": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-JO+lFN2HsCwSLMUWXHeOad6QUxOuwe9UOAF/iSl1J4I=",
-        "path": "/nix/store/fz4h8yz3qr83p6cfhisgj02knjqg6nxs-source",
+        "narHash": "sha256-GFzPxJzTd1rPIVD4IW+GwJlyGwBDV1Tj5FLYwDQQ9sM=",
+        "path": "/nix/store/50yickar04m51aqnc43gxf45g2i0n3k9-source",
         "type": "path"
       },
       "original": {
@@ -141,11 +141,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1736856679,
-        "narHash": "sha256-CRtbUEkUUn807eRGf0jdXFidivC1m88PpcGmSCtT2bA=",
+        "lastModified": 1738715382,
+        "narHash": "sha256-BESOTEFsMRArXXf/g3e0xhg7SIDCMMUmNxiuex4kjNM=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "da592c7a07f009593fa653ac1d7c5b0e4756dd58",
+        "rev": "345b01e0ac59fac5a08ce1b8c306e7d345ac93f4",
         "type": "github"
       },
       "original": {

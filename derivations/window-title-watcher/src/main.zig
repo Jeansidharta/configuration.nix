@@ -20,7 +20,7 @@ pub fn main() !void {
 
     var eventListener = try HyprlandEvents.init();
     var diags: EventParseDiagnostics = undefined;
-    const stderr = std.io.getStdErr();
+    const stderr = std.io.getStdErr().writer();
     while (true) {
         const event = eventListener.consumeEvent(&diags) catch {
             try std.fmt.format(stderr, "Error consuming event: {any}\n", .{diags});

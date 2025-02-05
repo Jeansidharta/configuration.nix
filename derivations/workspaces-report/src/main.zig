@@ -1,6 +1,7 @@
 const std = @import("std");
-const HyprlandEventSocket = @import("hyprland-zsock").events.HyprlandEventSocket;
-const HyprlandIpc = @import("hyprland-zsock").ipc;
+const HyprlandEventSocket = @import("hyprland-zsock").HyprlandEventSocket;
+const HyprlandIpc = @import("hyprland-zsock").HyprlandIPC;
+const EventParseDiagnostics = @import("hyprland-zsock").EventParseDiagnostics;
 
 const Allocator = std.mem.Allocator;
 
@@ -194,12 +195,12 @@ pub fn main() !void {
 
     var monitors: MonitorsState = .init(alloc);
 
-    var ipc = try HyprlandIpc.init();
+    var ipc = try HyprlandIpc.init(alloc);
     {
-        const currentMonitors = try ipc.sendCommand(alloc, .monitors, void{});
+        const currentMonitors = try ipc.requestMonitors();
         defer currentMonitors.deinit();
 
-        for (currentMonitors.variant) |monitor| {
+        for (currentMonitors.parsed) |monitor| {
             try monitors.addMonitor(
                 monitor.id,
                 monitor.name,
@@ -212,30 +213,35 @@ pub fn main() !void {
         }
     }
     {
-        const allWorkspaces = try ipc.sendCommand(alloc, .workspaces, void{});
+        const allWorkspaces = try ipc.requestWorkspaces();
         defer allWorkspaces.deinit();
 
-        for (allWorkspaces.variant) |*workspace| {
+        for (allWorkspaces.parsed) |*workspace| {
             try monitors.addWorkspace(workspace.monitorID, workspace.id, workspace.name, workspace.windows);
         }
     }
     {
-        const currentWorkspace = try ipc.sendCommand(alloc, .activeworkspace, void{});
+        const currentWorkspace = try ipc.requestActiveWorkspace();
         defer currentWorkspace.deinit();
 
-        if (monitors.findWorkspaceWithId(currentWorkspace.variant.id)) |activeWorkspace| {
+        if (monitors.findWorkspaceWithId(currentWorkspace.parsed.id)) |activeWorkspace| {
             activeWorkspace.workspace.isFocused = true;
             monitors.focusedMonitor = activeWorkspace.monitor;
             monitors.focusedMonitor.?.focusedWorkspace = activeWorkspace.workspace;
         }
     }
 
-    var hyprlandSocket = try HyprlandEventSocket.open();
+    var hyprlandSocket = try HyprlandEventSocket.init();
     defer hyprlandSocket.deinit();
 
     try monitors.print(stdout.any());
+    var diags: EventParseDiagnostics = undefined;
+    const stderr = std.io.getStdErr().writer();
     while (true) {
-        const event = try hyprlandSocket.consumeEvent();
+        const event = hyprlandSocket.consumeEvent(&diags) catch {
+            try std.fmt.format(stderr, "{any}\n", .{diags});
+            continue;
+        };
 
         switch (event) {
             .openwindow => |window| {
