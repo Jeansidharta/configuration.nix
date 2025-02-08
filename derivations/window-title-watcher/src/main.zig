@@ -7,15 +7,14 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
     const alloc = gpa.allocator();
-    const stdout = std.io.getStdOut().writer().any();
+    const stdout = std.io.getStdOut().writer();
 
     var ipc = try HyprlandIpc.init(alloc);
 
     {
         const activeWindow = try ipc.requestActiveWindow();
         defer activeWindow.deinit();
-        try stdout.writeAll(activeWindow.parsed.title);
-        try stdout.writeByte('\n');
+        try stdout.print("{s}\n", .{activeWindow.parsed.title});
     }
 
     var eventListener = try HyprlandEvents.init();
@@ -23,13 +22,12 @@ pub fn main() !void {
     const stderr = std.io.getStdErr().writer();
     while (true) {
         const event = eventListener.consumeEvent(&diags) catch {
-            try std.fmt.format(stderr, "Error consuming event: {any}\n", .{diags});
+            try stderr.print("Error consuming event: {any}\n", .{diags});
             continue;
         };
         switch (event) {
             .activewindow => |activeWindow| {
-                try stdout.writeAll(activeWindow.windowTitle);
-                try stdout.writeByte('\n');
+                try stdout.print("{s}\n", .{activeWindow.windowTitle});
             },
             else => {},
         }
