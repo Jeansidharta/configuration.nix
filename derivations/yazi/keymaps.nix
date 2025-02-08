@@ -8,7 +8,7 @@ let
   xargs = "${pkgs.findutils}/bin/xargs";
 in
 {
-  programs.yazi.keymap = {
+  programs.yazi-custom.keymap = {
     manager.prepend_keymap = [
       {
         on = "<C-n>";

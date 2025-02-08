@@ -34,8 +34,25 @@
         "type": "github"
       }
     },
+    "plugins": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738930985,
+        "narHash": "sha256-axoMrOl0pdlyRgckFi4DiS+yBKAIHDhVeZQJINh8+wk=",
+        "owner": "yazi-rs",
+        "repo": "plugins",
+        "rev": "07258518f3bffe28d87977bc3e8a88e4b825291b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yazi-rs",
+        "repo": "plugins",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "plugins": "plugins",
         "yazi": "yazi"
       }
     },
@@ -82,11 +99,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1738010151,
-        "narHash": "sha256-9kcGpfbl98SUrQT9Dj0TSj334LXSviGP1SI4P76QFYo=",
+        "lastModified": 1738917769,
+        "narHash": "sha256-f8+C+L8eOugnyx4Zm2y3qAXH33BsI5F1JWecigPKuMg=",
         "owner": "sxyazi",
         "repo": "yazi",
-        "rev": "c061397a09bb08e293317f5b93dc870d453af9ef",
+        "rev": "17ff1e8812304d52aab56eb5dd6a220578a0dd74",
         "type": "github"
       },
       "original": {

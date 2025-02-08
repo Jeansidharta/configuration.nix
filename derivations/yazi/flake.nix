@@ -20,18 +20,20 @@
             # TODO - add flavor
             ./keymaps.nix
             ./settings.nix
+            ./home-manager-module.nix
           ];
           home.packages = [
             # Required for yazi to show image metadata.
             pkgs.exiftool
           ];
-          programs.yazi = {
+          programs.yazi-custom = {
+            package = yazi.packages.${pkgs.system}.default;
             enable = true;
             enableZshIntegration = true;
             initLua = builtins.readFile ./init.lua;
             plugins = {
               max-preview = "${plugins.outPath}/max-preview.yazi";
-              diff  = "${plugins.outPath}/diff.yazi";
+              diff = "${plugins.outPath}/diff.yazi";
             };
           };
         };

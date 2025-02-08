@@ -3,7 +3,7 @@ let
   socat = "${pkgs.socat}/bin/socat";
 in
 {
-  programs.yazi.settings = {
+  programs.yazi-custom.settings = {
     log = {
       enabled = false;
     };
