@@ -54,6 +54,7 @@
     socat # Tool for connecting/debugging read/write interfaces
     usbutils # Tool for manipulating USB
     tmsu # File tagging tool
+    obsidian # Note taking app
 
     kitty # Backup terminal in case ghostty dies
 
