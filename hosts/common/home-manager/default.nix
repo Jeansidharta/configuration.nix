@@ -35,7 +35,6 @@
     sxiv # Simple image viewer
     lmms # Music production
     eza # Replacement for the gnu `ls` command
-    plover.dev # Stenography software
     splatmoji # Emoji / Emoticon selector
     inkscape # Vector image editor
     htmlq # CLI tool for filtering HTML pages
@@ -55,6 +54,17 @@
     usbutils # Tool for manipulating USB
     tmsu # File tagging tool
     obsidian # Note taking app
+    moreutils # A collection of tools to improve bash scripting
+
+    (plover.with-plugins (ps: [
+      ps.plover-lapwing-aio
+      (ps.plover-uinput.overrideAttrs (old: {
+        propagatedBuildInputs = [
+          # pkgs.python311Packages.evdev
+          pkgs.xkbcommon-0-10-0
+        ];
+      }))
+    ]))
 
     kitty # Backup terminal in case ghostty dies
 

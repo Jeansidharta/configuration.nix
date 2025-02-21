@@ -80,6 +80,13 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+
+  services.tt-rss = {
+    enable = true;
+    selfUrlPath = "http://localhost";
+    singleUserMode = true;
+  };
+
   security.rtkit.enable = true;
 
   users.mutableUsers = false;
@@ -89,7 +96,7 @@
     # passwordFile = config.age.secrets.userPassword.path;
     name = "sidharta";
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
     packages = [ pkgs.home-manager ];
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";

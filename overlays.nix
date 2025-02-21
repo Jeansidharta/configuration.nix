@@ -5,6 +5,7 @@
   nixpkgs-unstable,
   neovim-with-plugins,
   wallpaper-manager-unwrapped,
+  plover-flake,
 
   envsub-flake,
   eww-bar-selector-flake,
@@ -34,10 +35,12 @@ let
   window-title-watcher = window-title-watcher-flake.outputs.packages.${system}.default;
   volume-watcher = volume-watcher-flake.outputs.packages.${system}.default;
   envsub = envsub-flake.outputs.packages.${system}.default;
+  plover = plover-flake.packages.${system}.plover;
 in
 {
   nixpkgs.overlays = [
     (final: prev: {
+      inherit plover;
       wezterm = rawPkgsUnstable.wezterm;
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;

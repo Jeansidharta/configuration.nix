@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-xkbcommon.url = "github:NixOS/nixpkgs/c35a5a895f2517964e3e9be3d1eb8bb8c68db629";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     theme.url = "path:./theming";
@@ -12,6 +13,9 @@
       flake = false;
     };
     yazi-custom.url = "path:./derivations/yazi";
+    plover-flake = {
+      url = "github:dnaq/plover-flake";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.45.2";
     };
@@ -89,7 +93,8 @@
       disko,
       nix-index-database,
       hyprland,
-
+      plover-flake,
+      nixpkgs-xkbcommon,
       swww,
       yazi-custom,
       hyprlock,
@@ -118,6 +123,7 @@
             nixpkgs-unstable
             neovim-with-plugins
             wallpaper-manager-unwrapped
+            plover-flake
             ;
 
           envsub-flake = envsub;
@@ -175,6 +181,8 @@
               hyprlock = hyprlock.packages.${system}.default;
               hypridle = hypridle.packages.${system}.default;
               hyprland = hyprland.packages.${system}.default;
+
+              xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${system}.python311Packages.xkbcommon;
             })
           ];
         }

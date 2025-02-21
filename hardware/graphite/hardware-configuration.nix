@@ -13,6 +13,12 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+   fileSystems."/home/sidharta/hd" =
+    { device = "/dev/disk/by-partlabel/disk-hd-home";
+      fsType = "ext4";
+      options = [ "X-mount.owner=sidharta" ];
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/88f4ac1a-e0c1-4a52-930f-6b9d080650b5"; }
     ];

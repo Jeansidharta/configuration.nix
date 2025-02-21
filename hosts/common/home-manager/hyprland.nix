@@ -6,20 +6,30 @@
 
     settings =
       let
-        flameshotExe = "${pkgs.flameshot}/bin/flameshot";
-        xclipExe = "${pkgs.xclip}/bin/xclip";
-        pamixerExe = "${pkgs.pamixer}/bin/pamixer";
-        pactlExe = "${pkgs.pulseaudio}/bin/pactl";
-        playerctlExe = "${pkgs.playerctl}/bin/playerctl";
-        splatmojiExe = "${pkgs.splatmoji}/bin/splatmoji";
-        weztermExe = "${pkgs.wezterm}/bin/wezterm";
-        rofiExe = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
+        # TODO - Flameshot does not work on wayland. Try another tool
+        # flameshot = "${pkgs.flameshot}/bin/flameshot";
+        pamixer = "${pkgs.pamixer}/bin/pamixer";
+        pactl = "${pkgs.pulseaudio}/bin/pactl";
+        playerctl = "${pkgs.playerctl}/bin/playerctl";
+        splatmoji = "${pkgs.splatmoji}/bin/splatmoji";
+        wezterm = "${pkgs.wezterm}/bin/wezterm";
+        rofi = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
         mpcExe = "${pkgs.mpc-cli}/bin/mpc";
-        notifySendExe = "${pkgs.libnotify}/bin/notify-send";
+        # notifySend = "${pkgs.libnotify}/bin/notify-send";
         zsh = "${pkgs.zsh}/bin/zsh";
         yazi = "${pkgs.yazi}/bin/yazi";
+        vipe = "${pkgs.moreutils}/bin/vipe";
+        cliphist = "${pkgs.cliphist}/bin/cliphist";
+        wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+        wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+        neovim = "${pkgs.mypkgs.neovim}/bin/nvim";
 
         leaderKey = "Super_L";
+
+        modifyClipboard = pkgs.writeScript "write-script" ''
+
+          ${wezterm} start -- bash -c "export EDITOR=${neovim} ; ${wl-paste} | ${vipe} | ${wl-copy} && exit"
+        '';
       in
       {
         general = {
@@ -41,6 +51,11 @@
           kb_layout = "us";
           kb_variant = "alt-intl";
           # kb_options = "grp:caps_toggle";
+        };
+        device = {
+          name = "clover-virtual-keyboard";
+          kb_layout = "us";
+          kb_variant = "";
         };
         misc = {
           disable_autoreload = true;
@@ -69,22 +84,23 @@
           "${leaderKey}, mouse:273, resizewindow"
         ];
         bind = [
-          ", Print, exec, ${flameshotExe} gui --raw > /tmp/screenshot.png && ${xclipExe} -selection clipboard -t image/png /tmp/screenshot.png; pkill flameshot"
-          "Control_L, Print, exec, ${flameshotExe} screen --path \"/home/sidharta/screenshots\" && ${notifySendExe} \"Screenshot saved\""
-          ", XF86AudioLowerVolume, exec, ${pamixerExe} -d 3"
-          ", XF86AudioMute, exec, ${pactlExe} set-sink-mute @DEFAULT_SINK@ toggle"
-          ", XF86AudioNext, exec, ${playerctlExe} next"
-          ", XF86AudioPlay, exec, ${playerctlExe} play-pause"
-          ", XF86AudioPrev, exec, ${playerctlExe} previous"
-          ", XF86AudioRaiseVolume, exec, ${pamixerExe} -i 3"
-          "${leaderKey}, v, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-          "${leaderKey}, e, exec, ${splatmojiExe} copy"
+          # ", Print, exec, ${flameshot} gui --raw > /tmp/screenshot.png && ${xclipExe} -selection clipboard -t image/png /tmp/screenshot.png; pkill flameshot"
+          # "Control_L, Print, exec, ${flameshot} screen --path \"/home/sidharta/screenshots\" && ${notifySend} \"Screenshot saved\""
+          ", XF86AudioLowerVolume, exec, ${pamixer} -d 3"
+          ", XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
+          ", XF86AudioNext, exec, ${playerctl} next"
+          ", XF86AudioPlay, exec, ${playerctl} play-pause"
+          ", XF86AudioPrev, exec, ${playerctl} previous"
+          ", XF86AudioRaiseVolume, exec, ${pamixer} -i 3"
+          "${leaderKey}, v, exec, ${cliphist} list | ${rofi} -dmenu | ${cliphist} decode | ${wl-copy}"
+          "$Control_L&Alt_L, v, exec, ${modifyClipboard}"
+          "${leaderKey}, e, exec, ${splatmoji} copy"
           "${leaderKey}, x, togglefloating"
-          "${leaderKey}&Shift_L, e, exec, ${splatmojiExe} type"
+          "${leaderKey}&Shift_L, e, exec, ${splatmoji} type"
           "${leaderKey}, F4, killactive, "
           # "${leaderKey}&Shift_L, F4, signal, 9"
-          "${leaderKey}, Return, exec, ${weztermExe} start ${zsh} -c ${yazi}"
-          "${leaderKey}&Shift_L, Return, exec, ${weztermExe}"
+          "${leaderKey}, Return, exec, ${wezterm} start ${zsh} -c ${yazi}"
+          "${leaderKey}&Shift_L, Return, exec, ${wezterm}"
           "${leaderKey}, f, fullscreen, 1"
           "${leaderKey}&Shift_L, f, fullscreen, 0"
           # "${leaderKey}, g, exec, ${toggleBordersExe}"
@@ -99,7 +115,7 @@
           "${leaderKey}&Shift_L, Up, swapwindow, u"
           "${leaderKey}&Shift_L, Down, swapwindow, d"
           "${leaderKey}&Shift_L, Right, swapwindow, r"
-          "${leaderKey}, space, exec, ${rofiExe} -show run"
+          "${leaderKey}, space, exec, ${rofi} -show run"
           # Select workspaces
           "${leaderKey}, 1, workspace, 1"
           "${leaderKey}, 2, workspace, 2"
