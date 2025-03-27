@@ -6,6 +6,7 @@
   ...
 }:
 {
+  imports = [ ./hypridle.nix ];
   networking.hostName = "graphite";
   time.timeZone = "America/Sao_Paulo";
 

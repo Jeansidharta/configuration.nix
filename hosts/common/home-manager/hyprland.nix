@@ -6,8 +6,7 @@
 
     settings =
       let
-        # TODO - Flameshot does not work on wayland. Try another tool
-        # flameshot = "${pkgs.flameshot}/bin/flameshot";
+        hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
         pamixer = "${pkgs.pamixer}/bin/pamixer";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
         playerctl = "${pkgs.playerctl}/bin/playerctl";
@@ -84,8 +83,8 @@
           "${leaderKey}, mouse:273, resizewindow"
         ];
         bind = [
-          # ", Print, exec, ${flameshot} gui --raw > /tmp/screenshot.png && ${xclipExe} -selection clipboard -t image/png /tmp/screenshot.png; pkill flameshot"
-          # "Control_L, Print, exec, ${flameshot} screen --path \"/home/sidharta/screenshots\" && ${notifySend} \"Screenshot saved\""
+          ", Print, exec, ${hyprshot} --mode region --clipboard-only"
+          "Control_L, Print, exec, ${hyprshot} --mode active --mode output --clipboard-only"
           ", XF86AudioLowerVolume, exec, ${pamixer} -d 3"
           ", XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
           ", XF86AudioNext, exec, ${playerctl} next"
@@ -99,8 +98,8 @@
           "${leaderKey}&Shift_L, e, exec, ${splatmoji} type"
           "${leaderKey}, F4, killactive, "
           # "${leaderKey}&Shift_L, F4, signal, 9"
-          "${leaderKey}, Return, exec, ${wezterm} start ${zsh} -c ${yazi}"
-          "${leaderKey}&Shift_L, Return, exec, ${wezterm}"
+          "${leaderKey}, Return, exec, ${wezterm}"
+          "${leaderKey}&Shift_L, Return, exec, ${wezterm} start ${zsh} -c ${yazi}"
           "${leaderKey}, f, fullscreen, 1"
           "${leaderKey}&Shift_L, f, fullscreen, 0"
           # "${leaderKey}, g, exec, ${toggleBordersExe}"

@@ -60,11 +60,6 @@
       url = "path:./hosts/common/home-manager/eww/scripts/backlight";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    wallpaper-manager-unwrapped = {
-      url = "github:jeansidharta/wallpaper-manager";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     workspaces-report = {
       url = "path:./derivations/workspaces-report";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -103,7 +98,6 @@
       envsub,
       splatmoji,
       neovim-with-plugins,
-      wallpaper-manager-unwrapped,
       eww-bar-selector,
       workspaces-report,
       window-title-watcher,
@@ -122,7 +116,6 @@
             nixpkgs-stable
             nixpkgs-unstable
             neovim-with-plugins
-            wallpaper-manager-unwrapped
             plover-flake
             ;
 

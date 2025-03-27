@@ -122,6 +122,7 @@
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
       ];
+      max-jobs = 4;
 
       warn-dirty = false;
       allowed-users = [ "@wheel" ];
@@ -149,22 +150,12 @@
       };
     };
   };
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
   programs.nix-ld.enable = true;
   services.openssh.enable = true;
 
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-
-  security.auditd.enable = true;
-  security.audit.enable = true;
-  security.audit.rules = [
-    "-a exit,always -F arch=b64 -S execve"
-  ];
 
   system.stateVersion = "24.05";
 }
