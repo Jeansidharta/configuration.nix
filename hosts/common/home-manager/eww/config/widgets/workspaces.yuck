@@ -4,7 +4,7 @@
   (eventbox
     :cursor "pointer"
     :onclick
-      "bspc monitor --focus \"${monitor_name}\" && bspc desktop --focus \"${workspace.name}.local\""
+      "hyprctl dispatch workspace \"${workspace.name}\""
     :class "desktop-box ${workspace.isFocused ? "focused" : "unfocused"} ${workspace.windowsCount == 0 ? "free" : "unfree"} ${workspace.isUrgent ? "urgent" : "unurgent"}"
     (box
       :width 10
@@ -22,7 +22,7 @@
     :class "monitor-box ${monitor.isFocused ? "focused" : "unfocused"}"
     (eventbox
       :cursor "pointer"
-      :onscroll { monitor.isFocused ? "bspc desktop --focus $(test '{}' = 'up' && echo 'next.local') $(test '{}' = 'down' && echo 'prev.local')" : ""}
+      :onscroll { monitor.isFocused ? "hyprctl dispatch workspace $(test '{}' = 'up' && echo '+1') $(test '{}' = 'down' && echo '-1')" : ""}
      (box
         :width 30
         :height 30
