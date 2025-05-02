@@ -7,14 +7,14 @@
     nixpkgs-xkbcommon.url = "github:NixOS/nixpkgs/c35a5a895f2517964e3e9be3d1eb8bb8c68db629";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
-    theme.url = "path:./theming";
+    theme.url = "./theming";
     disko = {
       url = "github:nix-community/disko";
       flake = false;
     };
-    yazi-custom.url = "path:./derivations/yazi";
+    yazi-custom.url = "./derivations/yazi";
     plover-flake = {
-      url = "github:dnaq/plover-flake";
+      url = "github:dnaq/plover-flake/7586d37430266c16452b06ffbab36d66965f3a70";
     };
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.45.2";
@@ -41,7 +41,7 @@
     };
 
     splatmoji = {
-      url = "path:./derivations/splatmoji";
+      url = "./derivations/splatmoji";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     swww = {
@@ -50,30 +50,29 @@
     };
     neovim-with-plugins = {
       url = "github:jeansidharta/neovim-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     envsub = {
-      url = "path:./derivations/envsub";
+      url = "./derivations/envsub";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     backlight = {
-      url = "path:./hosts/common/home-manager/eww/scripts/backlight";
+      url = "./hosts/common/home-manager/eww/scripts/backlight";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     workspaces-report = {
-      url = "path:./derivations/workspaces-report";
+      url = "./derivations/workspaces-report";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     window-title-watcher = {
-      url = "path:./derivations/window-title-watcher";
+      url = "./derivations/window-title-watcher";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     eww-bar-selector = {
-      url = "path:./derivations/eww-bar-selector";
+      url = "./derivations/eww-bar-selector";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     volume-watcher = {
-      url = "path:./derivations/volume-watcher";
+      url = "./derivations/volume-watcher";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
