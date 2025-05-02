@@ -96,7 +96,10 @@
     # passwordFile = config.age.secrets.userPassword.path;
     name = "sidharta";
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
     shell = pkgs.zsh;
     packages = [ pkgs.home-manager ];
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
@@ -112,6 +115,7 @@
     owner = "sidharta";
   };
   nix = {
+    package = pkgs.nixVersions.latest;
     settings = {
       # Enable hyprland cachix
       substituters = [
@@ -154,7 +158,10 @@
   services.openssh.enable = true;
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    4030
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   system.stateVersion = "24.05";
