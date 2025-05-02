@@ -2,6 +2,7 @@
 {
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
+  home.sessionPath = [ "$HOME/.cargo/bin" ];
 
   programs.ewwCustom = {
     extraVariables = {
