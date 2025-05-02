@@ -20,6 +20,7 @@
   options,
   specialArgs,
   modulesPath,
+  ...
 }:
 
 let
