@@ -72,6 +72,7 @@
     kitty # Backup terminal in case ghostty dies
 
     mypkgs.neovim
+    mypkgs.sqlite-diagram
 
     # === Non free ===
     discord

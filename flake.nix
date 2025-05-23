@@ -51,6 +51,10 @@
     neovim-with-plugins = {
       url = "github:jeansidharta/neovim-flake";
     };
+    sqlite-diagram = {
+      url = "./derivations/sqlite-diagram";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     envsub = {
       url = "./derivations/envsub";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -98,6 +102,7 @@
       splatmoji,
       neovim-with-plugins,
       eww-bar-selector,
+      sqlite-diagram,
       workspaces-report,
       window-title-watcher,
       volume-watcher,
@@ -119,6 +124,7 @@
             ;
 
           envsub-flake = envsub;
+          sqlite-diagram-flake = sqlite-diagram;
           backlight-flake = backlight;
           eww-bar-selector-flake = eww-bar-selector;
           workspaces-report-flake = workspaces-report;

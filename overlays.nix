@@ -7,6 +7,7 @@
   plover-flake,
 
   envsub-flake,
+  sqlite-diagram-flake,
   eww-bar-selector-flake,
   backlight-flake,
   workspaces-report-flake,
@@ -35,6 +36,7 @@ let
   volume-watcher = volume-watcher-flake.outputs.packages.${system}.default;
   envsub = envsub-flake.outputs.packages.${system}.default;
   plover = plover-flake.packages.${system}.plover;
+  sqlite-diagram = sqlite-diagram-flake.packages.${system}.default;
 in
 {
   nixpkgs.overlays = [
@@ -51,6 +53,7 @@ in
           volume-watcher
           backlight
           envsub
+          sqlite-diagram
           ;
         neovim = neovim-with-plugins.packages.${system}.default;
       };
