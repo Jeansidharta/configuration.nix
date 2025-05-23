@@ -22,7 +22,7 @@
     :class "monitor-box ${monitor.isFocused ? "focused" : "unfocused"}"
     (eventbox
       :cursor "pointer"
-      :onscroll { monitor.isFocused ? "hyprctl dispatch workspace $(test '{}' = 'up' && echo '+1') $(test '{}' = 'down' && echo '-1')" : ""}
+      :onscroll { monitor.isFocused ? "hyprctl dispatch workspace $((next=$(hyprctl activeworkspace -j | jq .id) $([[ \"{}\" = \"up\" ]] && echo \"+1\" || echo \"-1\"),next < 1 ? 9 : next > 9 ? 1 : next))" : ""}
      (box
         :width 30
         :height 30
