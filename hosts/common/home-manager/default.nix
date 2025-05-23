@@ -55,6 +55,10 @@
     obsidian # Note taking app
     moreutils # A collection of tools to improve bash scripting
 
+    xh # A CURL replacement
+    du-dust # A more modern du
+    fselect # A file finder with SQL syntax
+
     (plover.with-plugins (ps: [
       ps.plover-lapwing-aio
       (ps.plover-uinput.overrideAttrs (old: {
