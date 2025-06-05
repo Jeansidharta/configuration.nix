@@ -4,7 +4,7 @@
     enable = true;
     configDir = ./eww/config;
     systemdService = true;
-    systemdTarget = "hyprland-session.target";
+    systemdTarget = "graphical-session.target";
     startingOpenWindow = "top_bar";
     package = pkgs.writeShellApplication {
       name = "eww";

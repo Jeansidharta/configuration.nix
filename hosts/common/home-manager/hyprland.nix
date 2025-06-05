@@ -14,6 +14,7 @@
         wezterm = "${pkgs.wezterm}/bin/wezterm";
         rofi = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
         mpcExe = "${pkgs.mpc-cli}/bin/mpc";
+        uwsm = "${pkgs.uwsm}/bin/uwsm";
         # notifySend = "${pkgs.libnotify}/bin/notify-send";
         zsh = "${pkgs.zsh}/bin/zsh";
         yazi = "${pkgs.yazi}/bin/yazi";
@@ -24,6 +25,19 @@
         neovim = "${pkgs.mypkgs.neovim}/bin/nvim";
 
         leaderKey = "Super_L";
+        paste-qrcode = (
+          let
+            xargs = "${pkgs.findutils}/bin/xargs";
+            wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+            qrencode = "${pkgs.qrencode}/bin/qrencode";
+            sxiv = "${pkgs.sxiv}/bin/sxiv";
+          in
+          pkgs.writeScript "qrcode" ''
+            IMAGE_FILE=$(mktemp qrcode-XXX)
+            ${wl-paste} | ${xargs} ${qrencode} -o "$IMAGE_FILE" && ${sxiv} -f -s f "$IMAGE_FILE"
+            rm -f "$IMAGE_FILE"
+          ''
+        );
 
         modifyClipboard = pkgs.writeScript "write-script" ''
 
@@ -48,7 +62,7 @@
           # https://github.com/sulmone/X11/blob/master/share/X11/xkb/rules/base.lst
           # kb_model = "pc105";
           kb_layout = "us";
-          kb_variant = "alt-intl";
+          kb_variant = "intl";
           # kb_options = "grp:caps_toggle";
         };
         device = {
@@ -92,14 +106,15 @@
           ", XF86AudioPrev, exec, ${playerctl} previous"
           ", XF86AudioRaiseVolume, exec, ${pamixer} -i 3"
           "${leaderKey}, v, exec, ${cliphist} list | ${rofi} -dmenu | ${cliphist} decode | ${wl-copy}"
-          "$Control_L&Alt_L, v, exec, ${modifyClipboard}"
+          "${leaderKey}&Control_L, v, exec, ${modifyClipboard}"
+          "${leaderKey}&Shift_L, v, exec, ${paste-qrcode}"
           "${leaderKey}, e, exec, ${splatmoji} copy"
           "${leaderKey}, x, togglefloating"
           "${leaderKey}&Shift_L, e, exec, ${splatmoji} type"
           "${leaderKey}, F4, killactive, "
           # "${leaderKey}&Shift_L, F4, signal, 9"
-          "${leaderKey}, Return, exec, ${wezterm}"
-          "${leaderKey}&Shift_L, Return, exec, ${wezterm} start ${zsh} -c ${yazi}"
+          "${leaderKey}, Return, exec, ${uwsm} app -- ${wezterm}"
+          "${leaderKey}&Shift_L, Return, exec, ${uwsm} app -- ${wezterm} start ${zsh} -c ${yazi}"
           "${leaderKey}, f, fullscreen, 1"
           "${leaderKey}&Shift_L, f, fullscreen, 0"
           # "${leaderKey}, g, exec, ${toggleBordersExe}"
@@ -114,7 +129,7 @@
           "${leaderKey}&Shift_L, Up, swapwindow, u"
           "${leaderKey}&Shift_L, Down, swapwindow, d"
           "${leaderKey}&Shift_L, Right, swapwindow, r"
-          "${leaderKey}, space, exec, ${rofi} -show run"
+          "${leaderKey}, space, exec, ${uwsm} app -- ${rofi} -show run"
           # Select workspaces
           "${leaderKey}, 1, workspace, 1"
           "${leaderKey}, 2, workspace, 2"

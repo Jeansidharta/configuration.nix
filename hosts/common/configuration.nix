@@ -36,6 +36,10 @@
   services.udisks2.enable = true;
 
   programs.hyprland.enable = true;
+  programs.hyprland.withUWSM = true;
+  # hint electron apps to use wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   services.greetd = {
     settings = rec {
       initial_session =
@@ -43,7 +47,7 @@
           systemctl = "${pkgs.systemd}/bin/systemctl";
           startup = pkgs.writeScript "startup" ''
             ${systemctl} --user import-environment PATH
-            ${systemctl} --user start --wait hyprland-session.service
+            exec ${pkgs.uwsm}/bin/uwsm start hyprland
           '';
         in
         {
@@ -130,13 +134,18 @@
 
       warn-dirty = false;
       allowed-users = [ "@wheel" ];
+      trusted-users = [
+        "root"
+        "sidharta"
+      ];
       experimental-features = [
         "nix-command"
         "flakes"
       ];
     };
     extraOptions = ''
-      !include ${config.age.secrets.nix-github-token.path}
+            !include ${config.age.secrets.nix-github-token.path}
+      	  allow-import-from-derivation = true
     '';
   };
 

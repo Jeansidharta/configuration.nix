@@ -1,7 +1,7 @@
 {
   inputs = {
     utils.url = "github:numtide/flake-utils";
-    zig-flake.url = "github:mitchellh/zig-overlay";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     hyprland-zsock = {
       url = "github:Jeansidharta/hyprland-zsock";
       flake = false;
@@ -13,14 +13,13 @@
       self,
       nixpkgs,
       utils,
-      zig-flake,
       hyprland-zsock,
     }:
     utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        zig = zig-flake.outputs.packages.${system}.master;
+        zig = pkgs.zig;
         mkLibsLinkScript = ''
           mkdir -p libs
           rm --force libs/hyprland-zsock

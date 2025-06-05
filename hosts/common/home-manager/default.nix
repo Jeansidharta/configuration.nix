@@ -15,14 +15,13 @@
     ./eww.nix
     ./systemd-services.nix
   ];
-  nixpkgs.config.allowUnfree = true;
 
-  home.pointerCursor = {
-    name = "Bibata Translucent";
-    package = pkgs.bibata-cursors-translucent;
-    size = 48;
-    gtk.enable = true;
-  };
+  # home.pointerCursor = {
+  #   name = "Bibata Translucent";
+  #   package = pkgs.bibata-cursors-translucent;
+  #   size = 48;
+  #   gtk.enable = true;
+  # };
 
   home.packages = with pkgs; [
     # === Regular Desktop ===
@@ -119,13 +118,11 @@
 
   services.cliphist = {
     enable = true;
-    systemdTarget = "hyprland-session.target";
+    systemdTargets = [ "graphical-session.target" ];
   };
-  services.swww = {
-    enable = true;
-    systemdService = true;
-    systemdTarget = "hyprland-session.target";
-  };
+
+  services.swww.enable = true;
+
   programs.waypaper = {
     enable = true;
     settings = {

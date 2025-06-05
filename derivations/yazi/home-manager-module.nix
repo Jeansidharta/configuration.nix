@@ -199,7 +199,7 @@ in {
 
     programs.bash.initExtra = mkIf cfg.enableBashIntegration bashIntegration;
 
-    programs.zsh.initExtra = mkIf cfg.enableZshIntegration bashIntegration;
+    programs.zsh.initContent = mkIf cfg.enableZshIntegration bashIntegration;
 
     programs.fish.functions.${cfg.shellWrapperName} =
       mkIf cfg.enableFishIntegration fishIntegration;

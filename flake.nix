@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-xkbcommon.url = "github:NixOS/nixpkgs/c35a5a895f2517964e3e9be3d1eb8bb8c68db629";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     theme.url = "./theming";
     disko = {
@@ -15,18 +15,6 @@
     yazi-custom.url = "./derivations/yazi";
     plover-flake = {
       url = "github:dnaq/plover-flake/7586d37430266c16452b06ffbab36d66965f3a70";
-    };
-    hyprland = {
-      url = "github:hyprwm/Hyprland/v0.45.2";
-    };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-    };
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-    };
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -57,7 +45,7 @@
     };
     envsub = {
       url = "./derivations/envsub";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      # inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     backlight = {
       url = "./hosts/common/home-manager/eww/scripts/backlight";
@@ -90,14 +78,10 @@
       agenix,
       disko,
       nix-index-database,
-      hyprland,
       plover-flake,
       nixpkgs-xkbcommon,
       swww,
       yazi-custom,
-      hyprlock,
-      hyprpicker,
-      hypridle,
       envsub,
       splatmoji,
       neovim-with-plugins,
@@ -149,7 +133,6 @@
                 ++ [
                   theme.outputs.home-manager-module
                   ./hosts/common/home-manager/default.nix
-                  hyprland.homeManagerModules.default
                   yazi-custom.homeManagerModules.default
                 ];
             };
@@ -162,7 +145,6 @@
         ./hosts/common/configuration.nix
         ./hardware/target/hardware-configuration.nix
         ./hardware/target/disko-config.nix
-        hyprland.nixosModules.default
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         ("${disko}/module.nix")
@@ -170,16 +152,8 @@
         {
           nixpkgs.overlays = [
             yazi-custom.overlays.default
-            hyprlock.overlays.default
-            hyprland.overlays.default
-            hypridle.overlays.default
-            hyprpicker.overlays.default
             swww.overlays.default
             (final: prev: {
-              hyprlock = hyprlock.packages.${system}.default;
-              hypridle = hypridle.packages.${system}.default;
-              hyprland = hyprland.packages.${system}.default;
-
               xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${system}.python311Packages.xkbcommon;
             })
           ];

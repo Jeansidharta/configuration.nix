@@ -115,7 +115,7 @@ in
          fi
       '';
 
-      programs.zsh.initExtra = mkIf cfg.enableZshIntegration ''
+      programs.zsh.initContent = mkIf cfg.enableZshIntegration ''
         if [[ $TERM != "dumb" ]]; then
           eval "$(${ewwCmd} shell-completions --shell zsh)"
         fi
