@@ -57,6 +57,7 @@
     xh # A CURL replacement
     du-dust # A more modern du
     fselect # A file finder with SQL syntax
+    mpc
 
     (plover.with-plugins (ps: [
       ps.plover-lapwing-aio
@@ -137,4 +138,16 @@
     enableZshIntegration = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };
+
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/sidharta/music";
+    extraConfig = ''
+      audio_output {
+        type            "pipewire"
+        name            "PipeWire Sound Server"
+      }
+    '';
+  };
+  programs.ncmpcpp.enable = true;
 }

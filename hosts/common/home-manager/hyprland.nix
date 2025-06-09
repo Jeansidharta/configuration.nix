@@ -13,7 +13,7 @@
         splatmoji = "${pkgs.splatmoji}/bin/splatmoji";
         wezterm = "${pkgs.wezterm}/bin/wezterm";
         rofi = "${pkgs.rofi-wayland-unwrapped}/bin/rofi";
-        mpcExe = "${pkgs.mpc-cli}/bin/mpc";
+        mpc = "${pkgs.mpc}/bin/mpc";
         uwsm = "${pkgs.uwsm}/bin/uwsm";
         # notifySend = "${pkgs.libnotify}/bin/notify-send";
         zsh = "${pkgs.zsh}/bin/zsh";
@@ -38,9 +38,25 @@
             rm -f "$IMAGE_FILE"
           ''
         );
+        updateSongTags = (
+          let
+            tmsu = "${pkgs.tmsu}/bin/tmsu";
+          in
+          pkgs.writeScript "updateSongTags" ''
+            music_dir="/home/sidharta/music"
+            database="$music_dir/.tmsu/db"
+            filename=$(${mpc} current -f %file%)
+            filepath="$music_dir/$filename"
+            tags=$(${tmsu} --database "$database" tags --name never "$filepath")
+            ${wezterm} start --always-new-process -- bash -c "
+              newtags=\$(${vipe} --suffix=\"$filename\" <<< \"$tags\")
+              ${tmsu} --database \"$database\" untag --all \"$filepath\"
+              ${tmsu} --database \"$database\" tag \"$filepath\" \$newtags
+            "
+          ''
+        );
 
         modifyClipboard = pkgs.writeScript "write-script" ''
-
           ${wezterm} start -- bash -c "export EDITOR=${neovim} ; ${wl-paste} | ${vipe} | ${wl-copy} && exit"
         '';
       in
@@ -86,7 +102,8 @@
         monitor = [
           # General rule so any new monitor is properly placed
           ", preferred, auto, 1"
-          "eDP-1, 1366x768, 0x0, 1"
+          "HDMI-A-1, preferred, 0x0, 1"
+          "HDMI-A-2, preferred, 1920x700, 1, transform, 1"
         ];
         windowrulev2 = [
           "float, class:waypaper"
@@ -131,24 +148,29 @@
           "${leaderKey}&Shift_L, Right, swapwindow, r"
           "${leaderKey}, space, exec, ${uwsm} app -- ${rofi} -show run"
           # Select workspaces
-          "${leaderKey}, 1, workspace, 1"
-          "${leaderKey}, 2, workspace, 2"
-          "${leaderKey}, 3, workspace, 3"
-          "${leaderKey}, 4, workspace, 4"
-          "${leaderKey}, 5, workspace, 5"
-          "${leaderKey}, 6, workspace, 6"
-          "${leaderKey}, 7, workspace, 7"
-          "${leaderKey}, 8, workspace, 8"
-          "${leaderKey}, 9, workspace, 9"
-          "${leaderKey}&Shift_L, 1, movetoworkspace, 1"
-          "${leaderKey}&Shift_L, 2, movetoworkspace, 2"
-          "${leaderKey}&Shift_L, 3, movetoworkspace, 3"
-          "${leaderKey}&Shift_L, 4, movetoworkspace, 4"
-          "${leaderKey}&Shift_L, 5, movetoworkspace, 5"
-          "${leaderKey}&Shift_L, 6, movetoworkspace, 6"
-          "${leaderKey}&Shift_L, 7, movetoworkspace, 7"
-          "${leaderKey}&Shift_L, 8, movetoworkspace, 8"
-          "${leaderKey}&Shift_L, 9, movetoworkspace, 9"
+          "${leaderKey}&Ctrl_L, 1, focusmonitor, 0"
+          "${leaderKey}&Ctrl_L, 2, focusmonitor, 1"
+          "${leaderKey}, 1, workspace, r~1"
+          "${leaderKey}, 1, workspace, r~1"
+          "${leaderKey}, 2, workspace, r~2"
+          "${leaderKey}, 3, workspace, r~3"
+          "${leaderKey}, 4, workspace, r~4"
+          "${leaderKey}, 5, workspace, r~5"
+          "${leaderKey}, 6, workspace, r~6"
+          "${leaderKey}, 7, workspace, r~7"
+          "${leaderKey}, 8, workspace, r~8"
+          "${leaderKey}, 9, workspace, r~9"
+          "${leaderKey}&Ctrl_L&Shift_L, 1, movewindow, mon:0"
+          "${leaderKey}&Ctrl_L&Shift_L, 2, movewindow, mon:1"
+          "${leaderKey}&Shift_L, 1, movetoworkspace, r~1"
+          "${leaderKey}&Shift_L, 2, movetoworkspace, r~2"
+          "${leaderKey}&Shift_L, 3, movetoworkspace, r~3"
+          "${leaderKey}&Shift_L, 4, movetoworkspace, r~4"
+          "${leaderKey}&Shift_L, 5, movetoworkspace, r~5"
+          "${leaderKey}&Shift_L, 6, movetoworkspace, r~6"
+          "${leaderKey}&Shift_L, 7, movetoworkspace, r~7"
+          "${leaderKey}&Shift_L, 8, movetoworkspace, r~8"
+          "${leaderKey}&Shift_L, 9, movetoworkspace, r~9"
           "${leaderKey}, Left, movefocus, l"
           "${leaderKey}, Down, movefocus, d"
           "${leaderKey}, Up, movefocus, u"
@@ -161,9 +183,13 @@
           "${leaderKey}, i, moveactive,  0 -10"
           "${leaderKey}, k, moveactive,  0 10"
           "${leaderKey}, l, moveactive,  10 0"
-          "Shift_L, XF86AudioNext, exec, ${mpcExe} next"
-          "Shift_L, XF86AudioPlay, exec, ${mpcExe} toggle"
-          "Shift_L, XF86AudioPrev, exec, ${mpcExe} prev"
+          "Shift_L, XF86AudioLowerVolume, exec, ${mpc} volume -10"
+          "Shift_L, XF86AudioNext, exec, ${mpc} next"
+          "Shift_L, XF86AudioPlay, exec, ${mpc} toggle"
+          "Shift_L, XF86AudioPrev, exec, ${mpc} prev"
+          "Shift_L, XF86AudioRaiseVolume, exec, ${mpc} volume +10"
+          "Shift_L, XF86AudioRaiseVolume, exec, ${mpc} volume +10"
+          ", XF86Tools, exec, ${updateSongTags}"
         ];
       };
   };
