@@ -1,23 +1,66 @@
 {
   inputs = {
-    naersk.url = "github:nix-community/naersk/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     utils.url = "github:numtide/flake-utils";
+    zig-flake.url = "github:mitchellh/zig-overlay";
+    hyprland-zsock = {
+      url = "github:Jeansidharta/hyprland-zsock";
+      flake = false;
+    };
   };
-
-  outputs = { nixpkgs, utils, naersk, ... }:
-    utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      utils,
+      zig-flake,
+      hyprland-zsock,
+    }:
+    utils.lib.eachDefaultSystem (
+      system:
       let
-        system = "x86_64-linux";
+        project_name = "bar-selector";
+        version = "0.0.1";
+        deps = {
+          hyprland-zsock = hyprland-zsock;
+        };
+
         pkgs = nixpkgs.legacyPackages.${system};
-        naersk-lib = pkgs.callPackage naersk { };
+        # zig = zig-flake.outputs.packages.${system}.master;
+        zig = pkgs.zig;
+        mkLibsLinkScript = ''
+          rm --force libs
+          ln -s ${pkgs.linkFarm (project_name + "-deps") deps} libs
+        '';
+        package = pkgs.stdenv.mkDerivation {
+          pname = project_name;
+          version = version;
+          src = ./.;
+          buildInputs = [
+            zig
+          ];
+
+          buildPhase = ''
+            cp --no-preserve=mode $src/* . -r
+            ${mkLibsLinkScript}
+
+            zig build \
+              --prefix $out \
+              --release=safe \
+              -Doptimize=ReleaseSafe \
+              -Ddynamic-linker=$(cat $NIX_BINTOOLS/nix-support/dynamic-linker) \
+              --cache-dir cache \
+              --global-cache-dir global \
+              --summary all
+          '';
+        };
       in
       {
-        defaultPackage = naersk-lib.buildPackage { src = ./.; buildInputs = [pkgs.eww pkgs.bspwm];};
-
-        devShell = with pkgs; mkShell {
-          buildInputs = [ cargo rustc rustfmt pre-commit rustPackages.clippy eww bspwm];
-          RUST_SRC_PATH = rustPlatform.rustLibSrc;
+        packages.default = package;
+        devShell = pkgs.mkShell {
+          shellHook = mkLibsLinkScript;
+          buildInputs = [
+            zig
+          ];
         };
       }
     );

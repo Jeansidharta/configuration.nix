@@ -1,0 +1,15 @@
+.{
+    .name = .eww_bar_selector,
+    .fingerprint = 0x6a7268ea1250d9af,
+    .version = "0.0.0",
+    .dependencies = .{
+        .@"hyprland-zsock" = .{
+            .path = "./libs/hyprland-zsock",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

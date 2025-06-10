@@ -29,7 +29,7 @@ let
   # rawPkgsStable = nixpkgs-stable.legacyPackages.${system};
   rawPkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
 
-  eww-bar-selector = eww-bar-selector-flake.outputs.defaultPackage.${system};
+  eww-bar-selector = eww-bar-selector-flake.outputs.packages.${system}.default;
   backlight = backlight-flake.outputs.defaultPackage.${system};
   workspaces-report = workspaces-report-flake.outputs.packages.${system}.default;
   window-title-watcher = window-title-watcher-flake.outputs.packages.${system}.default;
