@@ -4,7 +4,7 @@
   (eventbox
     :cursor "pointer"
     :onclick
-      "hyprctl dispatch monitor \"${monitor_name}\" && hyprctl dispatch workspace \"${workspace.name}\""
+      "hyprctl dispatch focusmonitor \"${monitor_name}\" && hyprctl dispatch workspace r~\"${workspace.name}\""
     :class "desktop-box ${workspace.isFocused ? "focused" : "unfocused"} ${workspace.windowsCount == 0 ? "free" : "unfree"} ${workspace.isUrgent ? "urgent" : "unurgent"}"
     (box
       :width 10
@@ -22,7 +22,7 @@
     :class "monitor-box ${monitor.isFocused ? "focused" : "unfocused"}"
     (eventbox
       :cursor "pointer"
-      :onscroll { monitor.isFocused ? "hyprctl dispatch workspace $((next=$(hyprctl activeworkspace -j | jq .id) $([[ \"{}\" = \"up\" ]] && echo \"+1\" || echo \"-1\"),next < 1 ? 9 : next > 9 ? 1 : next))" : ""}
+      :onscroll { monitor.isFocused ? "hyprctl dispatch workspace r~$((next=$(hyprctl activeworkspace -j | jq \".name|tonumber\") $([[ \"{}\" = \"up\" ]] && echo \"+1\" || echo \"-1\"),next < 1 ? 9 : next > 9 ? 1 : next))" : ""}
      (box
         :width 30
         :height 30
