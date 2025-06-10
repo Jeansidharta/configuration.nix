@@ -3,11 +3,11 @@
     "hyprland-zsock": {
       "flake": false,
       "locked": {
-        "lastModified": 1749129934,
-        "narHash": "sha256-giAmvODqqq7C8Tncje592a1uwqhtHPBrALacJpWtDhY=",
+        "lastModified": 1749552749,
+        "narHash": "sha256-4+wPDmdL/6xev1dJazqIUoBX3pVidYi83kAJmEwCepI=",
         "owner": "Jeansidharta",
         "repo": "hyprland-zsock",
-        "rev": "1cd3defd81b694050be53eaee6f6e2bb2f94f36b",
+        "rev": "e552e404a92f6fe68cc72764b31c5b70d025c027",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1749024892,
-        "narHash": "sha256-OGcDEz60TXQC+gVz5sdtgGJdKVYr6rwdzQKuZAJQpCA=",
+        "lastModified": 1749494155,
+        "narHash": "sha256-FG4DEYBpROupu758beabUk9lhrblSf5hnv84v1TLqMc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8f1b52b04f2cb6e5ead50bd28d76528a2f0380ef",
+        "rev": "88331c17ba434359491e8d5889cce872464052c2",
         "type": "github"
       },
       "original": {

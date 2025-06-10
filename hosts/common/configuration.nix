@@ -170,6 +170,7 @@
   networking.firewall.allowedTCPPorts = [
     22
     4030
+    8080
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 

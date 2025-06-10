@@ -6,7 +6,7 @@ local config = {}
 config.use_fancy_tab_bar = false
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.9
 config.audible_bell = "Disabled"
 config.color_scheme = "mainTheme"
 

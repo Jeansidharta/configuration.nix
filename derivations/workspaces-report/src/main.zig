@@ -7,20 +7,36 @@ const Allocator = std.mem.Allocator;
 
 const Workspace = struct {
     name: []const u8,
-    id: ?u32 = null,
+    id: ?i32 = null,
     isFocused: bool = false,
     isUrgent: bool = false,
     windowsCount: u32 = 0,
+
+    // Mainly for debugging
+    pub fn format(
+        self: @This(),
+        comptime _: []const u8,
+        _: std.fmt.FormatOptions,
+        writer: anytype,
+    ) !void {
+        try writer.print("{s} (id: {?}, F: {s}, U: {s}, W: {})", .{
+            self.name,
+            self.id,
+            if (self.isFocused) "Y" else "N",
+            if (self.isUrgent) "Y" else "N",
+            self.windowsCount,
+        });
+    }
 };
 
 const Monitor = struct {
-    id: u32,
+    id: i32,
     name: []const u8,
-    isFocused: bool = true,
+    isFocused: bool = false,
     workspaces: std.ArrayList(Workspace),
-    focusedWorkspace: ?*Workspace,
+    focusedWorkspace: ?usize,
 
-    pub fn init(alloc: std.mem.Allocator, id: u32, workspaces: []const Workspace) !@This() {
+    pub fn init(alloc: std.mem.Allocator, id: i32, workspaces: []const Workspace) !@This() {
         const monitor: Monitor = .{ .id = id, .workspaces = .init(alloc) };
         try monitor.workspaces.appendSlice(workspaces);
         return monitor;
@@ -38,16 +54,36 @@ const Monitor = struct {
         try jw.write(self.workspaces.items);
         try jw.endObject();
     }
+
+    // Mainly for debugging
+    pub fn format(
+        self: @This(),
+        comptime _: []const u8,
+        _: std.fmt.FormatOptions,
+        writer: anytype,
+    ) !void {
+        try writer.print("{s} (id: {}, F: {s}, FW: {?})", .{
+            self.name,
+            self.id,
+            if (self.isFocused) "Y" else "N",
+            self.focusedWorkspace,
+        });
+
+        for (self.workspaces.items) |workspace| {
+            try writer.print("\n\t{any}", .{workspace});
+        }
+        try writer.print("\n", .{});
+    }
 };
 
 const WorkspaceLocation = struct {
-    monitor: *Monitor,
-    workspace: *Workspace,
+    monitor: usize,
+    workspace: usize,
 };
 
 const MonitorsState = struct {
     monitors: std.ArrayList(Monitor),
-    focusedMonitor: ?*Monitor,
+    focusedMonitor: ?usize,
     alloc: Allocator,
 
     pub fn init(alloc: Allocator) @This() {
@@ -58,7 +94,7 @@ const MonitorsState = struct {
         };
     }
 
-    pub fn addWorkspace(self: *@This(), monitorId: u32, workspaceId: u32, workspaceName: []const u8, windows: u32) !void {
+    pub fn addWorkspace(self: *@This(), monitorId: i32, workspaceId: i32, workspaceName: []const u8, windows: u32) !void {
         for (self.monitors.items) |*monitor| {
             if (monitor.id != monitorId) continue;
             for (monitor.workspaces.items) |*workspace| {
@@ -73,9 +109,9 @@ const MonitorsState = struct {
     /// Creates a new monitor with 9 pre-loaded workspaces.
     pub fn addMonitor(
         self: *@This(),
-        id: u32,
+        id: i32,
         name: []const u8,
-        activeWorkspace: struct { id: u32, name: []const u8 },
+        activeWorkspace: struct { id: i32, name: []const u8 },
         focused: bool,
     ) !void {
         var newMonitor: Monitor = .{
@@ -95,26 +131,31 @@ const MonitorsState = struct {
             .{ .name = "8" },
             .{ .name = "9" },
         });
-        for (newMonitor.workspaces.items) |*workspace| {
+        for (newMonitor.workspaces.items, 0..) |*workspace, workspaceIndex| {
             if (std.mem.eql(u8, workspace.name, activeWorkspace.name)) {
                 workspace.isFocused = true;
                 workspace.id = activeWorkspace.id;
+                newMonitor.focusedWorkspace = workspaceIndex;
             }
         }
         try self.monitors.append(newMonitor);
         if (focused) {
-            self.focusedMonitor = &self.monitors.items[self.monitors.items.len - 1];
-            self.focusedMonitor.?.isFocused = true;
+            self.setFocusedMonitor(self.monitors.items.len - 1);
         }
     }
 
     /// Will try to locate a workspace with a matching ID on all monitors,
-    /// regardless if they're focused or not.
+    /// regardless if they're focused or not.k
     /// The returning pointer's lifetime should match that of the self.
-    pub fn findWorkspaceWithId(self: *@This(), id: u32) ?WorkspaceLocation {
-        for (self.monitors.items) |*monitor| {
-            for (monitor.workspaces.items) |*workspace| {
-                if (workspace.id == id) return .{ .workspace = workspace, .monitor = monitor };
+    pub fn findWorkspaceWithId(self: *@This(), id: i32) ?WorkspaceLocation {
+        for (self.monitors.items, 0..) |monitor, monitorIndex| {
+            for (monitor.workspaces.items, 0..) |workspace, workspaceIndex| {
+                if (workspace.id == id) {
+                    return .{
+                        .workspace = workspaceIndex,
+                        .monitor = monitorIndex,
+                    };
+                }
             }
         }
         return null;
@@ -125,20 +166,21 @@ const MonitorsState = struct {
     /// not found. The returning pointer's lifetime should match that of the self.
     pub fn findWorkspaceWithName(self: *@This(), name: []const u8) ?WorkspaceLocation {
         if (self.monitors.items.len == 0) return null;
-        const firstMonitorToCheck = self.focusedMonitor orelse &self.monitors.items[0];
-        for (firstMonitorToCheck.workspaces.items) |*workspace| {
+        const firstMonitorToCheckIndex = self.focusedMonitor orelse 0;
+        const firstMonitorToCheck = self.monitors.items[firstMonitorToCheckIndex];
+        for (firstMonitorToCheck.workspaces.items, 0..) |workspace, workspaceIndex| {
             if (std.mem.eql(u8, workspace.name, name)) return .{
-                .workspace = workspace,
-                .monitor = firstMonitorToCheck,
+                .workspace = workspaceIndex,
+                .monitor = firstMonitorToCheckIndex,
             };
         }
-        for (self.monitors.items) |*monitor| {
+        for (self.monitors.items, 0..) |*monitor, monitorIndex| {
             // We already checked the focused monitor. Skip it.
             if (monitor.id == firstMonitorToCheck.id) continue;
-            for (monitor.workspaces.items) |*workspace| {
+            for (monitor.workspaces.items, 0..) |*workspace, workspaceIndex| {
                 if (std.mem.eql(u8, workspace.name, name)) return .{
-                    .workspace = workspace,
-                    .monitor = monitor,
+                    .workspace = workspaceIndex,
+                    .monitor = monitorIndex,
                 };
             }
         }
@@ -155,36 +197,72 @@ const MonitorsState = struct {
         try stdout.writeByte('\n');
     }
 
+    pub fn findWorkspaceWithIdOrName(self: *@This(), id: i32, name: []const u8) ?WorkspaceLocation {
+        return self.findWorkspaceWithId(id) orelse
+            self.findWorkspaceWithName(name) orelse
+            null;
+    }
+
+    pub fn setFocusedMonitor(self: *@This(), monitorIndex: usize) void {
+        if (self.focusedMonitor) |focusedMonitorIndex| {
+            const focusedMonitor = &self.monitors.items[focusedMonitorIndex];
+            focusedMonitor.isFocused = false;
+        }
+        self.focusedMonitor = monitorIndex;
+        self.monitors.items[monitorIndex].isFocused = true;
+    }
+
+    pub fn setFocusedWorkspace(self: *@This(), monitorIndex: usize, workspaceIndex: usize) void {
+        self.setFocusedMonitor(monitorIndex);
+        const monitor = &self.monitors.items[monitorIndex];
+        if (monitor.focusedWorkspace) |focusedWorkspaceIndex| {
+            const focusedWorkspace = &monitor.workspaces.items[focusedWorkspaceIndex];
+            focusedWorkspace.isFocused = false;
+        }
+        monitor.focusedWorkspace = workspaceIndex;
+        monitor.workspaces.items[workspaceIndex].isFocused = true;
+    }
+
     /// Will mark the found workspace as focused.
     pub fn focusWorkspace(self: *@This(), workspaceIdentifier: union(enum) {
-        id: u32,
+        id: i32,
         name: []const u8,
         /// Will first try to use the Id, and then try to use the name.
-        idOrName: struct { id: u32, name: []const u8 },
+        idOrName: struct { id: i32, name: []const u8 },
     }) void {
-        const idOpt, const workspace =
+        const idOpt, const workspaceLocation =
             switch (workspaceIdentifier) {
-            .id => |id| .{ id, self.findWorkspaceWithId(id) orelse return },
-            .name => |name| .{ null, self.findWorkspaceWithName(name) orelse return },
-            .idOrName => |idOrName| .{
-                idOrName.id,
-                self.findWorkspaceWithId(idOrName.id) orelse
-                    self.findWorkspaceWithName(idOrName.name) orelse
-                    return,
-            },
-        };
-        workspace.workspace.isFocused = true;
-        if (idOpt) |id| workspace.workspace.id = id;
-        if (self.focusedMonitor) |focusedMonitor| {
-            focusedMonitor.isFocused = false;
-            if (focusedMonitor.focusedWorkspace) |focusedWorkspace| {
-                focusedWorkspace.isFocused = false;
-            }
+                .id => |id| .{ id, self.findWorkspaceWithId(id) orelse return },
+                .name => |name| .{ null, self.findWorkspaceWithName(name) orelse return },
+                .idOrName => |idOrName| .{
+                    idOrName.id,
+                    self.findWorkspaceWithIdOrName(idOrName.id, idOrName.name) orelse return,
+                },
+            };
+        const monitor = &self.monitors.items[workspaceLocation.monitor];
+        const workspace = &monitor.workspaces.items[workspaceLocation.workspace];
+
+        if (idOpt) |id| {
+            workspace.id = id;
         }
-        self.focusedMonitor = workspace.monitor;
-        workspace.monitor.isFocused = true;
-        workspace.monitor.focusedWorkspace = workspace.workspace;
-        workspace.workspace.isFocused = true;
+        self.setFocusedWorkspace(workspaceLocation.monitor, workspaceLocation.workspace);
+    }
+
+    pub fn focusMonitor(self: *@This(), monitorName: []const u8, workspaceId: i32) void {
+        const monitorIndex = loop: {
+            for (self.monitors.items, 0..) |monitor, monitorIndex| {
+                if (std.mem.eql(u8, monitor.name, monitorName)) break :loop monitorIndex;
+            }
+            return;
+        };
+        const workspaceIndex = loop: {
+            for (self.monitors.items[monitorIndex].workspaces.items, 0..) |workspace, workspaceIndex| {
+                if (workspace.id == workspaceId) break :loop workspaceIndex;
+            }
+            return;
+        };
+
+        self.setFocusedWorkspace(monitorIndex, workspaceIndex);
     }
 };
 
@@ -225,9 +303,12 @@ pub fn main() !void {
         defer currentWorkspace.deinit();
 
         if (monitors.findWorkspaceWithId(currentWorkspace.parsed.id)) |activeWorkspace| {
-            activeWorkspace.workspace.isFocused = true;
+            const monitor = &monitors.monitors.items[activeWorkspace.monitor];
+            const workspace = &monitor.workspaces.items[activeWorkspace.workspace];
+            workspace.isFocused = true;
+            monitor.isFocused = true;
             monitors.focusedMonitor = activeWorkspace.monitor;
-            monitors.focusedMonitor.?.focusedWorkspace = activeWorkspace.workspace;
+            monitor.focusedWorkspace = activeWorkspace.workspace;
         }
     }
 
@@ -248,42 +329,54 @@ pub fn main() !void {
                 const workspaceLocation = monitors.findWorkspaceWithName(
                     window.workspaceName,
                 ) orelse continue;
-                workspaceLocation.workspace.windowsCount += 1;
+                monitors.monitors.items[workspaceLocation.monitor]
+                    .workspaces.items[workspaceLocation.workspace]
+                    .windowsCount += 1;
                 try monitors.print(stdout.any());
             },
             .workspacev2 => |workspace| {
-                const name = workspace.workspaceName;
                 monitors.focusWorkspace(.{
-                    .idOrName = .{ .id = workspace.workspaceId, .name = name },
+                    .idOrName = .{
+                        .id = workspace.workspaceId,
+                        .name = workspace.workspaceName,
+                    },
                 });
                 try monitors.print(stdout.any());
             },
             .createworkspacev2 => |createWorkspace| {
-                const workspaceLocation = monitors.findWorkspaceWithId(createWorkspace.workspaceId) orelse
-                    monitors.findWorkspaceWithName(createWorkspace.workspaceName) orelse
+                const workspaceLocation = monitors.findWorkspaceWithIdOrName(createWorkspace.workspaceId, createWorkspace.workspaceName) orelse
                     continue;
 
-                workspaceLocation.workspace.windowsCount = 0;
+                const workspace = &monitors.monitors.items[workspaceLocation.monitor]
+                    .workspaces.items[workspaceLocation.workspace];
+                workspace.windowsCount = 0;
+                workspace.id = createWorkspace.workspaceId;
                 try monitors.print(stdout.any());
             },
-
             .movewindowv2 => |movewindow| {
-                const workspaceLocation = monitors.findWorkspaceWithId(movewindow.workspaceId) orelse
-                    monitors.findWorkspaceWithName(movewindow.workspaceName) orelse
-                    continue;
+                const workspaceLocation = monitors.findWorkspaceWithIdOrName(
+                    movewindow.workspaceId,
+                    movewindow.workspaceName,
+                ) orelse continue;
 
-                workspaceLocation.workspace.windowsCount += 1;
+                const wp = &monitors.monitors.items[workspaceLocation.monitor]
+                    .workspaces.items[workspaceLocation.workspace];
+
+                wp.windowsCount += 1;
+                wp.id = movewindow.workspaceId;
 
                 try monitors.print(stdout.any());
             },
             .focusedmonv2 => |focusMon| {
-                const workspaceId = focusMon.workspaceId;
-                monitors.focusWorkspace(.{ .id = workspaceId });
+                monitors.focusMonitor(focusMon.monitorName, focusMon.workspaceId);
                 try monitors.print(stdout.any());
             },
             .destroyworkspacev2 => |destroyWorkspace| {
-                const monitorWorkspace = monitors.findWorkspaceWithId(destroyWorkspace.workspaceId) orelse continue;
-                monitorWorkspace.workspace.windowsCount = 0;
+                const monitorWorkspace = monitors.findWorkspaceWithIdOrName(destroyWorkspace.workspaceId, destroyWorkspace.workspaceName) orelse continue;
+                const wp = &monitors.monitors.items[monitorWorkspace.monitor]
+                    .workspaces.items[monitorWorkspace.workspace];
+                wp.windowsCount = 0;
+                wp.id = destroyWorkspace.workspaceId;
                 try monitors.print(stdout.any());
             },
             else => {},

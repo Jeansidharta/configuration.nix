@@ -8,6 +8,7 @@
 {
   imports = [
     ./hyprland.nix
+    ./waypaper.nix
     ./hyprlock.nix
     ./git.nix
     ./starship.nix
@@ -123,15 +124,6 @@
   };
 
   services.swww.enable = true;
-
-  programs.waypaper = {
-    enable = true;
-    settings = {
-      folder = "/home/sidharta/wallpapers";
-      subfolders = true;
-      sort = "random";
-    };
-  };
 
   programs.wezterm = {
     enable = true;

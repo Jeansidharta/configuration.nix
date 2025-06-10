@@ -4,7 +4,7 @@
   (eventbox
     :cursor "pointer"
     :onclick
-      "hyprctl dispatch workspace \"${workspace.name}\""
+      "hyprctl dispatch monitor \"${monitor_name}\" && hyprctl dispatch workspace \"${workspace.name}\""
     :class "desktop-box ${workspace.isFocused ? "focused" : "unfocused"} ${workspace.windowsCount == 0 ? "free" : "unfree"} ${workspace.isUrgent ? "urgent" : "unurgent"}"
     (box
       :width 10
