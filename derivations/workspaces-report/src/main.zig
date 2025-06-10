@@ -205,8 +205,8 @@ const MonitorsState = struct {
 
     pub fn setFocusedMonitor(self: *@This(), monitorIndex: usize) void {
         if (self.focusedMonitor) |focusedMonitorIndex| {
-            const focusedMonitor = &self.monitors.items[focusedMonitorIndex];
-            focusedMonitor.isFocused = false;
+            self.monitors.items[focusedMonitorIndex]
+                .isFocused = false;
         }
         self.focusedMonitor = monitorIndex;
         self.monitors.items[monitorIndex].isFocused = true;
@@ -216,8 +216,8 @@ const MonitorsState = struct {
         self.setFocusedMonitor(monitorIndex);
         const monitor = &self.monitors.items[monitorIndex];
         if (monitor.focusedWorkspace) |focusedWorkspaceIndex| {
-            const focusedWorkspace = &monitor.workspaces.items[focusedWorkspaceIndex];
-            focusedWorkspace.isFocused = false;
+            monitor.workspaces.items[focusedWorkspaceIndex]
+                .isFocused = false;
         }
         monitor.focusedWorkspace = workspaceIndex;
         monitor.workspaces.items[workspaceIndex].isFocused = true;
@@ -248,7 +248,7 @@ const MonitorsState = struct {
         self.setFocusedWorkspace(workspaceLocation.monitor, workspaceLocation.workspace);
     }
 
-    pub fn focusMonitor(self: *@This(), monitorName: []const u8, workspaceId: i32) void {
+    pub fn focusMonitor(self: *@This(), monitorName: []const u8, workspaceName: []const u8) void {
         const monitorIndex = loop: {
             for (self.monitors.items, 0..) |monitor, monitorIndex| {
                 if (std.mem.eql(u8, monitor.name, monitorName)) break :loop monitorIndex;
@@ -257,7 +257,7 @@ const MonitorsState = struct {
         };
         const workspaceIndex = loop: {
             for (self.monitors.items[monitorIndex].workspaces.items, 0..) |workspace, workspaceIndex| {
-                if (workspace.id == workspaceId) break :loop workspaceIndex;
+                if (std.mem.eql(u8, workspace.name, workspaceName)) break :loop workspaceIndex;
             }
             return;
         };
@@ -367,8 +367,8 @@ pub fn main() !void {
 
                 try monitors.print(stdout.any());
             },
-            .focusedmonv2 => |focusMon| {
-                monitors.focusMonitor(focusMon.monitorName, focusMon.workspaceId);
+            .focusedmon => |focusMon| {
+                monitors.focusMonitor(focusMon.monitorName, focusMon.workspaceName);
                 try monitors.print(stdout.any());
             },
             .destroyworkspacev2 => |destroyWorkspace| {
@@ -379,7 +379,7 @@ pub fn main() !void {
                 wp.id = destroyWorkspace.workspaceId;
                 try monitors.print(stdout.any());
             },
-            else => {},
+            else => continue,
         }
     }
 }
