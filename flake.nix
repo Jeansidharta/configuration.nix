@@ -33,7 +33,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     swww = {
-      url = "github:LGFae/swww";
+      url = "github:LGFae/swww/a07595cf607ed512bc0e4b223d28e5ed91854214";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     neovim-with-plugins = {
