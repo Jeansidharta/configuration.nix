@@ -105,9 +105,11 @@
           # General rule so any new monitor is properly placed
           ", preferred, auto, 1"
           "HDMI-A-1, preferred, 0x0, 1"
-          "HDMI-A-2, preferred, 1920x700, 1, transform, 1"
+          "HDMI-A-2, preferred, 19200x10800, 1, transform, 1"
         ];
         windowrule = [
+          # Hide helldivers unnecessary window
+          "workspace special:hidden silent, initialClass:steam_app_553850, initialTitle:negative:(.+)"
           "size 600 600, class:waypaper"
           "move 50%-300 100%-600, class:waypaper"
           "pin, class:waypaper"
