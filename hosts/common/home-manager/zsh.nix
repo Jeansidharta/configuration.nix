@@ -37,7 +37,7 @@ in
 
       "cdtmp" = "cd $(mktemp --dir)";
 
-      "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net -- ";
+      "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net --offline -- ";
       "replace" = "${replace}";
     };
     # initExtra = ''
