@@ -23,4 +23,5 @@
     8000
     8080
   ];
+  security.pki.certificateFiles = [ ../../mitmproxy-ca-cert.pem ];
 }
