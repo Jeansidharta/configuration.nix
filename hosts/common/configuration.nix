@@ -103,6 +103,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "tor"
     ];
     shell = pkgs.zsh;
     packages = [ pkgs.home-manager ];
@@ -165,6 +166,15 @@
   };
   programs.nix-ld.enable = true;
   services.openssh.enable = true;
+
+  services.tor = {
+    enable = true;
+    client.enable = true;
+    controlSocket.enable = true;
+    settings = {
+      HashedControlPassword = "16:DB07FBCA1CE2B6A360D7B98EF09D2877ECEE44B0750DD72DCFA3DE0263";
+    };
+  };
 
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
