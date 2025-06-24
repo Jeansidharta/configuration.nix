@@ -8,6 +8,7 @@
     extraVariables = {
       enableBacklight = "false";
       enableBattery = "false";
+      topBarMonitor = "HDMI-A-1";
     };
   };
   home.packages = [

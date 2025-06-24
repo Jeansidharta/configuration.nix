@@ -47,7 +47,7 @@
     {var == "true" ? "(${module})" : ""}))
 
 (defwindow top_bar
-    :monitor '["<primary>", "HDMI-A-1"]'
+    :monitor '["<primary>", "@topBarMonitor@"]'
     :geometry
     (geometry
        :x "0%"

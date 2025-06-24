@@ -13,6 +13,7 @@
     extraVariables = {
       enableBacklight = "true";
       enableBattery = "true";
+      topBarMonitor = "eDP-1";
       enableMedia = "false";
     };
   };
