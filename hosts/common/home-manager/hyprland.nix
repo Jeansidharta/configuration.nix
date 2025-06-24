@@ -7,6 +7,7 @@
     settings =
       let
         hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
+        satty = "${pkgs.satty}/bin/satty";
         jq = "${pkgs.jq}/bin/jq";
         hyprctl = "${pkgs.hyprland}/bin/hyprctl";
         pamixer = "${pkgs.pamixer}/bin/pamixer";
@@ -152,8 +153,8 @@
         ];
         bind =
           [
-            ", Print, exec, ${hyprshot} --mode region --clipboard-only"
-            "Control_L, Print, exec, ${hyprshot} --mode active --mode output --clipboard-only"
+            ", Print, exec, ${hyprshot} --mode region --raw | ${satty} --filename -"
+            "Control_L, Print, exec, ${hyprshot} --mode active --mode output --raw | ${satty} --filename -"
             ", XF86AudioLowerVolume, exec, ${pamixer} -d 3"
             ", XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
             ", XF86AudioNext, exec, ${playerctl} next"

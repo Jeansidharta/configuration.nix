@@ -85,6 +85,17 @@
 
   home.stateVersion = "24.05";
 
+  programs.satty = {
+    enable = true;
+    config = {
+      general = {
+        initial-tool = "brush";
+        output-filename = "/tmp/screenshot-%Y-%m-%d_%H:%M:%S.png";
+        save-after-copy = true;
+      };
+    };
+  };
+
   programs.firefox = {
     enable = true;
     profiles.default = {
