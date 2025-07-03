@@ -8,6 +8,7 @@
       let
         hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
         satty = "${pkgs.satty}/bin/satty";
+        kooha = "${pkgs.kooha}/bin/kooha ";
         jq = "${pkgs.jq}/bin/jq";
         hyprctl = "${pkgs.hyprland}/bin/hyprctl";
         pamixer = "${pkgs.pamixer}/bin/pamixer";
@@ -155,6 +156,7 @@
           [
             ", Print, exec, ${hyprshot} --mode region --raw | ${satty} --filename -"
             "Control_L, Print, exec, ${hyprshot} --mode active --mode output --raw | ${satty} --filename -"
+            "Shift_L, Print, exec, ${uwsm} app -- ${kooha}"
             ", XF86AudioLowerVolume, exec, ${pamixer} -d 3"
             ", XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
             ", XF86AudioNext, exec, ${playerctl} next"
