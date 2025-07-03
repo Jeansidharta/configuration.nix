@@ -39,6 +39,8 @@ in
 
       "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net --offline -- ";
       "replace" = "${replace}";
+
+      "nix-print-roots" = "nix-store --gc --print-roots | less";
     };
     # initExtra = ''
     # export NIX_BUILD_SHELL=${nix-zshell}
