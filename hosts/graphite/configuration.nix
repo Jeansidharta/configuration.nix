@@ -6,7 +6,6 @@
   ...
 }:
 {
-  imports = [ ./hypridle.nix ];
   networking.hostName = "graphite";
   time.timeZone = "US/Eastern";
 

@@ -7,6 +7,7 @@
 # ${tmsu} tags --color never | ${rofi} -dmenu -p "Tags query" | ${xargs} ${tmsu} files | sxiv -o - | ${xargs} ${feh} --bg-fill
 # '';
 {
+  imports = [ ./hypridle.nix ];
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
   programs.ewwCustom = {
