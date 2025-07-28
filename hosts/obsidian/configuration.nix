@@ -24,4 +24,7 @@
     8080
   ];
   security.pki.certificateFiles = [ ../../mitmproxy-ca-cert.pem ];
+
+  # Allow cross-compiling
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

@@ -3,102 +3,153 @@
     { ... }:
     let
       colors = rec {
-        bgDarker = "0D0C1E"; # 080814
-        bgDark = "1b1a33";
-        bgMediumDark = "28274d";
-        bgMedium = "434180";
-        bgMediumLight = "504e99";
-        bgMediumLighter = "6b68cc";
-        bgLight = "7975e6";
-        bgLighter = "8682ff";
+        bg_darker = "#0D0C1E"; # 080814
+        bg_dark = "#1b1a33";
+        bg_medium_dark = "#28274d";
+        bg_medium = "#434180";
+        bg_medium_light = "#504e99";
+        bg_medium_lighter = "#6b68cc";
+        bg_light = "#7975e6";
+        bg_lighter = "#8682ff";
 
-        lightYellow = "d7a65f";
-        blue = "0060e6";
-        purple = "8c33ff";
-        orange = "e68600";
-        cyan = "00dee6";
-        green = "12de00";
-        pink = "ea00d9";
-        gray = "4A5057";
+        light_yellow = "#d7a65f";
+        blue = "#0026e6";
+        light_blue = "#0060e6";
+        light_purple = "#9933ff";
+        purple = "#8c33ff";
+        orange = "#e68600";
+        cyan = "#00dee6";
+        light_cyan = "#00e6b8";
+        green = "#12de00";
+        pink = "#ea00d9";
+        gray = "#4A5057";
 
-        error = "f44336";
-        success = "66bb6a";
+        tomato_red = "#f44336";
+        dark_pink = "#b300a7";
+        dark_green = "#66bb6a";
 
-        primaryColor = pink;
-        secondaryColor = orange;
-        tertiaryColor = cyan;
-        quaternaryColor = green;
-        quintenaryColor = purple;
-        baseText = bgLighter;
+        error = tomato_red;
+        success = dark_green;
+
+        primary_color = pink;
+        secondary_color = orange;
+        tertiary_color = cyan;
+        quaternary_color = green;
+        quintenary_color = purple;
+        base_text = bg_lighter;
         disabled = gray;
       };
-      colorsWithHash = builtins.mapAttrs (_: val: "#${val}") colors;
+      colorsWithoutHash = builtins.mapAttrs (
+        _: val: builtins.substring 1 ((builtins.stringLength val) - 1) val
+      ) colors;
       theme = {
         colors = colors;
-        colorsWithHash = colorsWithHash;
+        colorsWithoutHash = colorsWithoutHash;
       };
     in
     {
       theme = theme;
       home-manager-module = {
-        programs.wezterm.colorSchemes.mainTheme = with colorsWithHash; rec {
-          foreground = bgLight;
-          cursor_fg = bgLighter;
-          background = bgDarker;
+        programs.wezterm.colorSchemes.mainTheme = {
+          foreground = colors.bg_light;
+          cursor_fg = colors.bg_lighter;
+          background = colors.bg_darker;
+          # Color order ANSI:
+          # black
+          # maroon
+          # green
+          # olive
+          # navy
+          # purple
+          # teal
+          # silver
+          # Color Order Brights
+          # grey
+          # red
+          # lime
+          # yellow
+          # blue
+          # fuchsia
+          # aqua
+          # white
           ansi = [
-            gray
-            lightYellow
-            pink
-            orange
-            blue
-            green
-            cyan
-            gray
+            colors.bg_medium_dark # 1
+            colors.light_purple # 2
+            colors.dark_green # 3
+            colors.light_yellow # 4
+            colors.light_blue # 5
+            colors.dark_pink # 6
+            colors.light_cyan # 7
+            colors.gray # 8
           ];
-          brights = ansi;
+          brights = [
+            colors.gray # 1
+            colors.purple # 2
+            colors.green # 3
+            colors.orange # 4
+            colors.blue # 5
+            colors.pink # 6
+            colors.cyan # 7
+            colors.gray # 8
+          ];
+        };
+        xsession.windowManager.bspwm.settings = {
+          normal_border_color = colors.bg_light;
+          active_border_color = colors.secondary_color;
+          focused_border_color = colors.primary_color;
+          presel_feedback_color = colors.gray;
         };
 
-        xsession.windowManager.bspwm.settings = with colorsWithHash; {
-          normal_border_color = bgLight;
-          active_border_color = secondaryColor;
-          focused_border_color = primaryColor;
-          presel_feedback_color = gray;
-        };
-        programs.ewwCustom = rec {
-          extraVariables = with colorsWithHash; {
-            inherit
-              primaryColor
-              secondaryColor
-              tertiaryColor
-              quaternaryColor
-              quintenaryColor
-              baseText
-              disabled
-              error
-              success
-              ;
-          };
-          extraFiles."colors.scss" =
-            with extraVariables;
-            with colorsWithHash;
-            ''
-              $color-fg: ${bgLight};
-              $color-pink: ${pink};
-              $color-red: ${error};
-              $color-error: ${error};
-              $color-success: ${success};
-              $color-orange: ${orange};
-              $color-orange-thin: ${orange};
-              $color-teal: ${cyan};
-              $color-green: ${green};
-              $color-blue: ${blue};
-              $color-purple: ${purple};
-              $color-grey: ${gray};
+        programs.tmux.extraConfig = ''
+          # clock mode
+          setw -g clock-mode-colour yellow
 
-              $color-base: ${bgLighter};
-              $color-background: ${bgDark};
-              $color-background-solid: ${bgDark};
-            '';
+          # copy mode
+          setw -g mode-style 'fg=black bg=green bold'
+
+          # panes
+          set -g pane-border-style 'fg=black'
+          set -g pane-active-border-style 'fg=yellow'
+
+          # statusbar
+          set -g status-position bottom
+          set -g status-justify left
+          set -g status-style 'fg=green'
+
+          set -g status-left '''
+          set -g status-left-length 10
+
+          set -g status-right-style 'fg=black bg=yellow'
+
+          setw -g window-status-current-style 'fg=green bg=black'
+          setw -g window-status-style 'fg=green bg=black'
+          setw -g window-status-format ' #I #[fg=white]#W #[fg=yellow]#F '
+
+          setw -g window-status-bell-style 'fg=black bg=green bold'
+
+          # messages
+          set -g message-style 'fg=green bg=black bold'
+          set -g message-command-style 'fg=black bg=green bold'
+        '';
+        programs.ewwCustom = {
+          extraFiles."colors.scss" = ''
+            $color-fg: ${colors.bg_light};
+            $color-pink: ${colors.pink};
+            $color-red: ${colors.error};
+            $color-error: ${colors.error};
+            $color-success: ${colors.success};
+            $color-orange: ${colors.orange};
+            $color-orange-thin: ${colors.orange};
+            $color-teal: ${colors.cyan};
+            $color-green: ${colors.green};
+            $color-blue: ${colors.blue};
+            $color-purple: ${colors.purple};
+            $color-grey: ${colors.gray};
+
+            $color-base: ${colors.bg_lighter};
+            $color-background: ${colors.bg_dark};
+            $color-background-solid: ${colors.bg_dark};
+          '';
         };
       };
     };

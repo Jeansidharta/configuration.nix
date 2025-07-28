@@ -84,13 +84,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-
-  services.tt-rss = {
-    enable = true;
-    selfUrlPath = "http://localhost";
-    singleUserMode = true;
-  };
-
   security.rtkit.enable = true;
 
   users.mutableUsers = false;
@@ -104,6 +97,7 @@
       "wheel"
       "networkmanager"
       "tor"
+      "dialout"
     ];
     shell = pkgs.zsh;
     packages = [ pkgs.home-manager ];
@@ -170,8 +164,9 @@
   services.tor = {
     enable = true;
     client.enable = true;
-    controlSocket.enable = true;
+    # controlSocket.enable = true;
     settings = {
+      ControlPort = 9051;
       HashedControlPassword = "16:DB07FBCA1CE2B6A360D7B98EF09D2877ECEE44B0750DD72DCFA3DE0263";
     };
   };

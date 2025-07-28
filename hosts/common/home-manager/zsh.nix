@@ -14,34 +14,11 @@ let
         exec ${bashInteractive}/bin/bash "$@"
       fi
     '');
-
-  replace = pkgs.writeScript "replace" ''
-    if [[ -e "$1.old" ]]; then
-      rm -rfi "$1"
-      mv "$1.old" "$1"
-    else
-      mv "$1" "$1.old"
-      cp --dereference --no-preserve=mode -r "$1.old" "$1"
-    fi
-  '';
 in
 {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
-    shellAliases = {
-      "ses" = "systemctl --user";
-      "vim" = "nvim";
-      "vi" = "nvim";
-      "ls" = "eza";
-
-      "cdtmp" = "cd $(mktemp --dir)";
-
-      "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net --offline -- ";
-      "replace" = "${replace}";
-
-      "nix-print-roots" = "nix-store --gc --print-roots | less";
-    };
     # initExtra = ''
     # export NIX_BUILD_SHELL=${nix-zshell}
     # '';
