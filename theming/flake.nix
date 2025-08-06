@@ -132,6 +132,19 @@
           set -g message-command-style 'fg=black bg=green bold'
         '';
         programs.ewwCustom = {
+          extraVariables = {
+            inherit (colors)
+              primary_color
+              secondary_color
+              tertiary_color
+              quaternary_color
+              quintenary_color
+              base_text
+              disabled
+              error
+              success
+              ;
+          };
           extraFiles."colors.scss" = ''
             $color-fg: ${colors.bg_light};
             $color-pink: ${colors.pink};
