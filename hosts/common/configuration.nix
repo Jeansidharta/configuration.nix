@@ -31,7 +31,10 @@
   hardware.graphics.enable = true;
 
   services.timesyncd.enable = true;
-  services.sshd.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+  };
   services.udisks2.enable = true;
 
   programs.hyprland.enable = true;
@@ -158,7 +161,6 @@
     };
   };
   programs.nix-ld.enable = true;
-  services.openssh.enable = true;
 
   services.tor = {
     enable = true;
