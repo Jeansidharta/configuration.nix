@@ -17,4 +17,5 @@ let
 in
 {
   "nix-github-token.age".publicKeys = allPublicKeys;
+	"wireguard.age".publicKeys = [obsidian.sidharta obsidian.system];
 }

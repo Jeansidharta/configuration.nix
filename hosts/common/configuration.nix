@@ -111,6 +111,9 @@
     git
   ];
 
+  age.secrets.wireguard-priv-key = {
+    file = ../../secrets/wireguard.age;
+  };
   age.secrets.nix-github-token = {
     file = ../../secrets/nix-github-token.age;
     owner = "sidharta";

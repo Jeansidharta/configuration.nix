@@ -7,7 +7,6 @@
 }:
 {
   time.timeZone = "US/Eastern";
-  networking.hostName = "obsidian";
 
   programs.steam = {
     enable = true;
@@ -18,6 +17,11 @@
   services.blueman.enable = true;
 
   users.groups.proxyuser = { };
+  users.users.sidharta.openssh.authorizedKeys.keys = [
+    # My partner's laptop
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
+
+  ];
   users.users.proxyuser = {
     name = "proxyuser";
     group = "proxyuser";
@@ -33,6 +37,10 @@
     ];
     isNormalUser = true;
     extraGroups = [ ];
+  };
+  programs.mosh = {
+    enable = true;
+    openFirewall = true;
   };
   services.openssh = {
     settings = {
@@ -52,6 +60,8 @@
           "localhost:8080"
           "localhost:443"
           "localhost:80"
+          "192.168.0.210:443"
+          "192.168.0.210:80"
         ];
         permitOpenStr = lib.strings.concatStringsSep " " permitOpen;
       in
@@ -63,7 +73,54 @@
           ForceCommand echo 'This user is for TCP forwarding only. Allowed forwards are ${permitOpenStr}'
       '';
   };
-  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  age.secrets.wireguard-priv-key = {
+    file = ../../secrets/wireguard.age;
+  };
+  networking = {
+    hostName = "obsidian";
+    firewall = {
+      allowedTCPPorts = [
+        22
+        8001
+        5173
+        3000
+      ];
+      allowedUDPPorts = [
+        32985
+        51820
+      ];
+    };
+    nat = {
+      enable = true;
+      internalInterfaces = [ "wg0" ];
+      externalInterface = "enp13s0";
+      internalIPs = [ "0.0.0.0/0" ];
+    };
+    wireguard = {
+      enable = true;
+      interfaces = {
+        wg0 = {
+          listenPort = 32985;
+          privateKeyFile = config.age.secrets.wireguard-priv-key.path;
+          peers = [
+            {
+              name = "phone";
+              publicKey = "DbDVdVWefhsSeiZw+TN3Hv+gGC86TMqUGQxJFO8lG3s=";
+              allowedIPs = [ "192.168.0.111/32" ];
+            }
+          ];
+        };
+      };
+    };
+  };
+  services.strongswan-swanctl = {
+    enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    strongswan
+  ];
   security.pki.certificateFiles = [ ../../mitmproxy-ca-cert.pem ];
 
   # Allow cross-compiling
