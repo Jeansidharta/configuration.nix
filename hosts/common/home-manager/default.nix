@@ -65,6 +65,7 @@
       nix-tree
       nix-du
       lazygit
+      nftables # firewall frontend
 
       (plover.with-plugins (ps: [
         ps.plover-lapwing-aio
