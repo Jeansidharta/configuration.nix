@@ -91,6 +91,9 @@
         51820
       ];
     };
+    interfaces.batata = {
+		
+    };
     nat = {
       enable = true;
       internalInterfaces = [ "wg0" ];
