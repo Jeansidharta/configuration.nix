@@ -38,6 +38,7 @@
     };
     neovim-with-plugins = {
       url = "github:jeansidharta/neovim-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     sqlite-diagram = {
       url = "./derivations/sqlite-diagram";
@@ -203,5 +204,15 @@
             ];
           };
       };
+      devShell.x86_64-linux =
+        let
+          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+        in
+        pkgs.mkShell {
+          buildInputs = [
+            pkgs.nil
+            pkgs.nixfmt-rfc-style
+          ];
+        };
     };
 }
