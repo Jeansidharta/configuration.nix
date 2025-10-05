@@ -45,6 +45,7 @@ in
       wezterm = rawPkgsUnstable.wezterm;
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;
+      quickshell = rawPkgsUnstable.quickshell;
       mypkgs = {
         inherit
           eww-bar-selector
@@ -55,7 +56,17 @@ in
           envsub
           sqlite-diagram
           ;
-        neovim = neovim-with-plugins.packages.${system}.default;
+        neovim = neovim-with-plugins.packages.${system}.base.override (prev: {
+          extraPackages = [
+            pkgs.nil
+            pkgs.prettierd
+            pkgs.ripgrep
+            pkgs.unixtools.xxd
+            pkgs.marksman
+            pkgs.zk
+            pkgs.nixfmt-rfc-style
+          ];
+        });
       };
     })
   ];

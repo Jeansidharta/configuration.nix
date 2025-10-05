@@ -174,15 +174,13 @@
       HashedControlPassword = "16:DB07FBCA1CE2B6A360D7B98EF09D2877ECEE44B0750DD72DCFA3DE0263";
     };
   };
-
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [
-    22
-    4030
-    9000
-    8001
-  ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22
+    ];
+    allowedUDPPorts = [ 4789 ];
+  };
 
   system.stateVersion = "24.05";
 }

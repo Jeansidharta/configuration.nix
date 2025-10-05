@@ -29,7 +29,6 @@
 
       btop # Process manager
       wl-clipboard # Clipboard software
-      mpv # Media player
       bat # Replacement for the gnu `cat` command
       sxiv # Simple image viewer
       lmms # Music production
@@ -66,6 +65,7 @@
       nix-du
       lazygit
       nftables # firewall frontend
+      quickshell
 
       (plover.with-plugins (ps: [
         ps.plover-lapwing-aio
@@ -141,6 +141,12 @@
       id = 0;
       settings = {
       };
+    };
+  };
+  programs.mpv = {
+    enable = true;
+    config = {
+      ytdl-raw-options = "extractor-args=\"youtube:player-client=default,-tv_simply\"";
     };
   };
   programs.btop.enable = true;

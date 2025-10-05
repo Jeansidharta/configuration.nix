@@ -38,10 +38,6 @@
     isNormalUser = true;
     extraGroups = [ ];
   };
-  programs.mosh = {
-    enable = true;
-    openFirewall = true;
-  };
   services.openssh = {
     settings = {
       PasswordAuthentication = true;
@@ -77,22 +73,63 @@
   age.secrets.wireguard-priv-key = {
     file = ../../secrets/wireguard.age;
   };
+  age.secrets.wireguard-max = {
+    file = ../../secrets/wireguard-max.age;
+  };
   networking = {
     hostName = "obsidian";
+    hosts = {
+      "192.168.0.210" = [ "rpi" ];
+    };
     firewall = {
+      trustedInterfaces = [ "wg0" ];
       allowedTCPPorts = [
         22
         8001
-        5173
-        3000
       ];
       allowedUDPPorts = [
         32985
+        32986
         51820
       ];
     };
+    nat = {
+      enable = true;
+      internalInterfaces = [ "max" ];
+      externalInterface = "enp13s0";
+    };
     interfaces = {
       wg0 = {
+        ipv4 = {
+          routes = [
+            {
+              address = "10.0.0.0";
+              prefixLength = 24;
+            }
+          ];
+          addresses = [
+            {
+              address = "10.0.0.5";
+              prefixLength = 32;
+            }
+          ];
+        };
+        ipv6 = {
+          addresses = [
+            {
+              address = "2000::5";
+              prefixLength = 128;
+            }
+          ];
+          routes = [
+            {
+              address = "2000::0";
+              prefixLength = 120;
+            }
+          ];
+        };
+      };
+      max = {
         ipv4 = {
           routes = [
             {
@@ -107,20 +144,61 @@
             }
           ];
         };
+        ipv6 = {
+          addresses = [
+            {
+              address = "2000::1";
+              prefixLength = 128;
+            }
+          ];
+        };
       };
     };
     wireguard = {
       enable = true;
       interfaces = {
+        max = {
+          listenPort = 32986;
+          privateKeyFile = config.age.secrets.wireguard-max.path;
+          peers = [
+            {
+              name = "phone";
+              publicKey = "2ac7/D/IKDyzESQ2NmLVEl25nirwYfgh1a4NUYBCeQM=";
+              allowedIPs = [
+                "10.1.0.12/32"
+                "2001::12/128"
+              ];
+            }
+          ];
+        };
         wg0 = {
           listenPort = 32985;
           privateKeyFile = config.age.secrets.wireguard-priv-key.path;
           peers = [
+            # {
+            #   name = "rpi";
+            #   publicKey = "D2+YmRmpHZmMIYGP43bc7rNN9XaByQojvFs4/LlmQwM=";
+            #   endpoint = "192.168.0.210:55192";
+            #   allowedIPs = [
+            #     "10.0.0.5/32"
+            #     "2000::5/128"
+            #   ];
+            # }
+            {
+              name = "suzana";
+              publicKey = "wthF4Kyo+6wYWXgw9WKbz0ljb0YRrh2+ygf0DaB7BF4=";
+              allowedIPs = [
+                "10.0.0.8/32"
+                "2000::8/128"
+              ];
+            }
             {
               name = "phone";
               publicKey = "DbDVdVWefhsSeiZw+TN3Hv+gGC86TMqUGQxJFO8lG3s=";
               allowedIPs = [
-                "10.0.0.5/32"
+                "10.0.0.12/32"
+                "10.0.2.0/24"
+                "2000::12/128"
               ];
             }
           ];
@@ -128,13 +206,7 @@
       };
     };
   };
-  services.strongswan-swanctl = {
-    enable = true;
-  };
 
-  environment.systemPackages = with pkgs; [
-    strongswan
-  ];
   security.pki.certificateFiles = [ ../../mitmproxy-ca-cert.pem ];
 
   # Allow cross-compiling
