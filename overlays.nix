@@ -6,13 +6,7 @@
   neovim-with-plugins,
   plover-flake,
 
-  envsub-flake,
   sqlite-diagram-flake,
-  eww-bar-selector-flake,
-  backlight-flake,
-  workspaces-report-flake,
-  window-title-watcher-flake,
-  volume-watcher-flake,
 }:
 {
   config,
@@ -29,12 +23,6 @@ let
   # rawPkgsStable = nixpkgs-stable.legacyPackages.${system};
   rawPkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
 
-  eww-bar-selector = eww-bar-selector-flake.outputs.packages.${system}.default;
-  backlight = backlight-flake.outputs.defaultPackage.${system};
-  workspaces-report = workspaces-report-flake.outputs.packages.${system}.default;
-  window-title-watcher = window-title-watcher-flake.outputs.packages.${system}.default;
-  volume-watcher = volume-watcher-flake.outputs.packages.${system}.default;
-  envsub = envsub-flake.outputs.packages.${system}.default;
   plover = plover-flake.packages.${system}.plover;
   sqlite-diagram = sqlite-diagram-flake.packages.${system}.default;
 in
@@ -48,12 +36,6 @@ in
       quickshell = rawPkgsUnstable.quickshell;
       mypkgs = {
         inherit
-          eww-bar-selector
-          workspaces-report
-          window-title-watcher
-          volume-watcher
-          backlight
-          envsub
           sqlite-diagram
           ;
         neovim = neovim-with-plugins.packages.${system}.base.override (prev: {

@@ -13,8 +13,6 @@
     ./git.nix
     ./starship.nix
     ./zsh.nix
-    ./eww.nix
-    ./systemd-services.nix
   ];
   home = {
     # pointerCursor = {
@@ -48,7 +46,6 @@
 
       helvum # Manipulate Pipewire connections
       qpwgraph # Manipulate Pipewire connections
-      socat # Tool for connecting/debugging read/write interfaces
       usbutils # Tool for manipulating USB
       tmsu # File tagging tool
       obsidian # Note taking app
@@ -66,6 +63,11 @@
       lazygit
       nftables # firewall frontend
       quickshell
+
+      socat # Tool for connecting/debugging read/write interfaces
+      tcpdump # Dump tcp connections
+      nmap # map network
+      calc # gnu calc
 
       (plover.with-plugins (ps: [
         ps.plover-lapwing-aio
@@ -131,6 +133,13 @@
         save-after-copy = true;
       };
     };
+  };
+
+  programs.ewwCustom = {
+    enable = true;
+    systemdService = true;
+    systemdTarget = "graphical-session.target";
+    startingOpenWindow = "top_bar";
   };
 
   programs.firefox = {

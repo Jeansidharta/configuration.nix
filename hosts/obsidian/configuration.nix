@@ -12,6 +12,13 @@
     enable = true;
   };
 
+  qt.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    qt5.qtwayland
+    qt6.qtwayland
+  ];
+
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
@@ -82,7 +89,7 @@
       "192.168.0.210" = [ "rpi" ];
     };
     firewall = {
-      trustedInterfaces = [ "wg0" ];
+      trustedInterfaces = [ "wg0" "veth0" ];
       allowedTCPPorts = [
         22
         8001
@@ -175,15 +182,6 @@
           listenPort = 32985;
           privateKeyFile = config.age.secrets.wireguard-priv-key.path;
           peers = [
-            # {
-            #   name = "rpi";
-            #   publicKey = "D2+YmRmpHZmMIYGP43bc7rNN9XaByQojvFs4/LlmQwM=";
-            #   endpoint = "192.168.0.210:55192";
-            #   allowedIPs = [
-            #     "10.0.0.5/32"
-            #     "2000::5/128"
-            #   ];
-            # }
             {
               name = "suzana";
               publicKey = "wthF4Kyo+6wYWXgw9WKbz0ljb0YRrh2+ygf0DaB7BF4=";
@@ -197,7 +195,6 @@
               publicKey = "DbDVdVWefhsSeiZw+TN3Hv+gGC86TMqUGQxJFO8lG3s=";
               allowedIPs = [
                 "10.0.0.12/32"
-                "10.0.2.0/24"
                 "2000::12/128"
               ];
             }

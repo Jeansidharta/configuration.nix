@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  home.sessionVariables = {
+    WAYLAND_DISPLAY = "wayland-1";
+  };
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enableXdgAutostart = true;
@@ -109,6 +112,9 @@
           "HDMI-A-1, preferred, 0x0, 1"
           "HDMI-A-2, preferred, 19200x10800, 1, transform, 1"
         ];
+        layerrule = [
+          "noanim, quickshell"
+        ];
         windowrule = [
           # Hide helldivers unnecessary window
           "workspace special:hidden silent, initialClass:steam_app_553850, initialTitle:negative:(.+)"
@@ -152,84 +158,83 @@
           "17, monitor:HDMI-A-2, defaultName:8"
           "18, monitor:HDMI-A-2, defaultName:9"
         ];
-        bind =
-          [
-            ", Print, exec, ${hyprshot} --mode region --raw | ${satty} --filename -"
-            "Control_L, Print, exec, ${hyprshot} --mode active --mode output --raw | ${satty} --filename -"
-            "Shift_L, Print, exec, ${uwsm} app -- ${kooha}"
-            ", XF86AudioLowerVolume, exec, ${pamixer} -d 3"
-            ", XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
-            ", XF86AudioNext, exec, ${playerctl} next"
-            ", XF86AudioPlay, exec, ${playerctl} play-pause"
-            ", XF86AudioPrev, exec, ${playerctl} previous"
-            ", XF86AudioRaiseVolume, exec, ${pamixer} -i 3"
-            "${leaderKey}, v, exec, ${cliphist} list | ${rofi} -dmenu | ${cliphist} decode | ${wl-copy}"
-            "${leaderKey}&Control_L, v, exec, ${modifyClipboard}"
-            "${leaderKey}&Shift_L, v, exec, ${paste-qrcode}"
-            "${leaderKey}, e, exec, ${splatmoji} copy"
-            "${leaderKey}, x, togglefloating"
-            "${leaderKey}&Shift_L, e, exec, ${splatmoji} type"
-            "${leaderKey}, F4, killactive, "
-            "${leaderKey}&Shift_L, F4, forcekillactive, "
-            "${leaderKey}, Return, exec, ${uwsm} app -- ${wezterm}"
-            "${leaderKey}&Shift_L, Return, exec, ${uwsm} app -- ${wezterm} start ${zsh} -c ${yazi}"
-            "${leaderKey}, f, fullscreen, 1"
-            "${leaderKey}&Shift_L, f, fullscreen, 0"
-            # "${leaderKey}, g, exec, ${toggleBordersExe}"
-            # "${leaderKey}&Shift_L&Ctrl_L, {1,2}, exec, ${bspcExe} node --to-monitor {eDP1,HDMI1} --follow"
-            "${leaderKey}, r, togglesplit, "
-            "${leaderKey}, t, pseudo, "
-            "${leaderKey}&Shift_L, j, moveactive, -300 0"
-            "${leaderKey}&Shift_L, i, moveactive, 0 -300"
-            "${leaderKey}&Shift_L, k, moveactive, 0 300"
-            "${leaderKey}&Shift_L, l, moveactive, 300 0"
-            "${leaderKey}&Shift_L, Left, swapwindow, l"
-            "${leaderKey}&Shift_L, Up, swapwindow, u"
-            "${leaderKey}&Shift_L, Down, swapwindow, d"
-            "${leaderKey}&Shift_L, Right, swapwindow, r"
-            "${leaderKey}, space, exec, ${uwsm} app -- ${rofi} -show run"
-            # Select workspaces
-            "${leaderKey}&Ctrl_L, 1, focusmonitor, 0"
-            "${leaderKey}&Ctrl_L, 2, focusmonitor, 1"
-          ]
-          ++ (
-            let
-              flatten = pkgs.lib.lists.flatten;
-              map = builtins.map;
-              range = map toString (pkgs.lib.lists.range (1) (9));
-              fn = (
-                num: [
-                  # "${leaderKey}, ${num}, execr, ${hyprctl} dispatch workspace r~${num} && ${hyprctl} activeworkspace -j | ${jq} .id | ${xargs} -I '{}' ${hyprctl} dispatch renameworkspace '{} ${num}'"
-                  "${leaderKey}, ${num}, workspace, r~${num}"
-                  "${leaderKey}&Shift_L, ${num}, movetoworkspace, r~${num}"
-                ]
-              );
-            in
-            flatten (map fn range)
-          )
-          ++ [
-            "${leaderKey}&Ctrl_L&Shift_L, 1, movewindow, mon:0"
-            "${leaderKey}&Ctrl_L&Shift_L, 2, movewindow, mon:1"
-            "${leaderKey}, Left, movefocus, l"
-            "${leaderKey}, Down, movefocus, d"
-            "${leaderKey}, Up, movefocus, u"
-            "${leaderKey}, Right, movefocus, r"
-            "${leaderKey}, equal, splitratio, -0.1"
-            "${leaderKey}, minus, splitratio, +0.1"
-            "${leaderKey}&Shift_L, equal, splitratio, -0.5"
-            "${leaderKey}&Shift_L, minus, splitratio, +0.5"
-            "${leaderKey}, j, moveactive, -10 0"
-            "${leaderKey}, i, moveactive,  0 -10"
-            "${leaderKey}, k, moveactive,  0 10"
-            "${leaderKey}, l, moveactive,  10 0"
-            "Shift_L, XF86AudioLowerVolume, exec, ${mpc} volume -10"
-            "Shift_L, XF86AudioNext, exec, ${mpc} next"
-            "Shift_L, XF86AudioPlay, exec, ${mpc} toggle"
-            "Shift_L, XF86AudioPrev, exec, ${mpc} prev"
-            "Shift_L, XF86AudioRaiseVolume, exec, ${mpc} volume +10"
-            "Shift_L, XF86AudioRaiseVolume, exec, ${mpc} volume +10"
-            ", XF86Tools, exec, ${updateSongTags}"
-          ];
+        bind = [
+          ", Print, exec, ${hyprshot} --mode region --raw | ${satty} --filename -"
+          "Control_L, Print, exec, ${hyprshot} --mode active --mode output --raw | ${satty} --filename -"
+          "Shift_L, Print, exec, ${uwsm} app -- ${kooha}"
+          ", XF86AudioLowerVolume, exec, ${pamixer} -d 3"
+          ", XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
+          ", XF86AudioNext, exec, ${playerctl} next"
+          ", XF86AudioPlay, exec, ${playerctl} play-pause"
+          ", XF86AudioPrev, exec, ${playerctl} previous"
+          ", XF86AudioRaiseVolume, exec, ${pamixer} -i 3"
+          "${leaderKey}, v, exec, ${cliphist} list | ${rofi} -dmenu | ${cliphist} decode | ${wl-copy}"
+          "${leaderKey}&Control_L, v, exec, ${modifyClipboard}"
+          "${leaderKey}&Shift_L, v, exec, ${paste-qrcode}"
+          "${leaderKey}, e, exec, ${splatmoji} copy"
+          "${leaderKey}, x, togglefloating"
+          "${leaderKey}&Shift_L, e, exec, ${splatmoji} type"
+          "${leaderKey}, F4, killactive, "
+          "${leaderKey}&Shift_L, F4, forcekillactive, "
+          "${leaderKey}, Return, exec, ${uwsm} app -- ${wezterm}"
+          "${leaderKey}&Shift_L, Return, exec, ${uwsm} app -- ${wezterm} start ${zsh} -c ${yazi}"
+          "${leaderKey}, f, fullscreen, 1"
+          "${leaderKey}&Shift_L, f, fullscreen, 0"
+          # "${leaderKey}, g, exec, ${toggleBordersExe}"
+          # "${leaderKey}&Shift_L&Ctrl_L, {1,2}, exec, ${bspcExe} node --to-monitor {eDP1,HDMI1} --follow"
+          "${leaderKey}, r, togglesplit, "
+          "${leaderKey}, t, pseudo, "
+          "${leaderKey}&Shift_L, j, moveactive, -300 0"
+          "${leaderKey}&Shift_L, i, moveactive, 0 -300"
+          "${leaderKey}&Shift_L, k, moveactive, 0 300"
+          "${leaderKey}&Shift_L, l, moveactive, 300 0"
+          "${leaderKey}&Shift_L, Left, swapwindow, l"
+          "${leaderKey}&Shift_L, Up, swapwindow, u"
+          "${leaderKey}&Shift_L, Down, swapwindow, d"
+          "${leaderKey}&Shift_L, Right, swapwindow, r"
+          "${leaderKey}, space, exec, ${uwsm} app -- ${rofi} -show run"
+          # Select workspaces
+          "${leaderKey}&Ctrl_L, 1, focusmonitor, 0"
+          "${leaderKey}&Ctrl_L, 2, focusmonitor, 1"
+        ]
+        ++ (
+          let
+            flatten = pkgs.lib.lists.flatten;
+            map = builtins.map;
+            range = map toString (pkgs.lib.lists.range (1) (9));
+            fn = (
+              num: [
+                # "${leaderKey}, ${num}, execr, ${hyprctl} dispatch workspace r~${num} && ${hyprctl} activeworkspace -j | ${jq} .id | ${xargs} -I '{}' ${hyprctl} dispatch renameworkspace '{} ${num}'"
+                "${leaderKey}, ${num}, workspace, r~${num}"
+                "${leaderKey}&Shift_L, ${num}, movetoworkspace, r~${num}"
+              ]
+            );
+          in
+          flatten (map fn range)
+        )
+        ++ [
+          "${leaderKey}&Ctrl_L&Shift_L, 1, movewindow, mon:0"
+          "${leaderKey}&Ctrl_L&Shift_L, 2, movewindow, mon:1"
+          "${leaderKey}, Left, movefocus, l"
+          "${leaderKey}, Down, movefocus, d"
+          "${leaderKey}, Up, movefocus, u"
+          "${leaderKey}, Right, movefocus, r"
+          "${leaderKey}, equal, splitratio, -0.1"
+          "${leaderKey}, minus, splitratio, +0.1"
+          "${leaderKey}&Shift_L, equal, splitratio, -0.5"
+          "${leaderKey}&Shift_L, minus, splitratio, +0.5"
+          "${leaderKey}, j, moveactive, -10 0"
+          "${leaderKey}, i, moveactive,  0 -10"
+          "${leaderKey}, k, moveactive,  0 10"
+          "${leaderKey}, l, moveactive,  10 0"
+          "Shift_L, XF86AudioLowerVolume, exec, ${mpc} volume -10"
+          "Shift_L, XF86AudioNext, exec, ${mpc} next"
+          "Shift_L, XF86AudioPlay, exec, ${mpc} toggle"
+          "Shift_L, XF86AudioPrev, exec, ${mpc} prev"
+          "Shift_L, XF86AudioRaiseVolume, exec, ${mpc} volume +10"
+          "Shift_L, XF86AudioRaiseVolume, exec, ${mpc} volume +10"
+          ", XF86Tools, exec, ${updateSongTags}"
+        ];
       };
   };
 }

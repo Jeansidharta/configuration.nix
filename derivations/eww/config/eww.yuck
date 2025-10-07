@@ -1,0 +1,140 @@
+(defvar show_bar true)
+(defvar show_background false)
+
+(deflisten bar-selector :initial "" `eww_bar_selector`)
+
+(include "./widgets/workspaces.yuck")
+(include "./widgets/launcher.yuck")
+(include "./widgets/clock.yuck")
+(include "./widgets/pulse-audio-volume.yuck")
+(include "./widgets/wifi-icon.yuck")
+(include "./widgets/wifi-list.yuck")
+(include "./widgets/media.yuck")
+(include "./widgets/power.yuck")
+(include "./widgets/battery.yuck")
+(include "./widgets/window-name.yuck")
+(include "./widgets/monitor-backlight.yuck")
+(include "./widgets/performance.yuck")
+
+(defwindow launcher
+    :monitor 0
+    :geometry
+    (geometry
+       :x `0%${bar-selector}`
+       :y "0px"
+       :width "500px"
+       :height "500px"
+       :anchor "center center")
+    :stacking "fg"
+    :windowtype "dialog"
+    :wm-ignore false
+    (launcher))
+
+(defwidget backdrop
+  [?hexpand]
+  (box 
+    :space-evenly false
+    :spacing 12
+    :hexpand {hexpand ?: false}
+    :class "backdrop ${show_background ? "solid" : "split"}"
+    (children)))
+
+(defwidget ifVariable
+  [var module]
+  (literal
+    :valign "center"
+    :vexpand true
+    :halign "center"
+    :content
+    {var == "true" ? "(${module})" : ""}))
+
+(defwindow top_bar
+    :monitor '["<primary>", "@topBarMonitor@"]'
+    :geometry
+    (geometry
+       :x "0%"
+       :y "0px"
+       :width "100%"
+       :height "70px"
+       :anchor "top center")
+    :stacking "bottom"
+    :exclusive true
+    :focusable false
+    (box 
+      :visible show_bar
+      :spacing 32
+      :width 1366
+      :style {!show_background ? "background-color: transparent;" : ""}
+      :class "main-container"
+      :space-evenly false
+      (backdrop
+        (workspaces))
+      (backdrop
+        (performance))
+      (backdrop :hexpand true
+        (window_name))
+      (backdrop
+        (box
+          :space-evenly false
+          :spacing 12
+          (clock)))
+      (backdrop
+        ; (wifi_icon)
+        (pulse_audio_volume)
+        (ifVariable :var "@enableBattery@" :module "battery")
+        (ifVariable :var "@enableBacklight@" :module "monitor_backlight")
+        (power))))
+
+(defwindow calendar
+  :monitor 0
+  :geometry
+  (geometry
+    :x "-12px"
+    :y "62px"
+    :width "500px"
+    :height "500px"
+    :anchor "top right")
+  :stacking "fg"
+  :windowtype "dialog"
+  (eventbox
+    :onhoverlost "eww close calendar"
+    (calendar)))
+
+(defwindow shutdown
+  :monitor 0
+  :geometry
+  (geometry
+    :x "-12px"
+    :y "62px"
+    :width "500px"
+    :height "500px"
+    :anchor "center center")
+  :stacking "fg"
+  :windowtype "dialog"
+  (eventbox
+    :onhoverlost "eww close shutdown"
+    (box
+      :style "background-color: @background@"
+      :orientation "vertical"
+      (box
+        :valign "start"
+        "Are you sure you want do shut down?")
+      (box
+        (button :onclick "eww close shutdown" "No")
+        (button :onclick "systemctl poweroff" "Yes")))))
+
+
+(defwindow wifi
+  :monitor 0
+  :geometry
+  (geometry
+    :x "-12px"
+    :y "62px"
+    :width "500px"
+    :height "500px"
+    :anchor "top right")
+  :stacking "fg"
+  :windowtype "dialog"
+  (eventbox
+    :onhoverlost "eww close wifi"
+    (wifi_list)))

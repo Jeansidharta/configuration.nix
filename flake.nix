@@ -44,29 +44,9 @@
       url = "./derivations/sqlite-diagram";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    envsub = {
-      url = "./derivations/envsub";
-      # inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    backlight = {
-      url = "./hosts/common/home-manager/eww/scripts/backlight";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    workspaces-report = {
-      url = "./derivations/workspaces-report";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    window-title-watcher = {
-      url = "./derivations/window-title-watcher";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    eww-bar-selector = {
-      url = "./derivations/eww-bar-selector";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-    volume-watcher = {
-      url = "./derivations/volume-watcher";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+    custom-eww = {
+      url = "./derivations/eww";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
@@ -83,15 +63,10 @@
       nixpkgs-xkbcommon,
       swww,
       yazi-custom,
-      envsub,
       splatmoji,
       neovim-with-plugins,
-      eww-bar-selector,
+      custom-eww,
       sqlite-diagram,
-      workspaces-report,
-      window-title-watcher,
-      volume-watcher,
-      backlight,
       ...
     }:
     let
@@ -108,13 +83,7 @@
             plover-flake
             ;
 
-          envsub-flake = envsub;
           sqlite-diagram-flake = sqlite-diagram;
-          backlight-flake = backlight;
-          eww-bar-selector-flake = eww-bar-selector;
-          workspaces-report-flake = workspaces-report;
-          window-title-watcher-flake = window-title-watcher;
-          volume-watcher-flake = volume-watcher;
         });
 
       home-manager-module =
@@ -135,6 +104,7 @@
                   theme.outputs.home-manager-module
                   ./hosts/common/home-manager/default.nix
                   yazi-custom.homeManagerModules.default
+                  custom-eww.outputs.homeManagerModule
                 ];
             };
             extraSpecialArgs = {
