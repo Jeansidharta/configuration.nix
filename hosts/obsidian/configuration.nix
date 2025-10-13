@@ -17,6 +17,7 @@
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
     qt6.qtwayland
+    innernet
   ];
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
@@ -61,6 +62,7 @@
           "localhost:8202"
           "localhost:8000"
           "localhost:8080"
+          "localhost:8081"
           "localhost:443"
           "localhost:80"
           "192.168.0.210:443"
@@ -89,7 +91,11 @@
       "192.168.0.210" = [ "rpi" ];
     };
     firewall = {
-      trustedInterfaces = [ "wg0" "veth0" ];
+      trustedInterfaces = [
+        "wg0"
+        "veth0"
+        "sidharta"
+      ];
       allowedTCPPorts = [
         22
         8001
@@ -202,6 +208,51 @@
         };
       };
     };
+  };
+  systemd = {
+    targets.innernet = {
+      unitConfig = {
+        Description = "Target to allow restarting and stopping of all parts of innernet";
+      };
+    };
+    services.innernet-sidharta = {
+      unitConfig = {
+        Description = "innernet client daemon for sidharta";
+        After = "network-online.target nss-lookup.target";
+        Wants = "network-online.target nss-lookup.target";
+        PartOf = "innernet.target";
+      };
+
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.innernet}/bin/innernet up sidharta --daemon --interval 60";
+        Restart = "always";
+        RestartSec = 10;
+      };
+      wantedBy = [ "multi-user.target" ];
+    };
+  };
+  networking.nftables = {
+    enable = true;
+    tables = {
+      innernet-forwarding = {
+
+        family = "inet";
+        # Enable routing between my manual wireguard network and innernet's managed network
+        content = ''
+          chain srcnat {
+              type nat hook postrouting priority srcnat; policy accept;
+              iifname "wg0" oifname "sidharta" counter masquerade
+          }
+        '';
+      };
+    };
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv6.conf.all.forwarding" = 1;
+    "net.ipv6.conf.wg0.forwarding" = 1;
+    "net.ipv6.conf.sidharta.forwarding" = 1;
   };
 
   security.pki.certificateFiles = [ ../../mitmproxy-ca-cert.pem ];
