@@ -3,7 +3,7 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const hyprlandZsock = b.dependency("hyprland-zsock", .{});
+    const hyprlandZsock = b.dependency("hyprland_zsock", .{});
     const exe = b.addExecutable(.{
         .name = "eww_bar_selector",
         .root_module = b.createModule(.{

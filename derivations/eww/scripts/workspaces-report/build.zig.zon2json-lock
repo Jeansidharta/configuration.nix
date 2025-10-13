@@ -1,0 +1,8 @@
+{
+  "hyprland_zsock-0.0.0-AZUq008YAQDOzegIb_zIm2JfQhA7eZtX2No7PieAdbl6": {
+    "name": "hyprland_zsock",
+    "url": "git+https://github.com/jeansidharta/hyprland-zsock#051a74aa53867d32ae5248db69561478a453882c",
+    "hash": "sha256-CbtqN4wfS60LpcBOC+0/exFnn+aCyk59uC2VDh5G2lI=",
+    "rev": "051a74aa53867d32ae5248db69561478a453882c"
+  }
+}

@@ -1,66 +1,88 @@
 {
-  inputs = {
-    utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  description = "Zig project flake";
 
-    hyprland-zsock = {
-      url = "github:Jeansidharta/hyprland-zsock";
-      flake = false;
-    };
+  inputs = {
+    zig2nix.url = "github:Cloudef/zig2nix";
   };
+
   outputs =
-    {
-      self,
-      nixpkgs,
-      utils,
-      hyprland-zsock,
-    }:
-    utils.lib.eachDefaultSystem (
+    { zig2nix, ... }:
+    let
+      flake-utils = zig2nix.inputs.flake-utils;
+    in
+    (flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
-        zig = pkgs.zig;
-        zls = pkgs.zls;
-        mkLibsLinkScript = ''
-          mkdir -p libs
-          rm --force libs/hyprland-zsock
-          ln -s ${hyprland-zsock} libs/hyprland-zsock
-        '';
-        package = pkgs.stdenv.mkDerivation {
-          name = "workspaces-report";
-          version = "0.0.1";
-          src = ./.;
-          buildInputs = [
-            zig
-            pkgs.which
-          ];
-
-          buildPhase = ''
-            echo "custom build phase"
-            cd $TEMP
-            cp --no-preserve=mode $src/* . -r
-            ${mkLibsLinkScript}
-
-            zig build \
-              --prefix $out \
-              --release=safe \
-              -Doptimize=Debug \
-              -Ddynamic-linker=$(cat $NIX_BINTOOLS/nix-support/dynamic-linker) \
-              --cache-dir cache \
-              --global-cache-dir global \
-              --summary all
-          '';
-        };
+        # Zig flake helper
+        # Check the flake.nix in zig2nix project for more options:
+        # <https://github.com/Cloudef/zig2nix/blob/master/flake.nix>
+        env = zig2nix.outputs.zig-env.${system} { };
       in
-      {
-        packages.default = package;
-        devShell = pkgs.mkShell {
-          shellHook = mkLibsLinkScript;
-          buildInputs = [
-            zig
-            zls
-          ];
+      with builtins;
+      with env.pkgs.lib;
+      rec {
+        # Produces clean binaries meant to be ship'd outside of nix
+        # nix build .#foreign
+        packages.foreign = env.package {
+          src = cleanSource ./.;
+
+          # Packages required for compiling
+          nativeBuildInputs = with env.pkgs; [ ];
+
+          # Packages required for linking
+          buildInputs = with env.pkgs; [ ];
+
+          # Smaller binaries and avoids shipping glibc.
+          zigPreferMusl = true;
+        };
+
+        # nix build .
+        packages.default = packages.foreign.override (attrs: {
+          # Prefer nix friendly settings.
+          zigPreferMusl = false;
+
+          # Executables required for runtime
+          # These packages will be added to the PATH
+          zigWrapperBins = with env.pkgs; [ ];
+
+          # Libraries required for runtime
+          # These packages will be added to the LD_LIBRARY_PATH
+          zigWrapperLibs = attrs.buildInputs or [ ];
+        });
+
+        # For bundling with nix bundle for running outside of nix
+        # example: https://github.com/ralismark/nix-appimage
+        apps.bundle = {
+          type = "app";
+          program = "${packages.foreign}/bin/default";
+        };
+
+        # nix run .
+        apps.default = env.app [ ] "zig build run -- \"$@\"";
+
+        # nix run .#build
+        apps.build = env.app [ ] "zig build \"$@\"";
+
+        # nix run .#test
+        apps.test = env.app [ ] "zig build test -- \"$@\"";
+
+        # nix run .#docs
+        apps.docs = env.app [ ] "zig build docs -- \"$@\"";
+
+        # nix run .#zig2nix
+        apps.zig2nix = env.app [ ] "zig2nix \"$@\"";
+
+        # nix develop
+        devShells.default = env.mkShell {
+          # Packages required for compiling, linking and running
+          # Libraries added here will be automatically added to the LD_LIBRARY_PATH and PKG_CONFIG_PATH
+          nativeBuildInputs =
+            [ ]
+            ++ packages.default.nativeBuildInputs
+            ++ packages.default.buildInputs
+            ++ packages.default.zigWrapperBins
+            ++ packages.default.zigWrapperLibs;
         };
       }
-    );
+    ));
 }

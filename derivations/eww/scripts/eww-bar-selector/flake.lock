@@ -1,42 +1,41 @@
 {
   "nodes": {
-    "hyprland-zsock": {
-      "flake": false,
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
       "locked": {
-        "lastModified": 1759734327,
-        "narHash": "sha256-CbtqN4wfS60LpcBOC+0/exFnn+aCyk59uC2VDh5G2lI=",
-        "owner": "Jeansidharta",
-        "repo": "hyprland-zsock",
-        "rev": "051a74aa53867d32ae5248db69561478a453882c",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
-        "owner": "Jeansidharta",
-        "repo": "hyprland-zsock",
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1759733170,
-        "narHash": "sha256-TXnlsVb5Z8HXZ6mZoeOAIwxmvGHp1g4Dw89eLvIwKVI=",
+        "lastModified": 1760318516,
+        "narHash": "sha256-XbJ8nBV12O+VyKrPAWLbQemwN33pInFzEEuRmgHf7+I=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8913c168d1c56dc49a7718685968f38752171c3b",
+        "rev": "10142ad11cb7d04bedbd5bbab1f5ffc8f1e9a49c",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "hyprland-zsock": "hyprland-zsock",
-        "nixpkgs": "nixpkgs",
-        "utils": "utils"
+        "zig2nix": "zig2nix"
       }
     },
     "systems": {
@@ -54,21 +53,22 @@
         "type": "github"
       }
     },
-    "utils": {
+    "zig2nix": {
       "inputs": {
-        "systems": "systems"
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "lastModified": 1760320260,
+        "narHash": "sha256-mK2uuWR3E8nl7zw8LEDCrAokbBv6bT9i54KyfgME6f4=",
+        "owner": "Cloudef",
+        "repo": "zig2nix",
+        "rev": "c6b6049ef98bd46116c8f88c596dc5331ed451cb",
         "type": "github"
       },
       "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
+        "owner": "Cloudef",
+        "repo": "zig2nix",
         "type": "github"
       }
     }

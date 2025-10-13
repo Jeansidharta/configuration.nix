@@ -3,8 +3,9 @@
     .fingerprint = 0x4bf80c15dba4ff48,
     .version = "0.0.0",
     .dependencies = .{
-        .@"hyprland-zsock" = .{
-            .path = "./libs/hyprland-zsock",
+        .hyprland_zsock = .{
+            .url = "git+https://github.com/jeansidharta/hyprland-zsock#051a74aa53867d32ae5248db69561478a453882c",
+            .hash = "hyprland_zsock-0.0.0-AZUq008YAQDOzegIb_zIm2JfQhA7eZtX2No7PieAdbl6",
         },
     },
     .paths = .{

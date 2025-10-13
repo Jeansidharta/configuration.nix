@@ -4,7 +4,7 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const hyprlandZsock = b.dependency("hyprland-zsock", .{
+    const hyprlandZsock = b.dependency("hyprland_zsock", .{
         .target = target,
         .optimize = optimize,
     });
