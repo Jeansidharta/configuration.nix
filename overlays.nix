@@ -34,6 +34,7 @@ in
       pkgsUnstable = rawPkgsUnstable;
       splatmoji = splatmoji.packages.${system}.default;
       quickshell = rawPkgsUnstable.quickshell;
+      innernet = rawPkgsUnstable.innernet;
       mypkgs = {
         inherit
           sqlite-diagram
@@ -42,6 +43,7 @@ in
           extraPackages = [
             pkgs.nil
             pkgs.prettierd
+            pkgs.nodePackages_latest.bash-language-server
             pkgs.ripgrep
             pkgs.unixtools.xxd
             pkgs.marksman
