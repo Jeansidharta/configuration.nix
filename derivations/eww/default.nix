@@ -55,5 +55,5 @@ in
 
 writeScriptBin "eww" ''
   export PATH="${lib.makeBinPath (runtime-deps ++ extra-runtime-deps)}:$PATH"
-  eww --config ${configDir} "$@"
+  ${lib.getExe eww} --config ${configDir} "$@"
 ''

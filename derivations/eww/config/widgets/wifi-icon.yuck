@@ -1,9 +1,0 @@
-(defwidget wifi_icon
-  []
-  (eventbox
-    :onclick "eww open wifi && eww update searching_for_wifi=true"
-    (image
-      :path "./icons/wifi.svg"
-      :image-width 30
-      :image-height 30
-      :class "icon")))
