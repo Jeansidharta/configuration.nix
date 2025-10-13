@@ -114,8 +114,6 @@
         };
       common-modules = system: [
         ./hosts/common/configuration.nix
-        ./hardware/target/hardware-configuration.nix
-        ./hardware/target/disko-config.nix
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         ("${disko}/module.nix")

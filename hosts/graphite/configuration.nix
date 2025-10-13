@@ -6,6 +6,10 @@
   ...
 }:
 {
+  imports = [
+    ./hardware-configuration.nix
+    ./disko-config.nix
+  ];
   networking.hostName = "graphite";
   time.timeZone = "US/Eastern";
 

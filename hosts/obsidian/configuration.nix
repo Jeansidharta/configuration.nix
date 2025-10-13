@@ -6,6 +6,10 @@
   ...
 }:
 {
+  imports = [
+    ./hardware-configuration.nix
+    ./disko-config.nix
+  ];
   time.timeZone = "US/Eastern";
 
   programs.steam = {
