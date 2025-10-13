@@ -69,7 +69,12 @@ in
   config =
     with builtins;
     let
-      ewwCmd = lib.getExe cfg.package;
+      ewwCmd = lib.getExe (
+        cfg.package.override (base: {
+          extra-variables = base.extra-variables // cfg.extraVariables;
+          extra-files = base.extra-files // cfg.extraFiles;
+        })
+      );
       bashCmd = lib.getExe pkgs.bash;
     in
     mkIf cfg.enable {
