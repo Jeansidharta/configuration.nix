@@ -89,6 +89,30 @@
     action = "${pkgs.pulseaudio}/bin/pamixer --unmute && ${pkgs.pulseaudio}/bin/pamixer --increase 10";
   };
 
+  systemd = {
+    targets.innernet = {
+      unitConfig = {
+        Description = "Target to allow restarting and stopping of all parts of innernet";
+      };
+    };
+    services.innernet-sidharta = {
+      unitConfig = {
+        Description = "innernet client daemon for sidharta";
+        After = "network-online.target nss-lookup.target";
+        Wants = "network-online.target nss-lookup.target";
+        PartOf = "innernet.target";
+      };
+
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.innernet}/bin/innernet up sidharta --daemon --interval 60";
+        Restart = "always";
+        RestartSec = 10;
+      };
+      wantedBy = [ "multi-user.target" ];
+    };
+  };
+
   services.acpid.handlers.microphone = {
     event = "video/f20";
     action = "${pkgs.libnotify}/bin/notify-send TODO";

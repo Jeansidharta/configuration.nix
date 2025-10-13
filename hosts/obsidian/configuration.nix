@@ -21,7 +21,6 @@
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
     qt6.qtwayland
-    innernet
   ];
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
@@ -172,7 +171,6 @@
       };
     };
     wireguard = {
-      enable = true;
       interfaces = {
         max = {
           listenPort = 32986;

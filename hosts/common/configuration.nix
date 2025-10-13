@@ -109,8 +109,11 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    innernet
+    wireguard-tools
   ];
 
+  networking.wireguard.enable = true;
   age.secrets.wireguard-priv-key = {
     file = ../../secrets/wireguard.age;
   };

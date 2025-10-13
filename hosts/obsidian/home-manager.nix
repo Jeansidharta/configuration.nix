@@ -36,7 +36,6 @@
   };
   home.packages = [
     pkgs.orca-slicer
-		pkgs.wireguard-tools
   ];
   services.syncplay = {
     enable = true;
