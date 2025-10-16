@@ -22,6 +22,12 @@
     qt5.qtwayland
     qt6.qtwayland
   ];
+  networking.hosts = {
+    "fd00::2:2" = [ "suzana.wg" ];
+    "fd00::1" = [ "rpi.wg" ];
+    "fd00::1:2" = [ "obsidian.wg" ];
+    "fd00::1:3" = [ "graphite.wg" ];
+  };
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.docker.enable = true;

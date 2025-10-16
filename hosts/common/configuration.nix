@@ -42,6 +42,17 @@ in
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+  networking.hosts = {
+    "::1" = [
+      "ip6-localhost"
+      "ip6-loopback"
+    ];
+    "fe00::0" = [ "ip6-localnet" ];
+    "ff00::0" = [ "ip6-mcastprefix" ];
+    "ff02::1" = [ "ip6-allnodes" ];
+    "ff02::2" = [ "ip6-allrouters" ];
+  };
+
   swapDevices = [
     {
       device = "/var/lib/swapfile";
