@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  # inputs,
   ...
 }:
 {
@@ -23,11 +23,15 @@
     qt6.qtwayland
   ];
 
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.docker.enable = true;
+
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
 
   users.groups.proxyuser = { };
+  users.users.sidharta.extraGroups = [ "docker" ];
   users.users.sidharta.openssh.authorizedKeys.keys = [
     # My partner's laptop
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
@@ -167,6 +171,11 @@
               prefixLength = 128;
             }
           ];
+        };
+      };
+      enp13s0 = {
+        wakeOnLan = {
+          enable = true;
         };
       };
     };

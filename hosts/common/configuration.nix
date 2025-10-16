@@ -3,6 +3,26 @@
   pkgs,
   ...
 }:
+
+let
+  reboot-script = pkgs.writeScriptBin "rrr" ''
+    #!/usr/bin/env bash
+
+    sudo ${pkgs.systemd}/bin/systemctl reboot "$@"
+  '';
+
+  sleep-script = pkgs.writeScriptBin "zzz" ''
+    #!/usr/bin/env bash
+
+    sudo ${pkgs.systemd}/bin/systemctl suspend "$@"
+  '';
+
+  shutdown-script = pkgs.writeScriptBin "xxx" ''
+    #!/usr/bin/env bash
+
+    sudo ${pkgs.systemd}/bin/systemctl poweroff "$@"
+  '';
+in
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -10,6 +30,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  security.sudo.extraConfig = ''
+    sidharta ALL= NOPASSWD: ${pkgs.systemd}/bin/systemctl suspend
+    sidharta ALL= NOPASSWD: ${sleep-script}
+    sidharta ALL= NOPASSWD: ${pkgs.systemd}/bin/systemctl poweroff
+    sidharta ALL= NOPASSWD: ${shutdown-script}
+    sidharta ALL= NOPASSWD: ${pkgs.systemd}/bin/systemctl reboot
+    sidharta ALL= NOPASSWD: ${reboot-script}
+  '';
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
@@ -111,6 +140,9 @@
     git
     innernet
     wireguard-tools
+    sleep-script
+    shutdown-script
+    reboot-script
   ];
 
   networking.wireguard.enable = true;
