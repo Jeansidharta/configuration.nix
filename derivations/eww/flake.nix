@@ -22,12 +22,10 @@
     window-title-watcher = {
       url = "./scripts/window-title-watcher";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "utils";
     };
     workspaces-report = {
       url = "./scripts/workspaces-report";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "utils";
     };
   };
   outputs =

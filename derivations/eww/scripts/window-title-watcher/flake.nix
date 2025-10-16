@@ -2,7 +2,11 @@
   description = "Zig project flake";
 
   inputs = {
-    zig2nix.url = "github:Cloudef/zig2nix";
+    zig2nix = {
+      url = "github:Cloudef/zig2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs =
