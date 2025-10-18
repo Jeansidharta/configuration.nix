@@ -29,8 +29,17 @@
     "fd00::1:3" = [ "graphite.wg" ];
   };
 
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    virtualbox.host.enable = true;
+    docker = {
+      enable = true;
+      daemon.settings = {
+        ipv6 = true;
+        fixed-cidr-v6 = "fd10::/80";
+        metrics-addr = "0.0.0.0:9323";
+      };
+    };
+  };
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -95,9 +104,6 @@
   age.secrets.wireguard-priv-key = {
     file = ../../secrets/wireguard.age;
   };
-  age.secrets.wireguard-max = {
-    file = ../../secrets/wireguard-max.age;
-  };
   networking = {
     hostName = "obsidian";
     hosts = {
@@ -118,11 +124,6 @@
         32986
         51820
       ];
-    };
-    nat = {
-      enable = true;
-      internalInterfaces = [ "max" ];
-      externalInterface = "enp13s0";
     };
     interfaces = {
       wg0 = {
@@ -155,30 +156,6 @@
           ];
         };
       };
-      max = {
-        ipv4 = {
-          routes = [
-            {
-              address = "10.0.0.0";
-              prefixLength = 24;
-            }
-          ];
-          addresses = [
-            {
-              address = "192.168.1.1";
-              prefixLength = 32;
-            }
-          ];
-        };
-        ipv6 = {
-          addresses = [
-            {
-              address = "2000::1";
-              prefixLength = 128;
-            }
-          ];
-        };
-      };
       enp13s0 = {
         wakeOnLan = {
           enable = true;
@@ -187,20 +164,6 @@
     };
     wireguard = {
       interfaces = {
-        max = {
-          listenPort = 32986;
-          privateKeyFile = config.age.secrets.wireguard-max.path;
-          peers = [
-            {
-              name = "phone";
-              publicKey = "2ac7/D/IKDyzESQ2NmLVEl25nirwYfgh1a4NUYBCeQM=";
-              allowedIPs = [
-                "10.1.0.12/32"
-                "2001::12/128"
-              ];
-            }
-          ];
-        };
         wg0 = {
           listenPort = 32985;
           privateKeyFile = config.age.secrets.wireguard-priv-key.path;
