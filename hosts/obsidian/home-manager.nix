@@ -41,6 +41,7 @@
     enable = true;
     disableReady = true;
     disableChat = true;
+    interfaceIpv6 = "::";
     port = 8202;
   };
 }

@@ -51,6 +51,13 @@ in
       apply = v: if isTruthy v then "--disable-chat" else "";
     };
 
+    interfaceIpv6= mkOption {
+      description = "IPv6 Address or interface for syncplay to bind to";
+      type = types.str;
+      default = "";
+      apply = v: if isTruthy v then "--interface-ipv6 ${v}" else "";
+    };
+
     salt = mkOption {
       description = "random string used to generate managed room passwords";
       type = types.str;
@@ -90,6 +97,7 @@ in
           "salt"
           "maxChatMessageLength"
           "maxUsernameLength"
+          "interfaceIpv6"
         ];
       in
       {
