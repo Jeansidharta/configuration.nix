@@ -119,6 +119,9 @@
 
         "minicom" = "minicom -w -t xterm -l -R UTF-8";
         "du" = "${pkgs.dust}/bin/dust";
+
+        "rsync" =
+          "${pkgs.rsync}/bin/rsync -avzh --append-verify --inplace --checksum --info=progress1,stats3";
       };
 
     stateVersion = "24.05";
