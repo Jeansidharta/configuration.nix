@@ -50,6 +50,8 @@
       tmsu # File tagging tool
       obsidian # Note taking app
       moreutils # A collection of tools to improve bash scripting
+      xdragon # Allows to drag and drop
+      dive # See container image layers
 
       xh # A CURL replacement
       du-dust # A more modern du
@@ -68,6 +70,23 @@
       tcpdump # Dump tcp connections
       nmap # map network
       calc # gnu calc
+      conntrack-tools # Show connections tracked by the kernel
+      dig.dnsutils # DNS testing tool
+      strace # Show all syscalls made by application
+      traceroute # Shows the route to a destination on the internet
+      darkhttpd # Very simple http server
+
+      transmission_4 # Bit torrent client
+
+      (pkgs.writeScriptBin "root-derivation" ''
+        #!/usr/bin/env bash
+
+        path="$(which "$1")"
+        path="$(readlink -f "$path")"
+        path="$(dirname "$path")"
+
+        echo "$path"
+      '')
 
       (plover.with-plugins (ps: [
         ps.plover-lapwing-aio
