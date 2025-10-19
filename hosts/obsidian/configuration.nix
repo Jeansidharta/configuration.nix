@@ -112,12 +112,10 @@
     firewall = {
       trustedInterfaces = [
         "wg0"
-        "veth0"
         "sidharta"
       ];
       allowedTCPPorts = [
         22
-        8001
       ];
       allowedUDPPorts = [
         32985
