@@ -77,29 +77,8 @@ in
   };
   services.udisks2.enable = true;
 
-  programs.hyprland.enable = true;
-  programs.hyprland.withUWSM = true;
   # hint electron apps to use wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  services.greetd = {
-    settings = rec {
-      initial_session =
-        let
-          systemctl = "${pkgs.systemd}/bin/systemctl";
-          startup = pkgs.writeScript "startup" ''
-            ${systemctl} --user import-environment PATH
-            exec ${pkgs.uwsm}/bin/uwsm start hyprland
-          '';
-        in
-        {
-          user = "sidharta";
-          command = startup;
-        };
-      default_session = initial_session;
-    };
-    enable = true;
-  };
 
   # Required by Hyprlock
   security.pam.services.hyprlock = { };
@@ -167,15 +146,8 @@ in
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
-      # Enable hyprland cachix
-      substituters = [
-        "https://hyprland.cachix.org"
-        "https://yazi.cachix.org"
-      ];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
-      ];
+      substituters = [ ];
+      trusted-public-keys = [ ];
       max-jobs = 4;
 
       warn-dirty = false;
@@ -195,6 +167,7 @@ in
     '';
   };
 
+  desktops.customHyprland.enable = true;
   programs.nix-index-database.comma.enable = true;
   programs = {
     neovim = {

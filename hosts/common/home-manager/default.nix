@@ -1,13 +1,10 @@
 {
   config,
   pkgs,
-  hostname,
-  main-user,
   ...
 }:
 {
   imports = [
-    ./hyprland.nix
     ./waypaper.nix
     ./hyprlock.nix
     ./git.nix
@@ -110,6 +107,8 @@
       # === Fonts ===
       jetbrains-mono
     ];
+
+    desktops.customHyprland.enable = true;
 
     shellAliases =
       let

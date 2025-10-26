@@ -48,6 +48,10 @@
       url = "./derivations/eww";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    custom-hyprland = {
+      url = "./derivations/hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
@@ -66,6 +70,7 @@
       splatmoji,
       neovim-with-plugins,
       custom-eww,
+      custom-hyprland,
       sqlite-diagram,
       ...
     }:
@@ -105,10 +110,8 @@
                   ./hosts/common/home-manager/default.nix
                   yazi-custom.homeManagerModules.default
                   custom-eww.outputs.homeManagerModule
+                  custom-hyprland.outputs.homeConfigurations.default
                 ];
-            };
-            extraSpecialArgs = {
-              inherit hostname main-user;
             };
           };
         };
@@ -116,6 +119,7 @@
         ./hosts/common/configuration.nix
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
+        custom-hyprland.outputs.nixosConfigurations.default
         ("${disko}/module.nix")
         (overlays system)
         {

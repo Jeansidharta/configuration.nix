@@ -107,6 +107,22 @@
       },
       "parent": []
     },
+    "custom-hyprland": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "path": "./derivations/hyprland",
+        "type": "path"
+      },
+      "original": {
+        "path": "./derivations/hyprland",
+        "type": "path"
+      },
+      "parent": []
+    },
     "disko": {
       "flake": false,
       "locked": {
@@ -1145,6 +1161,7 @@
       "inputs": {
         "agenix": "agenix",
         "custom-eww": "custom-eww",
+        "custom-hyprland": "custom-hyprland",
         "disko": "disko",
         "home-manager": "home-manager_2",
         "neovim-with-plugins": "neovim-with-plugins",
