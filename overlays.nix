@@ -1,5 +1,6 @@
 {
   system,
+  niri,
   splatmoji,
   nixpkgs-stable,
   nixpkgs-unstable,
@@ -28,6 +29,7 @@ let
 in
 {
   nixpkgs.overlays = [
+    niri
     (final: prev: {
       inherit plover;
       wezterm = rawPkgsUnstable.wezterm;

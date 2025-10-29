@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   wallpaper_dir = "/home/sidharta/wallpapers";
-  fselect = "${pkgs.fselect}/bin/fselect";
-  swww = "${pkgs.swww}/bin/swww";
-  bash = "${pkgs.bash}/bin/bash";
-  jq = "${pkgs.jq}/bin/jq";
+  fselect = lib.getExe pkgs.fselect;
+  swww = lib.getExe pkgs.swww;
+  bash = lib.getExe pkgs.bash;
+  jq = lib.getExe pkgs.jq;
+  niri = lib.getExe pkgs.niri-unstable;
 in
 {
   programs.waypaper = {
@@ -20,7 +21,7 @@ in
     services = {
       wallpaper-timer = {
         Unit = {
-          Description = "Change wallpaper in a constant interval";
+          Description = "Change wallpaper at a constant interval";
         };
         Service = {
           Type = "oneshot";
@@ -33,12 +34,10 @@ in
               echo "Selecting $wallpaper for output $1"
               ${swww} img --outputs "$1" "$wallpaper" 
             }
-            outputs_raw=$(hyprctl monitors -j | jq ".[].name")
+            outputs_raw=$(${niri} msg --json outputs | ${jq} --raw-output ".[].name")
             IFS=$'\n' read -d ''' -ra outputs <<< "$outputs_raw"
             for output in "''${outputs[@]}"; do
-              trim_start=''${output#\"}
-              trim_end=''${trim_start%\"}
-              put_wallpaper "$trim_end"
+              put_wallpaper "$output"
             done
           '')}";
         };

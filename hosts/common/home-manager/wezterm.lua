@@ -9,6 +9,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_background_opacity = 0.9
 config.audible_bell = "Disabled"
 config.color_scheme = "mainTheme"
+config.enable_wayland = true
 
 -- Spawn a fish shell in login mode
 -- config.default_prog = { "/usr/bin/fish", "-l" }

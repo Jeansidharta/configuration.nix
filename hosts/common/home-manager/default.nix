@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  lib,
+  theme,
   ...
 }:
 {
@@ -10,6 +12,7 @@
     ./git.nix
     ./starship.nix
     ./zsh.nix
+    ./niri.nix
   ];
   home = {
     # pointerCursor = {
@@ -107,8 +110,6 @@
       # === Fonts ===
       jetbrains-mono
     ];
-
-    desktops.customHyprland.enable = true;
 
     shellAliases =
       let

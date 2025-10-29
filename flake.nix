@@ -52,6 +52,11 @@
       url = "./derivations/hyprland";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
@@ -72,24 +77,28 @@
       custom-eww,
       custom-hyprland,
       sqlite-diagram,
+      niri,
       ...
     }:
     let
 
       overlays =
         system:
-        (import ./overlays.nix {
-          inherit
-            system
-            splatmoji
-            nixpkgs-stable
-            nixpkgs-unstable
-            neovim-with-plugins
-            plover-flake
-            ;
+        (
+          (import ./overlays.nix {
+            inherit
+              system
+              splatmoji
+              nixpkgs-stable
+              nixpkgs-unstable
+              neovim-with-plugins
+              plover-flake
+              ;
 
-          sqlite-diagram-flake = sqlite-diagram;
-        });
+            sqlite-diagram-flake = sqlite-diagram;
+            niri = niri.overlays.niri;
+          })
+        );
 
       home-manager-module =
         {
@@ -113,6 +122,9 @@
                   custom-hyprland.outputs.homeConfigurations.default
                 ];
             };
+            extraSpecialArgs = {
+              inherit (theme.outputs) theme;
+            };
           };
         };
       common-modules = system: [
@@ -120,6 +132,7 @@
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         custom-hyprland.outputs.nixosConfigurations.default
+        niri.nixosModules.niri
         ("${disko}/module.nix")
         (overlays system)
         {

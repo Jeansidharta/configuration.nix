@@ -130,6 +130,7 @@ in
     git
     innernet
     wireguard-tools
+    xwayland-satellite
     sleep-script
     shutdown-script
     reboot-script
@@ -167,8 +168,29 @@ in
     '';
   };
 
-  desktops.customHyprland.enable = true;
+  # desktops.customHyprland.enable = true;
   programs.nix-index-database.comma.enable = true;
+  programs.niri.enable = true;
+  programs.niri.package = pkgs.niri-unstable;
+  niri-flake.cache.enable = false;
+  services.greetd = {
+    settings = rec {
+      initial_session =
+        let
+          systemctl = "${pkgs.systemd}/bin/systemctl";
+          startup = pkgs.writeScript "startup" ''
+            ${systemctl} --user import-environment PATH
+            exec ${pkgs.niri}/bin/niri-session
+          '';
+        in
+        {
+          user = "sidharta";
+          command = startup;
+        };
+      default_session = initial_session;
+    };
+    enable = true;
+  };
   programs = {
     neovim = {
       enable = true;
