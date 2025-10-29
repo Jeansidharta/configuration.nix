@@ -44,6 +44,7 @@
       imhex # A very nice hex editor
       libreoffice # Office suite
 
+      zapzap # whatsapp client
       helvum # Manipulate Pipewire connections
       qpwgraph # Manipulate Pipewire connections
       usbutils # Tool for manipulating USB
