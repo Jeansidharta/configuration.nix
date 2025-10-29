@@ -62,6 +62,14 @@
           open-on-workspace = "7";
         }
         {
+          matches = [ { app-id = "^org\\.telegram\\.desktop$"; } ];
+          open-on-workspace = "7";
+        }
+        {
+          matches = [ { app-id = "^ZapZap$"; } ];
+          open-on-workspace = "7";
+        }
+        {
           matches = [ { app-id = "^scratchpad$"; } ];
           open-floating = true;
         }
