@@ -24,7 +24,7 @@
         inherit
           sqlite-diagram
           ;
-        neovim = neovim-with-plugins.packages.${system}.base.override (prev: {
+        neovim = neovim-with-plugins.packages.${system}.base.override (prevNeovimConf: {
           extraPackages = [
             prev.nil
             prev.prettierd
