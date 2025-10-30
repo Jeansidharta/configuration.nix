@@ -105,24 +105,6 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
-      "inputs": {
-        "systems": "systems_5"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "naersk": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -275,21 +257,6 @@
         "type": "github"
       }
     },
-    "systems_5": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "utils": {
       "inputs": {
         "systems": "systems"
@@ -346,8 +313,7 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "zig2nix": "zig2nix_2"
+        ]
       },
       "locked": {
         "path": "./scripts/window-title-watcher",
@@ -364,7 +330,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "zig2nix": "zig2nix_3"
+        "zig2nix": "zig2nix_2"
       },
       "locked": {
         "path": "./scripts/workspaces-report",
@@ -401,28 +367,6 @@
     "zig2nix_2": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "window-title-watcher",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1760320260,
-        "narHash": "sha256-mK2uuWR3E8nl7zw8LEDCrAokbBv6bT9i54KyfgME6f4=",
-        "owner": "Cloudef",
-        "repo": "zig2nix",
-        "rev": "c6b6049ef98bd46116c8f88c596dc5331ed451cb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Cloudef",
-        "repo": "zig2nix",
-        "type": "github"
-      }
-    },
-    "zig2nix_3": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "workspaces-report",
           "nixpkgs"

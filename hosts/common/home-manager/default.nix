@@ -44,6 +44,8 @@
       imhex # A very nice hex editor
       libreoffice # Office suite
 
+      walker # Application launcher
+
       zapzap # whatsapp client
       helvum # Manipulate Pipewire connections
       qpwgraph # Manipulate Pipewire connections
@@ -142,9 +144,16 @@
 
         "rsync" =
           "${pkgs.rsync}/bin/rsync -avzh --append-verify --inplace --checksum --info=progress1,stats3";
+
+        "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
       };
 
     stateVersion = "24.05";
+  };
+
+  programs.walker = {
+    enable = true;
+    runAsService = true;
   };
 
   programs.satty = {
@@ -183,10 +192,6 @@
   };
   programs.btop.enable = true;
   programs.direnv.enable = true;
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi-wayland-unwrapped;
-  };
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
 

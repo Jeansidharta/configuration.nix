@@ -54,10 +54,6 @@
           open-on-workspace = "8";
         }
         {
-          matches = [ { app-id = "^firefox$"; } ];
-          open-on-workspace = "1";
-        }
-        {
           matches = [ { app-id = "^discord$"; } ];
           open-on-workspace = "7";
         }
@@ -102,7 +98,7 @@
           xargs = "${pkgs.findutils}/bin/xargs";
           jq = lib.getExe pkgs.jq;
           wezterm = lib.getExe pkgs.wezterm;
-          rofi = lib.getExe pkgs.rofi-wayland-unwrapped;
+          walker = lib.getExe pkgs.walker;
           leaderKey = "Super";
           pamixer = lib.getExe pkgs.pamixer;
           pactl = "${pkgs.pulseaudio}/bin/pactl";
@@ -241,11 +237,7 @@
 
           "${leaderKey}+question".action = show-hotkey-overlay;
 
-          "${leaderKey}+Space".action.spawn = [
-            rofi
-            "-show"
-            "run"
-          ];
+          "${leaderKey}+Space".action.spawn = [ walker ];
 
           "Print".action.screenshot.show-pointer = false;
           "XF86AudioLowerVolume".action.spawn = [
@@ -277,7 +269,7 @@
             "3"
           ];
           "${leaderKey}+v".action.spawn-sh =
-            "${cliphist} list | ${rofi} -dmenu | ${cliphist} decode | ${wl-copy}";
+            "${cliphist} list | ${walker} -d -l 2 | ${cliphist} decode | ${wl-copy}";
           "${leaderKey}+Ctrl+v".action.spawn = "${modifyClipboard}";
           "${leaderKey}+Shift+v".action.spawn = "${paste-qrcode}";
           "Shift+XF86AudioNext".action.spawn = [

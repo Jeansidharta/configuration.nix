@@ -57,6 +57,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -78,31 +82,45 @@
       custom-hyprland,
       sqlite-diagram,
       niri,
+      walker,
       ...
     }:
     let
+      /**
+        Pulls the package from nixpkgs-unstable instead of stable.
+      */
+      mkUnstable =
+        pkg-name:
+        (prev: final: { ${pkg-name} = nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
 
-      overlays =
-        system:
-        (
+      overlays = {
+        nixpkgs.overlays =
           (import ./overlays.nix {
             inherit
-              system
               splatmoji
-              nixpkgs-stable
               nixpkgs-unstable
               neovim-with-plugins
               plover-flake
               ;
 
             sqlite-diagram-flake = sqlite-diagram;
-            niri = niri.overlays.niri;
           })
-        );
+          ++ [
+            niri.overlays.niri
+            yazi-custom.overlays.default
+            swww.overlays.default
+            (mkUnstable "wezterm")
+            (mkUnstable "quickshell")
+            (mkUnstable "innernet")
+            (final: prev: { walker = walker.packages.${prev.system}.default; })
+            (final: prev: {
+              xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
+            })
+          ];
+      };
 
       home-manager-module =
         {
-          hostname,
           main-user,
           imports,
         }:
@@ -120,6 +138,7 @@
                   yazi-custom.homeManagerModules.default
                   custom-eww.outputs.homeManagerModule
                   custom-hyprland.outputs.homeConfigurations.default
+                  walker.outputs.homeManagerModules.default
                 ];
             };
             extraSpecialArgs = {
@@ -127,23 +146,14 @@
             };
           };
         };
-      common-modules = system: [
+      common-modules = [
         ./hosts/common/configuration.nix
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         custom-hyprland.outputs.nixosConfigurations.default
         niri.nixosModules.niri
         ("${disko}/module.nix")
-        (overlays system)
-        {
-          nixpkgs.overlays = [
-            yazi-custom.overlays.default
-            swww.overlays.default
-            (final: prev: {
-              xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${system}.python311Packages.xkbcommon;
-            })
-          ];
-        }
+        overlays
         agenix.nixosModules.default
         {
           environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
@@ -155,15 +165,14 @@
         obsidian =
           let
             system = "x86_64-linux";
-            hostname = "obsidian";
             main-user = "sidharta";
           in
           nixpkgs-stable.lib.nixosSystem {
             inherit system;
-            modules = (common-modules system) ++ [
+            modules = common-modules ++ [
               ./hosts/obsidian/configuration.nix
               (home-manager-module {
-                inherit hostname main-user;
+                inherit main-user;
                 imports = [
                   ./hosts/obsidian/home-manager.nix
                 ];
@@ -173,15 +182,14 @@
         graphite =
           let
             system = "x86_64-linux";
-            hostname = "graphite";
             main-user = "sidharta";
           in
           nixpkgs-stable.lib.nixosSystem {
             inherit system;
-            modules = (common-modules system) ++ [
+            modules = common-modules ++ [
               ./hosts/graphite/configuration.nix
               (home-manager-module {
-                inherit hostname main-user;
+                inherit main-user;
                 imports = [
                   ./hosts/graphite/home-manager.nix
                 ];

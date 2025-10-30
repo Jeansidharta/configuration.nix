@@ -8,7 +8,7 @@
 # '';
 {
   imports = [ ];
-  desktops.customHypridle.enable = true;
+  # desktops.customHypridle.enable = true;
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
   programs.ewwCustom = {
