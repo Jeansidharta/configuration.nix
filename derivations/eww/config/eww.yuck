@@ -50,8 +50,8 @@
       :style {!show_background ? "background-color: transparent;" : ""}
       :class "main-container"
       :space-evenly false
-      (backdrop
-        (workspaces))
+      ; (backdrop
+      ;   (workspaces))
       (backdrop
         (performance))
       (backdrop :hexpand true

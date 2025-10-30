@@ -49,7 +49,7 @@ let
   configDir = runCommand "eww-config" ({ } // extra-variables) ''
     cp -r --no-preserve=mode ${./config} $out
     ${copyCommandExtraFiles}
-    find $out/ -type f -exec bash -c "cat {} | ${lib.getExe envsub} -p @ -s @ > {}.tmp && mv {}.tmp {}" \;
+    find $out/ -type f -exec bash -c "cat {} | ${envsub}/bin/envsub -p @ -s @ > {}.tmp && mv {}.tmp {}" \;
   '';
 in
 

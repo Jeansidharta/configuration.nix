@@ -27,7 +27,7 @@
       packages = forEachSupportedSystem (
         { pkgs }:
         {
-          default = pkgs.writeScriptBin "listen-title" (builtins.readFile ./script.sh);
+          default = pkgs.writeScriptBin "window-title-watcher" (builtins.readFile ./script.sh);
         }
       );
     };
