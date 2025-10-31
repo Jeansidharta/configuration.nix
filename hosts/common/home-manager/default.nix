@@ -1,8 +1,6 @@
 {
-  config,
   pkgs,
   lib,
-  theme,
   ...
 }:
 {
@@ -155,6 +153,55 @@
     enable = true;
     runAsService = true;
   };
+  programs.elephant = {
+    enable = true;
+    installService = true;
+    providers = [
+      "desktopapplications"
+      "files"
+      "clipboard"
+      "runner"
+      "symbols"
+      "calc"
+      "menus"
+      "providerlist"
+      "websearch"
+      # "todo"
+      "unicode"
+      "bluetooth"
+      # "windows"
+    ];
+    config = {
+      providers = {
+      };
+    };
+  };
+  xdg.configFile."elephant/clipboard.toml".source =
+    (pkgs.formats.toml { }).generate "elephant/clipboard.toml"
+      (
+        let
+          wezterm = lib.getExe pkgs.wezterm;
+          neovim = lib.getExe pkgs.mypkgs.neovim;
+          vipe = "${pkgs.moreutils}/bin/vipe";
+          wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+        in
+        {
+          text_editor_cmd = ''
+            ${wezterm} start --class wezterm.clipboard -- bash -c "export EDITOR=${neovim} ; cat %FILE% | ${vipe} | ${wl-copy} && exit"
+          '';
+        }
+      );
+  xdg.configFile."elephant/websearch.toml".source =
+    (pkgs.formats.toml { }).generate "elephant/websearch.toml"
+      {
+        entries = [
+          {
+            default = true;
+            name = "Google";
+            url = "https://www.google.com/search?q=%TERM%";
+          }
+        ];
+      };
 
   programs.satty = {
     enable = true;

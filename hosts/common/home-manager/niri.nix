@@ -27,15 +27,15 @@
         disable-primary = false;
       };
       workspaces = {
-        "1" = { };
+        "browser" = { };
         "2" = { };
         "3" = { };
         "4" = { };
         "5" = { };
         "6" = { };
-        "7" = { };
-        "8" = { };
-        "9" = { };
+        "communication" = { };
+        "gaming" = { };
+        "x" = { };
       };
 
       window-rules = [
@@ -52,6 +52,17 @@
         {
           matches = [ { app-id = "^steam.*$"; } ];
           open-on-workspace = "8";
+        }
+        {
+          matches = [ { app-id = "wezterm.clipboard"; } ];
+          open-focused = true;
+          default-column-width = {
+            proportion = 0.9;
+          };
+          default-window-height = {
+            proportion = 0.9;
+          };
+          open-floating = true;
         }
         {
           matches = [ { app-id = "^discord$"; } ];
@@ -172,6 +183,10 @@
           "${leaderKey}+F3".action = set-column-width "33%";
           "${leaderKey}+F4".action = set-column-width "25%";
           "${leaderKey}+F5".action = set-column-width "20%";
+          "${leaderKey}+F6".action = set-column-width "16.66%";
+          "${leaderKey}+F7".action = set-column-width "14.28%";
+          "${leaderKey}+F8".action = set-column-width "12.5%";
+          "${leaderKey}+F9".action = set-column-width "11.11%";
           "${leaderKey}+F10".action = set-column-width "0%";
 
           "${leaderKey}+Shift+F1".action = set-column-width "0%";
@@ -179,6 +194,10 @@
           "${leaderKey}+Shift+F3".action = set-column-width "66%";
           "${leaderKey}+Shift+F4".action = set-column-width "75%";
           "${leaderKey}+Shift+F5".action = set-column-width "80%";
+          "${leaderKey}+Shift+F6".action = set-column-width "83.33%";
+          "${leaderKey}+Shift+F7".action = set-column-width "85.71%";
+          "${leaderKey}+Shift+F8".action = set-column-width "87.5%";
+          "${leaderKey}+Shift+F9".action = set-column-width "88.88%";
           "${leaderKey}+Shift+F10".action = set-column-width "100%";
 
           "${leaderKey}+Ctrl+F1".action = set-window-height "100%";
@@ -186,6 +205,10 @@
           "${leaderKey}+Ctrl+F3".action = set-window-height "33%";
           "${leaderKey}+Ctrl+F4".action = set-window-height "25%";
           "${leaderKey}+Ctrl+F5".action = set-window-height "20%";
+          "${leaderKey}+Ctrl+F6".action = set-window-height "16.66%";
+          "${leaderKey}+Ctrl+F7".action = set-window-height "14.28%";
+          "${leaderKey}+Ctrl+F8".action = set-window-height "12.5%";
+          "${leaderKey}+Ctrl+F9".action = set-window-height "11.11%";
           "${leaderKey}+Ctrl+F10".action = set-window-height "0%";
 
           "${leaderKey}+Shift+Ctrl+F1".action = set-window-height "0%";
@@ -193,19 +216,23 @@
           "${leaderKey}+Shift+Ctrl+F3".action = set-window-height "66%";
           "${leaderKey}+Shift+Ctrl+F4".action = set-window-height "75%";
           "${leaderKey}+Shift+Ctrl+F5".action = set-window-height "80%";
+          "${leaderKey}+Shift+Ctrl+F6".action = set-window-height "83.33%";
+          "${leaderKey}+Shift+Ctrl+F7".action = set-window-height "85.71%";
+          "${leaderKey}+Shift+Ctrl+F8".action = set-window-height "87.5%";
+          "${leaderKey}+Shift+Ctrl+F9".action = set-window-height "88.88%";
           "${leaderKey}+Shift+Ctrl+F10".action = set-window-height "100%";
 
           "${leaderKey}+equal".action = reset-window-height;
 
-          "${leaderKey}+1".action = focus-workspace "1";
+          "${leaderKey}+1".action = focus-workspace "browser";
           "${leaderKey}+2".action = focus-workspace "2";
           "${leaderKey}+3".action = focus-workspace "3";
           "${leaderKey}+4".action = focus-workspace "4";
           "${leaderKey}+5".action = focus-workspace "5";
           "${leaderKey}+6".action = focus-workspace "6";
-          "${leaderKey}+7".action = focus-workspace "7";
-          "${leaderKey}+8".action = focus-workspace "8";
-          "${leaderKey}+9".action = focus-workspace "9";
+          "${leaderKey}+7".action = focus-workspace "communication";
+          "${leaderKey}+8".action = focus-workspace "gaming";
+          "${leaderKey}+9".action = focus-workspace "x";
 
           "${leaderKey}+Shift+1".action.move-window-to-workspace = "1";
           "${leaderKey}+Shift+2".action.move-window-to-workspace = "2";
