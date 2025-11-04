@@ -37,6 +37,11 @@
         "gaming" = { };
         "x" = { };
       };
+      animations = {
+        workspace-switch = {
+          enable = false;
+        };
+      };
 
       window-rules = [
         {
@@ -51,7 +56,19 @@
         }
         {
           matches = [ { app-id = "^steam.*$"; } ];
-          open-on-workspace = "8";
+          open-on-workspace = "gaming";
+        }
+        {
+          matches = [ { app-id = "^discord$"; } ];
+          open-on-workspace = "communication";
+        }
+        {
+          matches = [ { app-id = "^org\\.telegram\\.desktop$"; } ];
+          open-on-workspace = "communication";
+        }
+        {
+          matches = [ { app-id = "^ZapZap$"; } ];
+          open-on-workspace = "communication";
         }
         {
           matches = [ { app-id = "wezterm.clipboard"; } ];
@@ -62,22 +79,6 @@
           default-window-height = {
             proportion = 0.9;
           };
-          open-floating = true;
-        }
-        {
-          matches = [ { app-id = "^discord$"; } ];
-          open-on-workspace = "7";
-        }
-        {
-          matches = [ { app-id = "^org\\.telegram\\.desktop$"; } ];
-          open-on-workspace = "7";
-        }
-        {
-          matches = [ { app-id = "^ZapZap$"; } ];
-          open-on-workspace = "7";
-        }
-        {
-          matches = [ { app-id = "^scratchpad$"; } ];
           open-floating = true;
         }
       ];
@@ -234,15 +235,15 @@
           "${leaderKey}+8".action = focus-workspace "gaming";
           "${leaderKey}+9".action = focus-workspace "x";
 
-          "${leaderKey}+Shift+1".action.move-window-to-workspace = "1";
+          "${leaderKey}+Shift+1".action.move-window-to-workspace = "browser";
           "${leaderKey}+Shift+2".action.move-window-to-workspace = "2";
           "${leaderKey}+Shift+3".action.move-window-to-workspace = "3";
           "${leaderKey}+Shift+4".action.move-window-to-workspace = "4";
           "${leaderKey}+Shift+5".action.move-window-to-workspace = "5";
           "${leaderKey}+Shift+6".action.move-window-to-workspace = "6";
-          "${leaderKey}+Shift+7".action.move-window-to-workspace = "7";
-          "${leaderKey}+Shift+8".action.move-window-to-workspace = "8";
-          "${leaderKey}+Shift+9".action.move-window-to-workspace = "9";
+          "${leaderKey}+Shift+7".action.move-window-to-workspace = "communication";
+          "${leaderKey}+Shift+8".action.move-window-to-workspace = "gaming";
+          "${leaderKey}+Shift+9".action.move-window-to-workspace = "x";
 
           "${leaderKey}+Home".action = focus-column-first;
           "${leaderKey}+End".action = focus-column-last;
