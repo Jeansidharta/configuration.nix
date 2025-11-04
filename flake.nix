@@ -61,6 +61,10 @@
       url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    wiremix = {
+      url = "github:tsowell/wiremix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -83,6 +87,7 @@
       sqlite-diagram,
       niri,
       walker,
+      wiremix,
       ...
     }:
     let
@@ -112,8 +117,10 @@
             (mkUnstable "wezterm")
             (mkUnstable "quickshell")
             (mkUnstable "innernet")
-            (final: prev: { walker = walker.packages.${prev.system}.default; })
-            (final: prev: {
+            (mkUnstable "snapcast")
+            (prev: final: { walker = walker.packages.${prev.system}.default; })
+            (prev: final: { wiremix = wiremix.packages.${prev.system}.default; })
+            (prev: final: {
               xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
             })
           ];
@@ -171,6 +178,7 @@
             inherit system;
             modules = common-modules ++ [
               ./hosts/obsidian/configuration.nix
+              "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
               (home-manager-module {
                 inherit main-user;
                 imports = [

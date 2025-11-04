@@ -2,10 +2,13 @@
   config,
   lib,
   pkgs,
-  # inputs,
   ...
 }:
 {
+  disabledModules = [
+    "services/audio/snapserver.nix"
+  ];
+
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
@@ -21,6 +24,7 @@
   environment.systemPackages = with pkgs; [
     qt5.qtwayland
     qt6.qtwayland
+    snapcast
   ];
   networking.hosts = {
     "fd00::2:2" = [ "suzana.wg" ];
@@ -52,6 +56,29 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
 
   ];
+  # services.snapserver = {
+  #   enable = true;
+  #   settings = {
+  #     # server = {
+  #     # user = "sidharta";
+  #     # };
+  #     stream.source = [
+  #       "pipe:///run/snapserver/snapfifo?name=SnapServer-pipe"
+  #       "alsa:///?name=Snapserver-alsa&device=hw:5,0&sampleformat=48000:16:1"
+  #     ];
+  #     http.enable = true;
+  #   };
+  # };
+  # systemd.services.snapserver = {
+  #   serviceConfig = {
+  #     # DynamicUser = pkgs.lib.mkForce "false";
+  #     # User = "sidharta";
+  #     SupplementaryGroups = [
+  #       "pipewire"
+  #       "audio"
+  #     ];
+  #   };
+  # };
   users.users.proxyuser = {
     name = "proxyuser";
     group = "proxyuser";

@@ -53,6 +53,7 @@
       moreutils # A collection of tools to improve bash scripting
       xdragon # Allows to drag and drop
       dive # See container image layers
+      wiremix # TUI for configuring pipewire audio
 
       xh # A CURL replacement
       du-dust # A more modern du
@@ -327,6 +328,14 @@
       audio_output {
         type            "pipewire"
         name            "PipeWire Sound Server"
+      }
+
+      audio_output {
+        type            "fifo"
+        name            "snapcast fifo"
+        path 			"/home/sidharta/docker-wireguard/snapcast/volume/snapfifo"
+		format          "48000:16:2"
+		mixer_type      "software"
       }
     '';
   };

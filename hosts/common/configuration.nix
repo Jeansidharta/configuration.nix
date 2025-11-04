@@ -119,6 +119,7 @@ in
       "networkmanager"
       "tor"
       "dialout"
+      "pipewire"
     ];
     shell = pkgs.zsh;
     packages = [ pkgs.home-manager ];
