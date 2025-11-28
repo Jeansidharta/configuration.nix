@@ -25,6 +25,7 @@
     qt5.qtwayland
     qt6.qtwayland
     snapcast
+    nylon-wg
   ];
   networking.hosts = {
     "fd00::2:2" = [ "suzana.wg" ];
@@ -44,6 +45,13 @@
       };
     };
   };
+  security.wrappers.batata = {
+    source = "${pkgs.coreutils-full}/bin/whoami";
+    setuid = true;
+    setgid = true;
+    owner = "root";
+    group = "root";
+  };
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -54,7 +62,10 @@
   users.users.sidharta.openssh.authorizedKeys.keys = [
     # My partner's laptop
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
-
+    # rpi
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjKncebs2sgqNV4pAH6Vp+5uAX6Wj6+HurLmgVepKo3 sidharta@basalt"
+    # phone
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Zp5PotpXLi0ZSby7zm1B2Ca6GyIL76Rew9zzDCTKu u0_a270@localhost"
   ];
   # services.snapserver = {
   #   enable = true;
@@ -83,9 +94,9 @@
     name = "proxyuser";
     group = "proxyuser";
     openssh.authorizedKeys.keys = [
-      # Raspberry PI
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDig6qJstpy9HOVdJkvhc15ywIdRwUiH5uZ7lbwNW0rZ jeansidharta@gmail.com"
-      # My phone
+      # rpi
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjKncebs2sgqNV4pAH6Vp+5uAX6Wj6+HurLmgVepKo3 sidharta@basalt"
+      # phone
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Zp5PotpXLi0ZSby7zm1B2Ca6GyIL76Rew9zzDCTKu u0_a270@localhost"
       # My laptop
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6KBaW5uNXP3Zav9MYReG37mkYB8yBU2l0RbnS6H2tT sidharta@graphite"
@@ -149,6 +160,7 @@
         32985
         32986
         51820
+        57175
       ];
     };
     interfaces = {
@@ -180,6 +192,11 @@
               prefixLength = 120;
             }
           ];
+        };
+      };
+      wlp14s0 = {
+        wakeOnLan = {
+          enable = true;
         };
       };
       enp13s0 = {
@@ -216,27 +233,49 @@
     };
   };
   systemd = {
-    targets.innernet = {
+    # targets.innernet = {
+    #   unitConfig = {
+    #     Description = "Target to allow restarting and stopping of all parts of innernet";
+    #   };
+    # };
+    targets.nylon = {
       unitConfig = {
-        Description = "Target to allow restarting and stopping of all parts of innernet";
+        Description = "Target to allow restarting and stopping of all parts of nylon";
       };
     };
-    services.innernet-sidharta = {
+    services.nylon = {
+      enable = true;
       unitConfig = {
-        Description = "innernet client daemon for sidharta";
+        Description = "Nylon network";
         After = "network-online.target nss-lookup.target";
         Wants = "network-online.target nss-lookup.target";
-        PartOf = "innernet.target";
+        PartOf = "nylon.target";
       };
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.innernet}/bin/innernet up sidharta --daemon --interval 60";
+        ExecStart = "${pkgs.nylon-wg}/bin/nylon run -v -n /home/sidharta/nylon/node.yaml -c /home/sidharta/nylon/central.yaml";
         Restart = "always";
         RestartSec = 10;
       };
       wantedBy = [ "multi-user.target" ];
     };
+    # services.innernet-sidharta = {
+    #   unitConfig = {
+    #     Description = "innernet client daemon for sidharta";
+    #     After = "network-online.target nss-lookup.target";
+    #     Wants = "network-online.target nss-lookup.target";
+    #     PartOf = "innernet.target";
+    #   };
+    #
+    #   serviceConfig = {
+    #     Type = "simple";
+    #     ExecStart = "${pkgs.innernet}/bin/innernet up sidharta --daemon --interval 60";
+    #     Restart = "always";
+    #     RestartSec = 10;
+    #   };
+    #   wantedBy = [ "multi-user.target" ];
+    # };
   };
   networking.nftables = {
     enable = true;

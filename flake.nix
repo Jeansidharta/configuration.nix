@@ -96,63 +96,58 @@
       */
       mkUnstable =
         pkg-name:
-        (prev: final: { ${pkg-name} = nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
+        (final: prev: { ${pkg-name} = nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
 
-      overlays = {
-        nixpkgs.overlays =
-          (import ./overlays.nix {
-            inherit
-              splatmoji
-              nixpkgs-unstable
-              neovim-with-plugins
-              plover-flake
-              ;
-
-            sqlite-diagram-flake = sqlite-diagram;
-          })
-          ++ [
-            niri.overlays.niri
-            yazi-custom.overlays.default
-            swww.overlays.default
-            (mkUnstable "wezterm")
-            (mkUnstable "quickshell")
-            (mkUnstable "innernet")
-            (mkUnstable "snapcast")
-            (prev: final: { walker = walker.packages.${prev.system}.default; })
-            (prev: final: { wiremix = wiremix.packages.${prev.system}.default; })
-            (prev: final: {
-              xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
-            })
-          ];
+      overlay-flake = flake: name: final: prev: {
+        ${name} = flake.packages.${prev.system}.default;
       };
 
-      home-manager-module =
-        {
-          main-user,
-          imports,
-        }:
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.${main-user} = {
-              imports =
-                imports
-                ++ import ./modules/home-manager/default.nix
-                ++ [
-                  theme.outputs.home-manager-module
-                  ./hosts/common/home-manager/default.nix
-                  yazi-custom.homeManagerModules.default
-                  custom-eww.outputs.homeManagerModule
-                  custom-hyprland.outputs.homeConfigurations.default
-                  walker.outputs.homeManagerModules.default
-                ];
-            };
-            extraSpecialArgs = {
-              inherit (theme.outputs) theme;
-            };
-          };
-        };
+      overlays = [
+        niri.overlays.niri
+        yazi-custom.overlays.default
+        swww.overlays.default
+        (mkUnstable "wezterm")
+        (mkUnstable "quickshell")
+        (mkUnstable "innernet")
+        (mkUnstable "snapcast")
+        (overlay-flake plover-flake "plover")
+        (overlay-flake sqlite-diagram "sqlite-diagram")
+        (overlay-flake splatmoji "splatmoji")
+        (overlay-flake walker "walker")
+        (overlay-flake wiremix "wiremix")
+        (final: prev: {
+          neovim = neovim-with-plugins.packages.${prev.system}.base.override (prevNeovimConf: {
+            extraPackages = [
+              prev.nil
+              prev.prettierd
+              prev.nodePackages_latest.bash-language-server
+              prev.ripgrep
+              prev.unixtools.xxd
+              prev.marksman
+              prev.zk
+              prev.nixfmt-rfc-style
+            ];
+          });
+        })
+        (final: prev: {
+          nylon-wg =
+            nixpkgs-unstable.legacyPackages.${prev.system}.callPackage (import ./derivations/nylon-wg.nix)
+              { };
+        })
+        (final: prev: {
+          xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
+        })
+      ];
+
+      common-hm-modules = (import ./modules/home-manager/default.nix) ++ [
+        theme.outputs.home-manager-module
+        ./hosts/common/home-manager/default.nix
+        yazi-custom.homeManagerModules.default
+        custom-eww.outputs.homeManagerModule
+        custom-hyprland.outputs.homeConfigurations.default
+        walker.outputs.homeManagerModules.default
+      ];
+
       common-modules = [
         ./hosts/common/configuration.nix
         nix-index-database.nixosModules.nix-index
@@ -160,8 +155,17 @@
         custom-hyprland.outputs.nixosConfigurations.default
         niri.nixosModules.niri
         ("${disko}/module.nix")
-        overlays
         agenix.nixosModules.default
+        { nixpkgs.overlays = overlays; }
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              inherit (theme.outputs) theme;
+            };
+          };
+        }
         {
           environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
         }
@@ -169,41 +173,29 @@
     in
     {
       nixosConfigurations = {
-        obsidian =
-          let
-            system = "x86_64-linux";
-            main-user = "sidharta";
-          in
-          nixpkgs-stable.lib.nixosSystem {
-            inherit system;
-            modules = common-modules ++ [
-              ./hosts/obsidian/configuration.nix
-              "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
-              (home-manager-module {
-                inherit main-user;
-                imports = [
-                  ./hosts/obsidian/home-manager.nix
-                ];
-              })
-            ];
-          };
-        graphite =
-          let
-            system = "x86_64-linux";
-            main-user = "sidharta";
-          in
-          nixpkgs-stable.lib.nixosSystem {
-            inherit system;
-            modules = common-modules ++ [
-              ./hosts/graphite/configuration.nix
-              (home-manager-module {
-                inherit main-user;
-                imports = [
-                  ./hosts/graphite/home-manager.nix
-                ];
-              })
-            ];
-          };
+        obsidian = nixpkgs-stable.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = common-modules ++ [
+            ./hosts/obsidian/configuration.nix
+            "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
+            {
+              home-manager.users.sidharta.imports = common-hm-modules ++ [
+                ./hosts/obsidian/home-manager.nix
+              ];
+            }
+          ];
+        };
+        graphite = nixpkgs-stable.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = common-modules ++ [
+            ./hosts/graphite/configuration.nix
+            {
+              home-manager.users.sidharta.imports = common-hm-modules ++ [
+                ./hosts/obsidian/home-manager.nix
+              ];
+            }
+          ];
+        };
       };
       devShell.x86_64-linux =
         let

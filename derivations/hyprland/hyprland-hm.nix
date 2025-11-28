@@ -45,7 +45,7 @@ in
           cliphist = "${pkgs.cliphist}/bin/cliphist";
           wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
           wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-          neovim = "${pkgs.mypkgs.neovim}/bin/nvim";
+          neovim = "${pkgs.neovim}/bin/nvim";
           xargs = "${pkgs.findutils}/bin/xargs";
 
           leaderKey = "Super_L";

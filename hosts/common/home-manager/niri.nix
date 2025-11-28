@@ -118,7 +118,7 @@
           wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
           wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
           vipe = "${pkgs.moreutils}/bin/vipe";
-          neovim = "${pkgs.mypkgs.neovim}/bin/nvim";
+          neovim = "${pkgs.neovim}/bin/nvim";
           playerctl = lib.getExe pkgs.playerctl;
           mpc = lib.getExe pkgs.mpc;
 

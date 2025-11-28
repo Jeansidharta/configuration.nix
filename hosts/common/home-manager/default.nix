@@ -102,8 +102,8 @@
 
       kitty # Backup terminal in case ghostty dies
 
-      mypkgs.neovim
-      mypkgs.sqlite-diagram
+      neovim
+      sqlite-diagram
 
       # === Non free ===
       discord
@@ -182,7 +182,7 @@
       (
         let
           wezterm = lib.getExe pkgs.wezterm;
-          neovim = lib.getExe pkgs.mypkgs.neovim;
+          neovim = lib.getExe pkgs.neovim;
           vipe = "${pkgs.moreutils}/bin/vipe";
           wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
         in
@@ -325,18 +325,18 @@
     enable = true;
     musicDirectory = "/home/sidharta/music";
     extraConfig = ''
-      audio_output {
-        type            "pipewire"
-        name            "PipeWire Sound Server"
-      }
+            audio_output {
+              type            "pipewire"
+              name            "PipeWire Sound Server"
+            }
 
-      audio_output {
-        type            "fifo"
-        name            "snapcast fifo"
-        path 			"/home/sidharta/docker-wireguard/snapcast/volume/snapfifo"
-		format          "48000:16:2"
-		mixer_type      "software"
-      }
+            audio_output {
+              type            "fifo"
+              name            "snapcast fifo"
+              path 			"/home/sidharta/docker-wireguard/snapcast/volume/snapfifo"
+      		format          "48000:16:2"
+      		mixer_type      "software"
+            }
     '';
   };
   programs.ncmpcpp.enable = true;
