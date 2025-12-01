@@ -13,6 +13,18 @@
   networking.hostName = "graphite";
   time.timeZone = "US/Eastern";
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [

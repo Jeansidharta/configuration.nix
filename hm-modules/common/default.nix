@@ -127,6 +127,7 @@
       in
       {
         "ses" = "systemctl --user";
+        "jes" = "journalctl --user";
         "vim" = "nvim";
         "vi" = "nvim";
         "ls" = "eza";

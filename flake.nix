@@ -12,7 +12,6 @@
       url = "github:nix-community/disko";
       flake = false;
     };
-    yazi-custom.url = "./derivations/yazi";
     plover-flake = {
       url = "github:dnaq/plover-flake/7586d37430266c16452b06ffbab36d66965f3a70";
     };
@@ -65,11 +64,23 @@
       url = "github:tsowell/wiremix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+  };
+
+  # Optional: Binary cache for the flake
+  nixConfig = {
+    extra-substituters = [
+      "https://nixos-raspberrypi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
   };
 
   outputs =
     {
       nixpkgs-unstable,
+      nixos-raspberrypi,
       nixpkgs-stable,
       home-manager,
       theme,
@@ -79,7 +90,6 @@
       plover-flake,
       nixpkgs-xkbcommon,
       swww,
-      yazi-custom,
       splatmoji,
       neovim-with-plugins,
       custom-eww,
@@ -88,8 +98,9 @@
       niri,
       walker,
       wiremix,
+      self,
       ...
-    }:
+    }@inputs:
     let
       /**
         Pulls the package from nixpkgs-unstable instead of stable.
@@ -104,7 +115,6 @@
 
       overlays = [
         niri.overlays.niri
-        yazi-custom.overlays.default
         swww.overlays.default
         (mkUnstable "wezterm")
         (mkUnstable "quickshell")
@@ -115,6 +125,7 @@
         (overlay-flake splatmoji "splatmoji")
         (overlay-flake walker "walker")
         (overlay-flake wiremix "wiremix")
+        (overlay-flake agenix "agenix")
         (final: prev: {
           neovim = neovim-with-plugins.packages.${prev.system}.base.override (prevNeovimConf: {
             extraPackages = [
@@ -140,34 +151,30 @@
       ];
 
       common-hm-modules = (import ./modules/home-manager/default.nix) ++ [
+        ./hm-modules/common/default.nix
         theme.outputs.home-manager-module
-        ./hosts/common/home-manager/default.nix
-        yazi-custom.homeManagerModules.default
         custom-eww.outputs.homeManagerModule
         custom-hyprland.outputs.homeConfigurations.default
         walker.outputs.homeManagerModules.default
       ];
 
       common-modules = [
-        ./hosts/common/configuration.nix
+        ./modules/common.nix
         nix-index-database.nixosModules.nix-index
-        home-manager.nixosModules.home-manager
-        custom-hyprland.outputs.nixosConfigurations.default
-        niri.nixosModules.niri
         ("${disko}/module.nix")
         agenix.nixosModules.default
         { nixpkgs.overlays = overlays; }
+      ];
+
+      desktop-modules = common-modules ++ [
+        custom-hyprland.outputs.nixosConfigurations.default
+        niri.nixosModules.niri
+        home-manager.nixosModules.home-manager
+        (import ./modules/desktop.nix)
         {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = {
-              inherit (theme.outputs) theme;
-            };
+          home-manager.extraSpecialArgs = {
+            inherit (theme.outputs) theme;
           };
-        }
-        {
-          environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
         }
       ];
     in
@@ -175,8 +182,9 @@
       nixosConfigurations = {
         obsidian = nixpkgs-stable.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = common-modules ++ [
+          modules = desktop-modules ++ [
             ./hosts/obsidian/configuration.nix
+            (import ./modules/proxyuser.nix)
             "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
             {
               home-manager.users.sidharta.imports = common-hm-modules ++ [
@@ -187,15 +195,41 @@
         };
         graphite = nixpkgs-stable.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = common-modules ++ [
+          modules = desktop-modules ++ [
             ./hosts/graphite/configuration.nix
             {
               home-manager.users.sidharta.imports = common-hm-modules ++ [
-                ./hosts/obsidian/home-manager.nix
+                ./hosts/graphite/home-manager.nix
               ];
             }
           ];
         };
+        basalt = nixos-raspberrypi.lib.nixosSystemFull {
+          specialArgs = inputs;
+          # nixpkgs = nixpkgs-stable;
+          modules = common-modules ++ [
+            {
+              imports = with nixos-raspberrypi.nixosModules; [
+                raspberry-pi-5.base
+                raspberry-pi-5.page-size-16k
+                sd-image
+              ];
+            }
+            (import ./modules/proxyuser.nix)
+            (import ./hosts/basalt/configuration.nix)
+            {
+              nixpkgs.overlays = [
+                (final: prev: {
+                  nylon-wg = nixpkgs-unstable.legacyPackages.${prev.system}.callPackage (import ./nylon-wg.nix) { };
+                  neovim = neovim-with-plugins.packages.${prev.system}.base;
+                })
+              ];
+            }
+          ];
+        };
+      };
+      sd-images = {
+        basalt = self.nixosConfigurations.basalt.config.system.build.sdImage;
       };
       devShell.x86_64-linux =
         let

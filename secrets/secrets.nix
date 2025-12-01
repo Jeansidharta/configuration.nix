@@ -7,12 +7,16 @@ let
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGFUJpSJe6cceGqXjKuUiWLpYodzYKCKSihwiTIpSejW";
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDig6qJstpy9HOVdJkvhc15ywIdRwUiH5uZ7lbwNW0rZ";
   };
+  basalt = {
+    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbnwbLynhRl7lpGr2DYKgSYy2OCTClcRhQ3AX2bHiU/";
+  };
 
   allPublicKeys = [
     graphite.system
     graphite.sidharta
     obsidian.system
     obsidian.sidharta
+    basalt.system
   ];
 in
 {

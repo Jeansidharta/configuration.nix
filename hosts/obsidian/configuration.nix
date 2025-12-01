@@ -15,6 +15,34 @@
   ];
   time.timeZone = "US/Eastern";
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
+  users.users.sidharta.extraGroups = [
+    "tor"
+    "docker"
+  ];
+  services.tor = {
+    enable = true;
+    client.enable = true;
+    # controlSocket.enable = true;
+    settings = {
+      ControlPort = 9051;
+      HashedControlPassword = "16:DB07FBCA1CE2B6A360D7B98EF09D2877ECEE44B0750DD72DCFA3DE0263";
+    };
+  };
+
+  hardware.keyboard.qmk.enable = true;
+
   programs.steam = {
     enable = true;
   };
@@ -57,8 +85,6 @@
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
 
-  users.groups.proxyuser = { };
-  users.users.sidharta.extraGroups = [ "docker" ];
   users.users.sidharta.openssh.authorizedKeys.keys = [
     # My partner's laptop
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
@@ -90,53 +116,14 @@
   #     ];
   #   };
   # };
-  users.users.proxyuser = {
-    name = "proxyuser";
-    group = "proxyuser";
-    openssh.authorizedKeys.keys = [
-      # rpi
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjKncebs2sgqNV4pAH6Vp+5uAX6Wj6+HurLmgVepKo3 sidharta@basalt"
-      # phone
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Zp5PotpXLi0ZSby7zm1B2Ca6GyIL76Rew9zzDCTKu u0_a270@localhost"
-      # My laptop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6KBaW5uNXP3Zav9MYReG37mkYB8yBU2l0RbnS6H2tT sidharta@graphite"
-      # My partner's laptop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
-    ];
-    isNormalUser = true;
-    extraGroups = [ ];
-  };
   services.openssh = {
     settings = {
       PasswordAuthentication = true;
       AllowUsers = [
         "sidharta"
-        "proxyuser"
       ];
       UseDns = true;
     };
-    extraConfig =
-      let
-        permitOpen = [
-          "localhost:3000"
-          "localhost:8202"
-          "localhost:8000"
-          "localhost:8080"
-          "localhost:8081"
-          "localhost:443"
-          "localhost:80"
-          "192.168.0.210:443"
-          "192.168.0.210:80"
-        ];
-        permitOpenStr = lib.strings.concatStringsSep " " permitOpen;
-      in
-      ''
-        Match User proxyuser
-          PermitOpen ${permitOpenStr}
-          PermitListen 2222
-          Banner ${import ./ssh-banner.nix { pkgs = pkgs; }}
-          ForceCommand echo 'This user is for TCP forwarding only. Allowed forwards are ${permitOpenStr}'
-      '';
   };
 
   age.secrets.wireguard-priv-key = {
