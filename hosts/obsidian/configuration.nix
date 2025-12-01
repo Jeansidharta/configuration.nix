@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  ssh-pubkeys,
   ...
 }:
 {
@@ -86,12 +87,9 @@
   services.blueman.enable = true;
 
   users.users.sidharta.openssh.authorizedKeys.keys = [
-    # My partner's laptop
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo"
-    # rpi
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjKncebs2sgqNV4pAH6Vp+5uAX6Wj6+HurLmgVepKo3 sidharta@basalt"
-    # phone
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Zp5PotpXLi0ZSby7zm1B2Ca6GyIL76Rew9zzDCTKu u0_a270@localhost"
+    ssh-pubkeys.goldfish.suzana
+    ssh-pubkeys.basalt.sidharta
+    ssh-pubkeys.phone
   ];
   # services.snapserver = {
   #   enable = true;

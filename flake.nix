@@ -181,7 +181,9 @@
     {
       nixosConfigurations = {
         obsidian = nixpkgs-stable.lib.nixosSystem {
-          system = "x86_64-linux";
+          specialArgs = {
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+          };
           modules = desktop-modules ++ [
             ./hosts/obsidian/configuration.nix
             (import ./modules/proxyuser.nix)
@@ -194,7 +196,9 @@
           ];
         };
         graphite = nixpkgs-stable.lib.nixosSystem {
-          system = "x86_64-linux";
+          specialArgs = {
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+          };
           modules = desktop-modules ++ [
             ./hosts/graphite/configuration.nix
             {
@@ -205,7 +209,9 @@
           ];
         };
         basalt = nixos-raspberrypi.lib.nixosSystemFull {
-          specialArgs = inputs;
+          specialArgs = {
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+          };
           # nixpkgs = nixpkgs-stable;
           modules = common-modules ++ [
             {

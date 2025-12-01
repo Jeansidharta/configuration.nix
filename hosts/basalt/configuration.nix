@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  ssh-pubkeys,
   ...
 }:
 {
@@ -16,6 +17,8 @@
     };
   };
 
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+
   boot.loader.raspberryPi.bootloader = "kernel";
 
   swapDevices = [
@@ -28,20 +31,18 @@
   users.users.root = {
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDig6qJstpy9HOVdJkvhc15ywIdRwUiH5uZ7lbwNW0rZ jeansidharta@gmail.com"
+      ssh-pubkeys.obsidian.sidharta
+      ssh-pubkeys.phone
+      ssh-pubkeys.graphite.sidharta
     ];
   };
   users.users.sidharta = {
     isNormalUser = true;
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
     openssh.authorizedKeys.keys = [
-      # Desktop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDig6qJstpy9HOVdJkvhc15ywIdRwUiH5uZ7lbwNW0rZ jeansidharta@gmail.com"
-      # Phone
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Zp5PotpXLi0ZSby7zm1B2Ca6GyIL76Rew9zzDCTKu u0_a270@localhost"
-
-      # laptop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6KBaW5uNXP3Zav9MYReG37mkYB8yBU2l0RbnS6H2tT sidharta@graphite"
+      ssh-pubkeys.obsidian.sidharta
+      ssh-pubkeys.phone
+      ssh-pubkeys.graphite.sidharta
     ];
   };
 

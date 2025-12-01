@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  ssh-pubkeys,
   ...
 }:
 {
@@ -34,27 +35,23 @@
     ];
   };
 
-  users.users =
-    let
-      obsidianPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP5TwFvhFpbcI1h7LAdC1FPo7Y/nYfwqYVjpZ0Ns9N7+";
-    in
-    {
-      root = {
-        openssh.authorizedKeys.keys = [
-          obsidianPubKey
-        ];
-      };
-      sidharta = {
-        extraGroups = [
-          "wheel"
-          "video"
-          "transmission"
-        ];
-        openssh.authorizedKeys.keys = [
-          obsidianPubKey
-        ];
-      };
+  users.users = {
+    root = {
+      openssh.authorizedKeys.keys = [
+        ssh-pubkeys.obsidian.sidharta
+      ];
     };
+    sidharta = {
+      extraGroups = [
+        "wheel"
+        "video"
+        "transmission"
+      ];
+      openssh.authorizedKeys.keys = [
+        ssh-pubkeys.obsidian.sidharta
+      ];
+    };
+  };
 
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"
