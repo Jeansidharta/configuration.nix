@@ -10,6 +10,7 @@
   };
   graphite = {
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6KBaW5uNXP3Zav9MYReG37mkYB8yBU2l0RbnS6H2tT sidharta@graphite";
+    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEVFzY+b9v9M2zY3qOUCnsHdEcOnhERQB0jeyAkg80a";
   };
   goldfish = {
     suzana = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo";

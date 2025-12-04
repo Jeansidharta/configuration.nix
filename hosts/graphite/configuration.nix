@@ -53,6 +53,8 @@
     };
   };
 
+  services.nylon-wg.node.key = config.age.secrets.nylon-key-graphite.path;
+
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"
   '';
@@ -96,30 +98,6 @@
   services.acpid.handlers.volumeup = {
     event = "button/volumeup";
     action = "${pkgs.pulseaudio}/bin/pamixer --unmute && ${pkgs.pulseaudio}/bin/pamixer --increase 10";
-  };
-
-  systemd = {
-    targets.innernet = {
-      unitConfig = {
-        Description = "Target to allow restarting and stopping of all parts of innernet";
-      };
-    };
-    services.innernet-sidharta = {
-      unitConfig = {
-        Description = "innernet client daemon for sidharta";
-        After = "network-online.target nss-lookup.target";
-        Wants = "network-online.target nss-lookup.target";
-        PartOf = "innernet.target";
-      };
-
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.innernet}/bin/innernet up sidharta --daemon --interval 60";
-        Restart = "always";
-        RestartSec = 10;
-      };
-      wantedBy = [ "multi-user.target" ];
-    };
   };
 
   services.acpid.handlers.microphone = {

@@ -3,9 +3,12 @@ let
 
   allPublicKeys = [
     keys.obsidian.system
+    keys.obsidian.sidharta
     keys.phone
     keys.basalt.system
-    # keys.graphite.system
+    keys.basalt.sidharta
+    keys.graphite.system
+    keys.graphite.sidharta
     # keys.goldfish.system
   ];
 in

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  dragon = "${pkgs.xdragon}/bin/xdragon";
+  dragon = "${pkgs.dragon-drop}/bin/xdragon";
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
   git = "${pkgs.git}/bin/git";
   tmsu = "${pkgs.tmsu}/bin/tmsu";

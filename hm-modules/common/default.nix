@@ -51,12 +51,12 @@
       tmsu # File tagging tool
       obsidian # Note taking app
       moreutils # A collection of tools to improve bash scripting
-      xdragon # Allows to drag and drop
+      dragon-drop # Allows to drag and drop
       dive # See container image layers
       wiremix # TUI for configuring pipewire audio
 
       xh # A CURL replacement
-      du-dust # A more modern du
+      dust # A more modern du
       fselect # A file finder with SQL syntax
       mpc # cli to controll the mpd daemon
       dust # A modern replacement for the du command
@@ -207,7 +207,7 @@
 
   programs.satty = {
     enable = true;
-    config = {
+    settings = {
       general = {
         initial-tool = "brush";
         output-filename = "/tmp/screenshot-%Y-%m-%d_%H:%M:%S.png";
