@@ -79,13 +79,6 @@ in
   ];
 
   networking.wireguard.enable = true;
-  age.secrets.wireguard-priv-key = {
-    file = ../secrets/wireguard.age;
-  };
-  age.secrets.nix-github-token = {
-    file = ../secrets/nix-github-token.age;
-    owner = "sidharta";
-  };
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
@@ -122,6 +115,16 @@ in
       };
     };
   };
+
+  services.nylon-wg = {
+    enable = true;
+    centralConfig = "/var/nylon/central.yaml";
+    node = {
+      id = config.networking.hostName;
+      logPath = "/var/nylon/log";
+    };
+  };
+  networking.firewall.trustedInterfaces = [ config.services.nylon-wg.node.interface ];
 
   networking.firewall = {
     enable = true;

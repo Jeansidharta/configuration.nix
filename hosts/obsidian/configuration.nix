@@ -44,6 +44,8 @@
 
   hardware.keyboard.qmk.enable = true;
 
+  services.nylon-wg.node.key = config.age.secrets.nylon-key-obsidian.path;
+
   programs.steam = {
     enable = true;
   };
@@ -124,9 +126,6 @@
     };
   };
 
-  age.secrets.wireguard-priv-key = {
-    file = ../../secrets/wireguard.age;
-  };
   networking = {
     hostName = "obsidian";
     hosts = {
@@ -216,51 +215,6 @@
         };
       };
     };
-  };
-  systemd = {
-    # targets.innernet = {
-    #   unitConfig = {
-    #     Description = "Target to allow restarting and stopping of all parts of innernet";
-    #   };
-    # };
-    targets.nylon = {
-      unitConfig = {
-        Description = "Target to allow restarting and stopping of all parts of nylon";
-      };
-    };
-    services.nylon = {
-      enable = true;
-      unitConfig = {
-        Description = "Nylon network";
-        After = "network-online.target nss-lookup.target";
-        Wants = "network-online.target nss-lookup.target";
-        PartOf = "nylon.target";
-      };
-
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.nylon-wg}/bin/nylon run -v -n /home/sidharta/nylon/node.yaml -c /home/sidharta/nylon/central.yaml";
-        Restart = "always";
-        RestartSec = 10;
-      };
-      wantedBy = [ "multi-user.target" ];
-    };
-    # services.innernet-sidharta = {
-    #   unitConfig = {
-    #     Description = "innernet client daemon for sidharta";
-    #     After = "network-online.target nss-lookup.target";
-    #     Wants = "network-online.target nss-lookup.target";
-    #     PartOf = "innernet.target";
-    #   };
-    #
-    #   serviceConfig = {
-    #     Type = "simple";
-    #     ExecStart = "${pkgs.innernet}/bin/innernet up sidharta --daemon --interval 60";
-    #     Restart = "always";
-    #     RestartSec = 10;
-    #   };
-    #   wantedBy = [ "multi-user.target" ];
-    # };
   };
   networking.nftables = {
     enable = true;

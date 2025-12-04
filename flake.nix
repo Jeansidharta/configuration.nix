@@ -100,7 +100,7 @@
       wiremix,
       self,
       ...
-    }@inputs:
+    }:
     let
       /**
         Pulls the package from nixpkgs-unstable instead of stable.
@@ -160,6 +160,8 @@
 
       common-modules = [
         ./modules/common.nix
+        ./modules/nylon-wg.nix
+        ./secrets/module.nix
         nix-index-database.nixosModules.nix-index
         ("${disko}/module.nix")
         agenix.nixosModules.default
@@ -210,6 +212,7 @@
         };
         basalt = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
+            inherit nixos-raspberrypi;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;

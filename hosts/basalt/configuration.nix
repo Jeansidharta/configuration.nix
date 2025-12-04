@@ -61,7 +61,6 @@
     firewall = {
       trustedInterfaces = [
         "wg0"
-        "nylon"
       ];
       allowedTCPPorts = [
         22
@@ -194,23 +193,7 @@
     unar
   ];
 
-  systemd.services.nylon = {
-    enable = true;
-    unitConfig = {
-      Description = "Nylon network";
-      After = "network-online.target nss-lookup.target";
-      Wants = "network-online.target nss-lookup.target";
-      PartOf = "nylon.target";
-    };
-
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.nylon-wg}/bin/nylon run -v -n /home/sidharta/nylon/node.yaml -c /home/sidharta/nylon/central.yaml";
-      Restart = "always";
-      RestartSec = 10;
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
+  services.nylon-wg.node.key = config.age.secrets.nylon-key-basalt.path;
 
   system.nixos.tags =
     let

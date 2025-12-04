@@ -1,32 +1,35 @@
 let
-  graphite = {
-    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEVFzY+b9v9M2zY3qOUCnsHdEcOnhERQB0jeyAkg80a";
-    sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6KBaW5uNXP3Zav9MYReG37mkYB8yBU2l0RbnS6H2tT";
-  };
-  obsidian = {
-    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGFUJpSJe6cceGqXjKuUiWLpYodzYKCKSihwiTIpSejW";
-    sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDig6qJstpy9HOVdJkvhc15ywIdRwUiH5uZ7lbwNW0rZ";
-  };
-  basalt = {
-    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbnwbLynhRl7lpGr2DYKgSYy2OCTClcRhQ3AX2bHiU/";
-  };
+  keys = import ../ssh-pubkeys.nix;
 
   allPublicKeys = [
-    graphite.system
-    graphite.sidharta
-    obsidian.system
-    obsidian.sidharta
-    basalt.system
+    keys.obsidian.system
+    keys.phone
+    keys.basalt.system
+    # keys.graphite.system
+    # keys.goldfish.system
   ];
 in
 {
   "nix-github-token.age".publicKeys = allPublicKeys;
   "wireguard.age".publicKeys = [
-    obsidian.sidharta
-    obsidian.system
+    keys.obsidian.sidharta
+    keys.obsidian.system
   ];
   "wireguard-max.age".publicKeys = [
-    obsidian.sidharta
-    obsidian.system
+    keys.obsidian.sidharta
+    keys.obsidian.system
+  ];
+
+  "nylon-key-obsidian.age".publicKeys = [
+    keys.obsidian.system
+    keys.obsidian.sidharta
+  ];
+  "nylon-key-graphite.age".publicKeys = [
+    keys.graphite.system
+    keys.graphite.sidharta
+  ];
+  "nylon-key-basalt.age".publicKeys = [
+    keys.basalt.system
+    keys.basalt.sidharta
   ];
 }
