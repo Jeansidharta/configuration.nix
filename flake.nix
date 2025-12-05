@@ -27,10 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    splatmoji = {
-      url = "./derivations/splatmoji";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
     swww = {
       url = "github:LGFae/swww/a07595cf607ed512bc0e4b223d28e5ed91854214";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -90,7 +86,6 @@
       plover-flake,
       nixpkgs-xkbcommon,
       swww,
-      splatmoji,
       neovim-with-plugins,
       custom-eww,
       custom-hyprland,
@@ -118,11 +113,9 @@
         swww.overlays.default
         (mkUnstable "wezterm")
         (mkUnstable "quickshell")
-        (mkUnstable "innernet")
         (mkUnstable "snapcast")
         (overlay-flake plover-flake "plover")
         (overlay-flake sqlite-diagram "sqlite-diagram")
-        (overlay-flake splatmoji "splatmoji")
         (overlay-flake walker "walker")
         (overlay-flake wiremix "wiremix")
         (overlay-flake agenix "agenix")
@@ -149,9 +142,10 @@
           xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
         })
       ];
-
-      common-hm-modules = (import ./modules/home-manager/default.nix) ++ [
-        ./hm-modules/common/default.nix
+      common-hm-modules-cli = [ ./hm-modules/cli.nix ];
+      common-hm-modules-desktop = common-hm-modules-cli ++ [
+        ./hm-modules/desktop.nix
+        ./hm-modules/extra.nix
         theme.outputs.home-manager-module
         custom-eww.outputs.homeManagerModule
         custom-hyprland.outputs.homeConfigurations.default
@@ -165,13 +159,13 @@
         nix-index-database.nixosModules.nix-index
         ("${disko}/module.nix")
         agenix.nixosModules.default
+        home-manager.nixosModules.home-manager
         { nixpkgs.overlays = overlays; }
       ];
 
       desktop-modules = common-modules ++ [
         custom-hyprland.outputs.nixosConfigurations.default
         niri.nixosModules.niri
-        home-manager.nixosModules.home-manager
         (import ./modules/desktop.nix)
         {
           home-manager.extraSpecialArgs = {
@@ -191,7 +185,7 @@
             (import ./modules/proxyuser.nix)
             "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
             {
-              home-manager.users.sidharta.imports = common-hm-modules ++ [
+              home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
                 ./hosts/obsidian/home-manager.nix
               ];
             }
@@ -204,7 +198,7 @@
           modules = desktop-modules ++ [
             ./hosts/graphite/configuration.nix
             {
-              home-manager.users.sidharta.imports = common-hm-modules ++ [
+              home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
                 ./hosts/graphite/home-manager.nix
               ];
             }
@@ -224,16 +218,11 @@
                 sd-image
               ];
             }
+            {
+              home-manager.users.sidharta.imports = common-hm-modules-cli;
+            }
             (import ./modules/proxyuser.nix)
             (import ./hosts/basalt/configuration.nix)
-            {
-              nixpkgs.overlays = [
-                (final: prev: {
-                  nylon-wg = nixpkgs-unstable.legacyPackages.${prev.system}.callPackage (import ./nylon-wg.nix) { };
-                  neovim = neovim-with-plugins.packages.${prev.system}.base;
-                })
-              ];
-            }
           ];
         };
       };

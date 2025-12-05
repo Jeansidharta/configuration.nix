@@ -37,11 +37,4 @@
   home.packages = [
     pkgs.orca-slicer
   ];
-  services.syncplay = {
-    enable = true;
-    disableReady = true;
-    disableChat = true;
-    interfaceIpv6 = "::";
-    port = 8202;
-  };
 }

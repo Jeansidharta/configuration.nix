@@ -19,6 +19,10 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  environment.systemPackages = with pkgs; [
+    nylon-wg
+  ];
+
   swapDevices = [
     {
       device = "/var/lib/swapfile";
@@ -30,7 +34,7 @@
     enable = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt
-      vaapiIntel
+      intel-vaapi-driver
       intel-media-driver
     ];
   };
@@ -78,6 +82,7 @@
   services.transmission = {
     enable = true;
     openFirewall = true;
+    package = pkgs.transmission_4;
   };
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth

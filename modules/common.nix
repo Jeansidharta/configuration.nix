@@ -135,4 +135,9 @@ in
   };
 
   system.stateVersion = "24.05";
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 }
