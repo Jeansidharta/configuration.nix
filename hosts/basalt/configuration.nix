@@ -147,9 +147,6 @@
     defaults = {
       webroot = "/var/lib/acme/acme-challenge/";
       email = "jeansidharta@gmail.com";
-      # extraDomainNames = [
-      #   "walmart-goback-2.sidharta.xyz"
-      # ];
     };
   };
 
@@ -168,6 +165,7 @@
       addSSL = true;
       locations."/" = {
         root = "/var/www/walmart-goback-2";
+        tryFiles = "$uri /index.html";
       };
       locations."/api" = {
         proxyPass = "http://192.168.0.153:8001/";
