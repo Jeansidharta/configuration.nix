@@ -244,11 +244,4 @@
   # Allow cross-compiling
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  services.syncplay = {
-    enable = true;
-    ready = false;
-    chat = false;
-    interfaceIpv6 = "::";
-    port = 8202;
-  };
 }

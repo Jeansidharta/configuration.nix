@@ -154,6 +154,9 @@
     enable = true;
     ready = false;
     chat = false;
+    port = 8202;
+    interfaceIpv6 = "fd00::10:2";
+    ipv6Only = true;
     permanentRooms = [ "Sala" ];
     package = pkgs.syncplay-nogui;
   };
@@ -180,6 +183,9 @@
 
   services.dnsmasq = {
     enable = true;
+    # Since the DNS server can only be accessed through the VPN,
+    # we cannot use it localy.
+    resolveLocalQueries = false;
     settings = {
       server = [
         "1.1.1.1"
@@ -192,6 +198,8 @@
         fd00::2 obsidian.wg
         fd00::3 graphite.wg
         fd00::4 phone.wg
+        fd00::10:1 dnsmasq.wg
+        fd00::10:2 syncplay.wg
         fd00::1:1 goldfish.wg
       ''}";
     };

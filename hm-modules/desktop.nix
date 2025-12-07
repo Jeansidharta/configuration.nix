@@ -20,6 +20,7 @@
     nix-output-monitor # Show nix dependencies
     nix-tree
     nix-du
+    syncplay
 
     (plover.with-plugins (ps: [
       ps.plover-lapwing-aio
