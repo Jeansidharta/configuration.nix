@@ -178,6 +178,25 @@
     };
   };
 
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      server = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      no-hosts = true;
+      listen-address = "fd00::10:1";
+      addn-hosts = "${pkgs.writeText "dnsmasq-domains" ''
+        fd00::1 basalt.wg
+        fd00::2 obsidian.wg
+        fd00::3 graphite.wg
+        fd00::4 phone.wg
+        fd00::1:1 goldfish.wg
+      ''}";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     git
     zsh
