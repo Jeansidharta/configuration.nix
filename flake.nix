@@ -60,6 +60,10 @@
       url = "github:tsowell/wiremix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    drawy = {
+      url = "github:Prayag2/drawy";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
   };
 
@@ -82,6 +86,7 @@
       theme,
       agenix,
       disko,
+      drawy,
       nix-index-database,
       plover-flake,
       nixpkgs-xkbcommon,
@@ -117,6 +122,7 @@
         (overlay-flake plover-flake "plover")
         (overlay-flake sqlite-diagram "sqlite-diagram")
         (overlay-flake walker "walker")
+        (overlay-flake drawy "drawy")
         (overlay-flake wiremix "wiremix")
         (overlay-flake agenix "agenix")
         (final: prev: {

@@ -19,6 +19,7 @@
     nh # A nix helper
     nix-output-monitor # Show nix dependencies
     nix-tree
+    drawy # App to draw, similar do excalidraw
     nix-du
     syncplay
 
