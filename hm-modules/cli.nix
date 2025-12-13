@@ -27,6 +27,7 @@
     conntrack-tools # Show connections tracked by the kernel
     dig.dnsutils # DNS testing tool
     pciutils # lspci command to show current pci devices
+    powertop # Show power usage
     strace # Show all syscalls made by application
     traceroute # Shows the route to a destination on the internet
     neovim
