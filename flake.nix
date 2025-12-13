@@ -151,7 +151,6 @@
       common-hm-modules-cli = [ ./hm-modules/cli.nix ];
       common-hm-modules-desktop = common-hm-modules-cli ++ [
         ./hm-modules/desktop.nix
-        ./hm-modules/extra.nix
         theme.outputs.home-manager-module
         custom-eww.outputs.homeManagerModule
         custom-hyprland.outputs.homeConfigurations.default
@@ -193,6 +192,7 @@
             {
               home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
                 ./hosts/obsidian/home-manager.nix
+                ./hm-modules/extra.nix
               ];
             }
           ];
