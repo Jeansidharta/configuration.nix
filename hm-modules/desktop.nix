@@ -23,16 +23,6 @@
     nix-du
     syncplay
 
-    (plover.with-plugins (ps: [
-      ps.plover-lapwing-aio
-      (ps.plover-uinput.overrideAttrs (old: {
-        propagatedBuildInputs = [
-          # pkgs.python311Packages.evdev
-          pkgs.xkbcommon-0-10-0
-        ];
-      }))
-    ]))
-
     kitty # Backup terminal in case ghostty dies
 
     sqlite-diagram

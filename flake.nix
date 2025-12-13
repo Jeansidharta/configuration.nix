@@ -12,9 +12,6 @@
       url = "github:nix-community/disko";
       flake = false;
     };
-    plover-flake = {
-      url = "github:dnaq/plover-flake/7586d37430266c16452b06ffbab36d66965f3a70";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -88,7 +85,6 @@
       disko,
       drawy,
       nix-index-database,
-      plover-flake,
       nixpkgs-xkbcommon,
       swww,
       neovim-with-plugins,
@@ -119,7 +115,6 @@
         (mkUnstable "wezterm")
         (mkUnstable "quickshell")
         (mkUnstable "snapcast")
-        (overlay-flake plover-flake "plover")
         (overlay-flake sqlite-diagram "sqlite-diagram")
         (overlay-flake walker "walker")
         (overlay-flake drawy "drawy")
