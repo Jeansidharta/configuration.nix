@@ -40,4 +40,8 @@ in
     keys.vivianite.system
     keys.vivianite.sidharta
   ];
+  "nylon-key-fixie.age".publicKeys = [
+    keys.vivianite.system
+    keys.vivianite.sidharta
+  ];
 }

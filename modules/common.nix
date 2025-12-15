@@ -56,6 +56,7 @@ in
   services.openssh = {
     enable = true;
     ports = [ 22 ];
+    openFirewall = true;
   };
 
   users.mutableUsers = false;
@@ -73,6 +74,11 @@ in
     git
     wireguard-tools
     agenix
+    nylon-wg
+    zsh
+    tmux
+    busybox
+    jq
     sleep-script
     shutdown-script
     reboot-script

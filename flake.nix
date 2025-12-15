@@ -5,6 +5,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-xkbcommon.url = "github:NixOS/nixpkgs/c35a5a895f2517964e3e9be3d1eb8bb8c68db629";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     theme.url = "./theming";
@@ -78,6 +82,7 @@
     {
       nixpkgs-unstable,
       nixos-raspberrypi,
+      nixos-generators,
       nixpkgs-stable,
       home-manager,
       theme,
@@ -247,10 +252,51 @@
             (import ./hosts/vivianite/configuration.nix)
           ];
         };
+        fixie = nixpkgs-stable.lib.nixosSystem {
+          specialArgs = {
+            inherit nixos-raspberrypi;
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+          };
+          # nixpkgs = nixpkgs-stable;
+          modules = common-modules ++ [
+            {
+              home-manager.users.sidharta.imports = common-hm-modules-cli;
+            }
+            (import ./hosts/fixie/configuration.nix)
+            (import ./hosts/fixie/hardware-configuration.nix)
+          ];
+        };
       };
       sd-images = {
         basalt = self.nixosConfigurations.basalt.config.system.build.sdImage;
         vivianite = self.nixosConfigurations.vivianite.config.system.build.sdImage;
+        fixie =
+          let
+            pkgs = nixpkgs-stable.legacyPackages."x86_64-linux";
+            uboot = pkgs.callPackage ./hosts/fixie/uboot.nix { };
+          in
+          nixos-generators.nixosGenerate {
+            system = "aarch64-linux";
+            format = "sd-aarch64";
+            specialArgs = {
+              ssh-pubkeys = import ./ssh-pubkeys.nix;
+            };
+
+            modules = common-modules ++ [
+              {
+                home-manager.users.sidharta.imports = common-hm-modules-cli;
+              }
+              (import ./hosts/fixie/configuration.nix)
+              {
+                # When building an image, flash the vendor's u-boot to the boot sector.
+                sdImage.postBuildCommands = ''
+                  echo Flashing vendor u-boot.bin to image
+                  dd if=${uboot}/u-boot.bin of=$img bs=1 count=442 conv=notrunc
+                  dd if=${uboot}/u-boot.bin of=$img bs=512 seek=1 skip=1 conv=notrunc
+                '';
+              }
+            ];
+          };
       };
       devShell.x86_64-linux =
         let

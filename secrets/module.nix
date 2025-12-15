@@ -11,6 +11,7 @@ let
   forObsidian = forHost "obsidian";
   forGraphite = forHost "graphite";
   forVivianite = forHost "vivianite";
+  forFixie = forHost "fixie";
 in
 {
   age.secrets.nix-github-token = {
@@ -31,5 +32,8 @@ in
   };
   age.secrets.nylon-key-vivianite = forVivianite {
     file = ./nylon-key-vivianite.age;
+  };
+  age.secrets.nylon-key-fixie = forFixie {
+    file = ./nylon-key-fixie.age;
   };
 }
