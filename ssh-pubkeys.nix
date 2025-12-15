@@ -8,6 +8,10 @@
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHO2Ibvy8RN+Az3iuxAgONFTto52x8GZpe8aXwjJiY0 sidharta@basalt";
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIUvL5RFOy/gd1jBlGFjwwzckqqXYS1YmJNlFGriQEsi";
   };
+  vivianite = {
+    sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLLKG/dAymiHNEgZD0ut3pTpMtZ2pe4W9uR8gum9iJC";
+    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGo4PjcUcH9XfbprXIzVA+1MBPcm0i8poFDBSH+7Vns0";
+  };
   graphite = {
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6KBaW5uNXP3Zav9MYReG37mkYB8yBU2l0RbnS6H2tT sidharta@graphite";
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEVFzY+b9v9M2zY3qOUCnsHdEcOnhERQB0jeyAkg80a";

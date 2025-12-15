@@ -28,6 +28,9 @@
     dig.dnsutils # DNS testing tool
     pciutils # lspci command to show current pci devices
     powertop # Show power usage
+    hdparm # Hard drive config manager
+    dmidecode # Show DMI configuration, if available
+    lshw # Show hardware config
     strace # Show all syscalls made by application
     traceroute # Shows the route to a destination on the internet
     neovim

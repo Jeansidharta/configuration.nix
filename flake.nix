@@ -226,9 +226,31 @@
             (import ./hosts/basalt/configuration.nix)
           ];
         };
+        vivianite = nixos-raspberrypi.lib.nixosSystemFull {
+          specialArgs = {
+            inherit nixos-raspberrypi;
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+          };
+          # nixpkgs = nixpkgs-stable;
+          modules = common-modules ++ [
+            {
+              imports = with nixos-raspberrypi.nixosModules; [
+                raspberry-pi-4.base
+                usb-gadget-ethernet
+                sd-image
+              ];
+            }
+            {
+              home-manager.users.sidharta.imports = common-hm-modules-cli;
+            }
+            (import ./modules/proxyuser.nix)
+            (import ./hosts/vivianite/configuration.nix)
+          ];
+        };
       };
       sd-images = {
         basalt = self.nixosConfigurations.basalt.config.system.build.sdImage;
+        vivianite = self.nixosConfigurations.vivianite.config.system.build.sdImage;
       };
       devShell.x86_64-linux =
         let

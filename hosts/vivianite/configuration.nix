@@ -1,0 +1,102 @@
+{
+  config,
+  pkgs,
+  lib,
+  ssh-pubkeys,
+  ...
+}:
+{
+  services.openssh = {
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = [
+        "root"
+        "sidharta"
+      ];
+      UseDns = true;
+    };
+  };
+
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+
+  boot.loader.raspberryPi.bootloader = "kernel";
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
+  users.users.root = {
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      ssh-pubkeys.obsidian.sidharta
+      ssh-pubkeys.phone
+      ssh-pubkeys.graphite.sidharta
+      ssh-pubkeys.basalt.sidharta
+    ];
+  };
+  users.users.sidharta = {
+    isNormalUser = true;
+    hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
+    openssh.authorizedKeys.keys = [
+      ssh-pubkeys.obsidian.sidharta
+      ssh-pubkeys.phone
+      ssh-pubkeys.graphite.sidharta
+      ssh-pubkeys.basalt.sidharta
+    ];
+  };
+
+  networking = {
+    hostName = "vivianite";
+
+    wireless = {
+      enable = true;
+      networks = {
+        Hannah = {
+          psk = "fffeee11";
+        };
+      };
+    };
+
+    firewall = {
+      trustedInterfaces = [
+        "wg0"
+      ];
+      allowedTCPPorts = [
+        22
+      ];
+      allowedUDPPorts = [
+      ];
+    };
+    wireguard = {
+      enable = true;
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    git
+    zsh
+    tmux
+    busybox
+    jq
+    neovim
+    tcpdump
+    nylon-wg
+    unar
+  ];
+
+  services.nylon-wg.node.key = config.age.secrets.nylon-key-vivianite.path;
+  services.nylon-wg.enable = lib.mkForce false;
+
+  system.nixos.tags =
+    let
+      cfg = config.boot.loader.raspberryPi;
+    in
+    [
+      "raspberry-pi-${cfg.variant}"
+      cfg.bootloader
+      config.boot.kernelPackages.kernel.version
+    ];
+}

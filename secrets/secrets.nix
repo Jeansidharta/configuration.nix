@@ -9,7 +9,8 @@ let
     keys.basalt.sidharta
     keys.graphite.system
     keys.graphite.sidharta
-    # keys.goldfish.system
+    keys.vivianite.sidharta
+    keys.vivianite.system
   ];
 in
 {
@@ -34,5 +35,9 @@ in
   "nylon-key-basalt.age".publicKeys = [
     keys.basalt.system
     keys.basalt.sidharta
+  ];
+  "nylon-key-vivianite.age".publicKeys = [
+    keys.vivianite.system
+    keys.vivianite.sidharta
   ];
 }

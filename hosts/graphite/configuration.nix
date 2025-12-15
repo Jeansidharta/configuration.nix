@@ -117,4 +117,6 @@
     event = "video/brightnessdown";
     action = "${pkgs.libnotify}/bin/notify-send TODO";
   };
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
