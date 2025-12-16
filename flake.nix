@@ -188,6 +188,7 @@
           modules = desktop-modules ++ [
             ./hosts/obsidian/configuration.nix
             (import ./modules/proxyuser.nix)
+            (import ./modules/network-manager.nix)
             "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
             {
               home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
@@ -203,6 +204,7 @@
           };
           modules = desktop-modules ++ [
             ./hosts/graphite/configuration.nix
+            (import ./modules/network-manager.nix)
             {
               home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
                 ./hosts/graphite/home-manager.nix
@@ -264,6 +266,21 @@
             }
             (import ./hosts/fixie/configuration.nix)
             (import ./hosts/fixie/hardware-configuration.nix)
+          ];
+        };
+        calcite = nixpkgs-stable.lib.nixosSystem {
+          specialArgs = {
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+          };
+          # nixpkgs = nixpkgs-stable;
+          modules = common-modules ++ [
+            {
+              home-manager.users.sidharta.imports = common-hm-modules-cli ++ [
+                (import ./hosts/calcite/home-manager.nix)
+              ];
+            }
+            (import ./modules/network-manager.nix)
+            (import ./hosts/calcite/configuration.nix)
           ];
         };
       };
