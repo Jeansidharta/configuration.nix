@@ -9,23 +9,15 @@
     walker # Application launcher
     helvum # Manipulate Pipewire connections
     qpwgraph # Manipulate Pipewire connections
-    usbutils # Tool for manipulating USB
     dragon-drop # Allows to drag and drop
-    dive # See container image layers
     wiremix # TUI for configuring pipewire audio
 
-    xh # A CURL replacement
     mpc # cli to controll the mpd daemon
-    nh # A nix helper
-    nix-output-monitor # Show nix dependencies
-    nix-tree
     drawy # App to draw, similar do excalidraw
-    nix-du
     syncplay
 
     kitty # Backup terminal in case ghostty dies
 
-    sqlite-diagram
 
     # === Non free ===
     discord

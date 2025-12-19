@@ -33,6 +33,15 @@
     lshw # Show hardware config
     strace # Show all syscalls made by application
     traceroute # Shows the route to a destination on the internet
+    nh # A nix helper
+    nix-output-monitor # Show nix dependencies
+    nix-tree
+    nix-du
+    usbutils # Tool for manipulating USB
+    dive # See container image layers
+    xh # A CURL replacement
+    sqlite-diagram
+    bmon
     neovim
 
     (pkgs.writeScriptBin "root-derivation" ''
