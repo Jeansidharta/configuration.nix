@@ -19,4 +19,8 @@
   goldfish = {
     suzana = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvVcRT7OfCgWBxvqqfw1u7xZnsrTXGaommf2m6AVlGd suzana@Nemo";
   };
+  calcite = {
+    sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII2ewRwnZiuC7knddFvRmDhjLzLgDOhJKLU+0yrOCEHv sidharta@calcite";
+    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEyhxpF1tJfdYPLRHtCXYVqhdxtWxwNQm2aJSVexFDb6 root@calcite";
+  };
 }

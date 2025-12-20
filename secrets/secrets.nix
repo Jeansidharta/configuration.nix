@@ -11,6 +11,8 @@ let
     keys.graphite.sidharta
     keys.vivianite.sidharta
     keys.vivianite.system
+    keys.calcite.system
+    keys.calcite.sidharta
   ];
 in
 {
@@ -45,7 +47,7 @@ in
     keys.vivianite.sidharta
   ];
   "nylon-key-calcite.age".publicKeys = [
-    keys.vivianite.system
-    keys.vivianite.sidharta
+    keys.calcite.system
+    keys.calcite.sidharta
   ];
 }
