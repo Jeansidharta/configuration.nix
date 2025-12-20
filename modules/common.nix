@@ -79,6 +79,7 @@ in
     tmux
     busybox
     jq
+    iw
     sleep-script
     shutdown-script
     reboot-script
