@@ -17,7 +17,7 @@
     syncplay
 
     kitty # Backup terminal in case ghostty dies
-
+    wireshark
 
     # === Non free ===
     discord

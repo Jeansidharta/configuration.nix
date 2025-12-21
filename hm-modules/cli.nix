@@ -31,6 +31,7 @@
     hdparm # Hard drive config manager
     dmidecode # Show DMI configuration, if available
     lshw # Show hardware config
+    ethtool # Manage ethernet drivers
     strace # Show all syscalls made by application
     traceroute # Shows the route to a destination on the internet
     nh # A nix helper
