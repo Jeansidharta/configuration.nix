@@ -273,9 +273,9 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = common-modules ++ [
+          modules = desktop-modules ++ [
             {
-              home-manager.users.sidharta.imports = common-hm-modules-cli ++ [
+              home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
                 (import ./hosts/calcite/home-manager.nix)
               ];
             }
