@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 # rofi = "${pkgs.rofi-unwrapped}/bin/rofi";
 # tmsu = "${pkgs.tmsu}/bin/tmsu --database ~/wallpapers/.tmsu/db";
 # xargs = "${pkgs.findutils}/bin/xargs";
@@ -19,6 +19,8 @@
       enableMedia = "false";
     };
   };
+
+  programs.wezterm.extraConfig = lib.mkForce (builtins.readFile ./wezterm.lua);
 
   home.packages = [
     pkgs.brightnessctl # Control monitor/keyboard brightness
