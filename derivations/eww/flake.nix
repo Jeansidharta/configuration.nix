@@ -60,7 +60,6 @@
             error
             success
             ;
-          topBarMonitor = "ASUS VH242H";
         };
         extra-files = {
           "colors.scss" = ''
