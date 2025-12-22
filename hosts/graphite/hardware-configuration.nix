@@ -32,7 +32,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-partlabel/disk-ssd-plainSwap";
+      device = "/dev/disk/by-partuuid/0a0f2eea-2f9f-4e1e-b712-d5120d5b743c";
     }
   ];
 
