@@ -1,7 +1,5 @@
 { pkgs, lib, ... }:
 {
-  imports = [ ./niri.nix ];
-
   home.packages = with pkgs; [
     wl-clipboard # Clipboard software
     sxiv # Simple image viewer

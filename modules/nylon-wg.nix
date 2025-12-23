@@ -2,11 +2,21 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
   imports = [
     ../options/nylon-wg.nix
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      nylon-wg =
+        inputs.nixpkgs-unstable.legacyPackages.${prev.system}.callPackage
+          (import ../derivations/nylon-wg.nix)
+          { };
+    })
   ];
 
   services.nylon-wg = {

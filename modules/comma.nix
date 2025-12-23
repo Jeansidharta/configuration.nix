@@ -4,7 +4,7 @@
     inputs.nix-index-database.nixosModules.nix-index
   ];
   home-manager.users.sidharta.imports = [
-    inputs.nix-index-database.outputs.homeModules.default
+    inputs.nix-index-database.outputs.homeModules.nix-index
     {
       programs.nix-index.symlinkToCacheHome = true;
     }

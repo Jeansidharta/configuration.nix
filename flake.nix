@@ -84,75 +84,9 @@
       nixos-raspberrypi,
       nixos-generators,
       nixpkgs-stable,
-      home-manager,
-      theme,
-      agenix,
-      disko,
-      drawy,
-      nix-index-database,
-      nixpkgs-xkbcommon,
-      swww,
-      neovim-with-plugins,
-      custom-eww,
-      custom-hyprland,
-      sqlite-diagram,
-      niri,
-      walker,
-      wiremix,
       self,
       ...
     }@inputs:
-    let
-      /**
-        Pulls the package from nixpkgs-unstable instead of stable.
-      */
-      mkUnstable =
-        pkg-name:
-        (final: prev: { ${pkg-name} = nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
-
-      overlay-flake = flake: name: final: prev: {
-        ${name} = flake.packages.${prev.system}.default;
-      };
-
-      overlays = [
-        niri.overlays.niri
-        swww.overlays.default
-        (mkUnstable "wezterm")
-        (mkUnstable "quickshell")
-        (mkUnstable "snapcast")
-        (overlay-flake sqlite-diagram "sqlite-diagram")
-        (overlay-flake walker "walker")
-        (overlay-flake drawy "drawy")
-        (overlay-flake wiremix "wiremix")
-        (overlay-flake agenix "agenix")
-        (final: prev: {
-          neovim = neovim-with-plugins.packages.${prev.system}.base.override (prevNeovimConf: {
-            extraPackages = [
-              prev.nil
-              prev.prettierd
-              prev.nodePackages_latest.bash-language-server
-              prev.ripgrep
-              prev.unixtools.xxd
-              prev.marksman
-              prev.zk
-              prev.nixfmt-rfc-style
-            ];
-          });
-        })
-        (final: prev: {
-          nylon-wg =
-            nixpkgs-unstable.legacyPackages.${prev.system}.callPackage (import ./derivations/nylon-wg.nix)
-              { };
-        })
-        (final: prev: {
-          xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
-        })
-      ];
-
-      addon-modules = [
-        { nixpkgs.overlays = overlays; }
-      ];
-    in
     {
       nixosConfigurations = {
         obsidian = nixpkgs-stable.lib.nixosSystem {
@@ -160,7 +94,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = addon-modules ++ [
+          modules = [
             ./modules/common/default.nix
             ./modules/desktop/default.nix
             ./modules/extra.nix
@@ -180,7 +114,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = addon-modules ++ [
+          modules = [
             ./modules/common/default.nix
             ./modules/desktop/default.nix
             ./modules/nylon-wg.nix
@@ -199,7 +133,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = addon-modules ++ [
+          modules = [
             {
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-5.base
@@ -224,7 +158,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = addon-modules ++ [
+          modules = [
             {
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-4.base
@@ -245,7 +179,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = addon-modules ++ [
+          modules = [
             ./modules/common/default.nix
 
             ./hosts/fixie/configuration.nix
@@ -257,7 +191,7 @@
             inherit inputs;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = addon-modules ++ [
+          modules = [
             ./modules/common/default.nix
             ./modules/desktop/default.nix
             ./modules/network-manager.nix
@@ -284,7 +218,7 @@
               inherit inputs;
             };
 
-            modules = addon-modules ++ [
+            modules = [
               ./modules/common/default.nix
               ./hosts/fixie/configuration.nix
               {

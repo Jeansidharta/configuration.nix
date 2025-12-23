@@ -1,5 +1,21 @@
-{ config, pkgs, ... }:
 {
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+let
+  inherit (config.lib.overlay-helpers) mkUnstable overlay-flake;
+in
+{
+  nixpkgs.overlays = [
+    inputs.swww.overlays.default
+    (mkUnstable "wezterm")
+    (mkUnstable "quickshell")
+    (overlay-flake "walker")
+    (overlay-flake "drawy")
+    (overlay-flake "wiremix")
+  ];
   hardware.graphics.enable = true;
   services.udisks2.enable = true;
 

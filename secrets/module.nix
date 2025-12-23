@@ -17,6 +17,9 @@ let
 in
 {
   imports = [ inputs.agenix.nixosModules.default ];
+  nixpkgs.overlays = [
+    (config.lib.overlay-helpers.overlay-flake "agenix")
+  ];
   age.secrets.nix-github-token = {
     file = ./nix-github-token.age;
     owner = "sidharta";

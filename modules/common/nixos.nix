@@ -28,10 +28,23 @@ in
   imports = [
     ("${inputs.disko}/module.nix")
     inputs.home-manager.nixosModules.home-manager
+    ./overlays.nix
   ];
   home-manager.extraSpecialArgs = {
     inherit (inputs.theme.outputs) theme;
     inherit inputs;
+  };
+
+  lib.overlay-helpers = {
+    /**
+      Pulls the package from nixpkgs-unstable instead of stable.
+    */
+    mkUnstable =
+      pkg-name:
+      (final: prev: { ${pkg-name} = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
+    overlay-flake = name: final: prev: {
+      ${name} = inputs.${name}.packages.${prev.system}.default;
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
