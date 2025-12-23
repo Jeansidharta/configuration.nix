@@ -1,4 +1,0 @@
-[
-  ./syncplay.nix
-  ./waypaper.nix
-]

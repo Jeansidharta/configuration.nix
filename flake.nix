@@ -179,25 +179,17 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           modules = addon-modules ++ [
-            ./modules/common.nix
+            ./modules/common/default.nix
+            ./modules/desktop/default.nix
+            ./modules/extra.nix
             ./modules/nylon-wg.nix
             ./modules/proxyuser.nix
-            ./modules/desktop.nix
             ./modules/network-manager.nix
 
             ./secrets/module.nix
 
             ./hosts/obsidian/configuration.nix
             "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
-            {
-              home-manager.users.sidharta.imports = [
-                ./hm-modules/cli.nix
-                ./hm-modules/desktop.nix
-                ./hm-modules/extra.nix
-
-                ./hosts/obsidian/home-manager.nix
-              ];
-            }
           ];
         };
         graphite = nixpkgs-stable.lib.nixosSystem {
@@ -205,22 +197,14 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           modules = addon-modules ++ [
-            ./modules/common.nix
+            ./modules/common/default.nix
+            ./modules/desktop/default.nix
             ./modules/nylon-wg.nix
-            ./modules/desktop.nix
             ./modules/network-manager.nix
 
             ./secrets/module.nix
 
             ./hosts/graphite/configuration.nix
-            {
-              home-manager.users.sidharta.imports = [
-                ./hm-modules/cli.nix
-                ./hm-modules/desktop.nix
-
-                ./hosts/graphite/home-manager.nix
-              ];
-            }
           ];
         };
         basalt = nixos-raspberrypi.lib.nixosSystemFull {
@@ -237,12 +221,7 @@
                 sd-image
               ];
             }
-            {
-              home-manager.users.sidharta.imports = [
-                ./hm-modules/cli.nix
-              ];
-            }
-            ./modules/common.nix
+            ./modules/common/default.nix
             ./modules/nylon-wg.nix
             ./modules/proxyuser.nix
 
@@ -265,12 +244,7 @@
                 sd-image
               ];
             }
-            {
-              home-manager.users.sidharta.imports = [
-                ./hm-modules/cli.nix
-              ];
-            }
-            ./modules/common.nix
+            ./modules/common/default.nix
             ./modules/proxyuser.nix
 
             ./hosts/vivianite/configuration.nix
@@ -283,10 +257,7 @@
           };
           # nixpkgs = nixpkgs-stable;
           modules = addon-modules ++ [
-            {
-              home-manager.users.sidharta.imports = [ ./hm-modules/cli.nix ];
-            }
-            ./modules/common.nix
+            ./modules/common/default.nix
 
             ./hosts/fixie/configuration.nix
           ];
@@ -297,17 +268,9 @@
           };
           # nixpkgs = nixpkgs-stable;
           modules = addon-modules ++ [
-            {
-              home-manager.users.sidharta.imports = [
-                ./hm-modules/cli.nix
-                ./hm-modules/desktop.nix
-
-                ./hosts/calcite/home-manager.nix
-              ];
-            }
-            ./modules/common.nix
+            ./modules/common/default.nix
+            ./modules/desktop/default.nix
             ./modules/network-manager.nix
-            ./modules/desktop.nix
             ./secrets/module.nix
 
             ./hosts/calcite/configuration.nix
@@ -330,11 +293,7 @@
             };
 
             modules = addon-modules ++ [
-              {
-                home-manager.users.sidharta.imports = [ ./hm-modules/cli.nix ];
-              }
-              ./modules/common.nix
-
+              ./modules/common/default.nix
               ./hosts/fixie/configuration.nix
               {
                 # When building an image, flash the vendor's u-boot to the boot sector.

@@ -1,6 +1,5 @@
 { pkgs, lib, ... }:
 {
-
   programs.btop.enable = true;
   programs.direnv.enable = true;
   programs.fd.enable = true;

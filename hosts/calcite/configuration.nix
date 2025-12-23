@@ -11,6 +11,9 @@
     ./hardware-configuration.nix
     ./disko-config.nix
   ];
+  home-manager.users.sidharta.imports = [
+    ./home-manager.nix
+  ];
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-124b.psf.gz";
   networking.hostName = "calcite";
   time.timeZone = "US/Eastern";

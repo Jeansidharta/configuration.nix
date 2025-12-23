@@ -11,6 +11,9 @@
     ./hardware-configuration.nix
     ./disko-config.nix
   ];
+  home-manager.users.sidharta.imports = [
+    ./home-manager.nix
+  ];
   networking.hostName = "graphite";
   time.timeZone = "US/Eastern";
 

@@ -14,6 +14,9 @@
     ./hardware-configuration.nix
     ./disko-config.nix
   ];
+  home-manager.users.sidharta.imports = [
+    ./home-manager.nix
+  ];
   time.timeZone = "US/Eastern";
 
   boot.loader.systemd-boot.enable = true;
