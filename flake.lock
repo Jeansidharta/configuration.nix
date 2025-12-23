@@ -433,16 +433,16 @@
     "fyler_plugin": {
       "flake": false,
       "locked": {
-        "lastModified": 1759284998,
-        "narHash": "sha256-18OsFKMCsJ45FDz4Ezin5gBK/uUPKiFQ1UVljlmbnZU=",
+        "lastModified": 1763889808,
+        "narHash": "sha256-Caf1dJiIATbs0PNjSANjA3QgHg7PdeMz9Pjoc0Ti7G4=",
         "owner": "A7Lavinraj",
         "repo": "fyler.nvim",
-        "rev": "5e24ff1c46528d8dc2e61c22cc21fb590f626e1e",
+        "rev": "bb8b9f30c652c948d35211958b0deec3496bcc08",
         "type": "github"
       },
       "original": {
         "owner": "A7Lavinraj",
-        "ref": "v1.1.0",
+        "ref": "v2.0.0",
         "repo": "fyler.nvim",
         "type": "github"
       }
@@ -795,11 +795,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1764303750,
-        "narHash": "sha256-LWSMejlGt13qMgL96wMCJA3//X0J4wUwv1ZgUZK8t9Y=",
+        "lastModified": 1766504632,
+        "narHash": "sha256-mT6fGpeXKc8ojHQtYb3MKKvBQUqd7v97RkPZN6BQS6o=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "f30c7f5fda53292e973ee6749f46fb923f731343",
+        "rev": "309a36ddca5f59585a62dea9a1cbd746acdc5260",
         "type": "github"
       },
       "original": {
