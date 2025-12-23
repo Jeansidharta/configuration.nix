@@ -110,6 +110,14 @@ in
   networking.wireguard.enable = true;
   nix = {
     package = pkgs.nixVersions.latest;
+    registry = {
+      # Pin the registry's nixpkgs ref to the system's nixpkgs instance
+      nixpkgs.to = {
+        type = "path";
+        path = inputs.nixpkgs-stable.outPath;
+        narHash = inputs.nixpkgs-stable.narHash;
+      };
+    };
     settings = {
       substituters = [ ];
       trusted-public-keys = [ ];

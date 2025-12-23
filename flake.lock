@@ -773,7 +773,6 @@
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
-        "nixpkgs-stable": "nixpkgs-stable_2",
         "none-ls_plugin": "none-ls_plugin",
         "nvim-colorizer_plugin": "nvim-colorizer_plugin",
         "nvim-illuminate_plugin": "nvim-illuminate_plugin",
@@ -783,23 +782,23 @@
         "outline_plugin": "outline_plugin",
         "overseer_plugin": "overseer_plugin",
         "plenary_plugin": "plenary_plugin",
+        "silkcircuit_plugin": "silkcircuit_plugin",
         "snacks_plugin": "snacks_plugin",
         "sqlite_plugin": "sqlite_plugin",
         "status-col_plugin": "status-col_plugin",
         "substitute_plugin": "substitute_plugin",
         "telescope_plugin": "telescope_plugin",
         "theme": "theme",
-        "tokyodark_plugin": "tokyodark_plugin",
         "treesitter_plugin": "treesitter_plugin",
         "various-textobjs_plugin": "various-textobjs_plugin",
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1766504632,
-        "narHash": "sha256-mT6fGpeXKc8ojHQtYb3MKKvBQUqd7v97RkPZN6BQS6o=",
+        "lastModified": 1766522661,
+        "narHash": "sha256-69u9Qgu0ujX0yvS89FqtkFfZe4up0pwilg5RY6Fzeto=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "309a36ddca5f59585a62dea9a1cbd746acdc5260",
+        "rev": "0aa69b06645a7312180d9a2ed72628c31f5a45bf",
         "type": "github"
       },
       "original": {
@@ -1013,22 +1012,6 @@
       }
     },
     "nixpkgs-stable_2": {
-      "locked": {
-        "lastModified": 1763948260,
-        "narHash": "sha256-dY9qLD0H0zOUgU3vWacPY6Qc421BeQAfm8kBuBtPVE0=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "1c8ba8d3f7634acac4a2094eef7c32ad9106532c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-25.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-stable_3": {
       "locked": {
         "lastModified": 1764677808,
         "narHash": "sha256-H3lC7knbXOBrHI9hITQ7modLuX20mYJVhZORL5ioms0=",
@@ -1296,7 +1279,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-generators": "nixos-generators",
         "nixos-raspberrypi": "nixos-raspberrypi",
-        "nixpkgs-stable": "nixpkgs-stable_3",
+        "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xkbcommon": "nixpkgs-xkbcommon",
         "sqlite-diagram": "sqlite-diagram",
@@ -1320,6 +1303,22 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "silkcircuit_plugin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765351444,
+        "narHash": "sha256-PZ5NvgLOznHBU997Q52HnLshT8Gc+t0ZhSeWKyuMmo0=",
+        "owner": "hyperb1iss",
+        "repo": "silkcircuit-nvim",
+        "rev": "c6711f8ecdf75d8efb2da0317c4a291522343203",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyperb1iss",
+        "repo": "silkcircuit-nvim",
         "type": "github"
       }
     },
@@ -1652,22 +1651,6 @@
         "type": "path"
       },
       "parent": []
-    },
-    "tokyodark_plugin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1674409919,
-        "narHash": "sha256-jgXhBviV2VCr+8U8y8eKrLYAU4LZtCofWtYXvbKBbiA=",
-        "owner": "jeansidharta",
-        "repo": "tokyodark.nvim",
-        "rev": "a8a1c4d27601d70b93a16faccd2e2bcc8011191b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jeansidharta",
-        "repo": "tokyodark.nvim",
-        "type": "github"
-      }
     },
     "treesitter_plugin": {
       "flake": false,
