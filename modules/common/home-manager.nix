@@ -1,5 +1,12 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
+
+  imports = [ inputs.theme.outputs.home-manager-module ];
   programs.btop.enable = true;
   programs.direnv.enable = true;
   programs.fd.enable = true;

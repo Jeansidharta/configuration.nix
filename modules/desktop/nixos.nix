@@ -39,9 +39,7 @@
   environment.systemPackages = with pkgs; [
     xwayland-satellite
   ];
-  # desktops.customHyprland.enable = true;
 
-  programs.nix-index-database.comma.enable = true;
   programs.niri.enable = true;
   niri-flake.cache.enable = false;
   programs.niri.package = pkgs.niri-unstable;

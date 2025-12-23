@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -15,6 +16,7 @@ let
   forCalcite = forHost "calcite";
 in
 {
+  imports = [ inputs.agenix.nixosModules.default ];
   age.secrets.nix-github-token = {
     file = ./nix-github-token.age;
     owner = "sidharta";

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -24,6 +25,15 @@ let
   '';
 in
 {
+  imports = [
+    ("${inputs.disko}/module.nix")
+    inputs.home-manager.nixosModules.home-manager
+  ];
+  home-manager.extraSpecialArgs = {
+    inherit (inputs.theme.outputs) theme;
+    inherit inputs;
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   security.sudo.extraConfig = ''

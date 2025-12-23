@@ -101,7 +101,7 @@
       wiremix,
       self,
       ...
-    }:
+    }@inputs:
     let
       /**
         Pulls the package from nixpkgs-unstable instead of stable.
@@ -150,26 +150,7 @@
       ];
 
       addon-modules = [
-        nix-index-database.nixosModules.nix-index
-        ("${disko}/module.nix")
-        agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
         { nixpkgs.overlays = overlays; }
-        custom-hyprland.outputs.nixosConfigurations.default
-        niri.nixosModules.niri
-        {
-          home-manager = {
-            extraSpecialArgs = {
-              inherit (theme.outputs) theme;
-            };
-            users.sidharta.imports = [
-              theme.outputs.home-manager-module
-              custom-eww.outputs.homeManagerModule
-              custom-hyprland.outputs.homeConfigurations.default
-              walker.outputs.homeManagerModules.default
-            ];
-          };
-        }
       ];
     in
     {
@@ -177,6 +158,7 @@
         obsidian = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
+            inherit inputs;
           };
           modules = addon-modules ++ [
             ./modules/common/default.nix
@@ -185,6 +167,7 @@
             ./modules/nylon-wg.nix
             ./modules/proxyuser.nix
             ./modules/network-manager.nix
+            ./modules/comma.nix
 
             ./secrets/module.nix
 
@@ -195,12 +178,14 @@
         graphite = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
+            inherit inputs;
           };
           modules = addon-modules ++ [
             ./modules/common/default.nix
             ./modules/desktop/default.nix
             ./modules/nylon-wg.nix
             ./modules/network-manager.nix
+            ./modules/comma.nix
 
             ./secrets/module.nix
 
@@ -210,6 +195,7 @@
         basalt = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
             inherit nixos-raspberrypi;
+            inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
@@ -224,6 +210,7 @@
             ./modules/common/default.nix
             ./modules/nylon-wg.nix
             ./modules/proxyuser.nix
+            ./modules/comma.nix
 
             ./secrets/module.nix
 
@@ -233,6 +220,7 @@
         vivianite = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
             inherit nixos-raspberrypi;
+            inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
@@ -253,6 +241,7 @@
         fixie = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             inherit nixos-raspberrypi;
+            inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
@@ -265,12 +254,14 @@
         calcite = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
+            inherit inputs;
           };
           # nixpkgs = nixpkgs-stable;
           modules = addon-modules ++ [
             ./modules/common/default.nix
             ./modules/desktop/default.nix
             ./modules/network-manager.nix
+            ./modules/comma.nix
             ./secrets/module.nix
 
             ./hosts/calcite/configuration.nix
@@ -290,6 +281,7 @@
             format = "sd-aarch64";
             specialArgs = {
               ssh-pubkeys = import ./ssh-pubkeys.nix;
+              inherit inputs;
             };
 
             modules = addon-modules ++ [
