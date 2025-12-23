@@ -214,11 +214,8 @@
     jq
     neovim
     tcpdump
-    nylon-wg
     unar
   ];
-
-  services.nylon-wg.node.key = config.age.secrets.nylon-key-basalt.path;
 
   system.nixos.tags =
     let

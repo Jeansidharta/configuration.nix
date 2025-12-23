@@ -6,6 +6,9 @@
   ...
 }:
 {
+  modules = [
+    ./hosts/fixie/hardware-configuration.nix
+  ];
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
@@ -119,16 +122,4 @@
     neovim
     tcpdump
   ];
-
-  services.nylon-wg.node.key = config.age.secrets.nylon-key-fixie.path;
-  services.nylon-wg.enable = lib.mkForce false;
-
-  # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
-  #nix.registry.nixpkgs.flake = nixpkgs;
-  # Make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
-  #environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
-  # https://github.com/NixOS/nix/issues/9574
-  #nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
-  # Alternatively :
-  #nix.settings.nix-path = [ "nixpkgs=${pkgs.path}" ];
 }

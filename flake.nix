@@ -148,33 +148,26 @@
           xkbcommon-0-10-0 = nixpkgs-xkbcommon.legacyPackages.${prev.system}.python311Packages.xkbcommon;
         })
       ];
-      common-hm-modules-cli = [ ./hm-modules/cli.nix ];
-      common-hm-modules-desktop = common-hm-modules-cli ++ [
-        ./hm-modules/desktop.nix
-        theme.outputs.home-manager-module
-        custom-eww.outputs.homeManagerModule
-        custom-hyprland.outputs.homeConfigurations.default
-        walker.outputs.homeManagerModules.default
-      ];
 
-      common-modules = [
-        ./modules/common.nix
-        ./modules/nylon-wg.nix
-        ./secrets/module.nix
+      addon-modules = [
         nix-index-database.nixosModules.nix-index
         ("${disko}/module.nix")
         agenix.nixosModules.default
         home-manager.nixosModules.home-manager
         { nixpkgs.overlays = overlays; }
-      ];
-
-      desktop-modules = common-modules ++ [
         custom-hyprland.outputs.nixosConfigurations.default
         niri.nixosModules.niri
-        (import ./modules/desktop.nix)
         {
-          home-manager.extraSpecialArgs = {
-            inherit (theme.outputs) theme;
+          home-manager = {
+            extraSpecialArgs = {
+              inherit (theme.outputs) theme;
+            };
+            users.sidharta.imports = [
+              theme.outputs.home-manager-module
+              custom-eww.outputs.homeManagerModule
+              custom-hyprland.outputs.homeConfigurations.default
+              walker.outputs.homeManagerModules.default
+            ];
           };
         }
       ];
@@ -185,15 +178,24 @@
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          modules = desktop-modules ++ [
+          modules = addon-modules ++ [
+            ./modules/common.nix
+            ./modules/nylon-wg.nix
+            ./modules/proxyuser.nix
+            ./modules/desktop.nix
+            ./modules/network-manager.nix
+
+            ./secrets/module.nix
+
             ./hosts/obsidian/configuration.nix
-            (import ./modules/proxyuser.nix)
-            (import ./modules/network-manager.nix)
             "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
             {
-              home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
-                ./hosts/obsidian/home-manager.nix
+              home-manager.users.sidharta.imports = [
+                ./hm-modules/cli.nix
+                ./hm-modules/desktop.nix
                 ./hm-modules/extra.nix
+
+                ./hosts/obsidian/home-manager.nix
               ];
             }
           ];
@@ -202,11 +204,20 @@
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          modules = desktop-modules ++ [
+          modules = addon-modules ++ [
+            ./modules/common.nix
+            ./modules/nylon-wg.nix
+            ./modules/desktop.nix
+            ./modules/network-manager.nix
+
+            ./secrets/module.nix
+
             ./hosts/graphite/configuration.nix
-            (import ./modules/network-manager.nix)
             {
-              home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
+              home-manager.users.sidharta.imports = [
+                ./hm-modules/cli.nix
+                ./hm-modules/desktop.nix
+
                 ./hosts/graphite/home-manager.nix
               ];
             }
@@ -218,7 +229,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = common-modules ++ [
+          modules = addon-modules ++ [
             {
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-5.base
@@ -227,10 +238,17 @@
               ];
             }
             {
-              home-manager.users.sidharta.imports = common-hm-modules-cli;
+              home-manager.users.sidharta.imports = [
+                ./hm-modules/cli.nix
+              ];
             }
-            (import ./modules/proxyuser.nix)
-            (import ./hosts/basalt/configuration.nix)
+            ./modules/common.nix
+            ./modules/nylon-wg.nix
+            ./modules/proxyuser.nix
+
+            ./secrets/module.nix
+
+            ./hosts/basalt/configuration.nix
           ];
         };
         vivianite = nixos-raspberrypi.lib.nixosSystemFull {
@@ -239,7 +257,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = common-modules ++ [
+          modules = addon-modules ++ [
             {
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-4.base
@@ -248,10 +266,14 @@
               ];
             }
             {
-              home-manager.users.sidharta.imports = common-hm-modules-cli;
+              home-manager.users.sidharta.imports = [
+                ./hm-modules/cli.nix
+              ];
             }
-            (import ./modules/proxyuser.nix)
-            (import ./hosts/vivianite/configuration.nix)
+            ./modules/common.nix
+            ./modules/proxyuser.nix
+
+            ./hosts/vivianite/configuration.nix
           ];
         };
         fixie = nixpkgs-stable.lib.nixosSystem {
@@ -260,12 +282,13 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = common-modules ++ [
+          modules = addon-modules ++ [
             {
-              home-manager.users.sidharta.imports = common-hm-modules-cli;
+              home-manager.users.sidharta.imports = [ ./hm-modules/cli.nix ];
             }
-            (import ./hosts/fixie/configuration.nix)
-            (import ./hosts/fixie/hardware-configuration.nix)
+            ./modules/common.nix
+
+            ./hosts/fixie/configuration.nix
           ];
         };
         calcite = nixpkgs-stable.lib.nixosSystem {
@@ -273,14 +296,21 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           # nixpkgs = nixpkgs-stable;
-          modules = desktop-modules ++ [
+          modules = addon-modules ++ [
             {
-              home-manager.users.sidharta.imports = common-hm-modules-desktop ++ [
-                (import ./hosts/calcite/home-manager.nix)
+              home-manager.users.sidharta.imports = [
+                ./hm-modules/cli.nix
+                ./hm-modules/desktop.nix
+
+                ./hosts/calcite/home-manager.nix
               ];
             }
-            (import ./modules/network-manager.nix)
-            (import ./hosts/calcite/configuration.nix)
+            ./modules/common.nix
+            ./modules/network-manager.nix
+            ./modules/desktop.nix
+            ./secrets/module.nix
+
+            ./hosts/calcite/configuration.nix
           ];
         };
       };
@@ -299,11 +329,13 @@
               ssh-pubkeys = import ./ssh-pubkeys.nix;
             };
 
-            modules = common-modules ++ [
+            modules = addon-modules ++ [
               {
-                home-manager.users.sidharta.imports = common-hm-modules-cli;
+                home-manager.users.sidharta.imports = [ ./hm-modules/cli.nix ];
               }
-              (import ./hosts/fixie/configuration.nix)
+              ./modules/common.nix
+
+              ./hosts/fixie/configuration.nix
               {
                 # When building an image, flash the vendor's u-boot to the boot sector.
                 sdImage.postBuildCommands = ''

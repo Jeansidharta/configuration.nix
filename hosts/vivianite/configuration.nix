@@ -83,12 +83,8 @@
     jq
     neovim
     tcpdump
-    nylon-wg
     unar
   ];
-
-  services.nylon-wg.node.key = config.age.secrets.nylon-key-vivianite.path;
-  services.nylon-wg.enable = lib.mkForce false;
 
   system.nixos.tags =
     let

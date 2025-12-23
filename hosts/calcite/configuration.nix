@@ -20,10 +20,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  environment.systemPackages = with pkgs; [
-    nylon-wg
-  ];
-
   swapDevices = [
     {
       device = "/dev/disk/by-partlabel/disk-ssd-plainSwap";
@@ -56,8 +52,6 @@
       ];
     };
   };
-
-  services.nylon-wg.node.key = config.age.secrets.nylon-key-calcite.path;
 
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"

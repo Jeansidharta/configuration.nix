@@ -44,8 +44,6 @@
 
   hardware.keyboard.qmk.enable = true;
 
-  services.nylon-wg.node.key = config.age.secrets.nylon-key-obsidian.path;
-
   programs.steam = {
     enable = true;
   };
@@ -56,7 +54,6 @@
     qt5.qtwayland
     qt6.qtwayland
     snapcast
-    nylon-wg
   ];
   networking.hosts = {
     "fd00::2:2" = [ "suzana.wg" ];
