@@ -7,7 +7,8 @@
 }:
 {
   modules = [
-    ./hosts/fixie/hardware-configuration.nix
+    ../../modules/common/default.nix
+    ./hardware-configuration.nix
   ];
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;

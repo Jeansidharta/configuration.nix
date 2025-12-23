@@ -3,9 +3,27 @@
   pkgs,
   lib,
   ssh-pubkeys,
+  inputs,
   ...
 }:
 {
+  imports =
+    let
+      inherit (inputs.nixos-raspberrypi.nixosModules)
+        raspberry-pi-5
+        sd-image
+        ;
+    in
+    [
+      raspberry-pi-5.base
+      raspberry-pi-5.page-size-16k
+      sd-image
+      ../../modules/common/default.nix
+      ../../modules/nylon-wg.nix
+      ../../modules/proxyuser.nix
+      ../../modules/comma.nix
+      ../../secrets/module.nix
+    ];
   services.openssh = {
     settings = {
       PasswordAuthentication = true;

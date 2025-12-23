@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   ssh-pubkeys,
   ...
@@ -11,6 +12,16 @@
   ];
 
   imports = [
+    ../../modules/common/default.nix
+    ../../modules/desktop/default.nix
+    ../../modules/extra.nix
+    ../../modules/nylon-wg.nix
+    ../../modules/proxyuser.nix
+    ../../modules/network-manager.nix
+    ../../modules/comma.nix
+    ../../secrets/module.nix
+    "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
+
     ./hardware-configuration.nix
     ./disko-config.nix
   ];

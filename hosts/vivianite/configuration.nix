@@ -3,9 +3,26 @@
   pkgs,
   lib,
   ssh-pubkeys,
+  inputs,
   ...
 }:
 {
+  imports =
+    let
+      inherit (inputs.nixos-raspberrypi.nixosModules)
+        raspberry-pi-4
+        usb-gadget-ethernet
+        sd-image
+        ;
+    in
+    [
+      raspberry-pi-4.base
+      usb-gadget-ethernet
+      sd-image
+
+      ../../modules/common/default.nix
+      ../../modules/proxyuser.nix
+    ];
   services.openssh = {
     settings = {
       PasswordAuthentication = true;

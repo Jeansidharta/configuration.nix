@@ -94,37 +94,21 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = [
-            ./modules/common/default.nix
-            ./modules/desktop/default.nix
-            ./modules/extra.nix
-            ./modules/nylon-wg.nix
-            ./modules/proxyuser.nix
-            ./modules/network-manager.nix
-            ./modules/comma.nix
-
-            ./secrets/module.nix
-
-            ./hosts/obsidian/configuration.nix
-            "${nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
-          ];
+          modules = [ ./hosts/obsidian/configuration.nix ];
         };
         graphite = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = [
-            ./modules/common/default.nix
-            ./modules/desktop/default.nix
-            ./modules/nylon-wg.nix
-            ./modules/network-manager.nix
-            ./modules/comma.nix
-
-            ./secrets/module.nix
-
-            ./hosts/graphite/configuration.nix
-          ];
+          modules = [ ./hosts/graphite/configuration.nix ];
+        };
+        calcite = nixpkgs-stable.lib.nixosSystem {
+          specialArgs = {
+            ssh-pubkeys = import ./ssh-pubkeys.nix;
+            inherit inputs;
+          };
+          modules = [ ./hosts/calcite/configuration.nix ];
         };
         basalt = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
@@ -132,24 +116,7 @@
             inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          # nixpkgs = nixpkgs-stable;
-          modules = [
-            {
-              imports = with nixos-raspberrypi.nixosModules; [
-                raspberry-pi-5.base
-                raspberry-pi-5.page-size-16k
-                sd-image
-              ];
-            }
-            ./modules/common/default.nix
-            ./modules/nylon-wg.nix
-            ./modules/proxyuser.nix
-            ./modules/comma.nix
-
-            ./secrets/module.nix
-
-            ./hosts/basalt/configuration.nix
-          ];
+          modules = [ ./hosts/basalt/configuration.nix ];
         };
         vivianite = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
@@ -157,20 +124,7 @@
             inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          # nixpkgs = nixpkgs-stable;
-          modules = [
-            {
-              imports = with nixos-raspberrypi.nixosModules; [
-                raspberry-pi-4.base
-                usb-gadget-ethernet
-                sd-image
-              ];
-            }
-            ./modules/common/default.nix
-            ./modules/proxyuser.nix
-
-            ./hosts/vivianite/configuration.nix
-          ];
+          modules = [ ./hosts/vivianite/configuration.nix ];
         };
         fixie = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
@@ -178,28 +132,7 @@
             inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          # nixpkgs = nixpkgs-stable;
-          modules = [
-            ./modules/common/default.nix
-
-            ./hosts/fixie/configuration.nix
-          ];
-        };
-        calcite = nixpkgs-stable.lib.nixosSystem {
-          specialArgs = {
-            ssh-pubkeys = import ./ssh-pubkeys.nix;
-            inherit inputs;
-          };
-          # nixpkgs = nixpkgs-stable;
-          modules = [
-            ./modules/common/default.nix
-            ./modules/desktop/default.nix
-            ./modules/network-manager.nix
-            ./modules/comma.nix
-            ./secrets/module.nix
-
-            ./hosts/calcite/configuration.nix
-          ];
+          modules = [ ./hosts/fixie/configuration.nix ];
         };
       };
       sd-images = {
@@ -219,7 +152,6 @@
             };
 
             modules = [
-              ./modules/common/default.nix
               ./hosts/fixie/configuration.nix
               {
                 # When building an image, flash the vendor's u-boot to the boot sector.

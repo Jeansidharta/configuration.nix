@@ -8,6 +8,12 @@
 }:
 {
   imports = [
+    ../../modules/common/default.nix
+    ../../modules/desktop/default.nix
+    ../../modules/network-manager.nix
+    ../../modules/comma.nix
+    ../../secrets/module.nix
+
     ./hardware-configuration.nix
     ./disko-config.nix
   ];
