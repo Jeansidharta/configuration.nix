@@ -49,121 +49,127 @@
     in
     {
       theme = theme;
-      home-manager-module = {
-        programs.wezterm.colorSchemes.mainTheme = {
-          foreground = colors.bg_light;
-          cursor_fg = colors.bg_lighter;
-          background = colors.bg_darker;
-          # Color order ANSI:
-          # black
-          # maroon
-          # green
-          # olive
-          # navy
-          # purple
-          # teal
-          # silver
-          # Color Order Brights
-          # grey
-          # red
-          # lime
-          # yellow
-          # blue
-          # fuchsia
-          # aqua
-          # white
-          ansi = [
-            colors.bg_medium_dark # 1
-            colors.light_purple # 2
-            colors.dark_green # 3
-            colors.light_yellow # 4
-            colors.light_blue # 5
-            colors.dark_pink # 6
-            colors.light_cyan # 7
-            colors.gray # 8
-          ];
-          brights = [
-            colors.gray # 1
-            colors.purple # 2
-            colors.green # 3
-            colors.orange # 4
-            colors.blue # 5
-            colors.pink # 6
-            colors.cyan # 7
-            colors.gray # 8
-          ];
-        };
-        xsession.windowManager.bspwm.settings = {
-          normal_border_color = colors.bg_light;
-          active_border_color = colors.secondary_color;
-          focused_border_color = colors.primary_color;
-          presel_feedback_color = colors.gray;
-        };
+      home-manager-module =
+        { options, lib, ... }:
+        lib.mkMerge [
+          {
+            programs.wezterm.colorSchemes.mainTheme = {
+              foreground = colors.bg_light;
+              cursor_fg = colors.bg_lighter;
+              background = colors.bg_darker;
+              # Color order ANSI:
+              # black
+              # maroon
+              # green
+              # olive
+              # navy
+              # purple
+              # teal
+              # silver
+              # Color Order Brights
+              # grey
+              # red
+              # lime
+              # yellow
+              # blue
+              # fuchsia
+              # aqua
+              # white
+              ansi = [
+                colors.bg_medium_dark # 1
+                colors.light_purple # 2
+                colors.dark_green # 3
+                colors.light_yellow # 4
+                colors.light_blue # 5
+                colors.dark_pink # 6
+                colors.light_cyan # 7
+                colors.gray # 8
+              ];
+              brights = [
+                colors.gray # 1
+                colors.purple # 2
+                colors.green # 3
+                colors.orange # 4
+                colors.blue # 5
+                colors.pink # 6
+                colors.cyan # 7
+                colors.gray # 8
+              ];
+            };
+            xsession.windowManager.bspwm.settings = {
+              normal_border_color = colors.bg_light;
+              active_border_color = colors.secondary_color;
+              focused_border_color = colors.primary_color;
+              presel_feedback_color = colors.gray;
+            };
 
-        programs.tmux.extraConfig = ''
-          # clock mode
-          setw -g clock-mode-colour yellow
+            programs.tmux.extraConfig = ''
+              # clock mode
+              setw -g clock-mode-colour yellow
 
-          # copy mode
-          setw -g mode-style 'fg=black bg=green bold'
+              # copy mode
+              setw -g mode-style 'fg=black bg=green bold'
 
-          # panes
-          set -g pane-border-style 'fg=black'
-          set -g pane-active-border-style 'fg=yellow'
+              # panes
+              set -g pane-border-style 'fg=black'
+              set -g pane-active-border-style 'fg=yellow'
 
-          # statusbar
-          set -g status-position bottom
-          set -g status-justify left
-          set -g status-style 'fg=green'
+              # statusbar
+              set -g status-position bottom
+              set -g status-justify left
+              set -g status-style 'fg=green'
 
-          set -g status-left '''
-          set -g status-left-length 10
+              set -g status-left '''
+              set -g status-left-length 10
 
-          set -g status-right-style 'fg=black bg=yellow'
+              set -g status-right-style 'fg=black bg=yellow'
 
-          setw -g window-status-current-style 'fg=green bg=black'
-          setw -g window-status-style 'fg=green bg=black'
-          setw -g window-status-format ' #I #[fg=white]#W #[fg=yellow]#F '
+              setw -g window-status-current-style 'fg=green bg=black'
+              setw -g window-status-style 'fg=green bg=black'
+              setw -g window-status-format ' #I #[fg=white]#W #[fg=yellow]#F '
 
-          setw -g window-status-bell-style 'fg=black bg=green bold'
+              setw -g window-status-bell-style 'fg=black bg=green bold'
 
-          # messages
-          set -g message-style 'fg=green bg=black bold'
-          set -g message-command-style 'fg=black bg=green bold'
-        '';
-        programs.ewwCustom = {
-          extraVariables = {
-            inherit (colors)
-              primary_color
-              secondary_color
-              tertiary_color
-              quaternary_color
-              quintenary_color
-              base_text
-              disabled
-              error
-              success
-              ;
-          };
-          extraFiles."colors.scss" = ''
-            $color-fg: ${colors.bg_light};
-            $color-pink: ${colors.pink};
-            $color-red: ${colors.error};
-            $color-error: ${colors.error};
-            $color-success: ${colors.success};
-            $color-orange: ${colors.orange};
-            $color-orange-thin: ${colors.orange};
-            $color-teal: ${colors.cyan};
-            $color-green: ${colors.green};
-            $color-blue: ${colors.blue};
-            $color-purple: ${colors.purple};
-            $color-grey: ${colors.gray};
+              # messages
+              set -g message-style 'fg=green bg=black bold'
+              set -g message-command-style 'fg=black bg=green bold'
+            '';
+          }
+          (lib.optionalAttrs (options ? programs.ewwCustom) {
+            programs.ewwCustom = {
+              extraVariables = {
+                inherit (colors)
+                  primary_color
+                  secondary_color
+                  tertiary_color
+                  quaternary_color
+                  quintenary_color
+                  base_text
+                  disabled
+                  error
+                  success
+                  ;
+              };
+              extraFiles."colors.scss" = ''
+                $color-fg: ${colors.bg_light};
+                $color-pink: ${colors.pink};
+                $color-red: ${colors.error};
+                $color-error: ${colors.error};
+                $color-success: ${colors.success};
+                $color-orange: ${colors.orange};
+                $color-orange-thin: ${colors.orange};
+                $color-teal: ${colors.cyan};
+                $color-green: ${colors.green};
+                $color-blue: ${colors.blue};
+                $color-purple: ${colors.purple};
+                $color-grey: ${colors.gray};
 
-            $color-base: ${colors.bg_lighter};
-            $color-background: ${colors.bg_dark};
-            $color-background-solid: ${colors.bg_dark};
-          '';
-        };
-      };
+                $color-base: ${colors.bg_lighter};
+                $color-background: ${colors.bg_dark};
+                $color-background-solid: ${colors.bg_dark};
+              '';
+            };
+          })
+        ];
     };
 }

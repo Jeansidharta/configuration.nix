@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   ...
 }:
@@ -9,10 +8,7 @@ let
 in
 {
   nixpkgs.overlays = [
-    inputs.swww.overlays.default
     (mkUnstable "wezterm")
-    (mkUnstable "quickshell")
-    (overlay-flake "walker")
     (overlay-flake "drawy")
     (overlay-flake "wiremix")
   ];
@@ -52,30 +48,5 @@ in
   services.libinput.enable = true;
   security.rtkit.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    xwayland-satellite
-  ];
-
-  programs.niri.enable = true;
-  niri-flake.cache.enable = false;
-  programs.niri.package = pkgs.niri-unstable;
-  services.greetd = {
-    settings = rec {
-      initial_session =
-        let
-          systemctl = "${pkgs.systemd}/bin/systemctl";
-          startup = pkgs.writeScript "startup" ''
-            ${systemctl} --user import-environment PATH
-            exec ${pkgs.niri}/bin/niri-session
-          '';
-        in
-        {
-          user = "sidharta";
-          command = startup;
-        };
-      default_session = initial_session;
-    };
-    enable = true;
-  };
   programs.nix-ld.enable = true;
 }

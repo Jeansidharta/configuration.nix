@@ -4,13 +4,13 @@
   home.homeDirectory = "/home/sidharta";
   home.sessionPath = [ "$HOME/.cargo/bin" ];
 
-  programs.ewwCustom = {
-    extraVariables = {
-      enableBacklight = "false";
-      enableBattery = "false";
-      topBarMonitor = "HDMI-A-1";
-    };
-  };
+  # programs.ewwCustom = {
+  #   extraVariables = {
+  #     enableBacklight = "false";
+  #     enableBattery = "false";
+  #     topBarMonitor = "HDMI-A-1";
+  #   };
+  # };
 
   programs.ssh.matchBlocks = {
     "nb" = {

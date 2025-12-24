@@ -3,9 +3,11 @@
 let
   hm-module =
     { ... }:
-    {
-      programs.elephant.providers = [ "bluetooth" ];
-    };
+    lib.mkMerge [
+      (lib.optionalAttrs (options ? programs.elephant) {
+        programs.elephant.providers = [ "bluetooth" ];
+      })
+    ];
 in
 lib.mkMerge [
   {

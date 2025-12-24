@@ -27,7 +27,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-
+    dank-material-shell = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     swww = {
       url = "github:LGFae/swww/a07595cf607ed512bc0e4b223d28e5ed91854214";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

@@ -11,14 +11,14 @@
   # desktops.customHypridle.enable = true;
   home.username = "sidharta";
   home.homeDirectory = "/home/sidharta";
-  programs.ewwCustom = {
-    extraVariables = {
-      enableBacklight = "true";
-      enableBattery = "true";
-      topBarMonitor = "0";
-      enableMedia = "false";
-    };
-  };
+  # programs.ewwCustom = {
+  #   extraVariables = {
+  #     enableBacklight = "true";
+  #     enableBattery = "true";
+  #     topBarMonitor = "0";
+  #     enableMedia = "false";
+  #   };
+  # };
 
   programs.wezterm.extraConfig = lib.mkForce (builtins.readFile ./wezterm.lua);
 
