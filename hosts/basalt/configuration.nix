@@ -21,7 +21,7 @@
       ../../modules/common/default.nix
       ../../modules/nylon-wg.nix
       ../../modules/proxyuser.nix
-      ../../modules/comma.nix
+      ../../modules/nix-extra.nix
       ../../modules/docker.nix
       ../../modules/tor.nix
       ../../modules/ssh-authorized-keys.nix

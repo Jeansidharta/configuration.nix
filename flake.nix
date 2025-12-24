@@ -23,6 +23,10 @@
         darwin.follows = "";
       };
     };
+    nsearch = {
+      url = "github:niksingh710/nsearch";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     nixos-cli = {
       url = "github:nix-community/nixos-cli";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

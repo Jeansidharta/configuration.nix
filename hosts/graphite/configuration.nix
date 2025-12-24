@@ -12,7 +12,7 @@
     ../../modules/desktop/default.nix
     ../../modules/nylon-wg.nix
     ../../modules/network-manager.nix
-    ../../modules/comma.nix
+    ../../modules/nix-extra.nix
     ../../modules/docker.nix
     ../../modules/tor.nix
     ../../modules/bluetooth.nix

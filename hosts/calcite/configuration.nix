@@ -11,7 +11,7 @@
     ../../modules/common/default.nix
     ../../modules/desktop/default.nix
     ../../modules/network-manager.nix
-    ../../modules/comma.nix
+    ../../modules/nix-extra.nix
     ../../secrets/module.nix
 
     ./hardware-configuration.nix
