@@ -19,6 +19,10 @@
     ../../modules/proxyuser.nix
     ../../modules/network-manager.nix
     ../../modules/comma.nix
+    ../../modules/docker.nix
+    ../../modules/tor.nix
+    ../../modules/bluetooth.nix
+    ../../modules/ssh-authorized-keys.nix
     ../../secrets/module.nix
     "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
 
@@ -42,20 +46,6 @@
     }
   ];
 
-  users.users.sidharta.extraGroups = [
-    "tor"
-    "docker"
-  ];
-  services.tor = {
-    enable = true;
-    client.enable = true;
-    # controlSocket.enable = true;
-    settings = {
-      ControlPort = 9051;
-      HashedControlPassword = "16:DB07FBCA1CE2B6A360D7B98EF09D2877ECEE44B0750DD72DCFA3DE0263";
-    };
-  };
-
   hardware.keyboard.qmk.enable = true;
 
   programs.steam = {
@@ -75,29 +65,6 @@
     "fd00::1:2" = [ "obsidian.wg" ];
     "fd00::1:3" = [ "graphite.wg" ];
   };
-
-  virtualisation = {
-    virtualbox.host.enable = true;
-    docker = {
-      enable = true;
-      daemon.settings = {
-        ipv6 = true;
-        fixed-cidr-v6 = "fd10::/80";
-        metrics-addr = "0.0.0.0:9323";
-      };
-    };
-  };
-  security.wrappers.batata = {
-    source = "${pkgs.coreutils-full}/bin/whoami";
-    setuid = true;
-    setgid = true;
-    owner = "root";
-    group = "root";
-  };
-
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  services.blueman.enable = true;
 
   users.users.sidharta.openssh.authorizedKeys.keys = [
     ssh-pubkeys.goldfish.suzana

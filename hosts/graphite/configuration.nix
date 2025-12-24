@@ -13,6 +13,10 @@
     ../../modules/nylon-wg.nix
     ../../modules/network-manager.nix
     ../../modules/comma.nix
+    ../../modules/docker.nix
+    ../../modules/tor.nix
+    ../../modules/bluetooth.nix
+    ../../modules/ssh-authorized-keys.nix
     ../../secrets/module.nix
 
     ./hardware-configuration.nix
@@ -67,10 +71,6 @@
     openFirewall = true;
     package = pkgs.transmission_4;
   };
-
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  services.blueman.enable = true;
 
   services.acpid.enable = true;
   services.acpid.logEvents = true;

@@ -44,7 +44,6 @@
       "websearch"
       # "todo"
       "unicode"
-      "bluetooth"
       # "windows"
     ];
     settings = {

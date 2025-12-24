@@ -21,6 +21,8 @@
       sd-image
 
       ../../modules/common/default.nix
+      ../../modules/tor.nix
+      ../../modules/ssh-authorized-keys.nix
       ../../modules/proxyuser.nix
     ];
   services.openssh = {
@@ -55,8 +57,6 @@
     ];
   };
   users.users.sidharta = {
-    isNormalUser = true;
-    hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
     openssh.authorizedKeys.keys = [
       ssh-pubkeys.obsidian.sidharta
       ssh-pubkeys.phone

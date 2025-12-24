@@ -22,6 +22,9 @@
       ../../modules/nylon-wg.nix
       ../../modules/proxyuser.nix
       ../../modules/comma.nix
+      ../../modules/docker.nix
+      ../../modules/tor.nix
+      ../../modules/ssh-authorized-keys.nix
       ../../secrets/module.nix
     ];
   services.openssh = {
