@@ -28,6 +28,7 @@ in
   imports = [
     ("${inputs.disko}/module.nix")
     inputs.home-manager.nixosModules.home-manager
+    inputs.nixos-cli.nixosModules.nixos-cli
     ./overlays.nix
   ];
   home-manager.extraSpecialArgs = {
@@ -44,6 +45,17 @@ in
       (final: prev: { ${pkg-name} = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
     overlay-flake = name: final: prev: {
       ${name} = inputs.${name}.packages.${prev.system}.default;
+    };
+  };
+
+  services.nixos-cli = {
+    enable = true;
+    prebuildOptionCache = true;
+    config = {
+      use_nvd = true;
+      apply = {
+        use_nom = true;
+      };
     };
   };
 
@@ -102,6 +114,7 @@ in
     busybox
     jq
     iw
+    nvd # Necessay for nixos-cli
     sleep-script
     shutdown-script
     reboot-script
