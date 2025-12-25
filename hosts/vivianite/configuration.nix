@@ -49,20 +49,7 @@
 
   users.users.root = {
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      ssh-pubkeys.obsidian.sidharta
-      ssh-pubkeys.phone
-      ssh-pubkeys.graphite.sidharta
-      ssh-pubkeys.basalt.sidharta
-    ];
-  };
-  users.users.sidharta = {
-    openssh.authorizedKeys.keys = [
-      ssh-pubkeys.obsidian.sidharta
-      ssh-pubkeys.phone
-      ssh-pubkeys.graphite.sidharta
-      ssh-pubkeys.basalt.sidharta
-    ];
+    openssh.authorizedKeys.keys = config.users.users.sidharta.openssh.authorizedKeys.keys;
   };
 
   networking = {
@@ -92,16 +79,11 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    git
-    zsh
-    tmux
-    busybox
-    jq
-    neovim
-    tcpdump
-    unar
-  ];
+  services.tor.settings = {
+    HiddenServiceDir = "/var/lib/tor/hidden-ssh";
+    HiddenServicePort = 22;
+    HiddenServiceDirGroupReadable = true;
+  };
 
   system.nixos.tags =
     let
