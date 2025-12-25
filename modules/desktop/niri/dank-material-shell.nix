@@ -9,7 +9,7 @@ let
   dms = lib.getExe pkgs.dank-material-shell;
   hm-module = {
     imports = [
-      inputs.dank-material-shell.homeModules.dankMaterialShell.default
+      inputs.dank-material-shell.homeModules.default
     ];
     programs.dankMaterialShell = {
       enable = true;
@@ -136,7 +136,14 @@ let
   };
 in
 {
+  imports = [
+    inputs.dank-material-shell.outputs.nixosModules.default
+  ];
   home-manager.users.sidharta.imports = [ hm-module ];
+  services.power-profiles-daemon.enable = true;
+  services.upower = {
+    enable = true;
+  };
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "dank-material-shell")
   ];

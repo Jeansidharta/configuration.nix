@@ -13,7 +13,7 @@
   nixpkgs.overlays = [
     (final: prev: {
       nylon-wg =
-        inputs.nixpkgs-unstable.legacyPackages.${prev.system}.callPackage
+        inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.callPackage
           (import ../derivations/nylon-wg.nix)
           { };
     })

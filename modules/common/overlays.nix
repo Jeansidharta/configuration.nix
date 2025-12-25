@@ -7,7 +7,7 @@ in
     (mkUnstable "snapcast")
     (overlay-flake "sqlite-diagram")
     (final: prev: {
-      neovim = inputs.neovim-with-plugins.packages.${prev.system}.default;
+      neovim = inputs.neovim-with-plugins.packages.${prev.stdenv.hostPlatform.system}.default;
     })
   ];
 }

@@ -5,6 +5,8 @@
       { pkgs, lib, ... }:
       {
         home.packages = with pkgs; [
+          # Leave this in extras, since it causes a ffmpeg compilation on ARM
+          yt-dlp # Download youtube videos
           lmms # Music production
           inkscape # Vector image editor
           imhex # A very nice hex editor

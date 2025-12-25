@@ -27,7 +27,7 @@
             pkgs.exiftool
           ];
           programs.yazi-custom = {
-            package = yazi.packages.${pkgs.system}.default;
+            package = yazi.packages.${pkgs.stdenv.hostPlatform.system}.default;
             enable = true;
             enableZshIntegration = true;
             initLua = builtins.readFile ./init.lua;

@@ -25,7 +25,6 @@
     nftables # firewall frontend
     socat # Tool for connecting/debugging read/write interfaces
     unar # Unzip tool
-    yt-dlp # Download youtube videos
     tcpdump # Dump tcp connections
     darkhttpd # Very simple http server
     nmap # map network

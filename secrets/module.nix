@@ -17,6 +17,13 @@ let
 in
 {
   imports = [ inputs.agenix.nixosModules.default ];
+  environment.systemPackages = with pkgs; [
+    agenix
+  ];
+  nix.extraOptions = ''
+    !include ${config.age.secrets.nix-github-token.path}
+    allow-import-from-derivation = true
+  '';
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "agenix")
   ];

@@ -5,6 +5,7 @@
   ];
   imports = [
     ./dank-material-shell.nix
+    # ./caelestia-shell.nix
     # ./eww.nix
   ];
   home-manager.users.sidharta.imports = [

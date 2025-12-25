@@ -37,7 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     dank-material-shell = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     swww = {

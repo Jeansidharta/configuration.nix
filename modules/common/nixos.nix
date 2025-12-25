@@ -41,9 +41,11 @@ in
     */
     mkUnstable =
       pkg-name:
-      (final: prev: { ${pkg-name} = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.${pkg-name}; });
+      (final: prev: {
+        ${pkg-name} = inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.${pkg-name};
+      });
     overlay-flake = name: final: prev: {
-      ${name} = inputs.${name}.packages.${prev.system}.default;
+      ${name} = inputs.${name}.packages.${prev.stdenv.hostPlatform.system}.default;
     };
   };
 
@@ -96,7 +98,6 @@ in
     wget
     git
     wireguard-tools
-    agenix
     zsh
     tmux
     busybox
@@ -134,10 +135,6 @@ in
         "flakes"
       ];
     };
-    extraOptions = ''
-            !include ${config.age.secrets.nix-github-token.path}
-      	  allow-import-from-derivation = true
-    '';
   };
   programs = {
     neovim = {
