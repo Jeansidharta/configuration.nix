@@ -6,7 +6,10 @@
 }:
 {
 
-  imports = [ inputs.theme.outputs.home-manager-module ];
+  imports = [
+    inputs.theme.outputs.home-manager-module
+    ../../options/home-manager/nchat.nix
+  ];
   programs.btop.enable = true;
   programs.direnv.enable = true;
   programs.fd.enable = true;
@@ -42,6 +45,7 @@
     usbutils # Tool for manipulating USB
     dive # See container image layers
     xh # A CURL replacement
+    yazi # File picker
     sqlite-diagram
     bmon
     neovim
@@ -56,6 +60,30 @@
       echo "$path"
     '')
   ];
+
+  programs.nchat = {
+    enable = true;
+    settings-color = "dracula";
+    settings-ui = {
+      desktop_notify_enabled = 1;
+      desktop_notify_active_noncurrent = 1;
+      desktop_notify_inactive = 1;
+      desktop_notify_connectivity = 1;
+      message_open_command = "${lib.getExe pkgs.neovim} -";
+      file_picker_command = "${lib.getExe pkgs.yazi} --chooser-file \"%1\"";
+    };
+    settings-key = {
+      backward_kill_word = "KEY_CTRLW";
+      backward_word = "\\4001052"; # CTRL LEFT
+      forward_word = "\\4001071"; # CTRL RIGHT
+      begin_line = "KEY_HOME";
+      end_line = "KEY_END";
+
+      home = "KEY_NONE";
+      end = "KEY_NONE";
+      open_link = "KEY_NONE";
+    };
+  };
 
   systemd.user.startServices = true;
 

@@ -11,7 +11,7 @@ let
     imports = [
       inputs.dank-material-shell.homeModules.default
     ];
-    programs.dankMaterialShell = {
+    programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
     };
