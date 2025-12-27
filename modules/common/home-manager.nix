@@ -92,8 +92,6 @@
       home = "\\33\\146"; # ALT + F
       end = "\\33\\147"; # ALT + G
 
-      home = "KEY_NONE";
-      end = "KEY_NONE";
       open_link = "KEY_NONE";
     };
   };
