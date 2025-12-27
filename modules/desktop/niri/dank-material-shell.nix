@@ -10,10 +10,14 @@ let
   hm-module = {
     imports = [
       inputs.dank-material-shell.homeModules.default
+      ../../../options/home-manager/dank-material-shell.nix
     ];
     programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
+      enableVPN = false;
+      enableDynamicTheming = false;
+      settings = (import ./dms-settings.nix) { inherit pkgs; };
     };
     home.packages = [ pkgs.dank-material-shell ];
     systemd.user =
