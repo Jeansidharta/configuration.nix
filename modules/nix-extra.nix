@@ -37,6 +37,7 @@
           nix-melt # Inspect flake.lock files
           nsearch # Search nixpkgs for packages
           nvd # Necessay for nixos-cli
+          nix-init # Easily find a project's hash
         ];
       }
     )
