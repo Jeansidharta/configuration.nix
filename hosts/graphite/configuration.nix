@@ -102,12 +102,4 @@
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  programs.nix-ld.libraries = with pkgs; [
-    kdePackages.wayland
-    libxkbcommon
-    libGL
-    alsa-lib
-    libffi
-  ];
 }
