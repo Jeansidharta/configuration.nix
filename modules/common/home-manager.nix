@@ -59,6 +59,16 @@
 
       echo "$path"
     '')
+    (pkgs.writeScriptBin "rmnix" ''
+      #!/usr/bin/env bash
+
+      link=$(readlink "$1")
+
+      if [ $? == 0 ]; then
+      	rm "$1"
+      	nix store delete "$link"
+      fi
+    '')
   ];
 
   programs.nchat = {
