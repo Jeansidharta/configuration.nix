@@ -71,6 +71,7 @@
       desktop_notify_connectivity = 1;
       message_open_command = "${lib.getExe pkgs.neovim} -";
       file_picker_command = "${lib.getExe pkgs.yazi} --chooser-file \"%1\"";
+      home_fetch_all = 1;
     };
     settings-key = {
       backward_kill_word = "KEY_CTRLW";
@@ -78,6 +79,8 @@
       forward_word = "\\4001071"; # CTRL RIGHT
       begin_line = "KEY_HOME";
       end_line = "KEY_END";
+      home = "\\33\\146"; # ALT + F
+      end = "\\33\\147"; # ALT + G
 
       home = "KEY_NONE";
       end = "KEY_NONE";
