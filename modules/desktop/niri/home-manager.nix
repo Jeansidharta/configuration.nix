@@ -51,6 +51,10 @@
           clip-to-geometry = true;
         }
         {
+          matches = [ { app-id = "com.gabm.satty"; } ];
+          open-fullscreen = true;
+        }
+        {
           matches = [ { app-id = "^steam.*$"; } ];
           open-on-workspace = "gaming";
         }
@@ -108,6 +112,8 @@
           wezterm = lib.getExe pkgs.wezterm;
           leaderKey = "Super";
           wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+          grim = lib.getExe pkgs.grim;
+          satty = lib.getExe pkgs.satty;
           wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
           vipe = "${pkgs.moreutils}/bin/vipe";
           neovim = "${pkgs.neovim}/bin/nvim";
@@ -256,7 +262,8 @@
 
           "${leaderKey}+question".action = show-hotkey-overlay;
 
-          "Print".action.screenshot.show-pointer = false;
+          "Print".action.spawn-sh =
+            "${grim} - | ${satty} --filename - --initial-tool crop --output-filename \"/home/sidharta/screenshots-niri/%Y-%m-%d_%H:%M:%S.png\" --save-after-copy";
           "${leaderKey}+Ctrl+v".action.spawn = "${modifyClipboard}";
           "${leaderKey}+Shift+v".action.spawn = "${paste-qrcode}";
           "Shift+XF86AudioNext".action.spawn = [

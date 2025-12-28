@@ -69,6 +69,9 @@
       	nix store delete "$link"
       fi
     '')
+    (pkgs.writeScriptBin "nom-callpackage" ''
+      nom build --impure --expr "with import <nixpkgs> {}; callPackage (import $1) {}" "$@"
+    '')
   ];
 
   programs.nchat = {

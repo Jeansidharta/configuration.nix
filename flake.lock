@@ -862,16 +862,15 @@
     "markview_plugin": {
       "flake": false,
       "locked": {
-        "lastModified": 1766561123,
-        "narHash": "sha256-mRV8WKZ3azIZeQLJqNejdE6UJvXpmbnuW9Fcc2ORoI4=",
-        "owner": "jeansidharta",
+        "lastModified": 1766888622,
+        "narHash": "sha256-1MzEtP/66sL22nPK/fG95gviayJyyygiJlsus9/gWwE=",
+        "owner": "OXY2DEV",
         "repo": "markview.nvim",
-        "rev": "cd0fb6372d91823ec74c7bbd91084cb86efeb807",
+        "rev": "18fc148c83925919d94f3fc8e5c74f2d108b9b44",
         "type": "github"
       },
       "original": {
-        "owner": "jeansidharta",
-        "ref": "fix-blink-cmp-sources",
+        "owner": "OXY2DEV",
         "repo": "markview.nvim",
         "type": "github"
       }
@@ -988,11 +987,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1766618229,
-        "narHash": "sha256-Xdba6KQUghqrEz4ds1gVEiJXJM/Hz8jWWyOrGMwomSI=",
+        "lastModified": 1766901460,
+        "narHash": "sha256-EDenfN65z4ihrFalWlMnSEl5bw+IxGKpTYw3dnZbIis=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "78854df2363827d57617379739d08649feed6260",
+        "rev": "f1afe4d1fbedf07624f46692582e31439c0e9950",
         "type": "github"
       },
       "original": {

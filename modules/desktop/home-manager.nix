@@ -32,6 +32,17 @@
         output-filename = "/tmp/screenshot-%Y-%m-%d_%H:%M:%S.png";
         save-after-copy = true;
       };
+      color-palette = {
+        palette = [
+          "#ff0000"
+          "#00ff00"
+          "#0000ff"
+          "#ff66cc"
+          "#00ffd5"
+          "#000000"
+          "#ffffff"
+        ];
+      };
     };
   };
 
