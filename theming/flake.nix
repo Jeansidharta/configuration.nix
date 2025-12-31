@@ -3,39 +3,37 @@
     { ... }:
     let
       colors = rec {
-        bg_darker = "#0D0C1E"; # 080814
-        bg_dark = "#1b1a33";
-        bg_medium_dark = "#28274d";
-        bg_medium = "#434180";
-        bg_medium_light = "#504e99";
-        bg_medium_lighter = "#6b68cc";
-        bg_light = "#7975e6";
-        bg_lighter = "#8682ff";
+        bg_darker = "#00001a";
+        bg_dark = "#0d0d1a";
+        bg_light = "#ccfff7";
+        bg_lighter = "#e6fffa";
 
-        light_yellow = "#d7a65f";
-        blue = "#0026e6";
-        light_blue = "#0060e6";
-        light_purple = "#9933ff";
-        purple = "#8c33ff";
-        orange = "#e68600";
-        cyan = "#00dee6";
-        light_cyan = "#00e6b8";
-        green = "#12de00";
-        pink = "#ea00d9";
-        gray = "#4A5057";
+        light_gray = "#bfbfbf";
+        gray = "#333366";
+        red = "#ff0055";
+        green = "#15ff00";
+        orange = "#ff8000";
+        blue = "#0061ff";
+        pink = "#ff66cc";
+        cyan = "#00ffd5";
+        white = "#ffffff";
 
-        tomato_red = "#f44336";
-        dark_pink = "#b300a7";
-        dark_green = "#66bb6a";
+        black = "#0d0d1a";
+        dark_red = "#d90048";
+        dark_green = "#10bf00";
+        dark_yellow = "#bf6000";
+        dark_blue = "#0049bf";
+        dark_pink = "#bf4d99";
+        dark_cyan = "#00bf9f";
 
-        error = tomato_red;
-        success = dark_green;
+        error = red;
+        success = green;
 
         primary_color = pink;
         secondary_color = orange;
         tertiary_color = cyan;
         quaternary_color = green;
-        quintenary_color = purple;
+        quintenary_color = dark_pink;
         base_text = bg_lighter;
         disabled = gray;
       };
@@ -54,9 +52,6 @@
         lib.mkMerge [
           {
             programs.wezterm.colorSchemes.mainTheme = {
-              foreground = colors.bg_light;
-              cursor_fg = colors.bg_lighter;
-              background = colors.bg_darker;
               # Color order ANSI:
               # black
               # maroon
@@ -76,25 +71,29 @@
               # aqua
               # white
               ansi = [
-                colors.bg_medium_dark # 1
-                colors.light_purple # 2
+                colors.black # 1
+                colors.dark_red # 2
                 colors.dark_green # 3
-                colors.light_yellow # 4
-                colors.light_blue # 5
+                colors.dark_yellow # 4
+                colors.dark_blue # 5
                 colors.dark_pink # 6
-                colors.light_cyan # 7
-                colors.gray # 8
+                colors.dark_cyan # 7
+                colors.light_gray # 8
               ];
               brights = [
                 colors.gray # 1
-                colors.purple # 2
+                colors.red # 2
                 colors.green # 3
                 colors.orange # 4
                 colors.blue # 5
                 colors.pink # 6
                 colors.cyan # 7
-                colors.gray # 8
+                colors.white # 8
               ];
+
+              foreground = colors.bg_light;
+              cursor_fg = colors.bg_lighter;
+              background = colors.bg_darker;
             };
             xsession.windowManager.bspwm.settings = {
               normal_border_color = colors.bg_light;
