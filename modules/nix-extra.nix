@@ -24,6 +24,8 @@
   ];
 
   programs.nix-index-database.comma.enable = true;
+  programs.extra-container.enable = true;
+
   home-manager.users.sidharta.imports = [
     inputs.nix-index-database.outputs.homeModules.nix-index
     (

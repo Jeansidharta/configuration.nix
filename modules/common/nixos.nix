@@ -94,6 +94,8 @@ in
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
   };
 
+  services.nixseparatedebuginfod2.enable = true;
+
   environment.systemPackages = with pkgs; [
     wget
     git
@@ -103,6 +105,8 @@ in
     busybox
     jq
     iw
+    bintools
+    file
     sleep-script
     shutdown-script
     reboot-script

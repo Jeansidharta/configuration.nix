@@ -19,6 +19,8 @@
     ../../modules/ssh-authorized-keys.nix
     ../../secrets/module.nix
 
+    ../../containers/default.nix
+
     ./hardware-configuration.nix
     ./disko-config.nix
   ];

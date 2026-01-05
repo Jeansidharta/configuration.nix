@@ -987,11 +987,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1766901460,
-        "narHash": "sha256-EDenfN65z4ihrFalWlMnSEl5bw+IxGKpTYw3dnZbIis=",
+        "lastModified": 1767304502,
+        "narHash": "sha256-H5TpVghBcCnHHDtOTHRXfsQV0W8WGnKlUy4xCD2eDJQ=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "f1afe4d1fbedf07624f46692582e31439c0e9950",
+        "rev": "5c064d1790c6e78fb004ce8c6eb064dcbadb58cd",
         "type": "github"
       },
       "original": {

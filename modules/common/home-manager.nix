@@ -48,6 +48,7 @@
     yazi # File picker
     sqlite-diagram
     bmon
+    gdb
     neovim
 
     (pkgs.writeScriptBin "root-derivation" ''
@@ -142,6 +143,13 @@
       bind -N "Split horizontal" | split-window -h -c "#{pane_current_path}"
     '';
   };
+
+  home.file.".gdbinit".text = ''
+    set print pretty on
+    set print symbol-filename on
+    set print array on
+    set disassembly-flavor intel
+  '';
 
   programs.git = {
     enable = true;

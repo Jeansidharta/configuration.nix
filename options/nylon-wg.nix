@@ -91,6 +91,11 @@ in
       trustedInterfaces = [ cfg.node.interface ];
     };
 
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.all.forwarding" = lib.mkOverride 97 true;
+      "net.ipv6.conf.all.forwarding" = lib.mkOverride 97 true;
+    };
+
     systemd.services.nylon-wg = {
       description = "Nylon - Resilient Overlay Network built from WireGuard";
       wantedBy = [ "multi-user.target" ];
@@ -106,6 +111,8 @@ in
         in
         {
           RuntimeDirectory = "nylon-wg";
+          RuntimeDirectoryMode = "0770";
+          WorkingDirectory = "/run/nylon-wg";
           ExecStartPre = "${sh} -c '{ ${cat} ${nodeBaseCfg} ${
             lib.optionalString keyIsPath ("&& " + keyLine)
           } ;} > node.yaml'";
@@ -116,4 +123,6 @@ in
         };
     };
   };
+
+  # meta.maintainers = with lib.maintainers; [ smephite ];
 }

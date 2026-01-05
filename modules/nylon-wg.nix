@@ -10,6 +10,10 @@
     ../options/nylon-wg.nix
   ];
 
+  environment.systemPackages = [
+    pkgs.nylon-wg
+  ];
+
   nixpkgs.overlays = [
     (final: prev: {
       nylon-wg =
