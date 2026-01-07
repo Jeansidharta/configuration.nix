@@ -10,7 +10,6 @@ let
   hm-module = {
     imports = [
       inputs.dank-material-shell.homeModules.default
-      ../../../options/home-manager/dank-material-shell.nix
     ];
     programs.dank-material-shell = {
       enable = true;

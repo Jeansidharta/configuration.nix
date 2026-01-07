@@ -5,6 +5,7 @@ in
 {
   nixpkgs.overlays = [
     (mkUnstable "snapcast")
+    (mkUnstable "dgop")
     (overlay-flake "sqlite-diagram")
     (final: prev: {
       neovim = inputs.neovim-with-plugins.packages.${prev.stdenv.hostPlatform.system}.default;
