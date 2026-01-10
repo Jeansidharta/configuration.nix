@@ -78,8 +78,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     drawy = {
-      url = "github:Prayag2/drawy";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "git+https://invent.kde.org/graphics/drawy";
+      flake = false;
     };
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
   };

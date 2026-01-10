@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -9,7 +10,7 @@ in
 {
   nixpkgs.overlays = [
     (mkUnstable "wezterm")
-    (overlay-flake "drawy")
+    (final: prev: { drawy = prev.callPackage (import ../../derivations/drawy.nix) { }; })
     (overlay-flake "wiremix")
   ];
   hardware.graphics.enable = true;

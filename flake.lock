@@ -83,7 +83,7 @@
       "inputs": {
         "fenix": "fenix",
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1764075838,
@@ -257,23 +257,21 @@
     "drawy": {
       "inputs": {
         "git-hooks": "git-hooks",
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ],
+        "nixpkgs": "nixpkgs_3",
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1766651504,
-        "narHash": "sha256-jkPVNiZUglzNjB8Jj3gm6c+eYDUr7Z+BH4vkXrwQl+A=",
-        "owner": "Prayag2",
-        "repo": "drawy",
-        "rev": "4c42a5977c78cb04638953a549595af9fa6ad125",
-        "type": "github"
+        "lastModified": 1767790535,
+        "narHash": "sha256-rRmTC/68W1N65s7V9fzZFeVTZFuHDnNkF9438R7OR4w=",
+        "ref": "refs/heads/master",
+        "rev": "3983836f2809bea1d0680f400aa137283c8f67c6",
+        "revCount": 377,
+        "type": "git",
+        "url": "https://invent.kde.org/graphics/drawy"
       },
       "original": {
-        "owner": "Prayag2",
-        "repo": "drawy",
-        "type": "github"
+        "type": "git",
+        "url": "https://invent.kde.org/graphics/drawy"
       }
     },
     "elephant": {
@@ -642,11 +640,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763988335,
-        "narHash": "sha256-QlcnByMc8KBjpU37rbq5iP7Cp97HvjRP0ucfdh+M4Qc=",
+        "lastModified": 1765911976,
+        "narHash": "sha256-t3T/xm8zstHRLx+pIHxVpQTiySbKqcQbK+r+01XVKc0=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "50b9238891e388c9fdc6a5c49e49c42533a1b5ce",
+        "rev": "b68b780b69702a090c8bb1b973bab13756cc7a27",
         "type": "github"
       },
       "original": {
@@ -1148,7 +1146,7 @@
         "argononed": "argononed",
         "flake-compat": "flake-compat_4",
         "nixos-images": "nixos-images",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1767357537,
@@ -1301,6 +1299,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1767799921,
+        "narHash": "sha256-r4GVX+FToWVE2My8VVZH4V0pTIpnu2ZE8/Z4uxGEMBE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d351d0653aeb7877273920cd3e823994e7579b0b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1736166416,
         "narHash": "sha256-U47xeACNBpkSO6IcCm0XvahsVXpJXzjPIQG7TZlOToU=",
         "owner": "nixos",
@@ -1315,7 +1329,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1760577653,
         "narHash": "sha256-ACdziiaap17WqK0OfJW7HSCIQVhg2Ozp3dLzQNIzPRo=",
@@ -1330,7 +1344,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1759070547,
         "narHash": "sha256-JVZl8NaVRYb0+381nl7LvPE+A774/dRpif01FKLrYFQ=",
@@ -1346,7 +1360,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1767323696,
         "narHash": "sha256-6preRiqOYkAVsZmCIaVqiyAwEpbtfVUC5HYfN6sJsrc=",
@@ -1482,7 +1496,7 @@
     "optnix": {
       "inputs": {
         "flake-compat": "flake-compat_3",
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1765418479,
@@ -2303,7 +2317,7 @@
     "zig2nix_3": {
       "inputs": {
         "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1760578956,

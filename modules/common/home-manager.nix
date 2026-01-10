@@ -15,6 +15,10 @@
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
 
+  home.sessionVariables = {
+    MANPAGER = "nvim +Man!";
+  };
+
   home.packages = with pkgs; [
     btop # Process manager
     bat # Replacement for the gnu `cat` command
@@ -28,10 +32,16 @@
     nftables # firewall frontend
     socat # Tool for connecting/debugging read/write interfaces
     unar # Unzip tool
-    tcpdump # Dump tcp connections
     darkhttpd # Very simple http server
-    nmap # map network
     calc # gnu calc
+    dive # See container image layers
+    xh # A CURL replacement
+    yazi # File picker
+    sqlite-diagram
+    neovim
+
+    ######## TOOLBOX FOR DEBUGGING ########
+    tcpdump # Dump tcp connections
     conntrack-tools # Show connections tracked by the kernel
     dig.dnsutils # DNS testing tool
     pciutils # lspci command to show current pci devices
@@ -41,15 +51,13 @@
     lshw # Show hardware config
     ethtool # Manage ethernet drivers
     strace # Show all syscalls made by application
+    ltrace # Show binary library calls
+    patchelf # Quickly modify ELF binaries
     traceroute # Shows the route to a destination on the internet
+    nmap # map network
     usbutils # Tool for manipulating USB
-    dive # See container image layers
-    xh # A CURL replacement
-    yazi # File picker
-    sqlite-diagram
-    bmon
     gdb
-    neovim
+    bmon
 
     (pkgs.writeScriptBin "root-derivation" ''
       #!/usr/bin/env bash
