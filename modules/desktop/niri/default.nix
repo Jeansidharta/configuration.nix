@@ -4,6 +4,7 @@
     inputs.niri.overlays.niri
   ];
   imports = [
+    # ./noctalia-shell.nix
     ./dank-material-shell.nix
     # ./caelestia-shell.nix
     # ./eww.nix

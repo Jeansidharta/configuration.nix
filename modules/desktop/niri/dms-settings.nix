@@ -1,7 +1,9 @@
-{ pkgs }:
+{ pkgs, theme }:
 {
   launcherLogoCustomPath = ../../../assets/nix-snowflake.svg;
-  customThemeFile = pkgs.writeText "theme" (builtins.toJSON (import ./dms-theme.nix));
+  customThemeFile = pkgs.writeText "theme" (
+    builtins.toJSON (import ./dms-theme.nix { inherit theme; })
+  );
 }
 // {
   currentThemeName = "custom";

@@ -10,6 +10,7 @@
 
         light_gray = "#bfbfbf";
         gray = "#333366";
+        dark_gray = "#202040";
         red = "#ff0055";
         green = "#15ff00";
         orange = "#ff8000";

@@ -1,28 +1,43 @@
+{ theme }:
 {
   id = "electric-blossom";
   name = "Electric Blossom";
   version = "1.0.0";
   author = "jeansidharta";
   description = "High contrast neon theme";
-  dark = {
-    primary = "#00ffd5";
-    primaryText = "#0a0a0f";
-    primaryContainer = "#0000ff";
-    secondary = "#ff66cc";
-    surface = "#0a0a0f";
-    surfaceText = "#ff66cc";
-    surfaceVariant = "#0a0a0f";
-    surfaceVariantText = "#d4bfff";
-    surfaceTint = "#0000ff";
-    background = "#d4bfff";
-    backgroundText = "#00ff00";
-    outline = "#d4bfff";
-    surfaceContainer = "#0a0a0f";
-    surfaceContainerHigh = "#181825";
-    error = "#d32f2f";
-    warning = "#F57C00";
-    info = "#d4bfff";
-  };
+  dark =
+    let
+      inherit (theme.colors)
+        light_gray
+        orange
+        red
+        bg_dark
+        green
+        blue
+        pink
+        cyan
+        bg_darker
+        ;
+    in
+    {
+      primary = cyan;
+      primaryText = bg_dark;
+      primaryContainer = blue;
+      secondary = pink;
+      surface = bg_dark;
+      surfaceText = pink;
+      surfaceVariant = bg_dark;
+      surfaceVariantText = light_gray;
+      surfaceTint = blue;
+      background = bg_darker;
+      backgroundText = green;
+      outline = light_gray;
+      surfaceContainer = bg_dark;
+      surfaceContainerHigh = bg_darker;
+      error = red;
+      warning = orange;
+      info = light_gray;
+    };
   light = {
   };
   sourceDir = "electric-blossom";

@@ -1376,6 +1376,26 @@
         "type": "github"
       }
     },
+    "noctalia-shell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768058714,
+        "narHash": "sha256-nyRGU5f04tal39wtjYxhNFfEOgOrlZiNp7oZRsdjqpw=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "740b2741e1a3913fa06aa46553818e9d3d7fbba8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "none-ls_plugin": {
       "flake": false,
       "locked": {
@@ -1622,6 +1642,7 @@
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xkbcommon": "nixpkgs-xkbcommon",
+        "noctalia-shell": "noctalia-shell",
         "nsearch": "nsearch",
         "sqlite-diagram": "sqlite-diagram",
         "swww": "swww",
