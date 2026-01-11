@@ -19,6 +19,14 @@ let
         enableVPN = false;
         enableDynamicTheming = false;
         settings = (import ./dms-settings.nix) { inherit pkgs theme; };
+        managePluginSettings = true;
+        plugins = {
+          dankBatteryAlerts = {
+            enable = true;
+            src = "${inputs.dms-plugins}/DankBatteryAlerts";
+            settings = { };
+          };
+        };
       };
       home.packages = [ pkgs.dank-material-shell ];
       systemd.user =
