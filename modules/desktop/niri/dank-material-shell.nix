@@ -75,21 +75,24 @@ let
         "Super+Space".action.spawn = [
           dms
           "ipc"
-          "call"
           "spotlight"
+          "toggle"
+        ];
+        "Super+n".action.spawn = [
+          dms
+          "ipc"
+          "notifications"
           "toggle"
         ];
         "Super+v".action.spawn = [
           dms
           "ipc"
-          "call"
           "clipboard"
           "toggle"
         ];
         "XF86AudioRaiseVolume".action.spawn = [
           dms
           "ipc"
-          "call"
           "audio"
           "increment"
           "5"
@@ -97,7 +100,6 @@ let
         "XF86AudioLowerVolume".action.spawn = [
           dms
           "ipc"
-          "call"
           "audio"
           "decrement"
           "5"
@@ -105,35 +107,30 @@ let
         "XF86AudioMute".action.spawn = [
           dms
           "ipc"
-          "call"
           "audio"
           "mute"
         ];
         "XF86AudioNext".action.spawn = [
           dms
           "ipc"
-          "call"
           "mpris"
           "next"
         ];
         "XF86AudioPlay".action.spawn = [
           dms
           "ipc"
-          "call"
           "mpris"
           "playPause"
         ];
         "XF86AudioPrev".action.spawn = [
           dms
           "ipc"
-          "call"
           "mpris"
           "previous"
         ];
         "Super+s".action.spawn = [
           dms
           "ipc"
-          "call"
           "lock"
           "lock"
         ];
