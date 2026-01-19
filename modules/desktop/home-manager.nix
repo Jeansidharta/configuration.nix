@@ -15,6 +15,7 @@
 
     kitty # Backup terminal in case ghostty dies
     wireshark
+    drawy # whiteboard app
 
     # === Non free ===
     discord

@@ -1,7 +1,8 @@
+src:
 {
   stdenv,
   lib,
-  fetchFromGitLab,
+  shared-mime-info,
   makeDesktopItem,
   cmake,
   kdePackages,
@@ -14,13 +15,7 @@ stdenv.mkDerivation rec {
   pname = "drawy";
   version = "1.0.0-alpha";
 
-  src = fetchFromGitLab {
-    owner = "graphics";
-    repo = "drawy";
-    domain = "invent.kde.org";
-    rev = "master";
-    sha256 = "sha256-4uidKuoG40o0l/UKa7wtac5yvl9cvk+uTVhdSwFGyOw=";
-  };
+  inherit src;
 
   desktopItem = makeDesktopItem {
     name = "Drawy";
@@ -39,6 +34,7 @@ stdenv.mkDerivation rec {
     kdePackages.plasma5support
     kdePackages.wrapQtAppsHook
     kdePackages.extra-cmake-modules
+    shared-mime-info.dev
   ];
 
   buildInputs = [
@@ -67,16 +63,6 @@ stdenv.mkDerivation rec {
 
     mkdir "$out"
     cmake --install "$TEMP" --prefix "$out"
-
-    for desktop_file in "$desktopItem/share/applications/*"; do
-      install -Dm644 $desktop_file $out/share/applications/$(basename $desktop_file)
-    done
-
-    install -Dm644 ${src}/assets/logo-256.png $out/share/icons/hicolor/256x256/apps/drawy.png
-    install -Dm644 ${src}/assets/logo-512.png $out/share/icons/hicolor/512x512/apps/drawy.png
-    install -Dm644 ${src}/assets/mime-32.png $out/share/icons/hicolor/32x32/apps/drawy.png
-    install -Dm644 ${src}/assets/mime-64.png $out/share/icons/hicolor/64x64/apps/drawy.png
-    install -Dm644 ${src}/assets/mime.svg $out/share/icons/hicolor/scalable/apps/drawy.svg
 
     runHook postInstall
   '';
