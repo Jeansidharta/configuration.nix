@@ -15,8 +15,11 @@
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
 
+  xdg.systemDirs.data = [ "/etc/profiles/per-user/sidharta/share" ];
+
   home.sessionVariables = {
     MANPAGER = "nvim +Man!";
+    QS_ICON_THEME = "candy-icons";
   };
 
   home.packages = with pkgs; [
@@ -58,6 +61,10 @@
     usbutils # Tool for manipulating USB
     gdb
     bmon
+
+    candy-icons
+    kdePackages.breeze-icons
+    adwaita-icon-theme
 
     (pkgs.writeScriptBin "root-derivation" ''
       #!/usr/bin/env bash
