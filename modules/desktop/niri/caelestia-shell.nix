@@ -142,7 +142,7 @@ let
 in
 {
   home-manager.users.sidharta.imports = [ hm-module ];
-  services.power-profiles-daemon.enable = true;
+  services.auto-cpufreq.enable = true;
   nixpkgs.overlays = [
     (final: prev: { caelestia-shell = inputs.caelestia-shell.outputs.packages.with-cli; })
   ];

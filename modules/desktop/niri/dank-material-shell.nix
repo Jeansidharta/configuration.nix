@@ -150,7 +150,7 @@ in
     inputs.dank-material-shell.outputs.nixosModules.default
   ];
   home-manager.users.sidharta.imports = [ hm-module ];
-  services.power-profiles-daemon.enable = true;
+  services.auto-cpufreq.enable = true;
   services.upower = {
     enable = true;
   };
