@@ -3,7 +3,7 @@
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDig6qJstpy9HOVdJkvhc15ywIdRwUiH5uZ7lbwNW0rZ jeansidharta@gmail.com";
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGFUJpSJe6cceGqXjKuUiWLpYodzYKCKSihwiTIpSejW";
   };
-  phone = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7Zp5PotpXLi0ZSby7zm1B2Ca6GyIL76Rew9zzDCTKu u0_a270@localhost";
+  phone = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBDdHCPNVLDkfnPw9MlI3Cjcj8lu6csDoD0t7GvUwq1T u0_a270@localhost";
   basalt = {
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHO2Ibvy8RN+Az3iuxAgONFTto52x8GZpe8aXwjJiY0 sidharta@basalt";
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIUvL5RFOy/gd1jBlGFjwwzckqqXYS1YmJNlFGriQEsi";
