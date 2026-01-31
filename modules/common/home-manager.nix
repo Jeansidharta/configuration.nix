@@ -11,7 +11,10 @@
     ../../options/home-manager/nchat.nix
   ];
   programs.btop.enable = true;
-  programs.direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
 

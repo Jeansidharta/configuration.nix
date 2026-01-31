@@ -61,9 +61,4 @@ in
   nixpkgs.overlays = [ inputs.noctalia-shell.outputs.overlays.default ];
 
   home-manager.users.sidharta.imports = [ hm-module ];
-
-  services.auto-cpufreq.enable = true;
-  services.upower = {
-    enable = true;
-  };
 }

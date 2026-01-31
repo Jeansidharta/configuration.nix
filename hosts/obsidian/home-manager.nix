@@ -34,7 +34,5 @@
       port = 22;
     };
   };
-  home.packages = [
-    pkgs.orca-slicer
-  ];
+  home.packages = [ ];
 }

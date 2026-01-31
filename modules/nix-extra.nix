@@ -21,6 +21,7 @@
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "nsearch")
     inputs.nix-index-database.outputs.overlays.nix-index
+    (_: prev: { neix = inputs.neix.packages.${prev.hostPlatform.system}.default; })
   ];
 
   programs.nix-index-database.comma.enable = true;
@@ -40,6 +41,7 @@
           nsearch # Search nixpkgs for packages
           nvd # Necessay for nixos-cli
           nix-init # Easily find a project's hash
+          neix # search nixpkgs for packages
         ];
       }
     )

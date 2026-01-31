@@ -11,6 +11,7 @@
     ../../modules/common/default.nix
     ../../modules/desktop/default.nix
     ../../modules/network-manager.nix
+    ../../secrets/module.nix
     ../../modules/nix-extra.nix
     ../../secrets/module.nix
 

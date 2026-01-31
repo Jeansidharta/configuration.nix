@@ -16,6 +16,10 @@
       url = "github:nix-community/disko";
       flake = false;
     };
+    neix = {
+      url = "github:Hovirix/neix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

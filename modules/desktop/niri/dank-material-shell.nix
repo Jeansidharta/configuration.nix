@@ -150,10 +150,6 @@ in
     inputs.dank-material-shell.outputs.nixosModules.default
   ];
   home-manager.users.sidharta.imports = [ hm-module ];
-  services.auto-cpufreq.enable = true;
-  services.upower = {
-    enable = true;
-  };
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "dank-material-shell")
   ];

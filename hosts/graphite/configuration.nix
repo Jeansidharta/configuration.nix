@@ -17,6 +17,7 @@
     ../../modules/tor.nix
     ../../modules/bluetooth.nix
     ../../modules/ssh-authorized-keys.nix
+    ../../modules/battery-savers.nix
     ../../secrets/module.nix
 
     ../../containers/default.nix
@@ -28,7 +29,7 @@
     ./home-manager.nix
   ];
   networking.hostName = "graphite";
-  time.timeZone = "US/Eastern";
+  time.timeZone = "America/Sao_Paulo";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -36,6 +37,26 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   environment.systemPackages = [ ];
+
+  networking.networkmanager.ensureProfiles.profiles.wired-routerless = {
+    connection = {
+      id = "wired-routerless";
+      interface-name = "enp1s0";
+      type = "ethernet";
+    };
+    ipv4 = {
+      method = "link-local";
+    };
+    ipv6 = {
+      method = "link-local";
+    };
+  };
+
+  services.transmission = {
+    enable = true;
+    openFirewall = true;
+    package = pkgs.transmission_4;
+  };
 
   hardware.graphics = {
     enable = true;
@@ -67,12 +88,6 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"
   '';
-
-  services.transmission = {
-    enable = true;
-    openFirewall = true;
-    package = pkgs.transmission_4;
-  };
 
   services.acpid.enable = true;
   services.acpid.logEvents = true;

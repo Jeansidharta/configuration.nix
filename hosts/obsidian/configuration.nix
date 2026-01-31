@@ -15,8 +15,6 @@
     ../../modules/common/default.nix
     ../../modules/desktop/default.nix
     ../../modules/extra.nix
-    ../../modules/nylon-wg.nix
-    ../../modules/proxyuser.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
     ../../modules/docker.nix
@@ -32,7 +30,7 @@
   home-manager.users.sidharta.imports = [
     ./home-manager.nix
   ];
-  time.timeZone = "US/Eastern";
+  time.timeZone = "America/Sao_Paulo";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -46,6 +44,20 @@
     }
   ];
 
+  networking.networkmanager.ensureProfiles.profiles.wired-routerless = {
+    connection = {
+      id = "wired-routerless";
+      interface-name = "enp15s0u1u2";
+      type = "ethernet";
+    };
+    ipv4 = {
+      method = "link-local";
+    };
+    ipv6 = {
+      method = "link-local";
+    };
+  };
+
   hardware.keyboard.qmk.enable = true;
 
   programs.steam = {
@@ -55,8 +67,6 @@
   qt.enable = true;
 
   environment.systemPackages = with pkgs; [
-    qt5.qtwayland
-    qt6.qtwayland
     snapcast
   ];
   networking.hosts = {
@@ -111,7 +121,6 @@
     };
     firewall = {
       trustedInterfaces = [
-        "wg0"
         "sidharta"
       ];
       allowedTCPPorts = [
@@ -126,36 +135,6 @@
       ];
     };
     interfaces = {
-      wg0 = {
-        ipv4 = {
-          routes = [
-            {
-              address = "10.0.0.0";
-              prefixLength = 24;
-            }
-          ];
-          addresses = [
-            {
-              address = "10.0.0.5";
-              prefixLength = 32;
-            }
-          ];
-        };
-        ipv6 = {
-          addresses = [
-            {
-              address = "2000::5";
-              prefixLength = 128;
-            }
-          ];
-          routes = [
-            {
-              address = "2000::0";
-              prefixLength = 120;
-            }
-          ];
-        };
-      };
       wlp14s0 = {
         wakeOnLan = {
           enable = true;
@@ -168,30 +147,6 @@
       };
     };
     wireguard = {
-      interfaces = {
-        wg0 = {
-          listenPort = 32985;
-          privateKeyFile = config.age.secrets.wireguard-priv-key.path;
-          peers = [
-            {
-              name = "suzana";
-              publicKey = "wthF4Kyo+6wYWXgw9WKbz0ljb0YRrh2+ygf0DaB7BF4=";
-              allowedIPs = [
-                "10.0.0.8/32"
-                "2000::8/128"
-              ];
-            }
-            {
-              name = "phone";
-              publicKey = "DbDVdVWefhsSeiZw+TN3Hv+gGC86TMqUGQxJFO8lG3s=";
-              allowedIPs = [
-                "10.0.0.12/32"
-                "2000::12/128"
-              ];
-            }
-          ];
-        };
-      };
     };
   };
   networking.nftables = {
