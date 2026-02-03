@@ -17,9 +17,15 @@
       hotkey-overlay = {
         skip-at-startup = true;
       };
-      input.keyboard.xkb = {
-        layout = "us";
-        variant = "intl";
+      input = {
+        focus-follows-mouse = {
+          enable = true;
+          # max-scroll-amount = 0;
+        };
+        keyboard.xkb = {
+          layout = "us";
+          variant = "intl";
+        };
       };
       clipboard = {
         disable-primary = false;
@@ -86,6 +92,10 @@
       ];
 
       layout = {
+        struts = {
+          left = 4;
+          right = 4;
+        };
         tab-indicator = {
           width = 4;
           active = {
