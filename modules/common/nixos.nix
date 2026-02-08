@@ -82,6 +82,9 @@ in
     enable = true;
     ports = [ 22 ];
     openFirewall = true;
+    settings = {
+        PermitTunnel = true;
+    };
   };
 
   users.mutableUsers = false;

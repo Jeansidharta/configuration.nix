@@ -1,15 +1,15 @@
 { ... }:
 {
-  users.users.sidharta.extraGroups = [ "docker" ];
+  # users.users.sidharta.extraGroups = [ "docker" ];
 
   virtualisation = {
-    docker = {
+    podman = {
       enable = true;
-      daemon.settings = {
-        ipv6 = true;
-        fixed-cidr-v6 = "fd10::/80";
-        metrics-addr = "0.0.0.0:9323";
-      };
+      # daemon.settings = {
+      #   ipv6 = true;
+      #   fixed-cidr-v6 = "fd10::/80";
+      #   metrics-addr = "0.0.0.0:9323";
+      # };
     };
   };
 }

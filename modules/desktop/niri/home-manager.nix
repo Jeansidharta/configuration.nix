@@ -19,7 +19,7 @@
       };
       input = {
         focus-follows-mouse = {
-          enable = true;
+          enable = false;
           # max-scroll-amount = 0;
         };
         keyboard.xkb = {
@@ -93,8 +93,8 @@
 
       layout = {
         struts = {
-          left = 4;
-          right = 4;
+          left = 1;
+          right = 1;
         };
         tab-indicator = {
           width = 4;

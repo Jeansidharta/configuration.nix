@@ -21,7 +21,7 @@
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "nsearch")
     inputs.nix-index-database.outputs.overlays.nix-index
-    (_: prev: { neix = inputs.neix.packages.${prev.hostPlatform.system}.default; })
+    (_: prev: { neix = inputs.neix.packages.${prev.stdenv.hostPlatform.system}.default; })
   ];
 
   programs.nix-index-database.comma.enable = true;

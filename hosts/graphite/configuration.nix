@@ -10,7 +10,7 @@
   imports = [
     ../../modules/common/default.nix
     ../../modules/desktop/default.nix
-    ../../modules/nylon-wg.nix
+    # ../../modules/nylon-wg.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
     ../../modules/docker.nix
@@ -19,8 +19,6 @@
     ../../modules/ssh-authorized-keys.nix
     ../../modules/battery-savers.nix
     ../../secrets/module.nix
-
-    ../../containers/default.nix
 
     ./hardware-configuration.nix
     ./disko-config.nix
@@ -31,12 +29,32 @@
   networking.hostName = "graphite";
   time.timeZone = "America/Sao_Paulo";
 
+  programs.steam.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    nssmdns6 = true;
+    # publish = {
+    #   enable = true;
+    #   addresses = true;
+    #   domain = true;
+    #   hinfo = true;
+    #   userServices = true;
+    #   workstation = true;
+    # };
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   environment.systemPackages = [ ];
+
+  networking.firewall = {
+    trustedInterfaces = [ "ve-debian" "batata" "veth0" ];
+  };
 
   networking.networkmanager.ensureProfiles.profiles.wired-routerless = {
     connection = {
