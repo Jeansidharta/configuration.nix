@@ -104,14 +104,6 @@
               type            "pipewire"
               name            "PipeWire Sound Server"
             }
-
-            audio_output {
-              type            "fifo"
-              name            "snapcast fifo"
-              path 			"/home/sidharta/docker-wireguard/snapcast/volume/snapfifo"
-      		format          "48000:16:2"
-      		mixer_type      "software"
-            }
     '';
   };
   programs.ncmpcpp.enable = true;

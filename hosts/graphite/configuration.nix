@@ -13,7 +13,7 @@
     # ../../modules/nylon-wg.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
-    ../../modules/docker.nix
+    ../../modules/podman.nix
     ../../modules/tor.nix
     ../../modules/bluetooth.nix
     ../../modules/ssh-authorized-keys.nix

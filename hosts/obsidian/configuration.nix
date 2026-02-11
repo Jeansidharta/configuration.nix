@@ -17,7 +17,7 @@
     ../../modules/extra.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
-    ../../modules/docker.nix
+    ../../modules/podman.nix
     ../../modules/tor.nix
     ../../modules/bluetooth.nix
     ../../modules/ssh-authorized-keys.nix
@@ -147,22 +147,6 @@
       };
     };
     wireguard = {
-    };
-  };
-  networking.nftables = {
-    enable = true;
-    tables = {
-      innernet-forwarding = {
-
-        family = "inet";
-        # Enable routing between my manual wireguard network and innernet's managed network
-        content = ''
-          chain srcnat {
-              type nat hook postrouting priority srcnat; policy accept;
-              iifname "wg0" oifname "sidharta" counter masquerade
-          }
-        '';
-      };
     };
   };
 

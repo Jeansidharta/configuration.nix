@@ -199,7 +199,7 @@
         pkgs.mkShell {
           buildInputs = [
             pkgs.nil
-            pkgs.nixfmt-rfc-style
+            pkgs.nixfmt
           ];
         };
     };

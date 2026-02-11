@@ -22,7 +22,7 @@
       ../../modules/nylon-wg.nix
       ../../modules/proxyuser.nix
       ../../modules/nix-extra.nix
-      ../../modules/docker.nix
+      ../../modules/podman.nix
       ../../modules/tor.nix
       ../../modules/ssh-authorized-keys.nix
       ../../secrets/module.nix
