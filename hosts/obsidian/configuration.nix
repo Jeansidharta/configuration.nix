@@ -76,11 +76,6 @@
     "fd00::1:3" = [ "graphite.wg" ];
   };
 
-  users.users.sidharta.openssh.authorizedKeys.keys = [
-    ssh-pubkeys.goldfish.suzana
-    ssh-pubkeys.basalt.sidharta
-    ssh-pubkeys.phone
-  ];
   # services.snapserver = {
   #   enable = true;
   #   settings = {
@@ -110,7 +105,6 @@
       AllowUsers = [
         "sidharta"
       ];
-      UseDns = true;
     };
   };
 

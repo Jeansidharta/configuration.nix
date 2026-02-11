@@ -53,7 +53,11 @@
   environment.systemPackages = [ ];
 
   networking.firewall = {
-    trustedInterfaces = [ "ve-debian" "batata" "veth0" ];
+    trustedInterfaces = [
+      "ve-debian"
+      "batata"
+      "veth0"
+    ];
   };
 
   networking.networkmanager.ensureProfiles.profiles.wired-routerless = {
@@ -96,9 +100,6 @@
         "wheel"
         "video"
         "transmission"
-      ];
-      openssh.authorizedKeys.keys = [
-        ssh-pubkeys.obsidian.sidharta
       ];
     };
   };

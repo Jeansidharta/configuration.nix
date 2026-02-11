@@ -57,9 +57,6 @@
         "video"
         "transmission"
       ];
-      openssh.authorizedKeys.keys = [
-        ssh-pubkeys.obsidian.sidharta
-      ];
     };
   };
 

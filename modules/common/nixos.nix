@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
@@ -83,7 +84,12 @@ in
     ports = [ 22 ];
     openFirewall = true;
     settings = {
-        PermitTunnel = true;
+      PermitTunnel = true;
+      PasswordAuthentication = lib.mkDefault false;
+      UseDns = false;
+      AllowUsers = [
+        "sidharta"
+      ];
     };
   };
 

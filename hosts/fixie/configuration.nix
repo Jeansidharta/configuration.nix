@@ -63,9 +63,7 @@
       PasswordAuthentication = true;
       AllowUsers = [
         "root"
-        "sidharta"
       ];
-      UseDns = true;
     };
   };
 

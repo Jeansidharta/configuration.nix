@@ -30,9 +30,7 @@
       PasswordAuthentication = true;
       AllowUsers = [
         "root"
-        "sidharta"
       ];
-      UseDns = true;
     };
   };
 
@@ -49,7 +47,6 @@
 
   users.users.root = {
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = config.users.users.sidharta.openssh.authorizedKeys.keys;
   };
 
   networking = {
