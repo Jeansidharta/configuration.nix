@@ -39,10 +39,8 @@
     socat # Tool for connecting/debugging read/write interfaces
     unar # Unzip tool
     darkhttpd # Very simple http server
-    calc # gnu calc
     dive # See container image layers
     xh # A CURL replacement
-    yazi # File picker
     sqlite-diagram
     neovim
 
@@ -64,10 +62,6 @@
     usbutils # Tool for manipulating USB
     gdb
     bmon
-
-    candy-icons
-    kdePackages.breeze-icons
-    adwaita-icon-theme
 
     (pkgs.writeScriptBin "root-derivation" ''
       #!/usr/bin/env bash
@@ -92,31 +86,6 @@
       nom build --impure --expr "with import <nixpkgs> {}; callPackage (import $1) {}" "$@"
     '')
   ];
-
-  programs.nchat = {
-    enable = true;
-    settings-color = "dracula";
-    settings-ui = {
-      desktop_notify_enabled = 1;
-      desktop_notify_active_noncurrent = 1;
-      desktop_notify_inactive = 1;
-      desktop_notify_connectivity = 1;
-      message_open_command = "${lib.getExe pkgs.neovim} -";
-      file_picker_command = "${lib.getExe pkgs.yazi} --chooser-file \"%1\"";
-      home_fetch_all = 1;
-    };
-    settings-key = {
-      backward_kill_word = "KEY_CTRLW";
-      backward_word = "\\4001052"; # CTRL LEFT
-      forward_word = "\\4001071"; # CTRL RIGHT
-      begin_line = "KEY_HOME";
-      end_line = "KEY_END";
-      home = "\\33\\146"; # ALT + F
-      end = "\\33\\147"; # ALT + G
-
-      open_link = "KEY_NONE";
-    };
-  };
 
   systemd.user.startServices = true;
 
@@ -252,8 +221,6 @@
 
       "rsync" =
         "${pkgs.rsync}/bin/rsync -avzh --append-verify --inplace --checksum --info=progress1,stats3";
-
-      "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
     };
 
   home.stateVersion = "24.05";

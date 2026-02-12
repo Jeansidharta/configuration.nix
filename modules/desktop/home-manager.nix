@@ -16,6 +16,7 @@
     kitty # Backup terminal in case ghostty dies
     wireshark
     drawy # whiteboard app
+    yazi # File picker
 
     # === Non free ===
     discord
@@ -23,7 +24,40 @@
 
     # === Fonts ===
     jetbrains-mono
+
+    candy-icons
+    kdePackages.breeze-icons
+    adwaita-icon-theme
   ];
+
+  home.shellAliases = {
+    "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
+  };
+
+  programs.nchat = {
+    enable = true;
+    settings-color = "dracula";
+    settings-ui = {
+      desktop_notify_enabled = 1;
+      desktop_notify_active_noncurrent = 1;
+      desktop_notify_inactive = 1;
+      desktop_notify_connectivity = 1;
+      message_open_command = "${lib.getExe pkgs.neovim} -";
+      file_picker_command = "${lib.getExe pkgs.yazi} --chooser-file \"%1\"";
+      home_fetch_all = 1;
+    };
+    settings-key = {
+      backward_kill_word = "KEY_CTRLW";
+      backward_word = "\\4001052"; # CTRL LEFT
+      forward_word = "\\4001071"; # CTRL RIGHT
+      begin_line = "KEY_HOME";
+      end_line = "KEY_END";
+      home = "\\33\\146"; # ALT + F
+      end = "\\33\\147"; # ALT + G
+
+      open_link = "KEY_NONE";
+    };
+  };
 
   programs.satty = {
     enable = true;
@@ -100,10 +134,10 @@
     enable = true;
     musicDirectory = "/home/sidharta/music";
     extraConfig = ''
-            audio_output {
-              type            "pipewire"
-              name            "PipeWire Sound Server"
-            }
+      audio_output {
+        type            "pipewire"
+        name            "PipeWire Sound Server"
+      }
     '';
   };
   programs.ncmpcpp.enable = true;

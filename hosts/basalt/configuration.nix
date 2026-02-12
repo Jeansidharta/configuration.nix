@@ -19,11 +19,8 @@
       raspberry-pi-5.page-size-16k
       sd-image
       ../../modules/common/default.nix
-      ../../modules/nylon-wg.nix
       ../../modules/proxyuser.nix
-      ../../modules/nix-extra.nix
       ../../modules/podman.nix
-      ../../modules/tor.nix
       ../../modules/ssh-authorized-keys.nix
       ../../secrets/module.nix
     ];
@@ -169,16 +166,16 @@
     };
   };
 
-  services.syncplay = {
-    enable = true;
-    ready = false;
-    chat = false;
-    port = 8202;
-    interfaceIpv6 = "fd00::10:2";
-    ipv6Only = true;
-    permanentRooms = [ "Sala" ];
-    package = pkgs.syncplay-nogui;
-  };
+  # services.syncplay = {
+  #   enable = true;
+  #   ready = false;
+  #   chat = false;
+  #   port = 8202;
+  #   interfaceIpv6 = "fd00::10:2";
+  #   ipv6Only = true;
+  #   permanentRooms = [ "Sala" ];
+  #   package = pkgs.syncplay-nogui;
+  # };
 
   services.nginx = {
     enable = true;
