@@ -26,7 +26,18 @@
   home-manager.users.sidharta.imports = [
     ./home-manager.nix
   ];
-  networking.hostName = "graphite";
+
+  networking = {
+    hostName = "graphite";
+    networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.201/22";
+
+    firewall = {
+      trustedInterfaces = [
+        "ve-debian"
+      ];
+    };
+  };
+
   time.timeZone = "America/Sao_Paulo";
 
   programs.steam.enable = true;
@@ -52,28 +63,6 @@
 
   environment.systemPackages = [ ];
 
-  networking.firewall = {
-    trustedInterfaces = [
-      "ve-debian"
-      "batata"
-      "veth0"
-    ];
-  };
-
-  networking.networkmanager.ensureProfiles.profiles.wired-routerless = {
-    connection = {
-      id = "wired-routerless";
-      interface-name = "enp1s0";
-      type = "ethernet";
-    };
-    ipv4 = {
-      method = "link-local";
-    };
-    ipv6 = {
-      method = "link-local";
-    };
-  };
-
   services.transmission = {
     enable = true;
     openFirewall = true;
@@ -90,11 +79,6 @@
   };
 
   users.users = {
-    root = {
-      openssh.authorizedKeys.keys = [
-        ssh-pubkeys.obsidian.sidharta
-      ];
-    };
     sidharta = {
       extraGroups = [
         "wheel"

@@ -20,6 +20,7 @@
       sd-image
       ../../modules/common/default.nix
       ../../modules/proxyuser.nix
+      ../../modules/network-manager.nix
       ../../modules/podman.nix
       ../../modules/ssh-authorized-keys.nix
       ../../secrets/module.nix
@@ -35,7 +36,7 @@
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
-  boot.loader.raspberryPi.bootloader = "kernel";
+  boot.loader.raspberry-pi.bootloader = "kernel";
 
   swapDevices = [
     {
@@ -64,99 +65,7 @@
 
   networking = {
     hostName = "basalt";
-
-    wireless = {
-      enable = true;
-      networks = {
-        Hannah = {
-          psk = "fffeee11";
-        };
-      };
-    };
-
-    firewall = {
-      trustedInterfaces = [
-        "wg0"
-      ];
-      allowedTCPPorts = [
-        22
-        8001
-        80
-        443
-      ];
-      allowedUDPPorts = [
-        32985
-        32986
-        51820
-        51821
-        57175
-      ];
-    };
-    interfaces = {
-      wg0 = {
-        ipv4 = {
-          routes = [
-            {
-              address = "10.0.0.0";
-              prefixLength = 24;
-            }
-          ];
-          addresses = [
-            {
-              address = "10.0.0.1";
-              prefixLength = 32;
-            }
-          ];
-        };
-        ipv6 = {
-          addresses = [
-            {
-              address = "2000::1";
-              prefixLength = 128;
-            }
-          ];
-          routes = [
-            {
-              address = "2000::0";
-              prefixLength = 120;
-            }
-          ];
-        };
-      };
-    };
-    wireguard = {
-      enable = true;
-      interfaces = {
-        max = {
-          listenPort = 32986;
-          privateKeyFile = "${pkgs.writeText "wg-key-max" "UAeG3rxC3IBltaxzUjS2/x6JWi5fESM/3fqmEn42knY="}";
-          peers = [
-            {
-              name = "max";
-              publicKey = "2ac7/D/IKDyzESQ2NmLVEl25nirwYfgh1a4NUYBCeQM=";
-              allowedIPs = [
-                "10.1.0.12/32"
-                "2001::12/128"
-              ];
-            }
-          ];
-        };
-        wg0 = {
-          listenPort = 32985;
-          privateKeyFile = "${pkgs.writeText "wg-key-wg0" "aD4yizZ3tEpw3cdOhN0R+yrtc43NUFwb8ta3vw+cdmw="}";
-          peers = [
-            {
-              name = "phone";
-              publicKey = "DbDVdVWefhsSeiZw+TN3Hv+gGC86TMqUGQxJFO8lG3s=";
-              allowedIPs = [
-                "10.0.0.12/32"
-                "2000::12/128"
-              ];
-            }
-          ];
-        };
-      };
-    };
+    networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.200/22";
   };
   security.acme = {
     acceptTerms = true;
@@ -222,15 +131,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
-    zsh
-    tmux
     mitmproxy
-    busybox
-    jq
-    neovim
     tcpdump
-    unar
   ];
 
   system.nixos.tags =
