@@ -41,16 +41,21 @@
         connection = {
           id = "mesh-guest-static-ip";
           type = "wifi";
-          autoconnect = false;
+          autoconnect = true;
+          autoconnect-priority = 10;
         };
 
         wifi = {
-          bssid = "3E:64:CF:AC:24:AF";
+          bssid = "3E:64:CF:AC:24:CB";
           mode = "infrastructure";
           ssid = "rede Mesh 99_Guest";
         };
+        wifi-security = {
+          key-mgmt = "wpa-psk";
+          psk = "redeMesh99@";
+        };
         ipv4 = {
-          dns = "1.1.1.1;8.8.8.8;";
+          dns = "8.8.8.8;8.8.1.1;";
           gateway = "192.168.68.1";
           method = "manual";
         };
