@@ -53,6 +53,7 @@
     hdparm # Hard drive config manager
     dmidecode # Show DMI configuration, if available
     lshw # Show hardware config
+    termshark # wireshark on the terminal
     ethtool # Manage ethernet drivers
     strace # Show all syscalls made by application
     ltrace # Show binary library calls
@@ -178,7 +179,6 @@
         threshold = 76;
       };
       status.disabled = false;
-      sudo.disabled = false;
     };
   };
 
