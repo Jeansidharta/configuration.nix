@@ -24,4 +24,13 @@ config.font_size = 14
 
 -- config.front_end = "WebGpu"
 
+-- Fix wezterm bug on niri
+-- https://github.com/wezterm/wezterm/issues/6685#issuecomment-3451030606
+wezterm.on(
+	'window-focus-changed',
+	function(window, pane)
+		wezterm.run_child_process { 'sh', '-c', 'wl-paste -n | wl-copy' }
+	end
+)
+
 return config
