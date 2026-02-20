@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   systemd = {
     timers.dont-drop-me-arp = {
@@ -36,12 +41,20 @@
         '';
       }
     ];
+    ensureProfiles.secrets.entries = [
+      {
+        file = config.age.secrets.rede-mesh-psk.path;
+        matchType = "802-11-wireless";
+        matchId = "mesh-guest-static-ip";
+        matchSetting = "802-11-wireless-security";
+        key = "psk";
+      }
+    ];
     ensureProfiles.profiles = {
       mesh-guest-static-ip = {
         connection = {
           id = "mesh-guest-static-ip";
           type = "wifi";
-          autoconnect = true;
           autoconnect-priority = 10;
         };
 
@@ -52,7 +65,6 @@
         };
         wifi-security = {
           key-mgmt = "wpa-psk";
-          psk = "redeMesh99@";
         };
         ipv4 = {
           dns = "8.8.8.8;8.8.1.1;";

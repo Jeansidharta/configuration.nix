@@ -62,16 +62,115 @@
       ssh-pubkeys.graphite.sidharta
     ];
   };
-
-  networking = {
-    hostName = "basalt";
-    networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.200/22";
-  };
   security.acme = {
     acceptTerms = true;
     defaults = {
       webroot = "/var/lib/acme/acme-challenge/";
       email = "jeansidharta@gmail.com";
+    };
+  };
+
+  networking = {
+    hostName = "basalt";
+    firewall.trustedInterfaces = [
+      "wlu2"
+      "end0"
+      "bridge0"
+    ];
+    nat = {
+      enable = true;
+      internalInterfaces = [
+        "bridge0"
+      ];
+      externalInterface = "wlan0";
+    };
+
+    networkmanager.ensureProfiles = {
+      secrets.entries = [
+        {
+          file = config.age.secrets.coffee-psk.path;
+          matchType = "802-11-wireless";
+          matchId = "coffee";
+          matchSetting = "802-11-wireless-security";
+          key = "psk";
+        }
+      ];
+      profiles = {
+        mesh-guest-static-ip = {
+          ipv4.address1 = "192.168.69.200/22";
+          connection = {
+            autoconnect = true;
+            interface-name = "wlan0";
+          };
+        };
+
+        clients-bridge = {
+          connection = {
+            id = "clients-bridge";
+            uuid = "6de119a1-a336-48bd-861a-00d07dcd99c3";
+            type = "bridge";
+            interface-name = "bridge0";
+            autoconnect = true;
+            autoconnect-priority = 10;
+            autoconnect-slaves = "1"; # Bring all slaves up with this connection
+          };
+          ipv4 = {
+            method = "manual";
+            address1 = "192.168.0.1/24";
+            dns = "8.8.8.8;1.1.1.1;";
+            forwarding = "1";
+          };
+          ipv6 = {
+            addr-gen-mode = "default";
+            method = "link-local";
+          };
+        };
+        coffee = {
+          connection = {
+            id = "coffee";
+            uuid = "a4a31f8e-fed9-47b5-b396-8eb726d4d1a8";
+            type = "wifi";
+            interface-name = "wlu2";
+
+            controller = "bridge0";
+            port-type = "bridge";
+          };
+
+          wifi = {
+            mode = "ap";
+            ssid = "coffee";
+          };
+
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            pairwise = "ccmp";
+          };
+
+          ipv4 = {
+            method = "disabled";
+          };
+
+          ipv6 = {
+            method = "link-local";
+          };
+        };
+        ethernet-router = {
+          connection = {
+            id = "ethernet-router";
+            type = "ethernet";
+
+            controller = "bridge0";
+            port-type = "bridge";
+          };
+          ipv4 = {
+            method = "disabled";
+          };
+          ipv6 = {
+            method = "link-local";
+          };
+        };
+      };
     };
   };
 
@@ -108,16 +207,19 @@
 
   services.dnsmasq = {
     enable = true;
-    # Since the DNS server can only be accessed through the VPN,
-    # we cannot use it localy.
     resolveLocalQueries = false;
     settings = {
+      dhcp-range = [
+        "192.168.0.100,192.168.0.200,2d"
+      ];
       server = [
         "1.1.1.1"
         "8.8.8.8"
       ];
+      interface = [
+        "bridge0"
+      ];
       no-hosts = true;
-      listen-address = "fd00::10:1";
       addn-hosts = "${pkgs.writeText "dnsmasq-domains" ''
         fd00::1 basalt.wg
         fd00::2 obsidian.wg
@@ -137,7 +239,7 @@
 
   system.nixos.tags =
     let
-      cfg = config.boot.loader.raspberryPi;
+      cfg = config.boot.loader.raspberry-pi;
     in
     [
       "raspberry-pi-${cfg.variant}"
