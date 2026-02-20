@@ -17,6 +17,8 @@
   niri-flake.cache.enable = false;
   programs.niri.package = pkgs.niri-unstable;
 
+  programs.kdeconnect.enable = true;
+
   services.greetd = {
     settings = rec {
       initial_session =

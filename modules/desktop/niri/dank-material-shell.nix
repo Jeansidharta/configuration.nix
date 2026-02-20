@@ -18,13 +18,74 @@ let
         systemd.enable = true;
         enableVPN = false;
         enableDynamicTheming = false;
-        settings = (import ./dms-settings.nix) { inherit pkgs theme; };
+        settings = {
+          launcherLogoCustomPath = ../../../assets/nix-snowflake.svg;
+          customThemeFile = pkgs.writeText "theme" (
+            builtins.toJSON (import ./dms-theme.nix { inherit theme; })
+          );
+        }
+        // (builtins.fromJSON (builtins.readFile ./dms-settings.json));
         managePluginSettings = true;
         plugins = {
           dankBatteryAlerts = {
             enable = true;
             src = "${inputs.dms-plugins}/DankBatteryAlerts";
             settings = { };
+          };
+          dankKDEConnect = {
+            enable = true;
+            src = "${inputs.dms-plugins}/DankKDEConnect";
+            settings = { };
+          };
+          emojiLauncher = {
+            enable = true;
+            src = "${inputs.dms-emoji-launcher}";
+            settings = { };
+          };
+          calculator = {
+            enable = true;
+            src = "${inputs.dms-calculator}";
+            settings = { };
+          };
+          niriWindows = {
+            enable = true;
+            src = "${inputs.dms-niri-windows}";
+            settings = { };
+          };
+          webSearch = {
+            enable = true;
+            src = "${inputs.dms-web-search}";
+            settings = {
+              disabledEngines = [
+                "duckduckgo"
+                "brave"
+                "bing"
+                "kagi"
+                "stackoverflow"
+                "ebay"
+                "twitter"
+                "linkedin"
+                "imdb"
+                "translate"
+                "archlinux"
+                "aur"
+                "npmjs"
+                "pypi"
+                "crates"
+                "mdn"
+              ];
+              searchEngines = [
+                {
+                  id = "mercadolivre";
+                  name = "Mercado Livre";
+                  icon = "material:cart-shopping";
+                  url = "https://lista.mercadolivre.com.br/%s";
+                  keywords = [
+                    "mercado"
+                  ];
+                }
+              ];
+            };
           };
         };
       };

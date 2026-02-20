@@ -27,8 +27,24 @@
         darwin.follows = "";
       };
     };
+    dms-web-search = {
+      url = "github:devnullvoid/dms-web-search";
+      flake = false;
+    };
+    dms-niri-windows = {
+      url = "github:rochacbruno/DankNiriWindows";
+      flake = false;
+    };
+    dms-calculator = {
+      url = "github:rochacbruno/DankCalculator";
+      flake = false;
+    };
     dms-plugins = {
       url = "github:AvengeMedia/dms-plugins";
+      flake = false;
+    };
+    dms-emoji-launcher = {
+      url = "github:devnullvoid/dms-emoji-launcher";
       flake = false;
     };
     nsearch = {
