@@ -4,6 +4,8 @@
   home.homeDirectory = "/home/sidharta";
   home.sessionPath = [ "$HOME/.cargo/bin" ];
 
+  programs.dank-material-shell.settings.lockBeforeSuspend = lib.mkForce false;
+
   # programs.ewwCustom = {
   #   extraVariables = {
   #     enableBacklight = "false";
