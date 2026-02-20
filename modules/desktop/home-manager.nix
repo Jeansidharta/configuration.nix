@@ -18,10 +18,6 @@
     drawy # whiteboard app
     yazi # File picker
 
-    # === Non free ===
-    discord
-    telegram-desktop
-
     # === Fonts ===
     jetbrains-mono
 
