@@ -13,6 +13,9 @@ let
       imports = [
         inputs.dank-material-shell.homeModules.default
       ];
+
+      # DMS already has a notification system
+      services.dunst.enable = lib.mkForce false;
       programs.dank-material-shell = {
         enable = true;
         systemd.enable = true;
