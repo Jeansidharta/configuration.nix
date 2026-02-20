@@ -31,25 +31,12 @@ in
     file = ./nix-github-token.age;
     owner = "sidharta";
   };
-  age.secrets.wireguard-priv-key = forObsidian {
-    file = ./wireguard.age;
+  age.secrets.coffee-psk = {
+    file = ./coffee-psk.age;
+    owner = "sidharta";
   };
-  age.secrets.nylon-key-obsidian = forObsidian {
-    file = ./nylon-key-obsidian.age;
-  };
-  age.secrets.nylon-key-basalt = forBasalt {
-    file = ./nylon-key-basalt.age;
-  };
-  age.secrets.nylon-key-graphite = forGraphite {
-    file = ./nylon-key-graphite.age;
-  };
-  age.secrets.nylon-key-vivianite = forVivianite {
-    file = ./nylon-key-vivianite.age;
-  };
-  age.secrets.nylon-key-fixie = forFixie {
-    file = ./nylon-key-fixie.age;
-  };
-  age.secrets.nylon-key-calcite = forCalcite {
-    file = ./nylon-key-calcite.age;
+  age.secrets.rede-mesh-psk = {
+    file = ./rede-mesh-psk.age;
+    owner = "sidharta";
   };
 }
