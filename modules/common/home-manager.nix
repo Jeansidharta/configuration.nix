@@ -18,7 +18,11 @@
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
 
-  xdg.systemDirs.data = [ "/etc/profiles/per-user/sidharta/share" ];
+  xdg = {
+    enable = true;
+    systemDirs.data = [ "/etc/profiles/per-user/sidharta/share" ];
+    cacheHome = "/home/sidharta/.local/cache";
+  };
 
   home.sessionVariables = {
     MANPAGER = "nvim +Man!";

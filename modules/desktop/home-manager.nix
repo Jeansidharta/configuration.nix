@@ -55,6 +55,13 @@
     };
   };
 
+  programs.yt-dlp = {
+    enable = true;
+    settings = {
+      sponsorblock-mark = "all";
+    };
+  };
+
   programs.satty = {
     enable = true;
     settings = {

@@ -1,4 +1,8 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  ...
+}:
 let
   inherit (config.lib.overlay-helpers) mkUnstable overlay-flake;
 in
