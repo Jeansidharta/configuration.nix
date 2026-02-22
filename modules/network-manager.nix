@@ -8,8 +8,8 @@
   systemd = {
     timers.dont-drop-me-arp = {
       timerConfig = {
-        OnBootSec = "5m";
-        OnUnitActiveSec = "5m";
+        OnBootSec = "1s";
+        OnUnitActiveSec = "1m";
       };
     };
     services.dont-drop-me-arp = {
@@ -59,7 +59,7 @@
         };
 
         wifi = {
-          bssid = "3E:64:CF:AC:24:CB";
+          bssid = "3E:64:CF:AC:24:AF";
           mode = "infrastructure";
           ssid = "rede Mesh 99_Guest";
         };
