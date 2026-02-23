@@ -10,7 +10,7 @@
   imports = [
     ../../modules/common/default.nix
     ../../modules/desktop/default.nix
-    # ../../modules/nylon-wg.nix
+    ../../modules/weron.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
     ../../modules/podman.nix
@@ -26,6 +26,8 @@
   home-manager.users.sidharta.imports = [
     ./home-manager.nix
   ];
+
+  services.weron.mac = "00-60-2F-58-93-08";
 
   networking = {
     hostName = "graphite";

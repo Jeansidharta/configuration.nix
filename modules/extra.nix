@@ -13,8 +13,6 @@
           libreoffice # Office suite
           hyprpicker # Cool color picker
           transmission_4 # Bit torrent client
-          zapzap # whatsapp client
-          obsidian # Note taking app
         ];
       }
     )

@@ -20,8 +20,6 @@
   #   };
   # };
 
-  programs.wezterm.extraConfig = lib.mkForce (builtins.readFile ./wezterm.lua);
-
   home.packages = [
     pkgs.brightnessctl # Control monitor/keyboard brightness
   ];

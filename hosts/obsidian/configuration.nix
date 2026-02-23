@@ -21,6 +21,7 @@
     ../../modules/tor.nix
     ../../modules/bluetooth.nix
     ../../modules/ssh-authorized-keys.nix
+    ../../modules/weron.nix
     ../../secrets/module.nix
     "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
 
@@ -44,6 +45,8 @@
       size = 16 * 1024;
     }
   ];
+
+  services.weron.mac = "00-60-2F-69-63-27";
 
   networking = {
     networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.202/22";
@@ -71,9 +74,9 @@
 
   qt.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    snapcast
-  ];
+  # environment.systemPackages = with pkgs; [
+    # snapcast
+  # ];
 
   # services.snapserver = {
   #   enable = true;
