@@ -68,6 +68,11 @@
     gdb
     bmon
 
+    (pkgs.writeScriptBin "random-mac" ''
+      #!/usr/bin/env bash
+
+      echo 00-60-2F-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]
+    '')
     (pkgs.writeScriptBin "root-derivation" ''
       #!/usr/bin/env bash
 
