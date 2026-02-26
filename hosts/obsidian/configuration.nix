@@ -46,7 +46,8 @@
     }
   ];
 
-  services.weron.mac = "00-60-2F-69-63-27";
+  # services.weron.vpn-ethernet.base.mac = "00-60-2F-69-63-27";
+  services.weron.vpn-ip.base.ips = [ "fd00::2/128" ];
 
   networking = {
     networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.202/22";
@@ -75,7 +76,7 @@
   qt.enable = true;
 
   # environment.systemPackages = with pkgs; [
-    # snapcast
+  # snapcast
   # ];
 
   # services.snapserver = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [ (import ../options/weron.nix) ];
 
@@ -12,11 +12,11 @@
 
   services.weron = {
     enable = true;
-
-    vpn-mode = "ethernet";
-    key = "batata";
-    password = "tomate";
-    community = "community-of-sidharta";
-    # ips = [ "fd00::/112" ];
+    vpn-ip.base = {
+      enable = true;
+      passwordFile = config.age.secrets.weron-base-password.path;
+      keyFile = config.age.secrets.weron-base-key.path;
+      community = "sidharta-devices";
+    };
   };
 }

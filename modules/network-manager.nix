@@ -22,6 +22,7 @@
   };
   networking.networkmanager = {
     enable = true;
+    dhcp = "dhcpcd";
     dispatcherScripts = [
       {
         source = pkgs.writeShellScript "enable-arper" ''

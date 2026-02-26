@@ -39,4 +39,10 @@ in
     file = ./rede-mesh-psk.age;
     owner = "sidharta";
   };
+  age.secrets.weron-base-password = {
+    file = ./weron-base-password.age;
+  };
+  age.secrets.weron-base-key = {
+    file = ./weron-base-key.age;
+  };
 }

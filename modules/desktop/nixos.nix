@@ -52,4 +52,23 @@ in
   security.rtkit.enable = true;
 
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = [
+    pkgs.dbus.lib
+    pkgs.libGL
+    pkgs.libx11
+    pkgs.libxext
+    pkgs.libxcursor
+    pkgs.libxinerama
+    pkgs.libxi
+    pkgs.libxfixes
+    pkgs.libxrandr
+    pkgs.libxscrnsaver
+    pkgs.libxxf86vm
+    pkgs.libxkbcommon
+    pkgs.kdePackages.wayland
+    pkgs.libpulseaudio
+    pkgs.alsa-lib
+    pkgs.sndio
+    pkgs.nas
+  ];
 }

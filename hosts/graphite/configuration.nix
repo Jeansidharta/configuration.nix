@@ -27,7 +27,8 @@
     ./home-manager.nix
   ];
 
-  services.weron.mac = "00-60-2F-58-93-08";
+  # services.weron.vpn-ethernet.base.mac = "00-60-2F-58-93-08";
+  services.weron.vpn-ip.base.ips =[ "fd00::3/128"];
 
   networking = {
     hostName = "graphite";
