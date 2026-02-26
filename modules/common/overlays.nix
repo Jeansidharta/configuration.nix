@@ -11,6 +11,7 @@ in
     (mkUnstable "snapcast")
     (mkUnstable "dgop")
     (mkUnstable "linuxPackages_latest")
+    (mkUnstable "nchat")
     (overlay-flake "sqlite-diagram")
     (final: prev: {
       neovim = inputs.neovim-with-plugins.packages.${prev.stdenv.hostPlatform.system}.default;
