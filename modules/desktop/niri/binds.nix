@@ -20,7 +20,6 @@
       vipe = "${pkgs.moreutils}/bin/vipe";
       neovim = "${pkgs.neovim}/bin/nvim";
       mpc = lib.getExe pkgs.mpc;
-      drawy = lib.getExe pkgs.drawy;
 
       modifyClipboard = pkgs.writeScript "write-script" ''
         ${wezterm} start -- bash -c "export EDITOR=${neovim} ; ${wl-paste} | ${vipe} | ${wl-copy} && exit"
@@ -169,9 +168,6 @@
         "${grim} - | ${satty} --filename - --initial-tool crop --output-filename \"/home/sidharta/screenshots-niri/%Y-%m-%d_%H:%M:%S.png\" --save-after-copy";
       "${leaderKey}+Ctrl+v".action.spawn = "${modifyClipboard}";
       "${leaderKey}+Shift+v".action.spawn = "${paste-qrcode}";
-      "${leaderKey}+d".action.spawn = [
-        drawy
-      ];
       "Shift+XF86AudioNext".action.spawn = [
         mpc
         "next"

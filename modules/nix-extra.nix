@@ -7,10 +7,10 @@
     inputs.nixos-cli.nixosModules.nixos-cli
   ];
 
-  services.nixos-cli = {
+  programs.nixos-cli = {
     enable = true;
-    prebuildOptionCache = true;
-    config = {
+    option-cache.enable = false;
+    settings = {
       use_nvd = true;
       apply = {
         use_nom = true;

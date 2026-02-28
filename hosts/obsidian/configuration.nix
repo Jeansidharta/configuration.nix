@@ -13,7 +13,11 @@
 
   imports = [
     ../../modules/common/default.nix
+
     ../../modules/desktop/default.nix
+    ../../modules/desktop/hyprland/default.nix
+    ../../modules/desktop/dank-material-shell/default.nix
+
     ../../modules/extra.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix

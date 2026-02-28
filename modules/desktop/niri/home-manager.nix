@@ -8,8 +8,6 @@
 {
   imports = [ ./binds.nix ];
 
-  services.kdeconnect.enable = true;
-
   programs.niri = {
     settings = {
       overview.zoom = 0.4;

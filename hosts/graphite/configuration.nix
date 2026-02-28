@@ -9,7 +9,11 @@
 {
   imports = [
     ../../modules/common/default.nix
+
     ../../modules/desktop/default.nix
+    ../../modules/desktop/niri/default.nix
+    ../../modules/desktop/dank-material-shell/default.nix
+
     ../../modules/weron.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
@@ -28,7 +32,7 @@
   ];
 
   # services.weron.vpn-ethernet.base.mac = "00-60-2F-58-93-08";
-  services.weron.vpn-ip.base.ips =[ "fd00::3/128"];
+  services.weron.vpn-ip.base.ips = [ "fd00::3/128" ];
 
   networking = {
     hostName = "graphite";

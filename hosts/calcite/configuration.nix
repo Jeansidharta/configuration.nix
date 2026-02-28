@@ -9,7 +9,11 @@
 {
   imports = [
     ../../modules/common/default.nix
+
     ../../modules/desktop/default.nix
+    ../../modules/desktop/niri/default.nix
+    ../../modules/desktop/dank-material-shell/default.nix
+
     ../../modules/network-manager.nix
     ../../secrets/module.nix
     ../../modules/nix-extra.nix

@@ -88,14 +88,15 @@
       url = "./derivations/eww";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    custom-hyprland = {
-      url = "./derivations/hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+      inputs.niri-unstable.url = "github:YaLTeR/niri/wip/branch";
     };
     walker = {
       url = "github:abenz1267/walker";
@@ -104,10 +105,6 @@
     wiremix = {
       url = "github:tsowell/wiremix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    drawy = {
-      url = "git+https://invent.kde.org/graphics/drawy";
-      flake = false;
     };
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
   };

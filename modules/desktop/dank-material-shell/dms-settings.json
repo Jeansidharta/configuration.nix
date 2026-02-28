@@ -211,20 +211,20 @@
   "networkPreference": "wifi",
   "iconTheme": "System Default",
   "cursorSettings": {
-    "theme": "System Default",
-    "size": 24,
-    "niri": {
-      "hideWhenTyping": false,
-      "hideAfterInactiveMs": 0
+    "dwl": {
+      "cursorHideTimeout": 0
     },
     "hyprland": {
       "hideOnKeyPress": false,
       "hideOnTouch": false,
       "inactiveTimeout": 0
     },
-    "dwl": {
-      "cursorHideTimeout": 0
-    }
+    "niri": {
+      "hideAfterInactiveMs": 0,
+      "hideWhenTyping": false
+    },
+    "size": 24,
+    "theme": "System Default"
   },
   "launcherLogoMode": "custom",
   "launcherLogoCustomPath": "/nix/store/dfalns759sa4dlf07d0rn494vlcc3xdx-nix-snowflake.svg",
@@ -259,7 +259,7 @@
   "batterySuspendBehavior": 0,
   "batteryProfileName": "",
   "batteryChargeLimit": 100,
-  "lockBeforeSuspend": true,
+  "lockBeforeSuspend": false,
   "loginctlLockIntegration": true,
   "fadeToLockEnabled": true,
   "fadeToLockGracePeriod": 5,
@@ -338,9 +338,14 @@
   "lockAtStartup": false,
   "enableFprint": false,
   "maxFprintTries": 15,
+  "enableU2f": false,
+  "u2fMode": "or",
   "lockScreenActiveMonitor": "all",
   "lockScreenInactiveColor": "#000000",
   "lockScreenNotificationMode": 0,
+  "lockScreenVideoEnabled": false,
+  "lockScreenVideoPath": "",
+  "lockScreenVideoCycling": false,
   "hideBrightnessSlider": false,
   "notificationTimeoutLow": 5000,
   "notificationTimeoutNormal": 5000,
@@ -471,8 +476,8 @@
           "size": 10
         },
         {
-          "id": "dankKDEConnect",
-          "enabled": true
+          "enabled": true,
+          "id": "dankKDEConnect"
         },
         {
           "enabled": true,
@@ -509,7 +514,8 @@
       "widgetOutlineEnabled": false,
       "widgetOutlineOpacity": 0.07,
       "widgetOutlineThickness": 1,
-      "widgetTransparency": 1
+      "widgetTransparency": 1,
+      "widgetPadding": 2
     }
   ],
   "desktopClockEnabled": false,
