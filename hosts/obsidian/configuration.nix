@@ -15,14 +15,15 @@
     ../../modules/common/default.nix
 
     ../../modules/desktop/default.nix
-    ../../modules/desktop/hyprland/default.nix
+    ../../modules/desktop/niri/default.nix
     ../../modules/desktop/dank-material-shell/default.nix
 
     ../../modules/extra.nix
-    ../../modules/network-manager.nix
+    # ../../modules/network-manager.nix
+    ../../modules/systemd-networkd.nix
     ../../modules/nix-extra.nix
     ../../modules/podman.nix
-    ../../modules/tor.nix
+    # ../../modules/tor.nix
     ../../modules/bluetooth.nix
     ../../modules/ssh-authorized-keys.nix
     ../../modules/weron.nix
