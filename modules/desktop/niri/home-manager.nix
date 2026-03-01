@@ -93,8 +93,8 @@
 
       layout = {
         struts = {
-          left = 1;
-          right = 1;
+          left = 20;
+          right = 20;
         };
         tab-indicator = {
           width = 4;
