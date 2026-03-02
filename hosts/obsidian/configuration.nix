@@ -55,6 +55,12 @@
   services.weron.vpn-ip.base.ips = [ "fd00::2/128" ];
 
   networking = {
+    wireless.iwd = {
+      networks = {
+        "rede Mesh 99".passphraseFile = config.age.secrets.rede-mesh-psk.path;
+      };
+    };
+
     networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.202/22";
     hostName = "obsidian";
     firewall = {
@@ -69,6 +75,24 @@
           enable = true;
         };
       };
+    };
+  };
+
+  systemd.network.networks = {
+    "40-rede-mesh-99" = {
+      matchConfig = {
+        WLANInterfaceType = "station";
+        Type = "wlan";
+        # SSID = "rede Mesh 99";
+        Name = "wlan0";
+      };
+      DHCP = "ipv4";
+      extraConfig = ''
+        [DHCPv4]
+        RouteMetric=2000
+        DenyList=10.0.0.0/16
+      '';
+      # ipv6AcceptRAConfig.RouteMetric = 1025;
     };
   };
 

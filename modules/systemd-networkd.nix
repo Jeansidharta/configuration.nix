@@ -27,9 +27,6 @@
           EnableNetworkConfiguration = false;
         };
       };
-      networks = {
-        "rede Mesh 99".passphraseFile = config.age.secrets.rede-mesh-psk.path;
-      };
     };
   };
 
