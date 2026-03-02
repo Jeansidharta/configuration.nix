@@ -51,10 +51,10 @@
         {
           draw-border-with-background = false;
           geometry-corner-radius = {
-            bottom-left = 8.0;
-            bottom-right = 8.0;
-            top-left = 8.0;
-            top-right = 8.0;
+            bottom-left = 4.0;
+            bottom-right = 4.0;
+            top-left = 4.0;
+            top-right = 4.0;
           };
           clip-to-geometry = true;
         }
@@ -92,9 +92,10 @@
       ];
 
       layout = {
+        gaps = 2;
         struts = {
-          left = 20;
-          right = 20;
+          left = 4;
+          right = 4;
         };
         tab-indicator = {
           width = 4;
