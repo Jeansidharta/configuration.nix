@@ -35,9 +35,8 @@ in
     file = ./coffee-psk.age;
     owner = "sidharta";
   };
-  age.secrets.rede-mesh-psk = {
-    file = ./rede-mesh-psk.age;
-    owner = "sidharta";
+  age.secrets.wifi = {
+    file = ./wifi.age;
   };
   age.secrets.weron-base-password = {
     file = ./weron-base-password.age;

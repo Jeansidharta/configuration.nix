@@ -20,7 +20,7 @@
       sd-image
       ../../modules/common/default.nix
       ../../modules/proxyuser.nix
-      ../../modules/network-manager.nix
+      ../../modules/systemd-networkd.nix
       ../../modules/podman.nix
       ../../modules/ssh-authorized-keys.nix
       ../../secrets/module.nix
@@ -71,6 +71,14 @@
   };
 
   networking = {
+    wireless = {
+      interfaces = [ "wlan0" ];
+      secretsFile = config.age.secrets.wifi.path;
+      networks = {
+        "rede Mesh 99".pskRaw = "ext:rede-mesh-99";
+      };
+    };
+
     hostName = "basalt";
     firewall.trustedInterfaces = [
       "wlu2"
@@ -84,92 +92,74 @@
       ];
       externalInterface = "wlan0";
     };
+  };
 
-    networkmanager.ensureProfiles = {
-      secrets.entries = [
-        {
-          file = config.age.secrets.coffee-psk.path;
-          matchType = "802-11-wireless";
-          matchId = "coffee";
-          matchSetting = "802-11-wireless-security";
-          key = "psk";
-        }
-      ];
-      profiles = {
-        mesh-guest-static-ip = {
-          ipv4.address1 = "192.168.69.200/22";
-          connection = {
-            autoconnect = true;
-            interface-name = "wlan0";
-          };
+  services.hostapd = {
+    enable = true;
+    radios.wlu2 = {
+      channel = 1;
+      networks.wlu2 = {
+        ssid = "coffee";
+        authentication.saePasswords = [ { passwordFile = config.age.secrets.coffee-psk.path; } ];
+      };
+    };
+  };
+
+  systemd.network = {
+    netdevs = {
+      "10-bridge" = {
+        enable = true;
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "bridge0";
         };
-
-        clients-bridge = {
-          connection = {
-            id = "clients-bridge";
-            uuid = "6de119a1-a336-48bd-861a-00d07dcd99c3";
-            type = "bridge";
-            interface-name = "bridge0";
-            autoconnect = true;
-            autoconnect-priority = 10;
-            autoconnect-slaves = "1"; # Bring all slaves up with this connection
-          };
-          ipv4 = {
-            method = "manual";
-            address1 = "192.168.0.1/24";
-            dns = "8.8.8.8;1.1.1.1;";
-            forwarding = "1";
-          };
-          ipv6 = {
-            addr-gen-mode = "default";
-            method = "link-local";
-          };
+      };
+    };
+    networks = {
+      "40-bridge" = {
+        matchConfig = {
+          Name = "bridge0";
         };
-        coffee = {
-          connection = {
-            id = "coffee";
-            uuid = "a4a31f8e-fed9-47b5-b396-8eb726d4d1a8";
-            type = "wifi";
-            interface-name = "wlu2";
-
-            controller = "bridge0";
-            port-type = "bridge";
-          };
-
-          wifi = {
-            mode = "ap";
-            ssid = "coffee";
-          };
-
-          wifi-security = {
-            auth-alg = "open";
-            key-mgmt = "wpa-psk";
-            pairwise = "ccmp";
-          };
-
-          ipv4 = {
-            method = "disabled";
-          };
-
-          ipv6 = {
-            method = "link-local";
-          };
+        networkConfig = {
+          Address = "192.168.0.1/24";
         };
-        ethernet-router = {
-          connection = {
-            id = "ethernet-router";
-            type = "ethernet";
+      };
 
-            controller = "bridge0";
-            port-type = "bridge";
-          };
-          ipv4 = {
-            method = "disabled";
-          };
-          ipv6 = {
-            method = "link-local";
-          };
+      "40-coffee-ap" = {
+        matchConfig = {
+          WLANInterfaceType = "ap";
+          # Name = "wlu2";
         };
+        networkConfig = {
+          Bridge = "bridge0";
+        };
+        DHCP = "no";
+      };
+      "40-no-dhcp-ethernet" = {
+        matchConfig = {
+          Type = "ether";
+        };
+        networkConfig = {
+          Bridge = "bridge0";
+          LinkLocalAddressing = "ipv6";
+        };
+        DHCP = "no";
+      };
+
+      "40-rede-mesh-99" = {
+        matchConfig = {
+          WLANInterfaceType = "station";
+          Type = "wlan";
+          SSID = "'rede Mesh 99'";
+          Name = "wlan0";
+        };
+        DHCP = "ipv4";
+        extraConfig = ''
+          [DHCPv4]
+          RouteMetric=2000
+          DenyList=10.0.0.0/16
+        '';
+        # ipv6AcceptRAConfig.RouteMetric = 1025;
       };
     };
   };
@@ -231,11 +221,6 @@
       ''}";
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    mitmproxy
-    tcpdump
-  ];
 
   system.nixos.tags =
     let

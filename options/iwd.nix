@@ -233,7 +233,6 @@ in
       serviceConfig = {
         ReadWritePaths = "-/etc/resolv.conf";
         LoadCredential =
-
           let
             networks-with-file = (
               lib.filterAttrs (_: { cfg, ... }: cfg.passphraseFile != null) predefinedNetworks

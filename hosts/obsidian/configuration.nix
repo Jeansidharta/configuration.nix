@@ -55,13 +55,13 @@
   services.weron.vpn-ip.base.ips = [ "fd00::2/128" ];
 
   networking = {
-    wireless.iwd = {
+    wireless = {
+      secretsFile = config.age.secrets.wifi.path;
       networks = {
-        "rede Mesh 99".passphraseFile = config.age.secrets.rede-mesh-psk.path;
+        "rede Mesh 99".pskRaw = "ext:rede-mesh-99";
       };
     };
 
-    networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.202/22";
     hostName = "obsidian";
     firewall = {
       allowedTCPPorts = [
@@ -83,8 +83,8 @@
       matchConfig = {
         WLANInterfaceType = "station";
         Type = "wlan";
-        # SSID = "rede Mesh 99";
-        Name = "wlan0";
+        SSID = "'rede Mesh 99'";
+        Name = "wlp14s0";
       };
       DHCP = "ipv4";
       extraConfig = ''

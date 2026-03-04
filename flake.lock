@@ -1331,11 +1331,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1772267853,
-        "narHash": "sha256-Fe1O8PA+HOe0r8ue16AteX7zhZtMYi7Jc/DKr3eS+cI=",
+        "lastModified": 1772355610,
+        "narHash": "sha256-pTE6lssK70w632CZf/Sr7ZmZQe2iREWDXjeUufZKw08=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "468117b9704c1d549eabca5c87e98033cfa1fc60",
+        "rev": "ca6ce58bd5884aa3c567c223e05368b2c4b3f1bc",
         "type": "github"
       },
       "original": {

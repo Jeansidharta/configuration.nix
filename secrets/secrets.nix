@@ -18,8 +18,8 @@ in
 {
   "nix-github-token.age".publicKeys = allPublicKeys;
   "coffee-psk.age".publicKeys = allPublicKeys;
-  "rede-mesh-psk.age".publicKeys = allPublicKeys;
 
   "weron-base-password.age".publicKeys = allPublicKeys;
   "weron-base-key.age".publicKeys = allPublicKeys;
+  "wifi.age".publicKeys = allPublicKeys;
 }

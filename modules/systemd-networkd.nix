@@ -19,16 +19,13 @@
 
   networking = {
     useNetworkd = true;
-
-    wireless.iwd = {
+    wireless = {
+      userControlled.enable = true;
       enable = true;
-      settings = {
-        General = {
-          EnableNetworkConfiguration = false;
-        };
-      };
     };
   };
+
+  services.resolved.enable = false;
 
   systemd = {
     # Improve journal logs
