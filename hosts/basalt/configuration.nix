@@ -87,17 +87,6 @@
     };
   };
 
-  services.hostapd = {
-    enable = true;
-    radios.wlu2 = {
-      channel = 1;
-      networks.wlu2 = {
-        ssid = "coffee";
-        authentication.saePasswords = [ { passwordFile = config.age.secrets.coffee-psk.path; } ];
-      };
-    };
-  };
-
   systemd.network = {
     netdevs = {
       "10-bridge" = {
@@ -117,7 +106,6 @@
           Address = "192.168.0.1/24";
         };
       };
-
       "40-coffee-ap" = {
         matchConfig = {
           WLANInterfaceType = "ap";
@@ -138,7 +126,6 @@
         };
         DHCP = "no";
       };
-
       "40-rede-mesh-99" = {
         matchConfig = {
           WLANInterfaceType = "station";
@@ -167,26 +154,6 @@
   #   permanentRooms = [ "Sala" ];
   #   package = pkgs.syncplay-nogui;
   # };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts."walmart-goback-2.sidharta.xyz" = {
-      enableACME = true;
-      addSSL = true;
-      locations."/" = {
-        root = "/var/www/walmart-goback-2";
-        tryFiles = "$uri /index.html";
-      };
-      locations."/api" = {
-        proxyPass = "http://192.168.0.153:8001/";
-        extraConfig = ''
-          rewrite /api/(.*) /$1 break;
-          proxy_redirect     off;
-          proxy_set_header   Host $host;
-        '';
-      };
-    };
-  };
 
   services.dnsmasq = {
     enable = true;
