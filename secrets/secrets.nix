@@ -22,4 +22,10 @@ in
   "weron-base-password.age".publicKeys = allPublicKeys;
   "weron-base-key.age".publicKeys = allPublicKeys;
   "wifi.age".publicKeys = allPublicKeys;
+  "netlify-ddns.age".publicKeys = [
+    keys.basalt.system
+    keys.basalt.sidharta
+    keys.obsidian.system
+    keys.obsidian.sidharta
+  ];
 }

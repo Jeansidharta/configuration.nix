@@ -35,6 +35,10 @@ in
     file = ./coffee-psk.age;
     owner = "sidharta";
   };
+  age.secrets.netlify-ddns = forBasalt {
+    file = ./netlify-ddns.age;
+    owner = "sidharta";
+  };
   age.secrets.wifi = {
     file = ./wifi.age;
   };

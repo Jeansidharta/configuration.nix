@@ -22,7 +22,6 @@
   };
   networking.networkmanager = {
     enable = true;
-    dhcp = "dhcpcd";
     dispatcherScripts = [
       {
         source = pkgs.writeShellScript "enable-arper" ''
@@ -42,42 +41,7 @@
         '';
       }
     ];
-    ensureProfiles.secrets.entries = [
-      {
-        file = config.age.secrets.rede-mesh-psk.path;
-        matchType = "802-11-wireless";
-        matchId = "mesh-guest-static-ip";
-        matchSetting = "802-11-wireless-security";
-        key = "psk";
-      }
-    ];
     ensureProfiles.profiles = {
-      mesh-guest-static-ip = {
-        connection = {
-          id = "mesh-guest-static-ip";
-          type = "wifi";
-          autoconnect-priority = 10;
-        };
-
-        wifi = {
-          bssid = "3E:64:CF:AC:24:AF";
-          mode = "infrastructure";
-          ssid = "rede Mesh 99_Guest";
-        };
-        wifi-security = {
-          key-mgmt = "wpa-psk";
-        };
-        ipv4 = {
-          dns = "8.8.8.8;8.8.1.1;";
-          gateway = "192.168.68.1";
-          method = "manual";
-        };
-
-        ipv6 = {
-          addr-gen-mode = "default";
-          method = "link-local";
-        };
-      };
       wired-local-link = {
         connection = {
           id = "wired-local-link";

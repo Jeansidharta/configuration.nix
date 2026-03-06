@@ -23,6 +23,7 @@
       ../../modules/systemd-networkd.nix
       ../../modules/podman.nix
       ../../modules/ssh-authorized-keys.nix
+      ../../modules/netlify-ddns.nix
       ../../secrets/module.nix
     ];
   services.openssh = {
@@ -134,10 +135,11 @@
           Name = "wlan0";
         };
         DHCP = "ipv4";
+        networkConfig.IPv6LinkLocalAddressGenerationMode = "stable-privacy";
         extraConfig = ''
           [DHCPv4]
           RouteMetric=2000
-          DenyList=10.0.0.0/16
+          DenyList=10.0.0.0/16 192.168.15.0/24
         '';
         # ipv6AcceptRAConfig.RouteMetric = 1025;
       };
@@ -155,6 +157,7 @@
   #   package = pkgs.syncplay-nogui;
   # };
 
+  services.resolved.enable = false;
   services.dnsmasq = {
     enable = true;
     resolveLocalQueries = false;

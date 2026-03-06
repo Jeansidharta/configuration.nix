@@ -25,8 +25,6 @@
     };
   };
 
-  services.resolved.enable = false;
-
   systemd = {
     # Improve journal logs
     services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";

@@ -1,0 +1,97 @@
+command -v jq &>/dev/null || { echo "jq is not installed"; exit 4; }
+command -v curl &>/dev/null || { echo "curl is not installed"; exit 5; }
+
+# source "$CREDENTIALS_DIRECTORY/env"
+
+env
+
+[ -z "$ACCESS_TOKEN" ] && { echo "ACCESS_TOKEN environment variable not set"; exit 2; }
+[ -z "$DOMAIN" ] && { echo "DOMAIN environment variable not set"; exit 3; }
+[ -z "$SUBDOMAINS" ] && { echo "SUBDOMAINS environment variable not set"; exit 1; }
+[ "$DO_IPV6" == "1" ] && [ -z "$IPV6_INTERFACE" ] && { echo "Must provide an IPv6 interface"; exit 3; }
+
+IFS=" " read -r -a SUBDOMAINS <<<"$SUBDOMAINS"
+
+# options
+TTL_SECONDS="${TTL_SECONDS:-120}"
+DO_IPV6="${DO_IPV6:-1}"
+
+# constants
+DNS_ZONE="$(<<< "$DOMAIN" tr "." "_")"
+API="https://api.netlify.com/api/v1"
+URL="$API/dns_zones/$DNS_ZONE/dns_records?access_token=$ACCESS_TOKEN"
+
+# setup
+CURL_FLAGS="-sL"
+curl="curl $CURL_FLAGS"
+
+# fetch IP addresses
+MY_IPV4="$($curl -4 ifconfig.io)" || \
+	{ echo "Failed to retrieve an IPv4 address from ifconfig.io"; exit 4; }
+if [ "$DO_IPV6" == "1" ]; then
+	MY_IPV6="$(ip -6 addr show dev "$IPV6_INTERFACE" | awk '/mngtmpaddr/{split($2,a,"/");print a[1]}')" || \
+		{ echo "Failed to retrieve an IPv6 address from 'ip'"; exit 5; }
+	[ -z "$MY_IPV6" ] && {
+		export DO_IPV6="0"
+		echo "Failed to retrieve a non-blank IPv6 address from 'ip'"
+		exit 6
+	}
+fi
+
+# fetch current netlify DNS state
+CURRENT_DNS_JSON="$(curl -sL "$URL" | jq -r 'map(select(.type == "A" or .type == "AAAA"))')"
+jsq() {
+	<<< "$CURRENT_DNS_JSON" jq "$@"
+}
+
+delete_netlify_dns_records_by_subdomain_if_exists() {
+	SUBDOMAIN="$1"; shift
+	if jsq -e "map(select(.hostname == \"$SUBDOMAIN.$DOMAIN\" and .type == \"A\"))[0]" > /dev/null; then
+		RECORD_ID="$(jsq -r "map(select(.hostname == \"$SUBDOMAIN.$DOMAIN\"))[0].id")"
+		$curl -X DELETE "$API/dns_zones/$DNS_ZONE/dns_records/$RECORD_ID?access_token=$ACCESS_TOKEN" > /dev/null
+	fi
+	if [ "$DO_IPV6" == "1" ]; then
+		if jsq -e "map(select(.hostname == \"$SUBDOMAIN.$DOMAIN\" and .type == \"AAAA\"))[0]" > /dev/null; then
+			RECORD_ID="$(jsq -r "map(select(.hostname == \"$SUBDOMAIN.$DOMAIN\"))[0].id")"
+			$curl -X DELETE "$API/dns_zones/$DNS_ZONE/dns_records/$RECORD_ID?access_token=$ACCESS_TOKEN" > /dev/null
+		fi
+	fi
+}
+
+create_netlify_dns_records() {
+	SUBDOMAIN="$1"; shift
+	PAYLOAD_IPv4="$(jq -n -r \
+		--arg type "A" \
+		--arg name "$SUBDOMAIN" \
+		--arg val  "$MY_IPV4" \
+		--arg ttl  "$TTL_SECONDS" \
+		'{type:$type,hostname:$name,value:$val,ttl:$ttl}')"
+	<<< "$PAYLOAD_IPv4" $curl -d @- -H 'content-type:application/json' "$API/dns_zones/$DNS_ZONE/dns_records?access_token=$ACCESS_TOKEN" > /dev/null
+	if [ "$DO_IPV6" == "1" ]; then
+		PAYLOAD_IPv6="$(jq -n -r \
+			--arg type "AAAA" \
+			--arg name "$SUBDOMAIN" \
+			--arg val  "$MY_IPV6" \
+			--arg ttl  "$TTL_SECONDS" \
+			'{type:$type,hostname:$name,value:$val,ttl:$ttl}')"
+		<<< "$PAYLOAD_IPv6" $curl -d @- -H 'content-type:application/json' "$API/dns_zones/$DNS_ZONE/dns_records?access_token=$ACCESS_TOKEN" > /dev/null
+	fi
+}
+
+setup_netlify_dns_record() {
+	SUBDOMAIN="$1"; shift
+	echo "Setting up $SUBDOMAIN.$DOMAIN"
+	delete_netlify_dns_records_by_subdomain_if_exists "$SUBDOMAIN"
+	create_netlify_dns_records "$SUBDOMAIN" && echo "Done setting up $SUBDOMAIN.$DOMAIN"
+}
+
+echo "According to ifconfig.io, my IPv4 address is: $MY_IPV4"
+[ "$DO_IPV6" == "1" ] && echo "My IPv6 address is: $MY_IPV6"
+for s in "${SUBDOMAINS[@]}"; do
+	# TODO: this could get cloggy if there are a lot of subdomains
+	setup_netlify_dns_record "$s" &
+done
+echo "Waiting for jobs to finish..."
+wait
+
+# jsq 'map(.hostname)'

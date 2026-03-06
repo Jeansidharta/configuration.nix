@@ -12,10 +12,13 @@
 
   services.weron = {
     enable = true;
+    open-firewall = true;
     vpn-ip.base = {
       enable = true;
+      verbose = "7";
       passwordFile = config.age.secrets.weron-base-password.path;
       keyFile = config.age.secrets.weron-base-key.path;
+      dev = "weron-base";
       community = "sidharta-devices";
     };
   };
