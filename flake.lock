@@ -656,6 +656,22 @@
         "type": "github"
       }
     },
+    "fzf_plugin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772625297,
+        "narHash": "sha256-ruDbJ9gdzeLLAi6WST6PtsId5ZyCViBarb2ZWZbGzpI=",
+        "owner": "ibhagwan",
+        "repo": "fzf-lua",
+        "rev": "1eba927866251bae1b61dffc5b673b8dbd0f3f48",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ibhagwan",
+        "repo": "fzf-lua",
+        "type": "github"
+      }
+    },
     "git-conflict_plugin": {
       "flake": false,
       "locked": {
@@ -1281,6 +1297,7 @@
         "bufjump_plugin": "bufjump_plugin",
         "fidget_plugin": "fidget_plugin",
         "fyler_plugin": "fyler_plugin",
+        "fzf_plugin": "fzf_plugin",
         "git-conflict_plugin": "git-conflict_plugin",
         "git-magnum_plugin": "git-magnum_plugin",
         "git-radical_plugin": "git-radical_plugin",
@@ -1315,11 +1332,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1772711390,
-        "narHash": "sha256-ik+LrXowsvR9WQEd5L8wCasb/uEGGw4qT6OHkWsqrHg=",
+        "lastModified": 1772824526,
+        "narHash": "sha256-R85j2tesV89SS3qeTP2r64VYCCmr2zKtKq9YaI0oKDc=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "ef77734b5e13b5f173a561abca6334fde5903930",
+        "rev": "70c341f8c73a4e8ce8632c19f81bc855998aae77",
         "type": "github"
       },
       "original": {
