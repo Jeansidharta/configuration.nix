@@ -3,7 +3,6 @@
 { inputs, config, ... }:
 {
   imports = [
-    inputs.nix-index-database.nixosModules.nix-index
     inputs.nixos-cli.nixosModules.nixos-cli
   ];
 
@@ -20,19 +19,18 @@
 
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "nsearch")
-    inputs.nix-index-database.outputs.overlays.nix-index
     (_: prev: { neix = inputs.neix.packages.${prev.stdenv.hostPlatform.system}.default; })
   ];
 
-  programs.nix-index-database.comma.enable = true;
   programs.extra-container.enable = true;
 
   home-manager.users.sidharta.imports = [
-    inputs.nix-index-database.outputs.homeModules.nix-index
     (
       { pkgs, lib, ... }:
       {
         home.packages = with pkgs; [
+          inputs.nix-index-database.outputs.packages.${pkgs.stdenv.hostPlatform.system}.comma-with-db
+          inputs.nix-index-database.outputs.packages.${pkgs.stdenv.hostPlatform.system}.nix-index-with-db
           nh # A nix helper
           nix-output-monitor # Better output for nix build
           nix-tree # Show derivation dependencies

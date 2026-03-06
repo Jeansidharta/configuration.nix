@@ -81,6 +81,14 @@
 
       echo 00-60-2F-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]
     '')
+    (pkgs.writeScriptBin "canonical" ''
+      #!/usr/bin/env bash
+
+      path="$(which "$1")"
+      path="$(readlink -f "$path")"
+
+      echo "$path"
+    '')
     (pkgs.writeScriptBin "root-derivation" ''
       #!/usr/bin/env bash
 
