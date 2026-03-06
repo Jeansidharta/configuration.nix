@@ -50,15 +50,39 @@ let
     };
   };
 
+  vpn-ip-single-module = lib.types.submodule (
+    { ... }:
+    {
+      options = base-vpn-module-options // {
+        address = lib.mkOption {
+          type = with lib.types; nonEmptyStr;
+          description = "The IP to assign the weron interface";
+          example = "2001:db8::1";
+        };
+        prefix = lib.mkOption {
+          type = with lib.types; ints.between 0 128;
+          description = "The subnet prefix.";
+          example = "64";
+          default = 64;
+        };
+      };
+    }
+  );
+
   vpn-ip-module = lib.types.submodule (
     { config, lib, ... }:
     {
-      # freeformType = with lib.types; attrsOf singleLineStr;
+      freeformType = with lib.types; attrsOf singleLineStr;
       options = base-vpn-module-options // {
         ips = lib.mkOption {
-          type = with lib.types; nonEmptyListOf nonEmptyStr;
+          type = with lib.types; nullOr (nonEmptyListOf nonEmptyStr);
           description = "List of IP networks to claim an IP address from and and give to the TUN device (on macOS, IPv4 networks are ignored)";
           example = "2001:db8::1/32,192.168.2.0/24";
+          default = null;
+        };
+        ip = lib.mkOption {
+          type = with lib.types; nullOr vpn-ip-single-module;
+          default = null;
         };
       };
     }
@@ -71,11 +95,31 @@ let
       options = base-vpn-module-options;
     }
   );
+
+  signaler-module = lib.types.submodule (
+    { lib, config, ... }:
+    {
+      freeformType = with lib.types; attrsOf singleLineStr;
+      options = {
+        enable = lib.mkEnableOption "Enable signaler" // {
+          default = false;
+        };
+        api-password-file = lib.mkOption {
+          type = with lib.types.attrsOf; nullOr singleLineStr;
+          default = null;
+        };
+      };
+    }
+  );
 in
 {
   options.services.weron = {
     enable = lib.mkEnableOption "Enable service";
     package = lib.mkPackageOption pkgs "weron" { };
+
+    open-firewall = lib.mkEnableOption "Open a firewall exception for interfaces" // {
+      default = false;
+    };
 
     vpn-ip = lib.mkOption {
       type = lib.types.attrsOf vpn-ip-module;
@@ -84,6 +128,11 @@ in
 
     vpn-ethernet = lib.mkOption {
       type = lib.types.attrsOf vpn-ethernet-module;
+      default = { };
+    };
+
+    signaler = lib.mkOption {
+      type = signaler-module;
       default = { };
     };
   };
@@ -135,9 +184,10 @@ in
                     "enable"
                     "passwordFile"
                     "keyFile"
+                    "ip"
                   ])
                   // {
-                    ips = lib.join "," module.ips;
+                    ips = if module.ips != null then lib.join "," module.ips else module.ip.address + "/128";
                     ice = lib.join "," module.ice;
                   }
                 )
@@ -183,7 +233,7 @@ in
         name: module:
         pkgs.writeScriptBin "weron-ip-${name}" ''
           #!${bash}
-          exec ${weron} --community '${module.community}' --key '${attrOrFile "key" module}' --password '${attrOrFile "password" module}'
+          exec ${weron} "$@" --community '${module.community}' --key '${attrOrFile "key" module}' --password '${attrOrFile "password" module}'
         ''
       ) cfg.vpn-ip;
 
@@ -212,13 +262,49 @@ in
           assertion = module.key == null || module.keyFile == null;
           message = "services.weron.vpn-ip-module.${name}.key is mutually exclusive with services.weron.vpn-ip-module.${name}.keyFile";
         }
+        {
+          assertion = module.ips != null || module.ip != null;
+          message = "services.weron.vpn-ip-module.${name} must have either an ip or ips attribute.";
+        }
+        {
+          assertion = module.ips == null || module.ip == null;
+          message = "services.weron.vpn-ip-module.${name}.ip is mutually exclusive with services.weron.vpn-ip-module.${name}.ips";
+        }
+        {
+          assertion = cfg.open-firewall == false || module ? dev;
+          message = "services.weron.vpn-ip-module.${name}.dev is missing. If services.weron.open-firewall is true, then all vpns must specify a network interface name.";
+        }
+        {
+          assertion = !module ? ip || module.ip == null || module ? dev;
+          message = "services.weron.vpn-ip-module.${name}.dev is missing. It must be provided if ip is provided.";
+        }
       ];
+
+      # Apply function over both vpn modules
+      mapOverVpns =
+        f: lib.flatten ((lib.mapAttrsToList f cfg.vpn-ethernet) ++ (lib.mapAttrsToList f cfg.vpn-ip));
     in
     lib.mkIf cfg.enable {
-      assertions = lib.flatten (
-        (lib.mapAttrsToList assertModule cfg.vpn-ethernet) ++ (lib.mapAttrsToList assertModule cfg.vpn-ip)
-      );
+      assertions = mapOverVpns assertModule;
       systemd.services = vpn-ip-services // vpn-ethernet-services;
+      networking = {
+        firewall.trustedInterfaces = if cfg.open-firewall then mapOverVpns (_: module: module.dev) else [ ];
+        interfaces =
+          let
+            ip-vpns = (lib.filterAttrs (_: module: module.ip != null) cfg.vpn-ip);
+          in
+          lib.mapAttrs' (name: module: {
+            name = module.dev;
+            value = {
+              ipv6.addresses = [
+                {
+                  address = module.ip.address;
+                  prefixLength = module.ip.prefix;
+                }
+              ];
+            };
+          }) ip-vpns;
+      };
       environment.systemPackages = [ cfg.package ] ++ ip-bins ++ ethernet-bins;
     };
 }

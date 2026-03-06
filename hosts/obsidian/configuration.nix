@@ -51,8 +51,7 @@
     }
   ];
 
-  # services.weron.vpn-ethernet.base.mac = "00-60-2F-69-63-27";
-  services.weron.vpn-ip.base.ips = [ "fd00::2/128" ];
+  services.weron.vpn-ip.base.ip.address = "fd00::2";
 
   networking = {
     wireless = {

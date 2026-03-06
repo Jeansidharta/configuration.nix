@@ -23,6 +23,7 @@
       ../../modules/systemd-networkd.nix
       ../../modules/podman.nix
       ../../modules/ssh-authorized-keys.nix
+      ../../modules/weron.nix
       ../../modules/netlify-ddns.nix
       ../../secrets/module.nix
     ];
@@ -62,6 +63,11 @@
       ssh-pubkeys.phone
       ssh-pubkeys.graphite.sidharta
     ];
+  };
+
+  services.weron.vpn-ip.base.ip.address = "fd00::1";
+  services.weron.signaler = {
+    enable = true;
   };
 
   networking = {
@@ -104,7 +110,10 @@
           Name = "bridge0";
         };
         networkConfig = {
-          Address = "192.168.0.1/24";
+          Address = [
+            "192.168.0.1/24"
+            "fd01::1/64"
+          ];
         };
       };
       "40-coffee-ap" = {
@@ -162,8 +171,15 @@
     enable = true;
     resolveLocalQueries = false;
     settings = {
+      log-queries = true;
+      # log-debug = true;
+      log-dhcp = true;
+      # no-daemon = true;
+      enable-ra = true;
+      dhcp-authoritative = true;
       dhcp-range = [
         "192.168.0.100,192.168.0.200,2d"
+        # "::,constructor:bridge0,ra-only,slaac,64"
       ];
       server = [
         "1.1.1.1"

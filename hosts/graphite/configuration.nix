@@ -36,8 +36,6 @@
 
   networking = {
     hostName = "graphite";
-    networkmanager.ensureProfiles.profiles.mesh-guest-static-ip.ipv4.address1 = "192.168.69.201/22";
-
     firewall = {
       trustedInterfaces = [
         "ve-debian"
