@@ -67,6 +67,15 @@
     gdb
     bmon
 
+    (pkgs.writeScriptBin "replace" ''
+      if [[ -e "$1.old" ]]; then
+        rm -rfi "$1"
+        mv "$1.old" "$1"
+      else
+        mv "$1" "$1.old"
+        cp --dereference --no-preserve=mode -r "$1.old" "$1"
+      fi
+    '')
     (pkgs.writeScriptBin "random-mac" ''
       #!/usr/bin/env bash
 
@@ -198,38 +207,25 @@
     # '';
   };
 
-  home.shellAliases =
-    let
-      replace = pkgs.writeScript "replace" ''
-        if [[ -e "$1.old" ]]; then
-          rm -rfi "$1"
-          mv "$1.old" "$1"
-        else
-          mv "$1" "$1.old"
-          cp --dereference --no-preserve=mode -r "$1.old" "$1"
-        fi
-      '';
-    in
-    {
-      "ses" = "systemctl --user";
-      "jes" = "journalctl --user";
-      "vim" = "nvim";
-      "vi" = "nvim";
-      "ls" = "eza";
+  home.shellAliases = {
+    "ses" = "systemctl --user";
+    "jes" = "journalctl --user";
+    "vim" = "nvim";
+    "vi" = "nvim";
+    "ls" = "eza";
 
-      "cdtmp" = "cd $(mktemp --dir)";
+    "cdtmp" = "cd $(mktemp --dir)";
 
-      "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net --offline -- ";
-      "replace" = "${replace}";
+    "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net --offline -- ";
 
-      "nix-print-roots" = "nix-store --gc --print-roots | less";
+    "nix-print-roots" = "nix-store --gc --print-roots | less";
 
-      "minicom" = "minicom -w -t xterm -l -R UTF-8";
-      "du" = "${pkgs.dust}/bin/dust";
+    "minicom" = "minicom -w -t xterm -l -R UTF-8";
+    "du" = "${pkgs.dust}/bin/dust";
 
-      "rsync" =
-        "${pkgs.rsync}/bin/rsync -avzh --append-verify --inplace --checksum --info=progress1,stats3";
-    };
+    "rsync" =
+      "${pkgs.rsync}/bin/rsync -avzh --append-verify --inplace --checksum --info=progress1,stats3";
+  };
 
   home.stateVersion = "24.05";
 }
