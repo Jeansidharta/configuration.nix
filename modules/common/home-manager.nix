@@ -64,6 +64,7 @@
     traceroute # Shows the route to a destination on the internet
     nmap # map network
     usbutils # Tool for manipulating USB
+    fzf
     gdb
     bmon
 
