@@ -148,7 +148,7 @@
         extraConfig = ''
           [DHCPv4]
           RouteMetric=2000
-          DenyList=10.0.0.0/16 192.168.15.0/24
+          DenyList=10.0.0.0/16
         '';
         # ipv6AcceptRAConfig.RouteMetric = 1025;
       };
