@@ -31,8 +31,6 @@
     ./home-manager.nix
   ];
 
-  services.resolved.enable = true;
-
   services.weron = {
     # vpn-ethernet.base.mac = "00-60-2F-58-93-08";
     vpn-ip.base.ip.address = "fd00::3";

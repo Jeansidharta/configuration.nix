@@ -72,6 +72,8 @@ in
     "ff02::2" = [ "ip6-allrouters" ];
   };
 
+  services.resolved.enable = true;
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
