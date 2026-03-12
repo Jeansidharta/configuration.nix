@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index ac6dd9b..460d9e8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -305,7 +305,7 @@ install: build
+ 	install -d ${DESTDIR}${INCLUDEDIR}
+ 	install -d ${DESTDIR}${DATADIR}/swc
+ 	install -d ${DESTDIR}${PKGCONFIGDIR}
+-	install -m 4755 launch/swc-launch ${DESTDIR}${BINDIR}/
++	install -m 755 launch/swc-launch ${DESTDIR}${BINDIR}/
+ 	install -m 755 extra/swcsnap ${DESTDIR}${BINDIR}/
+ 	install -m 644 libswc/libswc.a ${DESTDIR}${LIBDIR}/
+ 	install -m 644 libswc/swc.h ${DESTDIR}${INCLUDEDIR}/

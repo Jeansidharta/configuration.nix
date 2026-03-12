@@ -1,0 +1,32 @@
+diff --git a/config.h b/config.h
+index f3adb79..cd28df3 100644
+--- a/config.h
++++ b/config.h
+@@ -1,7 +1,7 @@
+ #ifndef CONFIG_H
+ #define CONFIG_H
+ 
+-static const uint32_t background_color = 0xff777777;
++static const uint32_t background_color = 0xff770000;
+ 
+ static const uint32_t outer_border_color_inactive = 0xffffffea;
+ static const uint32_t inner_border_color_inactive = 0xffddbd8c;
+@@ -21,15 +21,15 @@ static const uint32_t select_box_border = 2;
+  */
+ static const char *const cursor_theme = "nein";
+ 
+-static const char *const select_term_app_id = "st-wl-256color";
+-static const char *const term = "st-wl";
++static const char *const select_term_app_id = "havoc";
++static const char *const term = "havoc";
+ 
+ /* a flag for your terminal emulator to setup a windowid 
+  * - for havoc: -i
+  * - for st-wl: -w
+  * - for everything else: idk
+  */
+-static const char *const term_flag = "-w";
++static const char *const term_flag = "-i";
+ 
+ /* gui programs take over the geometry of the terminal, broken for xwayland */
+ static const bool enable_terminal_spawning = true;
