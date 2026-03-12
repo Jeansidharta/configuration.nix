@@ -255,6 +255,26 @@
         "type": "github"
       }
     },
+    "dank-search": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771867960,
+        "narHash": "sha256-7VK/R3ZkrSlk8WQlQxjP2BJl5PGNkgbPnd9jh/7xbTw=",
+        "owner": "AvengeMedia",
+        "repo": "danksearch",
+        "rev": "55c58870c666a45eeb2fe34180eb886c34e68d0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "danksearch",
+        "type": "github"
+      }
+    },
     "disko": {
       "flake": false,
       "locked": {
@@ -332,6 +352,39 @@
       "original": {
         "owner": "AvengeMedia",
         "repo": "dms-plugins",
+        "type": "github"
+      }
+    },
+    "dms-volume-mixer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772347093,
+        "narHash": "sha256-yBgHyTvWz381UJq7wuHdaxYjn7DQ2f40qwj3kxUt9Ko=",
+        "owner": "cwelsys",
+        "repo": "dms-volume-mixer",
+        "rev": "3996bdfbc11cb7458d9d23e45a69ec2374cf8601",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cwelsys",
+        "repo": "dms-volume-mixer",
+        "type": "github"
+      }
+    },
+    "dms-wallpaper-carousel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773339262,
+        "narHash": "sha256-UAsb5DsvejSKyf07uCe8iAhe/WURPT7IlsGAMirZ//0=",
+        "owner": "jeansidharta",
+        "repo": "wallpaperCarousel",
+        "rev": "0276727fa0fcfbf0517ddbf7171a8346fe8f3535",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jeansidharta",
+        "ref": "feature-settings",
+        "repo": "wallpaperCarousel",
         "type": "github"
       }
     },
@@ -1990,11 +2043,14 @@
         "caelestia-shell": "caelestia-shell",
         "custom-eww": "custom-eww",
         "dank-material-shell": "dank-material-shell",
+        "dank-search": "dank-search",
         "disko": "disko",
         "dms-calculator": "dms-calculator",
         "dms-emoji-launcher": "dms-emoji-launcher",
         "dms-niri-windows": "dms-niri-windows",
         "dms-plugins": "dms-plugins",
+        "dms-volume-mixer": "dms-volume-mixer",
+        "dms-wallpaper-carousel": "dms-wallpaper-carousel",
         "dms-web-search": "dms-web-search",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",

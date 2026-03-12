@@ -17,6 +17,7 @@ let
         inputs.dank-material-shell.homeModules.default
       ];
 
+      programs.dsearch.enable = true;
       services.kdeconnect.enable = true;
 
       # DMS already has a notification system
@@ -39,6 +40,20 @@ let
             enable = true;
             src = "${inputs.dms-plugins}/DankBatteryAlerts";
             settings = { };
+          };
+          wallpaperCarousel = {
+            enable = true;
+            src = inputs.dms-wallpaper-carousel;
+            settings = {
+              wallpaperDir = "/home/sidharta/wallpapers/static/";
+            };
+          };
+          volumeMixer = {
+            enable = true;
+            src = inputs.dms-volume-mixer;
+            settings = {
+              pillDisplay = "icon";
+            };
           };
           dankKDEConnect = {
             enable = true;
@@ -185,6 +200,13 @@ let
             "spotlight"
             "toggle"
           ];
+          "XF86Launch8".action.spawn = [
+            dms
+            "ipc"
+            "call"
+            "wallpaperCarousel"
+            "toggle"
+          ];
           "Super+n".action.spawn = [
             dms
             "ipc"
@@ -254,6 +276,7 @@ in
   home-manager.users.sidharta.imports = [
     hm-module
     binds-module
+    inputs.dank-search.homeModules.dsearch
   ];
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "dank-material-shell")

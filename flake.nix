@@ -27,6 +27,14 @@
         darwin.follows = "";
       };
     };
+    dms-wallpaper-carousel = {
+      url = "github:jeansidharta/wallpaperCarousel/feature-settings";
+      flake = false;
+    };
+    dms-volume-mixer = {
+      url = "github:cwelsys/dms-volume-mixer";
+      flake = false;
+    };
     dms-web-search = {
       url = "github:devnullvoid/dms-web-search";
       flake = false;
@@ -63,6 +71,10 @@
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+    dank-search = {
+      url = "github:AvengeMedia/danksearch";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     dank-material-shell = {
       url = "github:AvengeMedia/DankMaterialShell";
