@@ -17,7 +17,6 @@ let
         inputs.dank-material-shell.homeModules.default
       ];
 
-      programs.dsearch.enable = true;
       services.kdeconnect.enable = true;
 
       # DMS already has a notification system
@@ -276,7 +275,6 @@ in
   home-manager.users.sidharta.imports = [
     hm-module
     binds-module
-    inputs.dank-search.homeModules.dsearch
   ];
   nixpkgs.overlays = [
     (config.lib.overlay-helpers.overlay-flake "dank-material-shell")
