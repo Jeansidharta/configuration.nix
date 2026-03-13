@@ -20,6 +20,9 @@
   #   };
   # };
 
+  # Uses too much ram :(
+  programs.dank-material-shell.plugins.wallpaperCarousel.enable = lib.mkForce false;
+
   home.packages = [
     pkgs.brightnessctl # Control monitor/keyboard brightness
   ];
