@@ -199,7 +199,7 @@ let
             "spotlight"
             "toggle"
           ];
-          "XF86Launch8".action.spawn = [
+          "Super+period".action.spawn = [
             dms
             "ipc"
             "call"
