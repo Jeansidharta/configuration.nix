@@ -43,9 +43,9 @@
     unar # Unzip tool
     darkhttpd # Very simple http server
     dive # See container image layers
-    xh # A CURL replacement
     sqlite-diagram
     neovim
+    fzf
 
     ######## TOOLBOX FOR DEBUGGING ########
     tcpdump # Dump tcp connections
@@ -64,7 +64,6 @@
     traceroute # Shows the route to a destination on the internet
     nmap # map network
     usbutils # Tool for manipulating USB
-    fzf
     gdb
     bmon
 
@@ -116,47 +115,47 @@
 
   systemd.user.startServices = true;
 
-  programs.tmux = {
-    enable = true;
-    keyMode = "vi";
-    mouse = true;
-    escapeTime = 0;
-    clock24 = true;
-    baseIndex = 1;
-    shortcut = "Space";
-    extraConfig = ''
-      set -g display-time 0
-      set -g renumber-windows on
-      set -g set-titles on
-      set -sa terminal-overrides ",xterm*:Tc"
-
-      setw -g window-status-current-format ' #I #W #F '
-      set -g status-right '%m-%d %H:%M '
-      set -g status-right-length 50
-
-      bind y attach-session -c "#{pane_current_path}"
-
-      bind -N "Restart Configuration" C-r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
-
-      bind -nN "Select Left Pane"  C-Left  select-pane -L
-      bind -nN "Select Right Pane" C-Right select-pane -R
-      bind -nN "Select Up Pane"    C-Up    select-pane -U
-      bind -nN "Select Down Pane"  C-Down  select-pane -D
-
-      bind -nN "Resize Left Pane"  S-Left  resize-pane -L
-      bind -nN "Resize Right Pane" S-Right resize-pane -R
-      bind -nN "Resize Up Pane"    S-Up    resize-pane -U
-      bind -nN "Resize Down Pane"  S-Down  resize-pane -D
-
-      bind -nN "Next Window" C-S-Right select-window -n
-      bind -nN "Prev Window" C-S-Left  select-window -p
-
-      bind -N "Split vertical"   v split-window -v -c "#{pane_current_path}"
-      bind -N "Split horizontal" h split-window -h -c "#{pane_current_path}"
-      bind -N "Split vertical"   - split-window -v -c "#{pane_current_path}"
-      bind -N "Split horizontal" | split-window -h -c "#{pane_current_path}"
-    '';
-  };
+  # programs.tmux = {
+  #   enable = true;
+  #   keyMode = "vi";
+  #   mouse = true;
+  #   escapeTime = 0;
+  #   clock24 = true;
+  #   baseIndex = 1;
+  #   shortcut = "Space";
+  #   extraConfig = ''
+  #     set -g display-time 0
+  #     set -g renumber-windows on
+  #     set -g set-titles on
+  #     set -sa terminal-overrides ",xterm*:Tc"
+  #
+  #     setw -g window-status-current-format ' #I #W #F '
+  #     set -g status-right '%m-%d %H:%M '
+  #     set -g status-right-length 50
+  #
+  #     bind y attach-session -c "#{pane_current_path}"
+  #
+  #     bind -N "Restart Configuration" C-r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
+  #
+  #     bind -nN "Select Left Pane"  C-Left  select-pane -L
+  #     bind -nN "Select Right Pane" C-Right select-pane -R
+  #     bind -nN "Select Up Pane"    C-Up    select-pane -U
+  #     bind -nN "Select Down Pane"  C-Down  select-pane -D
+  #
+  #     bind -nN "Resize Left Pane"  S-Left  resize-pane -L
+  #     bind -nN "Resize Right Pane" S-Right resize-pane -R
+  #     bind -nN "Resize Up Pane"    S-Up    resize-pane -U
+  #     bind -nN "Resize Down Pane"  S-Down  resize-pane -D
+  #
+  #     bind -nN "Next Window" C-S-Right select-window -n
+  #     bind -nN "Prev Window" C-S-Left  select-window -p
+  #
+  #     bind -N "Split vertical"   v split-window -v -c "#{pane_current_path}"
+  #     bind -N "Split horizontal" h split-window -h -c "#{pane_current_path}"
+  #     bind -N "Split vertical"   - split-window -v -c "#{pane_current_path}"
+  #     bind -N "Split horizontal" | split-window -h -c "#{pane_current_path}"
+  #   '';
+  # };
 
   home.file.".gdbinit".text = ''
     set print pretty on

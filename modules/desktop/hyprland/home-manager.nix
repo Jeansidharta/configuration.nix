@@ -28,11 +28,11 @@
           let
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             qrencode = "${pkgs.qrencode}/bin/qrencode";
-            sxiv = "${pkgs.sxiv}/bin/sxiv";
+            mpv = "${mpv}/bin/mpv";
           in
           pkgs.writeScript "qrcode" ''
             IMAGE_FILE=$(mktemp qrcode-XXX)
-            ${wl-paste} | ${xargs} ${qrencode} -o "$IMAGE_FILE" && ${sxiv} -f -s f "$IMAGE_FILE"
+            ${wl-paste} | ${xargs} ${qrencode} -o "$IMAGE_FILE" && ${mpv} -f -s f "$IMAGE_FILE"
             rm -f "$IMAGE_FILE"
           ''
         );

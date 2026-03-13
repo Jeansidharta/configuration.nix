@@ -13,17 +13,11 @@ let
     {
       home.packages = with pkgs; [
         wl-clipboard # Clipboard software
-        sxiv # Simple image viewer
         libnotify # Send d-bus notification through the terminal
         helvum # Manipulate Pipewire connections
         qpwgraph # Manipulate Pipewire connections
-        dragon-drop # Allows to drag and drop
         wiremix # TUI for configuring pipewire audio
 
-        mpc # cli to controll the mpd daemon
-        syncplay
-
-        kitty # Backup terminal in case ghostty dies
         wireshark
         yazi # File picker
 
@@ -141,18 +135,6 @@ let
           copy_command = "wl-copy";
         };
       };
-
-      services.mpd = {
-        enable = true;
-        musicDirectory = "/home/sidharta/music";
-        extraConfig = ''
-          audio_output {
-            type            "pipewire"
-            name            "PipeWire Sound Server"
-          }
-        '';
-      };
-      programs.ncmpcpp.enable = true;
     };
 in
 {
