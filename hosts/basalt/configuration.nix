@@ -76,6 +76,7 @@
       secretsFile = config.age.secrets.wifi.path;
       networks = {
         "rede Mesh 99".pskRaw = "ext:rede-mesh-99";
+        "rede Mesh 99_Guest".pskRaw = "ext:rede-mesh-99";
       };
     };
 
@@ -136,6 +137,21 @@
         };
         DHCP = "no";
       };
+      "40-rede-mesh-99-guest" = {
+        matchConfig = {
+          WLANInterfaceType = "station";
+          Type = "wlan";
+          SSID = "'rede Mesh 99_Guest'";
+          Name = "wlan0";
+        };
+        networkConfig = {
+          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
+          Address = "192.168.69.200/22";
+          Gateway = "192.168.68.1";
+          DNS = "1.1.1.1";
+          DHCP = "no";
+        };
+      };
       "40-rede-mesh-99" = {
         matchConfig = {
           WLANInterfaceType = "station";
@@ -166,7 +182,7 @@
   #   package = pkgs.syncplay-nogui;
   # };
 
-  services.resolved.enable = false;
+  services.resolved.enable = lib.mkForce false;
   services.dnsmasq = {
     enable = true;
     resolveLocalQueries = false;
