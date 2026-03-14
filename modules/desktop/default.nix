@@ -126,15 +126,6 @@ let
         enableZshIntegration = true;
         extraConfig = builtins.readFile ./wezterm.lua;
       };
-
-      programs.zellij = {
-        enable = true;
-        settings = {
-          simplified_ui = true;
-          show_startup_tips = false;
-          copy_command = "wl-copy";
-        };
-      };
     };
 in
 {
