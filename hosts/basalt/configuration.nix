@@ -75,7 +75,10 @@
       interfaces = [ "wlan0" ];
       secretsFile = config.age.secrets.wifi.path;
       networks = {
-        "rede Mesh 99".pskRaw = "ext:rede-mesh-99";
+        "rede Mesh 99" = {
+          pskRaw = "ext:rede-mesh-99";
+          bssid = "3e:64:cf:8c:24:cb";
+        };
         "rede Mesh 99_Guest".pskRaw = "ext:rede-mesh-99";
       };
     };
