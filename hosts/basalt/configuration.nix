@@ -80,8 +80,12 @@
         "rede Mesh 99" = {
           pskRaw = "ext:rede-mesh-99";
           bssid = "3e:64:cf:8c:24:cb";
+          priority = 100;
         };
-        "rede Mesh 99_Guest".pskRaw = "ext:rede-mesh-99";
+        "rede Mesh 99_Guest" = {
+          pskRaw = "ext:rede-mesh-99";
+          priority = 10;
+        };
       };
     };
 
