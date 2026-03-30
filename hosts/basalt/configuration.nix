@@ -71,10 +71,9 @@
   };
 
   networking = {
-    supplicant.wlan0 = {
-      extraCmdArgs = "-dd";
-    };
     wireless = {
+      # This is just to add the -dd flag as a commandline argument for wpa_supplicant.
+      driver = "nl80211,wext -dd";
       interfaces = [ "wlan0" ];
       secretsFile = config.age.secrets.wifi.path;
       networks = {
