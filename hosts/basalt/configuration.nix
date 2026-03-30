@@ -71,6 +71,9 @@
   };
 
   networking = {
+    supplicant.wlan0 = {
+      extraCmdArgs = "-dd";
+    };
     wireless = {
       interfaces = [ "wlan0" ];
       secretsFile = config.age.secrets.wifi.path;
