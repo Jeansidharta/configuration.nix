@@ -46,6 +46,7 @@
     sqlite-diagram
     neovim
     fzf
+    lazygit
 
     ######## TOOLBOX FOR DEBUGGING ########
     tcpdump # Dump tcp connections
