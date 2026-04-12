@@ -58,6 +58,7 @@
       secretsFile = config.age.secrets.wifi.path;
       networks = {
         "rede Mesh 99".pskRaw = "ext:rede-mesh-99";
+        "Hannah".psk = "fffeee11";
       };
     };
 

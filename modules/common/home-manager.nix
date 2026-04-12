@@ -109,8 +109,14 @@
       fi
     '')
     (pkgs.writeScriptBin "nom-callpackage" ''
-      nom build --impure --expr "with import <nixpkgs> {}; callPackage (import $1) {}" "$@"
+      exec nom build --impure --expr "with import <nixpkgs> {}; callPackage (import $1) {}" "$@"
     '')
+    (pkgs.writeScriptBin "vimf" "
+      exec nvim \"$(fzf)\"
+    ")
+    (pkgs.writeScriptBin "ndev" "
+      exec nix develop . -c zsh
+    ")
   ];
 
   systemd.user.startServices = true;
@@ -227,6 +233,7 @@
     "vi" = "nvim";
     "ls" = "eza";
 
+    "cdf" = "cd $(fzf | basename)";
     "cdtmp" = "cd $(mktemp --dir)";
 
     "nvim-test" = "nix run /home/sidharta/projects/neovim-flake --no-net --offline -- ";
