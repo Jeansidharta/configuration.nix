@@ -26,7 +26,7 @@
     # ../../modules/tor.nix
     ../../modules/bluetooth.nix
     ../../modules/ssh-authorized-keys.nix
-    ../../modules/weron.nix
+    # ../../modules/weron.nix
     ../../secrets/module.nix
     "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
 
@@ -51,7 +51,7 @@
     }
   ];
 
-  services.weron.vpn-ip.base.ip.address = "fd00::2";
+  # services.weron.vpn-ip.base.ip.address = "fd00::2";
 
   networking = {
     wireless = {

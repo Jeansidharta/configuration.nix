@@ -23,7 +23,7 @@
       ../../modules/systemd-networkd.nix
       ../../modules/podman.nix
       ../../modules/ssh-authorized-keys.nix
-      ../../modules/weron.nix
+      # ../../modules/weron.nix
       ../../modules/netlify-ddns.nix
       ../../secrets/module.nix
     ];
@@ -65,10 +65,10 @@
     ];
   };
 
-  services.weron.vpn-ip.base.ip.address = "fd00::1";
-  services.weron.signaler = {
-    enable = true;
-  };
+  # services.weron.vpn-ip.base.ip.address = "fd00::1";
+  # services.weron.signaler = {
+  #   enable = true;
+  # };
 
   networking = {
     wireless = {

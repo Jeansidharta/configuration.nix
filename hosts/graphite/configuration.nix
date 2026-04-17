@@ -14,7 +14,7 @@
     ../../modules/desktop/niri/default.nix
     ../../modules/desktop/dank-material-shell/default.nix
 
-    ../../modules/weron.nix
+    # ../../modules/weron.nix
     ../../modules/network-manager.nix
     ../../modules/nix-extra.nix
     ../../modules/podman.nix
@@ -31,13 +31,13 @@
     ./home-manager.nix
   ];
 
-  services.weron = {
-    # vpn-ethernet.base.mac = "00-60-2F-58-93-08";
-    vpn-ip.base.ip.address = "fd00::3";
-    signaler = {
-      enable = true;
-    };
-  };
+  # services.weron = {
+  #   # vpn-ethernet.base.mac = "00-60-2F-58-93-08";
+  #   vpn-ip.base.ip.address = "fd00::3";
+  #   signaler = {
+  #     enable = true;
+  #   };
+  # };
 
   networking = {
     hostName = "graphite";
