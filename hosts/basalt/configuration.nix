@@ -154,11 +154,11 @@
           Name = "wlan0";
         };
         networkConfig = {
-          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
-          Address = "192.168.69.200/22";
-          Gateway = "192.168.68.1";
+          # IPv6LinkLocalAddressGenerationMode = "stable-privacy";
+          # Address = "192.168.69.200/22";
+          # Gateway = "192.168.68.1";
           DNS = "1.1.1.1";
-          DHCP = "no";
+          DHCP = "yes";
         };
       };
       "40-rede-mesh-99" = {
