@@ -17,6 +17,23 @@
     ./home-manager.nix
   ];
 
+  boot.initrd.luks.cryptoModules = [
+    "aes"
+    "blowfish"
+    "twofish"
+    "serpent"
+    "cbc"
+    "xts"
+    "lrw"
+    "sha1"
+    "sha256"
+    "sha512"
+    "af_alg"
+    "algif_skcipher"
+    "cryptd"
+    "input_leds"
+  ];
+
   programs.steam = {
     enable = true;
   };
