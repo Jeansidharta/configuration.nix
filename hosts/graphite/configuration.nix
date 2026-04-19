@@ -8,21 +8,7 @@
 }:
 {
   imports = [
-    ../../modules/common/default.nix
-
-    ../../modules/desktop/default.nix
-    ../../modules/desktop/niri/default.nix
-    ../../modules/desktop/dank-material-shell/default.nix
-
-    # ../../modules/weron.nix
-    ../../modules/network-manager.nix
-    ../../modules/nix-extra.nix
-    ../../modules/podman.nix
-    ../../modules/tor.nix
-    ../../modules/bluetooth.nix
-    ../../modules/ssh-authorized-keys.nix
-    ../../modules/battery-savers.nix
-    ../../secrets/module.nix
+    ../../profiles/laptop.nix
 
     ./hardware-configuration.nix
     ./disko-config.nix
@@ -30,6 +16,10 @@
   home-manager.users.sidharta.imports = [
     ./home-manager.nix
   ];
+
+  programs.steam = {
+    enable = true;
+  };
 
   # services.weron = {
   #   # vpn-ethernet.base.mac = "00-60-2F-58-93-08";
@@ -50,8 +40,6 @@
 
   time.timeZone = "America/Sao_Paulo";
 
-  programs.steam.enable = true;
-
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -65,13 +53,6 @@
     #   workstation = true;
     # };
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  environment.systemPackages = [ ];
 
   services.transmission = {
     enable = true;
@@ -102,9 +83,6 @@
     ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"
   '';
 
-  services.acpid.enable = true;
-  services.acpid.logEvents = true;
-
   services.acpid.handlers.mute = {
     event = "button/mute";
     action = "${pkgs.pulseaudio}/bin/pamixer --toggle-mute";
@@ -130,6 +108,4 @@
     event = "video/brightnessdown";
     action = "${pkgs.libnotify}/bin/notify-send TODO";
   };
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

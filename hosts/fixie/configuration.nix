@@ -7,7 +7,7 @@
 }:
 {
   modules = [
-    ../../modules/common/default.nix
+    ../../profiles/headless.nix
     ./hardware-configuration.nix
   ];
   boot.loader.grub.enable = false;
@@ -58,25 +58,6 @@
     memoryPercent = 200;
   };
 
-  services.openssh = {
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = [
-        "root"
-      ];
-    };
-  };
-
-  users.users.root = {
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      ssh-pubkeys.obsidian.sidharta
-      ssh-pubkeys.phone
-      ssh-pubkeys.graphite.sidharta
-      ssh-pubkeys.basalt.sidharta
-      ssh-pubkeys.vivianite.sidharta
-    ];
-  };
   users.users.sidharta = {
     isNormalUser = true;
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";

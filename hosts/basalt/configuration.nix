@@ -18,23 +18,10 @@
       raspberry-pi-5.base
       raspberry-pi-5.page-size-16k
       sd-image
-      ../../modules/common/default.nix
-      ../../modules/proxyuser.nix
-      ../../modules/systemd-networkd.nix
-      ../../modules/podman.nix
-      ../../modules/ssh-authorized-keys.nix
+      ../../profiles/headless.nix
       # ../../modules/weron.nix
       ../../modules/netlify-ddns.nix
-      ../../secrets/module.nix
     ];
-  services.openssh = {
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = [
-        "root"
-      ];
-    };
-  };
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
@@ -47,14 +34,6 @@
     }
   ];
 
-  users.users.root = {
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      ssh-pubkeys.obsidian.sidharta
-      ssh-pubkeys.phone
-      ssh-pubkeys.graphite.sidharta
-    ];
-  };
   users.users.sidharta = {
     isNormalUser = true;
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
@@ -90,6 +69,19 @@
     };
 
     hostName = "basalt";
+    nftables = {
+      enable = true;
+      tables.block-destination-unreachable = {
+        enable = true;
+        family = "inet";
+        content = ''
+          chain out {
+            type filter hook output priority filter; policy accept;
+            icmp type destination-unreachable drop;
+          }
+        '';
+      };
+    };
     firewall.trustedInterfaces = [
       "wlu2"
       "end0"

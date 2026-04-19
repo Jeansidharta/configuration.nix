@@ -20,23 +20,16 @@
       usb-gadget-ethernet
       sd-image
 
-      ../../modules/common/default.nix
-      ../../modules/tor.nix
-      ../../modules/ssh-authorized-keys.nix
-      ../../modules/proxyuser.nix
+      ../../profiles/headless.nix
     ];
-  services.openssh = {
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = [
-        "root"
-      ];
-    };
-  };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
   boot.loader.raspberryPi.bootloader = "kernel";
+
+  host-data = {
+    kind = "headless";
+  };
 
   swapDevices = [
     {
@@ -74,12 +67,6 @@
     wireguard = {
       enable = true;
     };
-  };
-
-  services.tor.settings = {
-    HiddenServiceDir = "/var/lib/tor/hidden-ssh";
-    HiddenServicePort = 22;
-    HiddenServiceDirGroupReadable = true;
   };
 
   system.nixos.tags =

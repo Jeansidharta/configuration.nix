@@ -12,22 +12,8 @@
   ];
 
   imports = [
-    ../../modules/common/default.nix
+    ../../profiles/desktop.nix
 
-    ../../modules/desktop/default.nix
-    ../../modules/desktop/niri/default.nix
-    ../../modules/desktop/dank-material-shell/default.nix
-
-    ../../modules/extra.nix
-    # ../../modules/network-manager.nix
-    ../../modules/systemd-networkd.nix
-    ../../modules/nix-extra.nix
-    ../../modules/podman.nix
-    # ../../modules/tor.nix
-    ../../modules/bluetooth.nix
-    ../../modules/ssh-authorized-keys.nix
-    # ../../modules/weron.nix
-    ../../secrets/module.nix
     "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
 
     ./hardware-configuration.nix
@@ -37,19 +23,6 @@
     ./home-manager.nix
   ];
   time.timeZone = "America/Sao_Paulo";
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages =
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linuxPackages_latest;
-
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024;
-    }
-  ];
 
   # services.weron.vpn-ip.base.ip.address = "fd00::2";
 
@@ -98,12 +71,6 @@
 
   hardware.keyboard.qmk.enable = true;
 
-  programs.steam = {
-    enable = true;
-  };
-
-  qt.enable = true;
-
   # environment.systemPackages = with pkgs; [
   # snapcast
   # ];
@@ -131,24 +98,4 @@
   #     ];
   #   };
   # };
-  services.openssh = {
-    settings = {
-      PasswordAuthentication = true;
-      AllowUsers = [
-        "sidharta"
-      ];
-    };
-  };
-
-  boot.kernel.sysctl = {
-    "net.ipv6.conf.all.forwarding" = 1;
-    "net.ipv6.conf.wg0.forwarding" = 1;
-    "net.ipv6.conf.sidharta.forwarding" = 1;
-  };
-
-  security.pki.certificateFiles = [ ../../mitmproxy-ca-cert.pem ];
-
-  # Allow cross-compiling
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
 }
