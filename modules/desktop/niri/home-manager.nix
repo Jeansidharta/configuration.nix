@@ -57,6 +57,9 @@
             top-right = 4.0;
           };
           clip-to-geometry = true;
+          background-effect = {
+            blur = true;
+          };
         }
         {
           matches = [ { app-id = "com.gabm.satty"; } ];
