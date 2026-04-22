@@ -26,13 +26,12 @@ let
         systemd.enable = true;
         enableVPN = false;
         enableDynamicTheming = false;
-        settings = {
+        settings = (builtins.fromJSON (builtins.readFile ./dms-settings.json)) // {
           launcherLogoCustomPath = ../../../assets/nix-snowflake.svg;
           customThemeFile = pkgs.writeText "theme" (
             builtins.toJSON (import ./dms-theme.nix { inherit theme; })
           );
-        }
-        // (builtins.fromJSON (builtins.readFile ./dms-settings.json));
+        };
         managePluginSettings = true;
         plugins = {
           dankBatteryAlerts = {
