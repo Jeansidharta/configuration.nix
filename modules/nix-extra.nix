@@ -40,6 +40,7 @@
           nvd # Necessay for nixos-cli
           nix-init # Easily find a project's hash
           neix # search nixpkgs for packages
+          nurl # generate Nix fetcher calls from repository URLs
         ];
       }
     )
