@@ -186,6 +186,11 @@
     };
   };
 
+  # Jujutsu TUI
+  programs.jjui = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
     settings = {

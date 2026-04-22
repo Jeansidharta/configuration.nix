@@ -288,22 +288,6 @@
         "type": "github"
       }
     },
-    "dms-clipboard-plus": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1775928038,
-        "narHash": "sha256-8tjUOdk4WzluGS9GB/oZstrpM5WNdhu41TiTCwflrIw=",
-        "owner": "Dadangdut33",
-        "repo": "dms-plugins",
-        "rev": "846aff653e9492f2907790e1017f723206ea568b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Dadangdut33",
-        "repo": "dms-plugins",
-        "type": "github"
-      }
-    },
     "dms-emoji-launcher": {
       "flake": false,
       "locked": {
@@ -349,38 +333,6 @@
       "original": {
         "owner": "AvengeMedia",
         "repo": "dms-plugins",
-        "type": "github"
-      }
-    },
-    "dms-screen-recorder": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1775186195,
-        "narHash": "sha256-ndH8KHH+gzFIXWceqeUmy/w7oGj7ZvCEIacBfV1D+KU=",
-        "owner": "arqueon",
-        "repo": "dms-screen-recorder",
-        "rev": "7206b590d69a165d30b5bbb66b033f1a15b49aff",
-        "type": "github"
-      },
-      "original": {
-        "owner": "arqueon",
-        "repo": "dms-screen-recorder",
-        "type": "github"
-      }
-    },
-    "dms-usp-monitor": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776379781,
-        "narHash": "sha256-zUkaRhzvUAlgzyd1CUsmFugwo8tzNTgsg5Hz0okyfF4=",
-        "owner": "acmagn",
-        "repo": "DMS-UPS-Monitor",
-        "rev": "d88f68cba29a567ef134512b1c4e6ec55b6fd5d1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "acmagn",
-        "repo": "DMS-UPS-Monitor",
         "type": "github"
       }
     },
@@ -2005,12 +1957,9 @@
         "dank-material-shell": "dank-material-shell",
         "disko": "disko",
         "dms-calculator": "dms-calculator",
-        "dms-clipboard-plus": "dms-clipboard-plus",
         "dms-emoji-launcher": "dms-emoji-launcher",
         "dms-niri-windows": "dms-niri-windows",
         "dms-plugins": "dms-plugins",
-        "dms-screen-recorder": "dms-screen-recorder",
-        "dms-usp-monitor": "dms-usp-monitor",
         "dms-volume-mixer": "dms-volume-mixer",
         "dms-wallpaper-carousel": "dms-wallpaper-carousel",
         "dms-web-search": "dms-web-search",
