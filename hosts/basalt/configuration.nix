@@ -49,6 +49,8 @@
   #   enable = true;
   # };
 
+  time.timeZone = "America/Sao_Paulo";
+
   networking = {
     wireless = {
       # This is just to add the -dd flag as a commandline argument for wpa_supplicant.
