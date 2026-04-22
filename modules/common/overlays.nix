@@ -12,6 +12,7 @@ in
     (mkUnstable "dgop")
     (mkUnstable "linuxPackages_latest")
     (mkUnstable "nchat")
+    (mkUnstable "jujutsu")
     (overlay-flake "sqlite-diagram")
     (final: prev: {
       neovim = inputs.neovim-with-plugins.packages.${prev.stdenv.hostPlatform.system}.default;
