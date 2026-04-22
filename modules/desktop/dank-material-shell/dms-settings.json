@@ -4,6 +4,7 @@
   "customThemeFile": "/nix/store/jmw3jj4l1c14cqrk2z0fb6kf2zsx94y6-theme",
   "registryThemeVariants": {},
   "matugenScheme": "scheme-tonal-spot",
+  "matugenContrast": 0,
   "runUserMatugenTemplates": false,
   "matugenTargetMonitor": "",
   "popupTransparency": 1,
@@ -23,6 +24,7 @@
   "mangoLayoutRadiusOverride": -1,
   "mangoLayoutBorderSize": -1,
   "firstDayOfWeek": -1,
+  "showWeekNumber": false,
   "use24HourClock": true,
   "showSeconds": false,
   "padHours12Hour": false,
@@ -46,6 +48,10 @@
   "modalElevationEnabled": true,
   "popoutElevationEnabled": true,
   "barElevationEnabled": false,
+  "blurEnabled": false,
+  "blurBorderColor": "outline",
+  "blurBorderCustomColor": "#ffffff",
+  "blurBorderOpacity": 1,
   "wallpaperFillMode": "Fill",
   "blurredWallpaperLayer": false,
   "blurWallpaperOnOverview": false,
@@ -138,6 +144,7 @@
   "showOccupiedWorkspacesOnly": false,
   "reverseScrolling": false,
   "dwlShowAllTags": false,
+  "workspaceActiveAppHighlightEnabled": false,
   "workspaceColorMode": "default",
   "workspaceOccupiedColorMode": "none",
   "workspaceUnfocusedColorMode": "default",
@@ -148,6 +155,7 @@
   "workspaceNameIcons": {},
   "waveProgressEnabled": true,
   "scrollTitleEnabled": true,
+  "mediaAdaptiveWidthEnabled": true,
   "audioVisualizerEnabled": true,
   "audioScrollMode": "volume",
   "audioWheelScrollAmount": 5,
@@ -199,6 +207,15 @@
   "lockDateFormat": "",
   "greeterRememberLastSession": true,
   "greeterRememberLastUser": true,
+  "greeterEnableFprint": false,
+  "greeterEnableU2f": false,
+  "greeterWallpaperPath": "",
+  "greeterUse24HourClock": true,
+  "greeterShowSeconds": false,
+  "greeterPadHours12Hour": false,
+  "greeterLockDateFormat": "",
+  "greeterFontFamily": "",
+  "greeterWallpaperFillMode": "",
   "mediaSize": 1,
   "appLauncherViewMode": "grid",
   "spotlightModalViewMode": "list",
@@ -209,6 +226,7 @@
   "sortAppsAlphabetically": false,
   "appLauncherGridColumns": 5,
   "spotlightCloseNiriOverview": true,
+  "rememberLastQuery": false,
   "spotlightSectionViewModes": {},
   "appDrawerSectionViewModes": {},
   "niriOverviewOverlayEnabled": true,
@@ -218,6 +236,8 @@
   "dankLauncherV2BorderColor": "primary",
   "dankLauncherV2ShowFooter": true,
   "dankLauncherV2UnloadOnClose": false,
+  "dankLauncherV2IncludeFilesInAll": false,
+  "dankLauncherV2IncludeFoldersInAll": false,
   "useAutoLocation": true,
   "weatherEnabled": true,
   "networkPreference": "wifi",
@@ -257,6 +277,7 @@
   "notepadLastCustomTransparency": 0.7,
   "soundsEnabled": true,
   "useSystemSoundTheme": false,
+  "soundLogin": false,
   "soundNewNotification": true,
   "soundVolumeChanged": true,
   "soundPluggedIn": true,
@@ -265,11 +286,13 @@
   "acSuspendTimeout": 0,
   "acSuspendBehavior": 0,
   "acProfileName": "",
+  "acPostLockMonitorTimeout": 0,
   "batteryMonitorTimeout": 0,
   "batteryLockTimeout": 0,
   "batterySuspendTimeout": 0,
   "batterySuspendBehavior": 0,
   "batteryProfileName": "",
+  "batteryPostLockMonitorTimeout": 0,
   "batteryChargeLimit": 100,
   "lockBeforeSuspend": false,
   "loginctlLockIntegration": true,
@@ -287,6 +310,10 @@
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
   "terminalsAlwaysDark": true,
+  "muxType": "tmux",
+  "muxUseCustomCommand": false,
+  "muxCustomCommand": "",
+  "muxSessionFilter": "",
   "runDmsMatugenTemplates": false,
   "matugenTemplateGtk": true,
   "matugenTemplateNiri": true,
@@ -309,10 +336,23 @@
   "matugenTemplateKcolorscheme": true,
   "matugenTemplateVscode": true,
   "matugenTemplateEmacs": true,
+  "matugenTemplateZed": true,
+  "matugenTemplateNeovimSettings": {
+    "dark": {
+      "baseTheme": "github_dark",
+      "harmony": 0.5
+    },
+    "light": {
+      "baseTheme": "github_light",
+      "harmony": 0.5
+    }
+  },
+  "matugenTemplateNeovimSetBackground": true,
   "showDock": false,
   "dockAutoHide": true,
   "dockSmartAutoHide": false,
   "dockGroupByApp": false,
+  "dockRestoreSpecialWorkspaceOnClick": false,
   "dockOpenOnOverview": false,
   "dockPosition": 1,
   "dockSpacing": 4,
@@ -373,6 +413,7 @@
   "notificationHistorySaveNormal": true,
   "notificationHistorySaveCritical": true,
   "notificationRules": [],
+  "notificationFocusedMonitor": false,
   "osdAlwaysShowValue": true,
   "osdPosition": 5,
   "osdVolumeEnabled": true,
@@ -408,7 +449,9 @@
   "updaterTerminalAdditionalParams": "",
   "displayNameMode": "system",
   "screenPreferences": {
-    "wallpaper": ["all"]
+    "wallpaper": [
+      "all"
+    ]
   },
   "showOnLastDisplay": {},
   "niriOutputSettings": {},
@@ -427,7 +470,13 @@
       "borderOpacity": 0.31,
       "borderThickness": 1,
       "bottomGap": 0,
-      "centerWidgets": [],
+      "centerWidgets": [
+        {
+          "clockCompactMode": false,
+          "enabled": true,
+          "id": "clock"
+        }
+      ],
       "enabled": true,
       "fontScale": 1,
       "gothCornerRadiusOverride": false,
@@ -437,13 +486,37 @@
       "innerPadding": 4,
       "leftWidgets": [
         {
-          "enabled": true,
-          "id": "launcherButton"
+          "id": "launcherButton",
+          "enabled": true
         },
         {
+          "id": "privacyIndicator",
+          "enabled": true
+        },
+        {
+          "id": "cpuUsage",
           "enabled": true,
-          "id": "runningApps",
-          "runningAppsCompactMode": false
+          "minimumWidth": true
+        },
+        {
+          "id": "memUsage",
+          "enabled": true,
+          "minimumWidth": true,
+          "showInGb": false
+        },
+        {
+          "id": "diskUsage",
+          "enabled": true,
+          "mountPath": "/",
+          "diskUsageMode": 0
+        },
+        {
+          "id": "network_speed_monitor",
+          "enabled": true
+        },
+        {
+          "id": "dankKDEConnect",
+          "enabled": true
         }
       ],
       "maximizeDetection": true,
@@ -455,75 +528,30 @@
       "position": 0,
       "rightWidgets": [
         {
-          "id": "music",
-          "enabled": true
-        },
-        {
-          "id": "spacer",
           "enabled": true,
-          "size": 10
+          "id": "systemTray"
         },
         {
-          "id": "cpuUsage",
-          "enabled": true
-        },
-        {
-          "id": "memUsage",
-          "enabled": true
-        },
-        {
-          "id": "diskUsage",
-          "enabled": true
-        },
-        {
-          "id": "spacer",
           "enabled": true,
-          "size": 10
+          "id": "notificationButton"
         },
         {
-          "id": "clock",
-          "enabled": true
-        },
-        {
-          "id": "spacer",
           "enabled": true,
-          "size": 10
-        },
-        {
-          "id": "dankKDEConnect",
-          "enabled": true
-        },
-        {
-          "id": "privacyIndicator",
-          "enabled": true
-        },
-        {
-          "id": "colorPicker",
-          "enabled": true
-        },
-        {
-          "id": "systemTray",
-          "enabled": true
-        },
-        {
-          "id": "notificationButton",
-          "enabled": true
-        },
-        {
           "id": "controlCenterButton",
-          "enabled": true,
           "showAudioIcon": false
         },
         {
-          "id": "volumeMixer",
-          "enabled": true
+          "enabled": true,
+          "id": "volumeMixer"
         },
         {
-          "id": "battery",
-          "enabled": true
+          "enabled": true,
+          "id": "battery"
         }
       ],
-      "screenPreferences": ["all"],
+      "screenPreferences": [
+        "all"
+      ],
       "showOnLastDisplay": true,
       "spacing": 0,
       "squareCorners": true,
@@ -561,7 +589,9 @@
   "desktopClockY": -1,
   "desktopClockWidth": 280,
   "desktopClockHeight": 180,
-  "desktopClockDisplayPreferences": ["all"],
+  "desktopClockDisplayPreferences": [
+    "all"
+  ],
   "systemMonitorEnabled": false,
   "systemMonitorShowHeader": true,
   "systemMonitorTransparency": 0.8,
@@ -598,7 +628,9 @@
   "systemMonitorY": -1,
   "systemMonitorWidth": 320,
   "systemMonitorHeight": 480,
-  "systemMonitorDisplayPreferences": ["all"],
+  "systemMonitorDisplayPreferences": [
+    "all"
+  ],
   "systemMonitorVariants": [],
   "desktopWidgetPositions": {},
   "desktopWidgetGridSettings": {},
@@ -608,5 +640,5 @@
   "clipboardEnterToPaste": false,
   "launcherPluginVisibility": {},
   "launcherPluginOrder": [],
-  "configVersion": 6
+  "configVersion": 5
 }
