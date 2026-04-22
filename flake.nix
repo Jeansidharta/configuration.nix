@@ -136,7 +136,24 @@
       self,
       ...
     }@inputs:
+    let
+      nixpkgs = nixpkgs-stable;
+      forAllSystems =
+        f:
+        nixpkgs.lib.genAttrs (nixpkgs.lib.systems.flakeExposed) (
+          system:
+          f {
+            inherit system;
+            pkgs = nixpkgs.legacyPackages.${system};
+          }
+        );
+    in
     {
+      packages = forAllSystems (
+        { pkgs, ... }:
+        pkgs.lib.mapAttrs (name: value: value.config.system.build.toplevel) self.nixosConfigurations
+      );
+
       nixosConfigurations = {
         obsidian = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
