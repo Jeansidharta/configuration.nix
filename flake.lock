@@ -1295,11 +1295,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1776691483,
-        "narHash": "sha256-4zjuMIcagQF2KvYf67rnAZZuaGzRHuJaLg/5RCELCKY=",
+        "lastModified": 1777043612,
+        "narHash": "sha256-ODLrDMhZeYeR3pQxz4LD1uxE3tRicu9fYi2N409boq4=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "aa45b3e290db02e3c1c9cfb2ea46027da8d4ca98",
+        "rev": "08a3d95fb1e3a480a683d073518c18eeeb551896",
         "type": "github"
       },
       "original": {

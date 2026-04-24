@@ -10,7 +10,10 @@
     enable = true;
     option-cache.enable = false;
     settings = {
-      use_nvd = true;
+      differ.command = [
+        "nvd"
+        "diff"
+      ];
       apply = {
         use_nom = true;
       };
