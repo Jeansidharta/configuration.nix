@@ -122,10 +122,10 @@
 
   systemd.user.startServices = true;
 
-  programs.zellij = {
-    enable = true;
-    extraConfig = builtins.readFile ./zellij.kdl;
-  };
+  # programs.zellij = {
+  #   enable = true;
+  #   extraConfig = builtins.readFile ./zellij.kdl;
+  # };
 
   # programs.tmux = {
   #   enable = true;
