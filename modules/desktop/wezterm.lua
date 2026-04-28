@@ -3,6 +3,7 @@ local config = {}
 -- config.colors = require("colors")
 -- config.keys = require("keys")
 
+config.disable_default_key_bindings = true
 config.use_fancy_tab_bar = false
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
