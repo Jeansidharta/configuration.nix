@@ -26,6 +26,10 @@
         darwin.follows = "";
       };
     };
+    dms-plugin-translate = {
+      url = "github:alcxyz/DankTranslate";
+      flake = false;
+    };
     dms-wallpaper-carousel = {
       url = "github:jeansidharta/wallpaperCarousel/feature-settings";
       flake = false;

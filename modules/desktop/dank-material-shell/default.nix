@@ -68,6 +68,11 @@ let
             src = "${inputs.dms-calculator}";
             settings = { };
           };
+          dankTranslate = {
+            enable = true;
+            src = inputs.dms-plugin-translate;
+            # settings = { };
+          };
           webSearch = {
             enable = true;
             src = "${inputs.dms-web-search}";
@@ -105,7 +110,10 @@ let
           };
         };
       };
-      home.packages = [ pkgs.dank-material-shell ];
+      home.packages = [
+        pkgs.dank-material-shell
+        pkgs.translate-shell
+      ];
       systemd.user =
         let
           wallpaper_dir = "/home/sidharta/wallpapers";
