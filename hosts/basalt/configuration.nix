@@ -51,6 +51,43 @@
 
   time.timeZone = "America/Sao_Paulo";
 
+  systemd.services.auto-reconnect = {
+    enable = true;
+    serviceConfig = {
+      ExecStart = pkgs.writeScript "auto-reconnect" (
+        let
+          bash = lib.getExe pkgs.bash;
+          ping = lib.getExe' pkgs.iputils "ping";
+          wpa_cli = lib.getExe' pkgs.wpa_supplicant "wpa_cli";
+          sleep = lib.getExe' pkgs.coreutils "sleep";
+          true = lib.getExe' pkgs.coreutils "true";
+          ip = lib.getExe' pkgs.iproute2 "ip";
+        in
+        ''
+          #!${bash}
+
+          while ${true}; do
+              while ${ping} -q -c 1 -w 3 1.1.1.1 > /dev/null || ${ping} -q -c 1 -w 3 8.8.8.8 > /dev/null; do
+                  sleep 1;
+              done
+              echo 'retrying 1...'
+              while ${ping} -q -c 1 -w 3 1.1.1.1 > /dev/null  || ${ping} -q -c 1 -w 3 8.8.8.8  > /dev/null; do
+                  continue
+              done
+              echo 'retrying 2...'
+              while ${ping} -q -c 1 -w 3 1.1.1.1 > /dev/null  || ${ping} -q -c 1 -w 3 8.8.8.8  > /dev/null; do
+                  continue
+              done
+              echo restarting
+              ${ip} address show wlan0
+              ${wpa_cli} disconnect > /dev/null && ${wpa_cli} select_network 2 > /dev/null
+              ${sleep} 120
+          done
+        ''
+      );
+    };
+  };
+
   networking = {
     wireless = {
       # This is just to add the -dd flag as a commandline argument for wpa_supplicant.

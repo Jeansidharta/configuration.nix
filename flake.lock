@@ -287,6 +287,22 @@
         "type": "github"
       }
     },
+    "dms-plugin-translate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777358100,
+        "narHash": "sha256-CFmqfd2a4vMWgpT6EgPfLcEU/EquW2iaQ6q2wH0cc70=",
+        "owner": "alcxyz",
+        "repo": "DankTranslate",
+        "rev": "a0892945e1e84bdcca1908ee966b3ca50f5eb8b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alcxyz",
+        "repo": "DankTranslate",
+        "type": "github"
+      }
+    },
     "dms-plugins": {
       "flake": false,
       "locked": {
@@ -877,11 +893,11 @@
         "zk-nvim_plugin": "zk-nvim_plugin"
       },
       "locked": {
-        "lastModified": 1777250647,
-        "narHash": "sha256-qH1mBqEUQKPoCnutD4YJXBvMyzfHVFulK6gUa3NfE50=",
+        "lastModified": 1777490915,
+        "narHash": "sha256-Qr60lEy0/v0kS5wxmaTf77dyEXzPEeFJmFA6tCcNYhQ=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "36076cc25074bedc99eb26a92e84ad4627b76585",
+        "rev": "5288629ec13b5031c9a2bd74029e1bd4195cf516",
         "type": "github"
       },
       "original": {
@@ -1442,6 +1458,7 @@
         "dms-calculator": "dms-calculator",
         "dms-emoji-launcher": "dms-emoji-launcher",
         "dms-niri-windows": "dms-niri-windows",
+        "dms-plugin-translate": "dms-plugin-translate",
         "dms-plugins": "dms-plugins",
         "dms-volume-mixer": "dms-volume-mixer",
         "dms-wallpaper-carousel": "dms-wallpaper-carousel",
