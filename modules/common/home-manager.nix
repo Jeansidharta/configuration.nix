@@ -183,6 +183,7 @@
         email = "jeansidharta@gmail.com";
         name = "j_sidharta";
       };
+      ui.default-command = "log";
     };
   };
 
