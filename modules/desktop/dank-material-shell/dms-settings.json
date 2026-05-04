@@ -1,7 +1,7 @@
 {
   "currentThemeName": "custom",
   "currentThemeCategory": "custom",
-  "customThemeFile": "/nix/store/jmw3jj4l1c14cqrk2z0fb6kf2zsx94y6-theme",
+  "customThemeFile": "/nix/store/fmn9rxn7386n88b1xhf19xp5v7jcj7pl-theme",
   "registryThemeVariants": {},
   "matugenScheme": "scheme-tonal-spot",
   "matugenContrast": 0,
@@ -49,6 +49,8 @@
   "popoutElevationEnabled": true,
   "barElevationEnabled": false,
   "blurEnabled": false,
+  "blurForegroundLayers": true,
+  "blurLayerOutlineOpacity": 0.12,
   "blurBorderColor": "outline",
   "blurBorderCustomColor": "#ffffff",
   "blurBorderOpacity": 1,
@@ -68,6 +70,9 @@
   "selectedGpuIndex": 0,
   "enabledGpuPciIds": [],
   "showSystemTray": true,
+  "systemTrayIconTintMode": "none",
+  "systemTrayIconTintSaturation": 50,
+  "systemTrayIconTintStrength": 135,
   "showClock": true,
   "showNotificationButton": true,
   "showBattery": true,
@@ -486,37 +491,37 @@
       "innerPadding": 4,
       "leftWidgets": [
         {
-          "id": "launcherButton",
-          "enabled": true
-        },
-        {
-          "id": "privacyIndicator",
-          "enabled": true
-        },
-        {
-          "id": "cpuUsage",
           "enabled": true,
+          "id": "launcherButton"
+        },
+        {
+          "enabled": true,
+          "id": "privacyIndicator"
+        },
+        {
+          "enabled": true,
+          "id": "cpuUsage",
           "minimumWidth": true
         },
         {
-          "id": "memUsage",
           "enabled": true,
+          "id": "memUsage",
           "minimumWidth": true,
           "showInGb": false
         },
         {
-          "id": "diskUsage",
+          "diskUsageMode": 0,
           "enabled": true,
-          "mountPath": "/",
-          "diskUsageMode": 0
+          "id": "diskUsage",
+          "mountPath": "/"
         },
         {
-          "id": "network_speed_monitor",
-          "enabled": true
+          "enabled": true,
+          "id": "network_speed_monitor"
         },
         {
-          "id": "dankKDEConnect",
-          "enabled": true
+          "enabled": true,
+          "id": "dankKDEConnect"
         }
       ],
       "maximizeDetection": true,
@@ -536,9 +541,12 @@
           "id": "notificationButton"
         },
         {
-          "enabled": true,
           "id": "controlCenterButton",
-          "showAudioIcon": false
+          "enabled": true,
+          "showAudioIcon": false,
+          "showPrinterIcon": false,
+          "showScreenSharingIcon": false,
+          "showBluetoothIcon": false
         },
         {
           "enabled": true,
