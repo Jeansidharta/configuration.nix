@@ -51,42 +51,64 @@
 
   time.timeZone = "America/Sao_Paulo";
 
-  systemd.services.auto-reconnect = {
-    enable = true;
-    serviceConfig = {
-      ExecStart = pkgs.writeScript "auto-reconnect" (
-        let
-          bash = lib.getExe pkgs.bash;
-          ping = lib.getExe' pkgs.iputils "ping";
-          wpa_cli = lib.getExe' pkgs.wpa_supplicant "wpa_cli";
-          sleep = lib.getExe' pkgs.coreutils "sleep";
-          true = lib.getExe' pkgs.coreutils "true";
-          ip = lib.getExe' pkgs.iproute2 "ip";
-        in
-        ''
-          #!${bash}
+  systemd.services.auto-reconnect =
+    let
+      script = pkgs.writeShellApplication {
+        name = "auto-reconnect";
+        runtimeInputs = with pkgs; [
+          bash
+          coreutils
+          gnugrep
+          jq
+          iputils
+          wpa_supplicant
+          iproute2
+        ];
+        bashOptions = [
+          "nounset"
+          "pipefail"
+        ];
+        text = ''
+          #!/usr/bin/env bash
 
-          while ${true}; do
-              while ${ping} -q -c 1 -w 3 1.1.1.1 > /dev/null || ${ping} -q -c 1 -w 3 8.8.8.8 > /dev/null; do
+          while true; do
+              while ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; do
                   sleep 1;
               done
               echo 'retrying 1...'
-              while ${ping} -q -c 1 -w 3 1.1.1.1 > /dev/null  || ${ping} -q -c 1 -w 3 8.8.8.8  > /dev/null; do
-                  continue
+              while ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; do
+                  continue 2
               done
               echo 'retrying 2...'
-              while ${ping} -q -c 1 -w 3 1.1.1.1 > /dev/null  || ${ping} -q -c 1 -w 3 8.8.8.8  > /dev/null; do
-                  continue
+              while ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; do
+                  continue 2
               done
               echo restarting
-              ${ip} address show wlan0
-              ${wpa_cli} disconnect > /dev/null && ${wpa_cli} select_network 1 > /dev/null
-              ${sleep} 120
+              ip --json address show wlan0 | jq '.[0].addr_info.[] | select(.family == "inet") | { local, valid_life_time }' --compact-output 
+              network=$(wpa_cli list_networks | grep CURRENT | cut --fields=1)
+              if [ "$network" == "" ]; then
+                  network="1"
+              fi
+              echo "Connecting to network $network"
+              wpa_cli disconnect > /dev/null && wpa_cli select_network "$network" > /dev/null
+              timeout 120 bash -c "$(cat <<EOF
+                until ping 1.1.1.1 -w 3 -c 1 >& /dev/null; do
+                    sleep 1
+                done
+                echo -n "Internet is up! "
+                wpa_cli status | grep bssid
+          EOF
+          )" || echo "Internet still not back up." 
           done
-        ''
-      );
+        '';
+      };
+    in
+    {
+      enable = true;
+      serviceConfig = {
+        ExecStart = lib.getExe' script "auto-reconnect";
+      };
     };
-  };
 
   networking = {
     wireless = {
