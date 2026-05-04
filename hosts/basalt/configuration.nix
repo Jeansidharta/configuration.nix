@@ -80,7 +80,7 @@
               done
               echo restarting
               ${ip} address show wlan0
-              ${wpa_cli} disconnect > /dev/null && ${wpa_cli} select_network 2 > /dev/null
+              ${wpa_cli} disconnect > /dev/null && ${wpa_cli} select_network 1 > /dev/null
               ${sleep} 120
           done
         ''
@@ -90,6 +90,10 @@
 
   networking = {
     wireless = {
+      extraConfig = ''
+        device_name=Basalt
+        bgscan=""
+      '';
       # This is just to add the -dd flag as a commandline argument for wpa_supplicant.
       driver = "nl80211,wext -dd";
       interfaces = [ "wlan0" ];
@@ -97,13 +101,13 @@
       networks = {
         "rede Mesh 99" = {
           pskRaw = "ext:rede-mesh-99";
-          bssid = "3e:64:cf:8c:24:cb";
+          # bssid = "3e:64:cf:8c:24:cb";
           priority = 100;
         };
-        "rede Mesh 99_Guest" = {
-          pskRaw = "ext:rede-mesh-99";
-          priority = 10;
-        };
+        # "rede Mesh 99_Guest" = {
+        #   pskRaw = "ext:rede-mesh-99";
+        #   priority = 10;
+        # };
       };
     };
 
