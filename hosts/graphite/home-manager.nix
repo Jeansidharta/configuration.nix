@@ -22,6 +22,7 @@
 
   # Uses too much ram :(
   programs.dank-material-shell.plugins.wallpaperCarousel.enable = lib.mkForce false;
+  programs.dank-material-shell.settings.lockBeforeSuspend = lib.mkForce true;
 
   home.packages = [
     pkgs.brightnessctl # Control monitor/keyboard brightness
