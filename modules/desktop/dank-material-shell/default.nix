@@ -111,7 +111,6 @@ let
         };
       };
       home.packages = [
-        pkgs.dank-material-shell
         pkgs.translate-shell
       ];
       systemd.user =
