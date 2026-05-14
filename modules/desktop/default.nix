@@ -72,6 +72,10 @@ let
             initial-tool = "brush";
             output-filename = "/tmp/screenshot-%Y-%m-%d_%H:%M:%S.png";
             save-after-copy = true;
+            copy-command = "wl-copy -t image/png";
+            # disable-notifications = true;
+            actions-on-right-click = [ "save-to-clipboard" ];
+            actions-on-enter = [ "save-to-clipboard" ];
           };
           color-palette = {
             palette = [
