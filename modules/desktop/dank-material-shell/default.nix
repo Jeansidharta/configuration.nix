@@ -58,6 +58,16 @@ let
             src = "${inputs.dms-plugins}/DankKDEConnect";
             settings = { };
           };
+          kaomojiPicker = {
+            enable = true;
+            src = inputs.dms-kaomoji-picker;
+            settings = { };
+          };
+          ocrScanner = {
+            enable = true;
+            src = inputs.dms-ocr;
+            settings = { };
+          };
           emojiLauncher = {
             enable = true;
             src = "${inputs.dms-emoji-launcher}";
@@ -112,6 +122,7 @@ let
       };
       home.packages = [
         pkgs.translate-shell
+        pkgs.tesseract
       ];
       systemd.user =
         let

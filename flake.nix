@@ -30,6 +30,14 @@
       url = "github:alcxyz/DankTranslate";
       flake = false;
     };
+    dms-kaomoji-picker = {
+      url = "github:hthienloc/dms-kaomoji-picker";
+      flake = false;
+    };
+    dms-ocr = {
+      url = "github:hthienloc/dms-ocr-scanner";
+      flake = false;
+    };
     dms-wallpaper-carousel = {
       url = "github:jeansidharta/wallpaperCarousel/feature-settings";
       flake = false;

@@ -271,6 +271,22 @@
         "type": "github"
       }
     },
+    "dms-kaomoji-picker": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778772972,
+        "narHash": "sha256-vZqNAFmA86AKcRcLwrAiggfVvMMCa0RMZKUsl4Y5R6k=",
+        "owner": "hthienloc",
+        "repo": "dms-kaomoji-picker",
+        "rev": "56cdec505ae4a8b17b0b560ea30f5dc7d7acee3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hthienloc",
+        "repo": "dms-kaomoji-picker",
+        "type": "github"
+      }
+    },
     "dms-niri-windows": {
       "flake": false,
       "locked": {
@@ -284,6 +300,22 @@
       "original": {
         "owner": "rochacbruno",
         "repo": "DankNiriWindows",
+        "type": "github"
+      }
+    },
+    "dms-ocr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778778553,
+        "narHash": "sha256-QPbdgO7mgxVHZNEc4gAY9Z0R4+whCICk2UlmbWqULLc=",
+        "owner": "hthienloc",
+        "repo": "dms-ocr-scanner",
+        "rev": "962c1fdc352d1dcca4a2b07a67084d009dfe0cf0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hthienloc",
+        "repo": "dms-ocr-scanner",
         "type": "github"
       }
     },
@@ -1457,7 +1489,9 @@
         "disko": "disko",
         "dms-calculator": "dms-calculator",
         "dms-emoji-launcher": "dms-emoji-launcher",
+        "dms-kaomoji-picker": "dms-kaomoji-picker",
         "dms-niri-windows": "dms-niri-windows",
+        "dms-ocr": "dms-ocr",
         "dms-plugin-translate": "dms-plugin-translate",
         "dms-plugins": "dms-plugins",
         "dms-volume-mixer": "dms-volume-mixer",
