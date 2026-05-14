@@ -16,6 +16,13 @@ in
     (mkUnstable "jjui")
     (overlay-flake "sqlite-diagram")
     (final: prev: {
+      nchat =
+        inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.nchat.overrideAttrs
+          (prevAttrs: {
+            nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ prev.libpng.dev ];
+          });
+    })
+    (final: prev: {
       neovim = inputs.neovim-with-plugins.packages.${prev.stdenv.hostPlatform.system}.default;
     })
   ];
