@@ -9,6 +9,7 @@
 {
   imports = [
     ../../profiles/laptop.nix
+    ../../modules/transmission.nix
 
     ./hardware-configuration.nix
     ./disko-config.nix
@@ -71,12 +72,6 @@
     # };
   };
 
-  services.transmission = {
-    enable = true;
-    openFirewall = true;
-    package = pkgs.transmission_4;
-  };
-
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
@@ -91,7 +86,6 @@
       extraGroups = [
         "wheel"
         "video"
-        "transmission"
       ];
     };
   };

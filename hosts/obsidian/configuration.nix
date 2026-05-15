@@ -13,6 +13,7 @@
 
   imports = [
     ../../profiles/desktop.nix
+    ../../modules/transmission.nix
 
     "${inputs.nixpkgs-unstable}/nixos/modules/services/audio/snapserver.nix"
 
