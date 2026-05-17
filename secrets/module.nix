@@ -42,6 +42,9 @@ in
   age.secrets.wifi = {
     file = ./wifi.age;
   };
+  age.secrets.wireguard-key = {
+    file = ./wireguard-key.age;
+  };
   age.secrets.weron-base-password = {
     file = ./weron-base-password.age;
   };
