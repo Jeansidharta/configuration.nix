@@ -1,9 +1,12 @@
 local config = {}
 
 config.disable_default_key_bindings = true
+config.adjust_window_size_when_changing_font_size = false
 config.keys = {
 	{ mods = "CTRL|SHIFT", key = "c", action = wezterm.action.CopyTo("Clipboard") },
 	{ mods = "CTRL|SHIFT", key = "v", action = wezterm.action.PasteFrom("Clipboard") },
+	{ mods = 'CTRL|SHIFT', key = '_', action = wezterm.action.DecreaseFontSize },
+	{ mods = 'CTRL|SHIFT', key = '+', action = wezterm.action.IncreaseFontSize },
 }
 
 config.use_fancy_tab_bar = false
