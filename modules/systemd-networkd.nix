@@ -20,7 +20,7 @@
   networking = {
     useNetworkd = true;
     wireless = {
-      userControlled.enable = true;
+      userControlled = true;
       enable = true;
     };
   };

@@ -14,7 +14,7 @@ let
       home.packages = with pkgs; [
         wl-clipboard # Clipboard software
         libnotify # Send d-bus notification through the terminal
-        helvum # Manipulate Pipewire connections
+        crosspipe # Manipulate Pipewire connections
         qpwgraph # Manipulate Pipewire connections
         wiremix # TUI for configuring pipewire audio
 
