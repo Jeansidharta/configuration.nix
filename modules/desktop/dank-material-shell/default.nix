@@ -46,6 +46,11 @@ let
               wallpaperDir = "/home/sidharta/wallpapers/static/";
             };
           };
+          niriWindows = {
+            enable = true;
+            src = inputs.dms-niri-windows;
+            settings = { };
+          };
           volumeMixer = {
             enable = true;
             src = inputs.dms-volume-mixer;
