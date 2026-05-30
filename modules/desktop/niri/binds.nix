@@ -58,10 +58,16 @@
       "${leaderKey}+Up".action = focus-window-up;
       "${leaderKey}+Down".action = focus-window-down;
 
+      "${leaderKey}+Alt+Right".action = focus-monitor-right;
+      "${leaderKey}+Alt+Left".action = focus-monitor-left;
+
       "${leaderKey}+shift+Left".action = move-column-left;
       "${leaderKey}+shift+Right".action = move-column-right;
       "${leaderKey}+Shift+Up".action = move-window-up;
       "${leaderKey}+Shift+Down".action = move-window-down;
+
+      "${leaderKey}+Alt+Shift+Right".action = move-window-to-monitor-right;
+      "${leaderKey}+Alt+Shift+Left".action = move-window-to-monitor-left;
 
       "${leaderKey}+ctrl+shift+Left".action = consume-or-expel-window-left;
       "${leaderKey}+ctrl+shift+Right".action = consume-or-expel-window-right;
@@ -134,6 +140,9 @@
       "${leaderKey}+8".action = focus-workspace "gaming";
       "${leaderKey}+9".action = focus-workspace "x";
 
+      "${leaderKey}+Alt+1".action = focus-monitor "HDMI-A-1";
+      "${leaderKey}+Alt+2".action = focus-monitor "DP-1";
+
       "${leaderKey}+Shift+1".action.move-window-to-workspace = "browser";
       "${leaderKey}+Shift+2".action.move-window-to-workspace = "2";
       "${leaderKey}+Shift+3".action.move-window-to-workspace = "3";
@@ -143,6 +152,9 @@
       "${leaderKey}+Shift+7".action.move-window-to-workspace = "communication";
       "${leaderKey}+Shift+8".action.move-window-to-workspace = "gaming";
       "${leaderKey}+Shift+9".action.move-window-to-workspace = "x";
+
+      "${leaderKey}+Alt+Shift+1".action.move-window-to-monitor = "HDMI-A-1";
+      "${leaderKey}+Alt+Shift+2".action.move-window-to-monitor = "DP-1";
 
       "${leaderKey}+Home".action = focus-column-first;
       "${leaderKey}+End".action = focus-column-last;

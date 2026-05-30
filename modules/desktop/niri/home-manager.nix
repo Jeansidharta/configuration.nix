@@ -30,6 +30,21 @@
       clipboard = {
         disable-primary = false;
       };
+      outputs."primary" = {
+        name = "HDMI-A-1";
+        focus-at-startup = true;
+        position = {
+          x = 0;
+          y = 0;
+        };
+      };
+      outputs."secondary" = {
+        name = "DP-1";
+        position = {
+          x = 1920;
+          y = 0;
+        };
+      };
       workspaces = {
         "browser" = { };
         "2" = { };
