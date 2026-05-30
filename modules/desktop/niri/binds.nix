@@ -42,8 +42,8 @@
       "${leaderKey}+Shift+Return".action.spawn = [
         wezterm
         "start"
-        "--"
-        "tmux"
+        "--cwd"
+        "/home/sidharta/lsbots/"
       ];
       "${leaderKey}+Ctrl+Shift+Return".action.spawn = [
         wezterm
