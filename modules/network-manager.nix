@@ -22,6 +22,7 @@
   };
   networking.networkmanager = {
     enable = true;
+    dns = "systemd-resolved";
     dispatcherScripts = [
       {
         source = pkgs.writeShellScript "enable-arper" ''

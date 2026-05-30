@@ -54,6 +54,8 @@
         "ve-debian"
       ];
     };
+    networkmanager.ensureProfiles.profiles.wg-lsbots.ipv4.address1 = "10.1.0.3/16";
+    networkmanager.ensureProfiles.profiles.wg-lsbots.ipv6.address1 = "fd10::3/64";
   };
 
   time.timeZone = "America/Sao_Paulo";

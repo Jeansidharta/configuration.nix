@@ -42,9 +42,13 @@ in
   age.secrets.wifi = {
     file = ./wifi.age;
   };
-  age.secrets.wireguard-key = {
-    file = ./wireguard-key.age;
-  };
+  age.secrets.wg-lsbots-key =
+    if (config.networking.hostName == "obsidian") then
+      { file = ./wg-lsbots-key-obsidian.age; }
+    else if (config.networking.hostName == "graphite") then
+      { file = ./wg-lsbots-key-graphite.age; }
+    else
+      { };
   age.secrets.weron-base-password = {
     file = ./weron-base-password.age;
   };

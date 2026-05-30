@@ -28,6 +28,10 @@
   # services.weron.vpn-ip.base.ip.address = "fd00::2";
 
   networking = {
+    wireguard.interfaces.wg-lsbots.ips = [
+      "fd10::2/64"
+      "10.1.0.2/16"
+    ];
     wireless = {
       secretsFile = config.age.secrets.wifi.path;
       networks = {
