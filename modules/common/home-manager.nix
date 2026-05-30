@@ -67,6 +67,7 @@
     usbutils # Tool for manipulating USB
     gdb
     bmon
+    sshfs
 
     (pkgs.writeScriptBin "replace" ''
       if [[ -e "$1.old" ]]; then
@@ -118,6 +119,13 @@
     (pkgs.writeScriptBin "ndev" "
       exec nix develop . -c zsh
     ")
+
+    (pkgs.writeScriptBin "jtl" ''
+      exec journalctl "$@"
+    '')
+    (pkgs.writeScriptBin "jtu" ''
+      exec journalctl --user "$@"
+    '')
   ];
 
   systemd.user.startServices = true;
