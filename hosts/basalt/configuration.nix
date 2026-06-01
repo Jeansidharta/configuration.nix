@@ -20,7 +20,6 @@
       sd-image
       ../../profiles/headless.nix
       # ../../modules/weron.nix
-      ../../modules/netlify-ddns.nix
     ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
@@ -91,6 +90,24 @@
               fi
               echo "Connecting to network $network"
               wpa_cli disconnect > /dev/null && wpa_cli select_network "$network" > /dev/null
+
+              COUNT=0
+              LIMIT=120 # seconds
+              while [ "$COUNT" -le "$LIMIT" ]; do
+                IP=$(ip --json address show wlan0 | jq '.[0].addr_info.[] | select(.family == "inet") | .local' --compact-output --raw-output)
+                if [ "$IP" == "" ]; then
+                    COUNT=$((COUNT+1))
+                    sleep 1
+                else
+                    echo "I got an ip: $IP"
+                    break
+                fi
+              done
+              if [ "$COUNT" -gt "$LIMIT" ]; then
+                    echo "Failed to get an ip"
+                    continue
+              fi
+
               timeout 120 bash -c "$(cat <<EOF
                 until ping 1.1.1.1 -w 3 -c 1 >& /dev/null; do
                     sleep 1
