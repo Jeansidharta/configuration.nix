@@ -4,12 +4,15 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-25_11.url = "github:nixos/nixpkgs/nixos-25.11";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
+    home-manager-25_11.url = "github:nix-community/home-manager/release-25.11";
+    home-manager-25_11.inputs.nixpkgs.follows = "nixpkgs-25_11";
     theme.url = "./theming";
     disko = {
       url = "github:nix-community/disko";
@@ -125,17 +128,10 @@
       url = "github:tsowell/wiremix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
-  };
-
-  # Optional: Binary cache for the flake
-  nixConfig = {
-    extra-substituters = [
-      "https://nixos-raspberrypi.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
-    ];
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/main";
+      inputs.nixpkgs.follows = "nixpkgs-25_11";
+    };
   };
 
   outputs =
@@ -144,6 +140,8 @@
       nixos-raspberrypi,
       nixos-generators,
       nixpkgs-stable,
+      home-manager,
+      home-manager-25_11,
       self,
       ...
     }@inputs:
@@ -171,21 +169,30 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = [ ./hosts/obsidian/configuration.nix ];
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/obsidian/configuration.nix
+          ];
         };
         graphite = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = [ ./hosts/graphite/configuration.nix ];
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/graphite/configuration.nix
+          ];
         };
         calcite = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
             ssh-pubkeys = import ./ssh-pubkeys.nix;
             inherit inputs;
           };
-          modules = [ ./hosts/calcite/configuration.nix ];
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/calcite/configuration.nix
+          ];
         };
         basalt = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
@@ -193,7 +200,10 @@
             inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          modules = [ ./hosts/basalt/configuration.nix ];
+          modules = [
+            home-manager-25_11.nixosModules.home-manager
+            ./hosts/basalt/configuration.nix
+          ];
         };
         vivianite = nixos-raspberrypi.lib.nixosSystemFull {
           specialArgs = {
@@ -201,7 +211,10 @@
             inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          modules = [ ./hosts/vivianite/configuration.nix ];
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/vivianite/configuration.nix
+          ];
         };
         fixie = nixpkgs-stable.lib.nixosSystem {
           specialArgs = {
@@ -209,7 +222,10 @@
             inherit inputs;
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
-          modules = [ ./hosts/fixie/configuration.nix ];
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/fixie/configuration.nix
+          ];
         };
       };
       sd-images = {

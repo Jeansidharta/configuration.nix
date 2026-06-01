@@ -18,6 +18,11 @@ let
         qpwgraph # Manipulate Pipewire connections
         wiremix # TUI for configuring pipewire audio
 
+        htmlq # CLI tool for filtering HTML pages
+        dive # See container image layers
+        lazygit # git tui
+        fzf
+
         wireshark
         yazi # File picker
 
@@ -129,6 +134,209 @@ let
         enable = true;
         enableZshIntegration = true;
         extraConfig = builtins.readFile ./wezterm.lua;
+      };
+
+      programs.starship = {
+        enable = true;
+        enableZshIntegration = true;
+        settings = {
+          format = lib.join "" [
+            "$username"
+            "$hostname"
+            "$localip"
+            "$shlvl"
+            "$singularity"
+            "$kubernetes"
+            "$nats"
+            "$directory"
+            "$vcsh"
+            "$fossil_branch"
+            "$fossil_metrics"
+            "$git_branch"
+            "$git_commit"
+            "$git_state"
+            "$git_metrics"
+            "$git_status"
+            "$hg_branch"
+            "$hg_state"
+            "$pijul_channel"
+            "$docker_context"
+            "$package"
+            "$bun"
+            "$c"
+            "$cmake"
+            "$cobol"
+            "$cpp"
+            "$daml"
+            "$dart"
+            "$deno"
+            "$dotnet"
+            "$elixir"
+            "$elm"
+            "$erlang"
+            "$fennel"
+            "$fortran"
+            "$gleam"
+            "$golang"
+            "$gradle"
+            "$haskell"
+            "$haxe"
+            "$helm"
+            "$java"
+            "$julia"
+            "$kotlin"
+            "$lua"
+            "$maven"
+            "$mojo"
+            "$nim"
+            "$nodejs"
+            "$ocaml"
+            "$odin"
+            "$opa"
+            "$perl"
+            "$php"
+            "$pulumi"
+            "$purescript"
+            "$python"
+            "$quarto"
+            "$raku"
+            "$rlang"
+            "$red"
+            "$ruby"
+            "$rust"
+            "$scala"
+            "$solidity"
+            "$swift"
+            "$terraform"
+            "$typst"
+            "$vlang"
+            "$vagrant"
+            "$xmake"
+            "$zig"
+            "$buf"
+            "$guix_shell"
+            "$nix_shell"
+            "$conda"
+            "$pixi"
+            "$meson"
+            "$spack"
+            "$memory_usage"
+            "$aws"
+            "$gcloud"
+            "$openstack"
+            "$azure"
+            "$direnv"
+            "$env_var"
+            "$mise"
+            "$crystal"
+            "$custom"
+            "$sudo"
+            "\${custom.jj}"
+            "\${custom.git_status}"
+            "\${custom.git_commit}"
+            "\${custom.git_metrics}"
+            "\${custom.git_branch}"
+            "$cmd_duration"
+            "$line_break"
+            "$jobs"
+            "$battery"
+            "$time"
+            "$status"
+            "$container"
+            "$netns"
+            "$os"
+            "$shell"
+            "$character"
+          ];
+          character = {
+            success_symbol = "[\\[❯\\]](bold green)";
+            error_symbol = "[\\[✖\\]](bold red)";
+            vimcmd_symbol = "[\\[N\\]](bold purple)";
+          };
+          memory_usage = {
+            disabled = false;
+            threshold = 76;
+          };
+          status.disabled = false;
+          # custom module for jj status
+          git_status.disabled = true;
+          git_commit.disabled = true;
+          git_metrics.disabled = true;
+          git_branch.disabled = true;
+          custom = {
+            # copied from https://github.com/jj-vcs/jj/wiki/Starship#alternative-prompt
+            jj = {
+              description = "The current jj status";
+              when = "jj --ignore-working-copy root";
+              symbol = "🥋 ";
+              command = ''
+                jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
+                  separate(" ",
+                    change_id.shortest(4),
+                    bookmarks,
+                    "|",
+                    concat(
+                      if(conflict, "💥"),
+                      if(divergent, "🚧"),
+                      if(hidden, "👻"),
+                      if(immutable, "🔒"),
+                    ),
+                    raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
+                    raw_escape_sequence("\x1b[1;32m") ++ coalesce(
+                      truncate_end(29, description.first_line(), "…"),
+                      "(no description set)",
+                    ) ++ raw_escape_sequence("\x1b[0m"),
+                  )
+                '
+              '';
+            };
+            git_status = {
+              when = "! jj --ignore-working-copy root";
+              command = "starship module git_status";
+              style = ""; # This disables the default "(bold green)" style
+              description = "Only show git_status if we're not in a jj repo";
+            };
+            git_commit = {
+              when = "! jj --ignore-working-copy root";
+              command = "starship module git_commit";
+              style = "";
+              description = "Only show git_commit if we're not in a jj repo";
+            };
+            git_metrics = {
+              when = "! jj --ignore-working-copy root";
+              command = "starship module git_metrics";
+              description = "Only show git_metrics if we're not in a jj repo";
+              style = "";
+            };
+            git_branch = {
+              when = "! jj --ignore-working-copy root";
+              command = "starship module git_branch";
+              description = "Only show git_branch if we're not in a jj repo";
+              style = "";
+            };
+          };
+        };
+      };
+
+      programs.jujutsu = {
+        enable = true;
+        settings = {
+          user = {
+            email = "jeansidharta@gmail.com";
+            name = "j_sidharta";
+          };
+          ui.default-command = "log";
+        };
+      };
+
+      # Jujutsu TUI
+      programs.jjui = {
+        enable = true;
+      };
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
       };
     };
 in

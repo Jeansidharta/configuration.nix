@@ -28,7 +28,6 @@ in
 {
   imports = [
     ("${inputs.disko}/module.nix")
-    inputs.home-manager.nixosModules.home-manager
     ./overlays.nix
     ../../options/host-data.nix
   ];
@@ -122,6 +121,94 @@ in
     sleep-script
     shutdown-script
     reboot-script
+    nftables # firewall frontend
+
+    btop # Process manager
+    ripgrep
+    jq # CLI tool for filtering Json data
+    moreutils # A collection of tools to improve bash scripting
+    tmsu # File tagging tool
+    socat # Tool for connecting/debugging read/write interfaces
+    unar # Unzip tool
+    darkhttpd # Very simple http server
+    sqlite-diagram
+    neovim
+
+    ######## TOOLBOX FOR DEBUGGING ########
+    conntrack-tools # Show connections tracked by the kernel
+    dnsutils # DNS testing tools
+    pciutils # lspci command to show current pci devices
+    powertop # Show power usage
+    hdparm # Hard drive config manager
+    dmidecode # Show DMI configuration, if available
+    lshw # Show hardware config
+    # tcpdump # Dump tcp connections
+    termshark # wireshark on the terminal
+    ethtool # Manage ethernet drivers
+    strace # Show all syscalls made by application
+    ltrace # Show binary library calls
+    patchelf # Quickly modify ELF binaries
+    traceroute # Shows the route to a destination on the internet
+    nmap # map network
+    usbutils # Tool for manipulating USB
+    gdb
+    bmon
+    sshfs
+
+    (pkgs.writeScriptBin "replace" ''
+      if [[ -e "$1.old" ]]; then
+        rm -rfi "$1"
+        mv "$1.old" "$1"
+      else
+        mv "$1" "$1.old"
+        cp --dereference --no-preserve=mode -r "$1.old" "$1"
+      fi
+    '')
+    (pkgs.writeScriptBin "random-mac" ''
+      #!/usr/bin/env bash
+
+      echo 00-60-2F-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]
+    '')
+    (pkgs.writeScriptBin "canonical" ''
+      #!/usr/bin/env bash
+
+      path="$(which "$1")"
+      path="$(readlink -f "$path")"
+
+      echo "$path"
+    '')
+    (pkgs.writeScriptBin "root-derivation" ''
+      #!/usr/bin/env bash
+
+      path="$(which "$1")"
+      path="$(readlink -f "$path")"
+      path="$(dirname "$path")"
+
+      echo "$path"
+    '')
+    (pkgs.writeScriptBin "rmnix" ''
+      #!/usr/bin/env bash
+
+      link=$(readlink "$1")
+
+      if [ $? == 0 ]; then
+      	rm "$1"
+      	nix store delete "$link"
+      fi
+    '')
+    (pkgs.writeScriptBin "nom-callpackage" ''
+      exec nom build --impure --expr "with import <nixpkgs> {}; callPackage (import $1) {}" "$@"
+    '')
+    (pkgs.writeScriptBin "ndev" "
+      exec nix develop . -c zsh
+    ")
+
+    (pkgs.writeScriptBin "jtl" ''
+      exec journalctl "$@"
+    '')
+    (pkgs.writeScriptBin "jtu" ''
+      exec journalctl --user "$@"
+    '')
   ];
 
   networking.wireguard.enable = true;
@@ -154,12 +241,14 @@ in
       ];
     };
   };
+  services.speechd.enable = false;
   programs = {
-    neovim = {
-      enable = true;
-      vimAlias = true;
-      defaultEditor = true;
-    };
+    # neovim = {
+    #   enable = true;
+    #   package = inputs.neovim-with-plugins.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    #   vimAlias = true;
+    #   defaultEditor = true;
+    # };
     zsh = {
       enable = true;
       ohMyZsh = {

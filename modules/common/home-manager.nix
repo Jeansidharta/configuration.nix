@@ -10,12 +10,6 @@
     inputs.theme.outputs.home-manager-module
     ../../options/home-manager/nchat.nix
   ];
-  programs.btop.enable = true;
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
-  programs.ripgrep.enable = true;
 
   xdg = {
     enable = true;
@@ -27,106 +21,6 @@
     MANPAGER = "nvim +Man!";
     QS_ICON_THEME = "candy-icons";
   };
-
-  home.packages = with pkgs; [
-    btop # Process manager
-    bat # Replacement for the gnu `cat` command
-    eza # Replacement for the gnu `ls` command
-    htmlq # CLI tool for filtering HTML pages
-    jq # CLI tool for filtering Json data
-    moreutils # A collection of tools to improve bash scripting
-    tmsu # File tagging tool
-    dust # A more modern du
-    fselect # A file finder with SQL syntax
-    nftables # firewall frontend
-    socat # Tool for connecting/debugging read/write interfaces
-    unar # Unzip tool
-    darkhttpd # Very simple http server
-    dive # See container image layers
-    sqlite-diagram
-    neovim
-    fzf
-    lazygit # git tui
-
-    ######## TOOLBOX FOR DEBUGGING ########
-    tcpdump # Dump tcp connections
-    conntrack-tools # Show connections tracked by the kernel
-    dig.dnsutils # DNS testing tool
-    pciutils # lspci command to show current pci devices
-    powertop # Show power usage
-    hdparm # Hard drive config manager
-    dmidecode # Show DMI configuration, if available
-    lshw # Show hardware config
-    termshark # wireshark on the terminal
-    ethtool # Manage ethernet drivers
-    strace # Show all syscalls made by application
-    ltrace # Show binary library calls
-    patchelf # Quickly modify ELF binaries
-    traceroute # Shows the route to a destination on the internet
-    nmap # map network
-    usbutils # Tool for manipulating USB
-    gdb
-    bmon
-    sshfs
-
-    (pkgs.writeScriptBin "replace" ''
-      if [[ -e "$1.old" ]]; then
-        rm -rfi "$1"
-        mv "$1.old" "$1"
-      else
-        mv "$1" "$1.old"
-        cp --dereference --no-preserve=mode -r "$1.old" "$1"
-      fi
-    '')
-    (pkgs.writeScriptBin "random-mac" ''
-      #!/usr/bin/env bash
-
-      echo 00-60-2F-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]-$[RANDOM%10]$[RANDOM%10]
-    '')
-    (pkgs.writeScriptBin "canonical" ''
-      #!/usr/bin/env bash
-
-      path="$(which "$1")"
-      path="$(readlink -f "$path")"
-
-      echo "$path"
-    '')
-    (pkgs.writeScriptBin "root-derivation" ''
-      #!/usr/bin/env bash
-
-      path="$(which "$1")"
-      path="$(readlink -f "$path")"
-      path="$(dirname "$path")"
-
-      echo "$path"
-    '')
-    (pkgs.writeScriptBin "rmnix" ''
-      #!/usr/bin/env bash
-
-      link=$(readlink "$1")
-
-      if [ $? == 0 ]; then
-      	rm "$1"
-      	nix store delete "$link"
-      fi
-    '')
-    (pkgs.writeScriptBin "nom-callpackage" ''
-      exec nom build --impure --expr "with import <nixpkgs> {}; callPackage (import $1) {}" "$@"
-    '')
-    (pkgs.writeScriptBin "vimf" "
-      exec nvim \"$(fzf)\"
-    ")
-    (pkgs.writeScriptBin "ndev" "
-      exec nix develop . -c zsh
-    ")
-
-    (pkgs.writeScriptBin "jtl" ''
-      exec journalctl "$@"
-    '')
-    (pkgs.writeScriptBin "jtu" ''
-      exec journalctl --user "$@"
-    '')
-  ];
 
   systemd.user.startServices = true;
 
@@ -184,22 +78,6 @@
     set disassembly-flavor intel
   '';
 
-  programs.jujutsu = {
-    enable = true;
-    settings = {
-      user = {
-        email = "jeansidharta@gmail.com";
-        name = "j_sidharta";
-      };
-      ui.default-command = "log";
-    };
-  };
-
-  # Jujutsu TUI
-  programs.jjui = {
-    enable = true;
-  };
-
   programs.git = {
     enable = true;
     settings = {
@@ -226,188 +104,6 @@
     };
   };
 
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-    settings = {
-      format = lib.join "" [
-        "$username"
-        "$hostname"
-        "$localip"
-        "$shlvl"
-        "$singularity"
-        "$kubernetes"
-        "$nats"
-        "$directory"
-        "$vcsh"
-        "$fossil_branch"
-        "$fossil_metrics"
-        "$git_branch"
-        "$git_commit"
-        "$git_state"
-        "$git_metrics"
-        "$git_status"
-        "$hg_branch"
-        "$hg_state"
-        "$pijul_channel"
-        "$docker_context"
-        "$package"
-        "$bun"
-        "$c"
-        "$cmake"
-        "$cobol"
-        "$cpp"
-        "$daml"
-        "$dart"
-        "$deno"
-        "$dotnet"
-        "$elixir"
-        "$elm"
-        "$erlang"
-        "$fennel"
-        "$fortran"
-        "$gleam"
-        "$golang"
-        "$gradle"
-        "$haskell"
-        "$haxe"
-        "$helm"
-        "$java"
-        "$julia"
-        "$kotlin"
-        "$lua"
-        "$maven"
-        "$mojo"
-        "$nim"
-        "$nodejs"
-        "$ocaml"
-        "$odin"
-        "$opa"
-        "$perl"
-        "$php"
-        "$pulumi"
-        "$purescript"
-        "$python"
-        "$quarto"
-        "$raku"
-        "$rlang"
-        "$red"
-        "$ruby"
-        "$rust"
-        "$scala"
-        "$solidity"
-        "$swift"
-        "$terraform"
-        "$typst"
-        "$vlang"
-        "$vagrant"
-        "$xmake"
-        "$zig"
-        "$buf"
-        "$guix_shell"
-        "$nix_shell"
-        "$conda"
-        "$pixi"
-        "$meson"
-        "$spack"
-        "$memory_usage"
-        "$aws"
-        "$gcloud"
-        "$openstack"
-        "$azure"
-        "$direnv"
-        "$env_var"
-        "$mise"
-        "$crystal"
-        "$custom"
-        "$sudo"
-        "\${custom.jj}"
-        "\${custom.git_status}"
-        "\${custom.git_commit}"
-        "\${custom.git_metrics}"
-        "\${custom.git_branch}"
-        "$cmd_duration"
-        "$line_break"
-        "$jobs"
-        "$battery"
-        "$time"
-        "$status"
-        "$container"
-        "$netns"
-        "$os"
-        "$shell"
-        "$character"
-      ];
-      character = {
-        success_symbol = "[\\[❯\\]](bold green)";
-        error_symbol = "[\\[✖\\]](bold red)";
-        vimcmd_symbol = "[\\[N\\]](bold purple)";
-      };
-      memory_usage = {
-        disabled = false;
-        threshold = 76;
-      };
-      status.disabled = false;
-      # custom module for jj status
-      git_status.disabled = true;
-      git_commit.disabled = true;
-      git_metrics.disabled = true;
-      git_branch.disabled = true;
-      custom = {
-        # copied from https://github.com/jj-vcs/jj/wiki/Starship#alternative-prompt
-        jj = {
-          description = "The current jj status";
-          when = "jj --ignore-working-copy root";
-          symbol = "🥋 ";
-          command = ''
-            jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
-              separate(" ",
-                change_id.shortest(4),
-                bookmarks,
-                "|",
-                concat(
-                  if(conflict, "💥"),
-                  if(divergent, "🚧"),
-                  if(hidden, "👻"),
-                  if(immutable, "🔒"),
-                ),
-                raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
-                raw_escape_sequence("\x1b[1;32m") ++ coalesce(
-                  truncate_end(29, description.first_line(), "…"),
-                  "(no description set)",
-                ) ++ raw_escape_sequence("\x1b[0m"),
-              )
-            '
-          '';
-        };
-        git_status = {
-          when = "! jj --ignore-working-copy root";
-          command = "starship module git_status";
-          style = ""; # This disables the default "(bold green)" style
-          description = "Only show git_status if we're not in a jj repo";
-        };
-        git_commit = {
-          when = "! jj --ignore-working-copy root";
-          command = "starship module git_commit";
-          style = "";
-          description = "Only show git_commit if we're not in a jj repo";
-        };
-        git_metrics = {
-          when = "! jj --ignore-working-copy root";
-          command = "starship module git_metrics";
-          description = "Only show git_metrics if we're not in a jj repo";
-          style = "";
-        };
-        git_branch = {
-          when = "! jj --ignore-working-copy root";
-          command = "starship module git_branch";
-          description = "Only show git_branch if we're not in a jj repo";
-          style = "";
-        };
-      };
-    };
-  };
-
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -421,7 +117,6 @@
     "jes" = "journalctl --user";
     "vim" = "nvim";
     "vi" = "nvim";
-    "ls" = "eza";
 
     "cdf" = "cd $(fzf | basename)";
     "cdtmp" = "cd $(mktemp --dir)";

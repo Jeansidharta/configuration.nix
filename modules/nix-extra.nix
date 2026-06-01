@@ -25,8 +25,6 @@
     (_: prev: { neix = inputs.neix.packages.${prev.stdenv.hostPlatform.system}.default; })
   ];
 
-  programs.extra-container.enable = true;
-
   home-manager.users.sidharta.imports = [
     (
       { pkgs, lib, ... }:
