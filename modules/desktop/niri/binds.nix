@@ -161,6 +161,8 @@
       "${leaderKey}+Shift+Home".action = move-column-to-first;
       "${leaderKey}+Shift+End".action = move-column-to-last;
       "${leaderKey}+c".action = center-window;
+      "${leaderKey}+b".action = set-dynamic-cast-window;
+      "${leaderKey}+Alt+b".action = set-dynamic-cast-monitor;
 
       "${leaderKey}+f".action = maximize-column;
       "${leaderKey}+Shift+f".action = fullscreen-window;
