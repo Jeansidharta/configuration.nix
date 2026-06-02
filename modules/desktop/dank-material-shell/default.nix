@@ -214,76 +214,109 @@ let
       }
     else if is_niri then
       {
-        programs.niri.settings.binds = {
-          "Super+Space".action.spawn = [
-            dms
-            "ipc"
-            "spotlight"
-            "toggle"
-          ];
-          "Super+period".action.spawn = [
-            dms
-            "ipc"
-            "call"
-            "wallpaperCarousel"
-            "toggle"
-          ];
-          "Super+n".action.spawn = [
-            dms
-            "ipc"
-            "notifications"
-            "toggle"
-          ];
-          "Super+v".action.spawn = [
-            dms
-            "ipc"
-            "clipboard"
-            "toggle"
-          ];
-          "XF86AudioRaiseVolume".action.spawn = [
-            dms
-            "ipc"
-            "audio"
-            "increment"
-            "5"
-          ];
-          "XF86AudioLowerVolume".action.spawn = [
-            dms
-            "ipc"
-            "audio"
-            "decrement"
-            "5"
-          ];
-          "XF86AudioMute".action.spawn = [
-            dms
-            "ipc"
-            "audio"
-            "mute"
-          ];
-          "XF86AudioNext".action.spawn = [
-            dms
-            "ipc"
-            "mpris"
-            "next"
-          ];
-          "XF86AudioPlay".action.spawn = [
-            dms
-            "ipc"
-            "mpris"
-            "playPause"
-          ];
-          "XF86AudioPrev".action.spawn = [
-            dms
-            "ipc"
-            "mpris"
-            "previous"
-          ];
-          "Super+s".action.spawn = [
-            dms
-            "ipc"
-            "lock"
-            "lock"
-          ];
+        programs.niri.settings = {
+          layer-rule = {
+            match = {
+              _props = {
+                namespace = "dms:notification-popup";
+              };
+            };
+            block-out-from = "screencast";
+            # block-out-from = "screen-capture";
+          };
+          binds = {
+            "Super+n" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "notifications"
+                "toggle"
+              ];
+            };
+            "Super+s" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "lock"
+                "lock"
+              ];
+            };
+            "Super+period" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "call"
+                "wallpaperCarousel"
+                "toggle"
+              ];
+            };
+            "Super+Space" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "spotlight"
+                "toggle"
+              ];
+            };
+            "Super+v" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "clipboard"
+                "toggle"
+              ];
+            };
+            "XF86AudioRaiseVolume" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "audio"
+                "increment"
+                "5"
+              ];
+            };
+            "XF86AudioPrev" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "mpris"
+                "previous"
+              ];
+            };
+            "XF86AudioPlay" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "mpris"
+                "playPause"
+              ];
+            };
+            "XF86AudioNext" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "mpris"
+                "next"
+              ];
+            };
+            "XF86AudioMute" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "audio"
+                "mute"
+              ];
+            };
+            "XF86AudioLowerVolume" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "audio"
+                "decrement"
+                "5"
+              ];
+            };
+          };
         };
       }
     else

@@ -8,7 +8,7 @@
 
   programs.niri.settings.binds =
     let
-      niri = lib.getExe pkgs.niri-unstable;
+      niri = lib.getExe pkgs.niri;
       xargs = "${pkgs.findutils}/bin/xargs";
       jq = lib.getExe pkgs.jq;
       wezterm = lib.getExe pkgs.wezterm;
@@ -36,173 +36,366 @@
         ''
       );
     in
-    with config.lib.niri.actions;
     {
-      "${leaderKey}+Return".action.spawn = wezterm;
-      "${leaderKey}+Shift+Return".action.spawn = [
-        wezterm
-        "start"
-        "--cwd"
-        "/home/sidharta/lsbots/"
-      ];
-      "${leaderKey}+Ctrl+Shift+Return".action.spawn = [
-        wezterm
-        "start"
-        "--"
-        "tmux"
-        "attach"
-      ];
-
-      "${leaderKey}+Left".action = focus-column-left;
-      "${leaderKey}+Right".action = focus-column-right;
-      "${leaderKey}+Up".action = focus-window-up;
-      "${leaderKey}+Down".action = focus-window-down;
-
-      "${leaderKey}+Alt+Right".action = focus-monitor-right;
-      "${leaderKey}+Alt+Left".action = focus-monitor-left;
-
-      "${leaderKey}+shift+Left".action = move-column-left;
-      "${leaderKey}+shift+Right".action = move-column-right;
-      "${leaderKey}+Shift+Up".action = move-window-up;
-      "${leaderKey}+Shift+Down".action = move-window-down;
-
-      "${leaderKey}+Alt+Shift+Right".action = move-window-to-monitor-right;
-      "${leaderKey}+Alt+Shift+Left".action = move-window-to-monitor-left;
-
-      "${leaderKey}+ctrl+shift+Left".action = consume-or-expel-window-left;
-      "${leaderKey}+ctrl+shift+Right".action = consume-or-expel-window-right;
-      "${leaderKey}+ctrl+shift+Up".action = move-window-up;
-      "${leaderKey}+ctrl+shift+Down".action = move-window-down;
-
-      "${leaderKey}+j".action = focus-column-left;
-      "${leaderKey}+l".action = focus-column-right;
-      "${leaderKey}+i".action = focus-workspace-up;
-      "${leaderKey}+k".action = focus-workspace-down;
-
-      "${leaderKey}+shift+j".action = move-column-left;
-      "${leaderKey}+shift+l".action = move-column-right;
-      "${leaderKey}+Shift+i".action = move-window-to-workspace-up;
-      "${leaderKey}+Shift+k".action = move-window-to-workspace-down;
-
-      "${leaderKey}+F1".action = set-column-width "100%";
-      "${leaderKey}+F2".action = set-column-width "50%";
-      "${leaderKey}+F3".action = set-column-width "33%";
-      "${leaderKey}+F4".action = set-column-width "25%";
-      "${leaderKey}+F5".action = set-column-width "20%";
-      "${leaderKey}+F6".action = set-column-width "16.66%";
-      "${leaderKey}+F7".action = set-column-width "14.28%";
-      "${leaderKey}+F8".action = set-column-width "12.5%";
-      "${leaderKey}+F9".action = set-column-width "11.11%";
-      "${leaderKey}+F10".action = set-column-width "0%";
-
-      "${leaderKey}+Shift+F1".action = set-column-width "0%";
-      "${leaderKey}+Shift+F2".action = set-column-width "50%";
-      "${leaderKey}+Shift+F3".action = set-column-width "66%";
-      "${leaderKey}+Shift+F4".action = set-column-width "75%";
-      "${leaderKey}+Shift+F5".action = set-column-width "80%";
-      "${leaderKey}+Shift+F6".action = set-column-width "83.33%";
-      "${leaderKey}+Shift+F7".action = set-column-width "85.71%";
-      "${leaderKey}+Shift+F8".action = set-column-width "87.5%";
-      "${leaderKey}+Shift+F9".action = set-column-width "88.88%";
-      "${leaderKey}+Shift+F10".action = set-column-width "100%";
-
-      "${leaderKey}+Ctrl+F1".action = set-window-height "100%";
-      "${leaderKey}+Ctrl+F2".action = set-window-height "50%";
-      "${leaderKey}+Ctrl+F3".action = set-window-height "33%";
-      "${leaderKey}+Ctrl+F4".action = set-window-height "25%";
-      "${leaderKey}+Ctrl+F5".action = set-window-height "20%";
-      "${leaderKey}+Ctrl+F6".action = set-window-height "16.66%";
-      "${leaderKey}+Ctrl+F7".action = set-window-height "14.28%";
-      "${leaderKey}+Ctrl+F8".action = set-window-height "12.5%";
-      "${leaderKey}+Ctrl+F9".action = set-window-height "11.11%";
-      "${leaderKey}+Ctrl+F10".action = set-window-height "0%";
-
-      "${leaderKey}+Shift+Ctrl+F1".action = set-window-height "0%";
-      "${leaderKey}+Shift+Ctrl+F2".action = set-window-height "50%";
-      "${leaderKey}+Shift+Ctrl+F3".action = set-window-height "66%";
-      "${leaderKey}+Shift+Ctrl+F4".action = set-window-height "75%";
-      "${leaderKey}+Shift+Ctrl+F5".action = set-window-height "80%";
-      "${leaderKey}+Shift+Ctrl+F6".action = set-window-height "83.33%";
-      "${leaderKey}+Shift+Ctrl+F7".action = set-window-height "85.71%";
-      "${leaderKey}+Shift+Ctrl+F8".action = set-window-height "87.5%";
-      "${leaderKey}+Shift+Ctrl+F9".action = set-window-height "88.88%";
-      "${leaderKey}+Shift+Ctrl+F10".action = set-window-height "100%";
-
-      "${leaderKey}+equal".action = reset-window-height;
-
-      "${leaderKey}+1".action = focus-workspace "browser";
-      "${leaderKey}+2".action = focus-workspace "2";
-      "${leaderKey}+3".action = focus-workspace "3";
-      "${leaderKey}+4".action = focus-workspace "4";
-      "${leaderKey}+5".action = focus-workspace "5";
-      "${leaderKey}+6".action = focus-workspace "6";
-      "${leaderKey}+7".action = focus-workspace "communication";
-      "${leaderKey}+8".action = focus-workspace "gaming";
-      "${leaderKey}+9".action = focus-workspace "x";
-
-      "${leaderKey}+Alt+1".action = focus-monitor "HDMI-A-1";
-      "${leaderKey}+Alt+2".action = focus-monitor "DP-1";
-
-      "${leaderKey}+Shift+1".action.move-window-to-workspace = "browser";
-      "${leaderKey}+Shift+2".action.move-window-to-workspace = "2";
-      "${leaderKey}+Shift+3".action.move-window-to-workspace = "3";
-      "${leaderKey}+Shift+4".action.move-window-to-workspace = "4";
-      "${leaderKey}+Shift+5".action.move-window-to-workspace = "5";
-      "${leaderKey}+Shift+6".action.move-window-to-workspace = "6";
-      "${leaderKey}+Shift+7".action.move-window-to-workspace = "communication";
-      "${leaderKey}+Shift+8".action.move-window-to-workspace = "gaming";
-      "${leaderKey}+Shift+9".action.move-window-to-workspace = "x";
-
-      "${leaderKey}+Alt+Shift+1".action.move-window-to-monitor = "HDMI-A-1";
-      "${leaderKey}+Alt+Shift+2".action.move-window-to-monitor = "DP-1";
-
-      "${leaderKey}+Home".action = focus-column-first;
-      "${leaderKey}+End".action = focus-column-last;
-      "${leaderKey}+Shift+Home".action = move-column-to-first;
-      "${leaderKey}+Shift+End".action = move-column-to-last;
-      "${leaderKey}+c".action = center-window;
-      "${leaderKey}+b".action = set-dynamic-cast-window;
-      "${leaderKey}+Alt+b".action = set-dynamic-cast-monitor;
-
-      "${leaderKey}+f".action = maximize-column;
-      "${leaderKey}+Shift+f".action = fullscreen-window;
-      "${leaderKey}+q".action = close-window;
-      "${leaderKey}+Shift+q".action.spawn-sh =
-        "${niri} msg --json focused-window | ${jq} --raw-output .pid | ${xargs} kill -9";
-      "${leaderKey}+tab".action = toggle-overview;
-
-      "${leaderKey}+t".action = toggle-column-tabbed-display;
-
-      "${leaderKey}+x".action = switch-focus-between-floating-and-tiling;
-      "${leaderKey}+Shift+x".action = toggle-window-floating;
-
-      "${leaderKey}+question".action = show-hotkey-overlay;
-
-      "Print".action.spawn-sh =
-        "${grim} - | ${satty} --filename - --initial-tool crop --output-filename \"/home/sidharta/screenshots-niri/%Y-%m-%d_%H:%M:%S.png\" --save-after-copy";
-      "${leaderKey}+Ctrl+v".action.spawn = "${modifyClipboard}";
-      "${leaderKey}+Shift+v".action.spawn = "${paste-qrcode}";
-      "Shift+XF86AudioNext".action.spawn = [
-        mpc
-        "next"
-      ];
-      "Shift+XF86AudioPlay".action.spawn = [
-        mpc
-        "toggle"
-      ];
-      "Shift+XF86AudioPrev".action.spawn = [
-        mpc
-        "prev"
-      ];
-      "Shift+XF86AudioRaiseVolume".action.spawn = [
-        mpc
-        "volume"
-        "+10"
-      ];
-      "Shift+XF86AudioLowerVolume".action.spawn = [
-        mpc
-        "volume"
-        "+10"
-      ];
+      "Print" = {
+        spawn-sh = "${grim} - | ${satty} --filename - --initial-tool crop --output-filename \"/home/sidharta/screenshots-niri/%Y-%m-%d_%H:%M:%S.png\" --save-after-copy";
+      };
+      "Shift+XF86AudioLowerVolume" = {
+        spawn = [
+          "${mpc}"
+          "volume +10"
+        ];
+      };
+      "Shift+XF86AudioNext" = {
+        spawn = [
+          "${mpc}"
+          "next"
+        ];
+      };
+      "Shift+XF86AudioPlay" = {
+        spawn = [
+          "${mpc}"
+          "toggle"
+        ];
+      };
+      "Shift+XF86AudioPrev" = {
+        spawn = [
+          "${mpc}"
+          "prev"
+        ];
+      };
+      "Shift+XF86AudioRaiseVolume" = {
+        spawn = [
+          "${mpc}"
+          "volume"
+          "+10"
+        ];
+      };
+      "Super+1" = {
+        focus-workspace = "browser";
+      };
+      "Super+2" = {
+        focus-workspace = "2";
+      };
+      "Super+3" = {
+        focus-workspace = "3";
+      };
+      "Super+4" = {
+        focus-workspace = "4";
+      };
+      "Super+5" = {
+        focus-workspace = "5";
+      };
+      "Super+6" = {
+        focus-workspace = "6";
+      };
+      "Super+7" = {
+        focus-workspace = "communication";
+      };
+      "Super+8" = {
+        focus-workspace = "gaming";
+      };
+      "Super+9" = {
+        focus-workspace = "x";
+      };
+      "Super+Alt+1" = {
+        focus-monitor = "HDMI-A-1";
+      };
+      "Super+Alt+2" = {
+        focus-monitor = "DP-1";
+      };
+      "Super+Alt+Left" = {
+        focus-monitor-left = { };
+      };
+      "Super+Alt+Right" = {
+        focus-monitor-right = { };
+      };
+      "Super+Alt+Shift+1" = {
+        move-window-to-monitor = "HDMI-A-1";
+      };
+      "Super+Alt+Shift+2" = {
+        move-window-to-monitor = "DP-1";
+      };
+      "Super+Alt+Shift+Left" = {
+        move-window-to-monitor-left = { };
+      };
+      "Super+Alt+Shift+Right" = {
+        move-window-to-monitor-right = { };
+      };
+      "Super+Alt+b" = {
+        set-dynamic-cast-monitor = { };
+      };
+      "Super+Ctrl+F1" = {
+        set-window-height = "100%";
+      };
+      "Super+Ctrl+F10" = {
+        set-window-height = "0%";
+      };
+      "Super+Ctrl+F2" = {
+        set-window-height = "50%";
+      };
+      "Super+Ctrl+F3" = {
+        set-window-height = "33%";
+      };
+      "Super+Ctrl+F4" = {
+        set-window-height = "25%";
+      };
+      "Super+Ctrl+F5" = {
+        set-window-height = "20%";
+      };
+      "Super+Ctrl+F6" = {
+        set-window-height = "16.66%";
+      };
+      "Super+Ctrl+F7" = {
+        set-window-height = "14.28%";
+      };
+      "Super+Ctrl+F8" = {
+        set-window-height = "12.5%";
+      };
+      "Super+Ctrl+F9" = {
+        set-window-height = "11.11%";
+      };
+      "Super+Ctrl+v" = {
+        spawn = [ "${modifyClipboard}" ];
+      };
+      "Super+Down" = {
+        focus-window-down = { };
+      };
+      "Super+End" = {
+        focus-column-last = { };
+      };
+      "Super+F1" = {
+        set-column-width = "100%";
+      };
+      "Super+F10" = {
+        set-column-width = "0%";
+      };
+      "Super+F2" = {
+        set-column-width = "50%";
+      };
+      "Super+F3" = {
+        set-column-width = "33%";
+      };
+      "Super+F4" = {
+        set-column-width = "25%";
+      };
+      "Super+F5" = {
+        set-column-width = "20%";
+      };
+      "Super+F6" = {
+        set-column-width = "16.66%";
+      };
+      "Super+F7" = {
+        set-column-width = "14.28%";
+      };
+      "Super+F8" = {
+        set-column-width = "12.5%";
+      };
+      "Super+F9" = {
+        set-column-width = "11.11%";
+      };
+      "Super+Home" = {
+        focus-column-first = { };
+      };
+      "Super+Left" = {
+        focus-column-left = { };
+      };
+      "Super+Return" = {
+        spawn = [ "${wezterm}" ];
+      };
+      "Super+Right" = {
+        focus-column-right = { };
+      };
+      "Super+Shift+1" = {
+        move-window-to-workspace = "browser";
+      };
+      "Super+Shift+2" = {
+        move-window-to-workspace = "2";
+      };
+      "Super+Shift+3" = {
+        move-window-to-workspace = "3";
+      };
+      "Super+Shift+4" = {
+        move-window-to-workspace = "4";
+      };
+      "Super+Shift+5" = {
+        move-window-to-workspace = "5";
+      };
+      "Super+Shift+6" = {
+        move-window-to-workspace = "6";
+      };
+      "Super+Shift+7" = {
+        move-window-to-workspace = "communication";
+      };
+      "Super+Shift+8" = {
+        move-window-to-workspace = "gaming";
+      };
+      "Super+Shift+9" = {
+        move-window-to-workspace = "x";
+      };
+      "Super+Shift+Ctrl+F1" = {
+        set-window-height = "0%";
+      };
+      "Super+Shift+Ctrl+F10" = {
+        set-window-height = "100%";
+      };
+      "Super+Shift+Ctrl+F2" = {
+        set-window-height = "50%";
+      };
+      "Super+Shift+Ctrl+F3" = {
+        set-window-height = "66%";
+      };
+      "Super+Shift+Ctrl+F4" = {
+        set-window-height = "75%";
+      };
+      "Super+Shift+Ctrl+F5" = {
+        set-window-height = "80%";
+      };
+      "Super+Shift+Ctrl+F6" = {
+        set-window-height = "83.33%";
+      };
+      "Super+Shift+Ctrl+F7" = {
+        set-window-height = "85.71%";
+      };
+      "Super+Shift+Ctrl+F8" = {
+        set-window-height = "87.5%";
+      };
+      "Super+Shift+Ctrl+F9" = {
+        set-window-height = "88.88%";
+      };
+      "Super+Shift+Down" = {
+        move-window-down = { };
+      };
+      "Super+Shift+End" = {
+        move-column-to-last = { };
+      };
+      "Super+Shift+F1" = {
+        set-column-width = "0%";
+      };
+      "Super+Shift+F10" = {
+        set-column-width = "100%";
+      };
+      "Super+Shift+F2" = {
+        set-column-width = "50%";
+      };
+      "Super+Shift+F3" = {
+        set-column-width = "66%";
+      };
+      "Super+Shift+F4" = {
+        set-column-width = "75%";
+      };
+      "Super+Shift+F5" = {
+        set-column-width = "80%";
+      };
+      "Super+Shift+F6" = {
+        set-column-width = "83.33%";
+      };
+      "Super+Shift+F7" = {
+        set-column-width = "85.71%";
+      };
+      "Super+Shift+F8" = {
+        set-column-width = "87.5%";
+      };
+      "Super+Shift+F9" = {
+        set-column-width = "88.88%";
+      };
+      "Super+Shift+Home" = {
+        move-column-to-first = { };
+      };
+      "Super+Shift+Return" = {
+        spawn = [
+          "${wezterm}"
+          "start"
+          "--cwd"
+          "/home/sidharta/lsbots/"
+        ];
+      };
+      "Super+Shift+Up" = {
+        move-window-up = { };
+      };
+      "Super+Shift+f" = {
+        fullscreen-window = { };
+      };
+      "Super+Shift+i" = {
+        move-window-to-workspace-up = { };
+      };
+      "Super+Shift+k" = {
+        move-window-to-workspace-down = { };
+      };
+      "Super+Shift+q" = {
+        spawn-sh = "${niri} msg --json focused-window | ${jq} --raw-output .pid | ${xargs} kill -9";
+      };
+      "Super+Shift+v" = {
+        spawn = [ "${paste-qrcode}" ];
+      };
+      "Super+Shift+x" = {
+        toggle-window-floating = { };
+      };
+      "Super+Up" = {
+        focus-window-up = { };
+      };
+      "Super+b" = {
+        set-dynamic-cast-window = { };
+      };
+      "Super+c" = {
+        center-window = { };
+      };
+      "Super+ctrl+shift+Down" = {
+        move-window-down = { };
+      };
+      "Super+ctrl+shift+Left" = {
+        consume-or-expel-window-left = { };
+      };
+      "Super+ctrl+shift+Right" = {
+        consume-or-expel-window-right = { };
+      };
+      "Super+ctrl+shift+Up" = {
+        move-window-up = { };
+      };
+      "Super+equal" = {
+        reset-window-height = { };
+      };
+      "Super+f" = {
+        maximize-column = { };
+      };
+      "Super+i" = {
+        focus-workspace-up = { };
+      };
+      "Super+j" = {
+        focus-column-left = { };
+      };
+      "Super+k" = {
+        focus-workspace-down = { };
+      };
+      "Super+l" = {
+        focus-column-right = { };
+      };
+      "Super+q" = {
+        close-window = { };
+      };
+      "Super+question" = {
+        show-hotkey-overlay = { };
+      };
+      "Super+shift+Left" = {
+        move-column-left = { };
+      };
+      "Super+shift+Right" = {
+        move-column-right = { };
+      };
+      "Super+shift+j" = {
+        move-column-left = { };
+      };
+      "Super+shift+l" = {
+        move-column-right = { };
+      };
+      "Super+t" = {
+        toggle-column-tabbed-display = { };
+      };
+      "Super+tab" = {
+        toggle-overview = { };
+      };
+      "Super+x" = {
+        switch-focus-between-floating-and-tiling = { };
+      };
     };
 }

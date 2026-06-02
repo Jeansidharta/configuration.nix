@@ -6,132 +6,212 @@
   ...
 }:
 {
-  imports = [ ./binds.nix ];
+  imports = [
+    ./binds.nix
+  ];
 
   programs.niri = {
+    enable = true;
     settings = {
-      overview.zoom = 0.4;
-      overview.backdrop-color = theme.colors.bg_dark;
-      prefer-no-csd = true;
-      screenshot-path = "~/screenshots-niri/%Y-%m-%d %H-%M-%S.png";
-      hotkey-overlay = {
-        skip-at-startup = true;
-      };
       input = {
-        focus-follows-mouse = {
-          enable = false;
-          # max-scroll-amount = 0;
+        keyboard = {
+          xkb = {
+            layout = "us";
+            model = "";
+            rules = "";
+            variant = "intl";
+          };
+          repeat-delay = 600;
+          repeat-rate = 25;
+          track-layout = "global";
         };
-        keyboard.xkb = {
-          layout = "us";
-          variant = "intl";
+        touchpad = {
+          tap = { };
+          natural-scroll = { };
         };
       };
-      clipboard = {
-        disable-primary = false;
-      };
-      outputs."primary" = {
-        name = "HDMI-A-1";
-        focus-at-startup = true;
+      "output \"HDMI-A-1\"" = {
+        focus-at-startup = { };
+        transform = "normal";
         position = {
-          x = 0;
-          y = 0;
+          _props = {
+            x = 0;
+            y = 0;
+          };
         };
       };
-      outputs."secondary" = {
-        name = "DP-1";
+      "output \"DP-1\"" = {
+        transform = "normal";
         position = {
-          x = 1920;
-          y = 0;
+          _props = {
+            x = 1920;
+            y = 0;
+          };
         };
       };
-      workspaces = {
-        "browser" = { };
-        "2" = { };
-        "3" = { };
-        "4" = { };
-        "5" = { };
-        "6" = { };
-        "communication" = { };
-        "gaming" = { };
-        "x" = { };
+      screenshot-path = "~/screenshots-niri/%Y-%m-%d %H-%M-%S.png";
+      prefer-no-csd = { };
+      overview = {
+        zoom = [ 0.4 ];
+        backdrop-color = [ "#0d0d1a" ];
       };
-      animations = {
-        workspace-switch = {
-          enable = false;
-        };
-      };
-
-      window-rules = [
-        {
-          draw-border-with-background = false;
-          geometry-corner-radius = {
-            bottom-left = 4.0;
-            bottom-right = 4.0;
-            top-left = 4.0;
-            top-right = 4.0;
-          };
-          clip-to-geometry = true;
-          background-effect = {
-            blur = true;
-          };
-        }
-        {
-          matches = [ { app-id = "com.gabm.satty"; } ];
-          open-fullscreen = true;
-        }
-        {
-          matches = [ { app-id = "^steam.*$"; } ];
-          open-on-workspace = "gaming";
-        }
-        {
-          matches = [ { app-id = "^discord$"; } ];
-          open-on-workspace = "communication";
-        }
-        {
-          matches = [ { app-id = "^org\\.telegram\\.desktop$"; } ];
-          open-on-workspace = "communication";
-        }
-        {
-          matches = [ { app-id = "^ZapZap$"; } ];
-          open-on-workspace = "communication";
-        }
-        {
-          matches = [ { app-id = "wezterm.clipboard"; } ];
-          open-focused = true;
-          default-column-width = {
-            proportion = 0.9;
-          };
-          default-window-height = {
-            proportion = 0.9;
-          };
-          open-floating = true;
-        }
-      ];
-
       layout = {
         gaps = 2;
         struts = {
           left = 4;
           right = 4;
-        };
-        tab-indicator = {
-          width = 4;
-          active = {
-            color = theme.colors.tertiary_color;
-          };
-          urgent = {
-            color = theme.colors.error;
-          };
+          top = 0;
+          bottom = 0;
         };
         focus-ring = {
           width = 2;
-          active = {
-            color = theme.colors.primary_color;
+          urgent-color = "#ff0055";
+          active-color = "#ff66cc";
+        };
+        border = {
+          off = { };
+        };
+        tab-indicator = {
+          gap = 5;
+          width = 5;
+          length = {
+            _props = {
+              total-proportion = 0.5;
+            };
           };
-          urgent = {
-            color = theme.colors.error;
+          position = "left";
+          gaps-between-tabs = 0.000000;
+          corner-radius = 0.000000;
+          urgent-color = "#ff0055";
+          active-color = "#00ffd5";
+        };
+        default-column-width = { };
+        center-focused-column = "never";
+      };
+      cursor = {
+        xcursor-theme = "default";
+        xcursor-size = 24;
+      };
+      hotkey-overlay = {
+        skip-at-startup = { };
+      };
+      _children = [
+        {
+          "workspace \"browser\"" = {
+            open-on-output = "HDMI-A-1";
           };
+        }
+        {
+          "workspace \"communication\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"gaming\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"x\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"2\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"3\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"4\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"5\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          "workspace \"6\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
+          window-rule = {
+            draw-border-with-background = false;
+            geometry-corner-radius = [4 4 4 4];
+            clip-to-geometry = true;
+            background-effect = {
+              blur = true;
+            };
+          };
+        }
+        {
+          window-rule = {
+            match = {
+              _props = {
+                app-id = "com.gabm.satty";
+              };
+            };
+            open-fullscreen = true;
+          };
+        }
+        {
+          window-rule = {
+            match = {
+              _props = {
+                app-id = "^steam.*$";
+              };
+            };
+            open-on-workspace = "gaming";
+          };
+        }
+        {
+          window-rule = {
+            match = {
+              _props = {
+                app-id = "^discord$";
+              };
+            };
+            open-on-workspace = "communication";
+          };
+        }
+        {
+          window-rule = {
+            match = {
+              _props = {
+                app-id = "^org.telegram.desktop$";
+              };
+            };
+            open-on-workspace = "communication";
+          };
+        }
+        {
+          window-rule = {
+            match = {
+              _props = {
+                app-id = "wezterm.clipboard";
+              };
+            };
+            default-column-width = {
+              proportion = 0.9;
+            };
+            default-window-height = {
+              proportion = 0.9;
+            };
+            open-floating = true;
+            open-focused = true;
+          };
+        }
+      ];
+      animations = {
+        workspace-switch = {
+          off = { };
         };
       };
     };

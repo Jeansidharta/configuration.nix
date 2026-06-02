@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 {
   nixpkgs.overlays = [
-    inputs.niri.overlays.niri
+    inputs.niri.overlays.default
   ];
   imports = [ ];
 
@@ -11,7 +11,6 @@
 
   programs.niri = {
     enable = true;
-    package = pkgs.niri-unstable;
   };
 
   services.greetd = {

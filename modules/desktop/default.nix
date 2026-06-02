@@ -342,11 +342,11 @@ let
 in
 {
   imports = [
-    inputs.niri.nixosModules.niri
   ];
 
   home-manager.users.sidharta.imports = [
     hm-module
+    ../../options/niri.nix
   ];
 
   nixpkgs.overlays = [

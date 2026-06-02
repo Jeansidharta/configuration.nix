@@ -115,10 +115,8 @@
     #   inputs.nixpkgs.follows = "nixpkgs-unstable";
     # };
     niri = {
-      url = "github:myume/niri-flake/blur";
+      url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
-      inputs.niri-unstable.url = "github:YaLTeR/niri";
     };
     # walker = {
     #   url = "github:abenz1267/walker";
