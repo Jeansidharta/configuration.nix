@@ -36,7 +36,7 @@
           private-key = "$WG_LSBOTS_KEY";
         };
         "wireguard-peer.2r/6iSMNBnNOqDIYNfi5LhV8mNByIktrs7mDm5gbtCg=" = {
-          endpoint = "satha.lsbots.com.br:51820";
+          endpoint = "147.15.70.235:51820"; # Should be satha.lsbots.com.br
           allowed-ips = "10.1.0.1/16;fd10::1/64;";
         };
         ipv4 = {
