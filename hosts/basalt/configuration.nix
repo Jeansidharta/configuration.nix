@@ -62,6 +62,7 @@
           iputils
           wpa_supplicant
           iproute2
+          openssh
         ];
         bashOptions = [
           "nounset"
@@ -71,18 +72,21 @@
           #!/usr/bin/env bash
 
           while true; do
-              while ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; do
-                  sleep 1;
-              done
-              echo 'retrying 1...'
-              while ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; do
-                  continue 2
-              done
-              echo 'retrying 2...'
-              while ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; do
-                  continue 2
+              COUNT=0
+              LIMIT=5
+              while true; do
+                  if ping -q -c 1 -w 3 1.1.1.1 >& /dev/null; then
+                      COUNT=0
+                      sleep 1;
+                  elif [ "$COUNT" -lt "$LIMIT" ]; then
+                      COUNT=$((COUNT+1))
+                      echo "Ping $COUNT failed"
+                  else
+                      break
+                  fi
               done
               echo restarting
+              ssh -i /home/sidharta/.ssh/id_ed25519 sidharta@192.168.0.192 -- notify-send "Internet down" &
               ip --json address show wlan0 | jq '.[0].addr_info.[] | select(.family == "inet") | { local, valid_life_time }' --compact-output 
               network=$(wpa_cli list_networks | grep CURRENT | cut --fields=1)
               if [ "$network" == "" ]; then
@@ -90,6 +94,7 @@
               fi
               echo "Connecting to network $network"
               wpa_cli disconnect > /dev/null && wpa_cli select_network "$network" > /dev/null
+              sleep 1
 
               COUNT=0
               LIMIT=120 # seconds
@@ -113,6 +118,7 @@
                     sleep 1
                 done
                 echo -n "Internet is up! "
+                ssh -i /home/sidharta/.ssh/id_ed25519 sidharta@192.168.0.192 -- notify-send "Internet up!" &
                 wpa_cli status | grep bssid
           EOF
           )" || echo "Internet still not back up." 
