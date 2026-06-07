@@ -62,7 +62,7 @@
                 "fd10::1/64"
                 "10.1.0.0/16"
               ];
-              endpoint = "satha.lsbots.com.br:51820";
+              endpoint = "147.15.70.235:51820"; # satha.lsbots.com.br
               publicKey = "2r/6iSMNBnNOqDIYNfi5LhV8mNByIktrs7mDm5gbtCg=";
             }
           ];
