@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }:
 {
@@ -107,9 +108,10 @@
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
-    # initExtra = ''
-    # export NIX_BUILD_SHELL=${nix-zshell}
-    # '';
+    dotDir = "${config.xdg.configHome}/zsh";
+    initContent = ''
+        export EDITOR=${pkgs.neovim}/bin/nvim
+    '';
   };
 
   home.shellAliases = {

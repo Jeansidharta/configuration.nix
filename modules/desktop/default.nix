@@ -9,7 +9,12 @@ let
   inherit (config.lib.overlay-helpers) mkUnstable overlay-flake;
 
   hm-module =
-    { pkgs, lib, ... }:
+    {
+      pkgs,
+      lib,
+      config,
+      ...
+    }:
     {
       home.packages = with pkgs; [
         wl-clipboard # Clipboard software
@@ -33,6 +38,8 @@ let
         kdePackages.breeze-icons
         adwaita-icon-theme
       ];
+
+      imports = [ ./firefox.nix ];
 
       home.shellAliases = {
         "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
@@ -96,16 +103,6 @@ let
         };
       };
 
-      programs.firefox = {
-        enable = true;
-        profiles.default = {
-          isDefault = true;
-          name = "default";
-          id = 0;
-          settings = {
-          };
-        };
-      };
       programs.mpv = {
         enable = true;
         config = {

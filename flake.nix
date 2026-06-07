@@ -13,6 +13,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
     home-manager-25_11.url = "github:nix-community/home-manager/release-25.11";
     home-manager-25_11.inputs.nixpkgs.follows = "nixpkgs-25_11";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     theme.url = "./theming";
     disko = {
       url = "github:nix-community/disko";
