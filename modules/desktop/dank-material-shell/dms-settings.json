@@ -1,7 +1,7 @@
 {
   "currentThemeName": "custom",
   "currentThemeCategory": "custom",
-  "customThemeFile": "/nix/store/96wxkzg3ndmlz841dx4qgh0nqx4qxl84-theme",
+  "customThemeFile": "/nix/store/spy1cgy7bdm30d0kq9abf25c8nxpa6dc-theme",
   "registryThemeVariants": {},
   "matugenScheme": "scheme-tonal-spot",
   "matugenContrast": 0,
@@ -20,9 +20,11 @@
   "hyprlandLayoutGapsOverride": -1,
   "hyprlandLayoutRadiusOverride": -1,
   "hyprlandLayoutBorderSize": -1,
+  "hyprlandResizeOnBorder": false,
   "mangoLayoutGapsOverride": -1,
   "mangoLayoutRadiusOverride": -1,
   "mangoLayoutBorderSize": -1,
+  "mangoTrackpadNaturalScrolling": true,
   "firstDayOfWeek": -1,
   "showWeekNumber": false,
   "use24HourClock": true,
@@ -92,6 +94,8 @@
   "controlCenterShowBatteryIcon": false,
   "controlCenterShowPrinterIcon": false,
   "controlCenterShowScreenSharingIcon": true,
+  "controlCenterShowIdleInhibitorIcon": false,
+  "controlCenterShowDoNotDisturbIcon": false,
   "showPrivacyButton": true,
   "privacyShowMicIcon": false,
   "privacyShowCameraIcon": false,
@@ -147,6 +151,7 @@
   "maxWorkspaceIcons": 3,
   "workspaceAppIconSizeOffset": 0,
   "groupWorkspaceApps": true,
+  "groupActiveWorkspaceApps": false,
   "workspaceFollowFocus": false,
   "showOccupiedWorkspacesOnly": false,
   "reverseScrolling": false,
@@ -168,6 +173,7 @@
   "audioWheelScrollAmount": 5,
   "clockCompactMode": false,
   "focusedWindowCompactMode": false,
+  "focusedWindowSize": 1,
   "runningAppsCompactMode": true,
   "barMaxVisibleApps": 0,
   "barMaxVisibleRunningApps": 0,
@@ -179,6 +185,7 @@
   "appsDockEnlargePercentage": 125,
   "appsDockIconSizePercentage": 100,
   "keyboardLayoutNameCompactMode": false,
+  "keyboardLayoutNameShowIcon": false,
   "runningAppsCurrentWorkspace": true,
   "runningAppsGroupByApp": true,
   "runningAppsCurrentMonitor": false,
@@ -214,6 +221,7 @@
   "lockDateFormat": "",
   "greeterRememberLastSession": true,
   "greeterRememberLastUser": true,
+  "greeterAutoLogin": false,
   "greeterEnableFprint": false,
   "greeterEnableU2f": false,
   "greeterWallpaperPath": "",
@@ -234,6 +242,7 @@
   "appLauncherGridColumns": 5,
   "spotlightCloseNiriOverview": true,
   "rememberLastQuery": false,
+  "rememberLastMode": true,
   "spotlightSectionViewModes": {},
   "appDrawerSectionViewModes": {},
   "niriOverviewOverlayEnabled": true,
@@ -245,6 +254,9 @@
   "dankLauncherV2UnloadOnClose": false,
   "dankLauncherV2IncludeFilesInAll": false,
   "dankLauncherV2IncludeFoldersInAll": false,
+  "launcherUseOverlayLayer": false,
+  "launcherStyle": "full",
+  "spotlightBarShowModeChips": false,
   "useAutoLocation": true,
   "weatherEnabled": true,
   "networkPreference": "wifi",
@@ -281,6 +293,8 @@
   "notepadUseMonospace": true,
   "notepadFontFamily": "",
   "notepadFontSize": 14,
+  "notificationSummaryFontSize": 0,
+  "notificationBodyFontSize": 0,
   "notepadShowLineNumbers": false,
   "notepadTransparencyOverride": -1,
   "notepadLastCustomTransparency": 0.7,
@@ -361,7 +375,7 @@
   "showDock": false,
   "dockAutoHide": true,
   "dockSmartAutoHide": false,
-  "dockHideOnFullscreen": false,
+  "dockUseOverlayLayer": false,
   "dockGroupByApp": false,
   "dockRestoreSpecialWorkspaceOnClick": false,
   "dockOpenOnOverview": false,
@@ -417,6 +431,8 @@
   "notificationTimeoutNormal": 5000,
   "notificationTimeoutCritical": 0,
   "notificationCompactMode": false,
+  "notificationShowTimeoutBar": false,
+  "notificationDedupeEnabled": true,
   "notificationPopupPosition": 0,
   "notificationAnimationSpeed": 1,
   "notificationCustomAnimationDuration": 400,
@@ -429,7 +445,7 @@
   "notificationRules": [],
   "notificationFocusedMonitor": false,
   "osdAlwaysShowValue": true,
-  "osdPosition": 5,
+  "osdPosition": 3,
   "osdVolumeEnabled": true,
   "osdMediaVolumeEnabled": true,
   "osdMediaPlaybackEnabled": true,
@@ -458,6 +474,7 @@
   "customPowerActionReboot": "",
   "customPowerActionPowerOff": "",
   "updaterHideWidget": false,
+  "updaterCheckOnStart": false,
   "updaterUseCustomCommand": false,
   "updaterCustomCommand": "",
   "updaterTerminalAdditionalParams": "",
@@ -495,6 +512,7 @@
       ],
       "enabled": true,
       "fontScale": 1,
+      "fullscreenDetection": false,
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 0,
       "gothCornersEnabled": false,
@@ -502,41 +520,41 @@
       "innerPadding": 4,
       "leftWidgets": [
         {
-          "id": "launcherButton",
-          "enabled": true
-        },
-        {
-          "id": "ocrScanner",
-          "enabled": true
-        },
-        {
-          "id": "privacyIndicator",
-          "enabled": true
-        },
-        {
-          "id": "cpuUsage",
           "enabled": true,
+          "id": "launcherButton"
+        },
+        {
+          "enabled": true,
+          "id": "ocrScanner"
+        },
+        {
+          "enabled": true,
+          "id": "privacyIndicator"
+        },
+        {
+          "enabled": true,
+          "id": "cpuUsage",
           "minimumWidth": true
         },
         {
-          "id": "memUsage",
           "enabled": true,
+          "id": "memUsage",
           "minimumWidth": true,
           "showInGb": false
         },
         {
-          "id": "diskUsage",
+          "diskUsageMode": 0,
           "enabled": true,
-          "mountPath": "/",
-          "diskUsageMode": 0
+          "id": "diskUsage",
+          "mountPath": "/"
         },
         {
-          "id": "network_speed_monitor",
-          "enabled": true
+          "enabled": true,
+          "id": "network_speed_monitor"
         },
         {
-          "id": "dankKDEConnect",
-          "enabled": true
+          "enabled": true,
+          "id": "dankKDEConnect"
         }
       ],
       "maximizeDetection": true,
@@ -583,8 +601,7 @@
       "widgetOutlineOpacity": 0.07,
       "widgetOutlineThickness": 1,
       "widgetPadding": 2,
-      "widgetTransparency": 1,
-      "fullscreenDetection": false
+      "widgetTransparency": 1
     }
   ],
   "desktopClockEnabled": false,
@@ -657,6 +674,9 @@
   "builtInPluginSettings": {
     "dms_settings_search": {
       "trigger": "?"
+    },
+    "dms_clipboard_search": {
+      "trigger": "cb"
     }
   },
   "clipboardEnterToPaste": false,
