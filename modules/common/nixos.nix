@@ -81,6 +81,12 @@ in
   };
 
   services.timesyncd.enable = true;
+
+  programs.ssh = {
+    extraConfig = ''
+        EnableEscapeCommandline yes
+    '';
+  };
   services.openssh = {
     enable = true;
     ports = [ 22 ];
