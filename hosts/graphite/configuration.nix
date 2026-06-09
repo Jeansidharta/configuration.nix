@@ -13,6 +13,7 @@
 
     ./hardware-configuration.nix
     ./disko-config.nix
+    ../../modules/wireguard-lsbots.nix
   ];
   home-manager.users.sidharta.imports = [
     ./home-manager.nix

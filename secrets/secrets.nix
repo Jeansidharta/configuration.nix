@@ -26,6 +26,10 @@ in
     keys.obsidian.system
     keys.obsidian.sidharta
   ];
+  "wg-lsbots-key-basalt.age".publicKeys = [
+    keys.basalt.sidharta
+    keys.basalt.system
+  ];
   "wg-lsbots-key-graphite.age".publicKeys = [
     keys.graphite.sidharta
     keys.graphite.system

@@ -51,6 +51,9 @@ in
       file = ./netlify-ddns.age;
       owner = "sidharta";
     };
+    wg-lsbots-key = {
+      file = ./wg-lsbots-key-basalt.age;
+    };
   })
   // (forObsidian {
     wg-lsbots-key = {

@@ -22,8 +22,6 @@
     ../modules/extra.nix
     ../modules/nix-extra.nix
     ../modules/podman.nix
-
-    ../modules/wireguard.nix
   ];
 
   host-data.profile = "laptop";

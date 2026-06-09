@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ config, lib, ... }:
 {
   # services.resolved.dnsDelegates."lsbots.com.br".Delegate = {
   #   DNS = "fd10::1";
@@ -14,7 +14,7 @@
     DNS=[fd10::1]:53
   '';
   networking = {
-    networkmanager.ensureProfiles = {
+    networkmanager.ensureProfiles = lib.mkIf (config.networking.networkmanager.enable) {
       environmentFiles = [ config.age.secrets.wg-lsbots-key.path ];
       secrets.entries = [
         {
@@ -64,6 +64,7 @@
               ];
               endpoint = "147.15.70.235:51820"; # satha.lsbots.com.br
               publicKey = "2r/6iSMNBnNOqDIYNfi5LhV8mNByIktrs7mDm5gbtCg=";
+              persistentKeepalive = 30;
             }
           ];
           privateKeyFile = config.age.secrets.wg-lsbots-key.path;

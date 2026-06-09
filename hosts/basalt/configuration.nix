@@ -19,7 +19,7 @@
       raspberry-pi-5.page-size-16k
       sd-image
       ../../profiles/headless.nix
-      # ../../modules/weron.nix
+      ../../modules/wireguard-lsbots.nix
     ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
@@ -134,6 +134,10 @@
     };
 
   networking = {
+    wireguard.interfaces.wg-lsbots.ips = [
+      "fd10::4/64"
+      "10.1.0.4/16"
+    ];
     wireless = {
       extraConfig = ''
         device_name=Basalt
