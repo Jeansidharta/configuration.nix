@@ -112,11 +112,6 @@
           };
         }
         {
-          "workspace \"x\"" = {
-            open-on-output = "HDMI-A-1";
-          };
-        }
-        {
           "workspace \"2\"" = {
             open-on-output = "HDMI-A-1";
           };
@@ -142,9 +137,19 @@
           };
         }
         {
+          "workspace \"x\"" = {
+            open-on-output = "HDMI-A-1";
+          };
+        }
+        {
           window-rule = {
             draw-border-with-background = false;
-            geometry-corner-radius = [4 4 4 4];
+            geometry-corner-radius = [
+              4
+              4
+              4
+              4
+            ];
             clip-to-geometry = true;
             background-effect = {
               blur = true;
