@@ -73,6 +73,14 @@ in
         If a string is provided, use as a theme instead
       '';
     };
+    settings-user-color = mkOption {
+      type = formatType;
+      default = { };
+      description = ''
+        Configuration written to
+        {file}`$XDG_CONFIG_HOME/nchat/usercolor.conf`.
+      '';
+    };
   };
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
@@ -86,6 +94,11 @@ in
         "nchat/app.conf" = mkConfig "app-config" cfg.settings-app;
         "nchat/ui.conf" = mkConfig "ui-config" cfg.settings-ui;
         "nchat/key.conf" = mkConfig "key-config" cfg.settings-key;
+        "nchat/usercolor.conf" =
+          if (typeOf cfg.settings-color) == "string" then
+            { source = "${cfg.package}/share/nchat/themes/${cfg.settings-color}/usercolor.conf"; }
+          else
+            mkConfig "user-color-config" cfg.settings-user-color;
         "nchat/color.conf" =
           if (typeOf cfg.settings-color) == "string" then
             { source = "${cfg.package}/share/nchat/themes/${cfg.settings-color}/color.conf"; }

@@ -20,6 +20,10 @@ in
         inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.nchat.overrideAttrs
           (prevAttrs: {
             nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ prev.libpng.dev ];
+            preBuild = ''
+              mkdir -p $out/share/nchat
+              cp --dereference --no-preserve=mode -r $src/themes $out/share/nchat
+            '';
           });
     })
     (final: prev: {

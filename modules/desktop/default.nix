@@ -47,7 +47,7 @@ let
 
       programs.nchat = {
         enable = true;
-        settings-color = "dracula";
+        settings-color = "ayu-dark";
         settings-ui = {
           desktop_notify_enabled = 1;
           desktop_notify_active_noncurrent = 1;
