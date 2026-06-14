@@ -98,6 +98,7 @@
       "original": {
         "owner": "Saghen",
         "repo": "blink.cmp",
+        "rev": "d2c4d170ad51e5116da7b19f2426f3b6e318161d",
         "type": "github"
       }
     },
@@ -147,16 +148,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1780479614,
-        "narHash": "sha256-YlvnmeKny7pGL5+tAqtZK84WxJ/vKwCMG5CP9xJEnUg=",
+        "lastModified": 1779999494,
+        "narHash": "sha256-0oQfbISX+VQKPTyFm+V8kHtudDXnJoCCaMYutZ82gUw=",
         "owner": "saghen",
         "repo": "blink.lib",
-        "rev": "b127d48bf8e9ac9cf41f6e0fbead317503f76558",
+        "rev": "41bc1199dd1f5f0687efbd522061b22002c2d4c5",
         "type": "github"
       },
       "original": {
         "owner": "saghen",
         "repo": "blink.lib",
+        "rev": "41bc1199dd1f5f0687efbd522061b22002c2d4c5",
         "type": "github"
       }
     },
@@ -742,27 +744,6 @@
         "type": "github"
       }
     },
-    "home-manager-25_11": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-25_11"
-        ]
-      },
-      "locked": {
-        "lastModified": 1779506708,
-        "narHash": "sha256-QOD/CNm196nCJRheux/URi4/HE66fthdOMqCJoPP1Y0=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "3ee51fbdac8c8bdfe1e7e1fcaba6520a563f394f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-25.11",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
@@ -953,11 +934,11 @@
         "vim-radical_plugin": "vim-radical_plugin"
       },
       "locked": {
-        "lastModified": 1780570840,
-        "narHash": "sha256-Sx4aE+OiRnJAJLVEL9aZ1IAjKDGuX6ER4OzTEDuMnoQ=",
+        "lastModified": 1781437208,
+        "narHash": "sha256-p18mb3gKCQ8hMsqgTgkBH6xwrBZlC2+N3f/yw4JIhdc=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "4c691b682082d84ef84e9e3826a6b7d5af30be66",
+        "rev": "c86907485279a8162aaf4e83cabbfb37cd586238",
         "type": "github"
       },
       "original": {
@@ -1098,7 +1079,7 @@
         "flake-compat": "flake-compat_3",
         "nixos-images": "nixos-images",
         "nixpkgs": [
-          "nixpkgs-25_11"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -1126,22 +1107,6 @@
       "original": {
         "id": "nixpkgs",
         "type": "indirect"
-      }
-    },
-    "nixpkgs-25_11": {
-      "locked": {
-        "lastModified": 1780952837,
-        "narHash": "sha256-Fwd1+spDtQ0hDyBwme6ufG3n4mY0UrjjFdYHv+G/Hds=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "e820eb4a444b46a19b2e03e8dfd2359439ff30fe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-25.11",
-        "repo": "nixpkgs",
-        "type": "github"
       }
     },
     "nixpkgs-lib": {
@@ -1315,11 +1280,11 @@
     "nvim-lspconfig_plugin": {
       "flake": false,
       "locked": {
-        "lastModified": 1780499151,
-        "narHash": "sha256-RDhwY+C2ZHZPPRe1yvgJqonLcez77dVYvTIttVnFPis=",
+        "lastModified": 1781296998,
+        "narHash": "sha256-uFG6LfYGuu5X9gLzCLbIpQd6af+RUoF8aED4Tp7cOcw=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "229b79051b380377664edc4cbd534930154921a1",
+        "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
         "type": "github"
       },
       "original": {
@@ -1440,7 +1405,6 @@
         "dms-wallpaper-carousel": "dms-wallpaper-carousel",
         "dms-web-search": "dms-web-search",
         "home-manager": "home-manager_2",
-        "home-manager-25_11": "home-manager-25_11",
         "neix": "neix",
         "neovim-with-plugins": "neovim-with-plugins",
         "niri": "niri",
@@ -1448,7 +1412,6 @@
         "nixos-cli": "nixos-cli",
         "nixos-generators": "nixos-generators",
         "nixos-raspberrypi": "nixos-raspberrypi",
-        "nixpkgs-25_11": "nixpkgs-25_11",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nsearch": "nsearch",
@@ -1691,11 +1654,11 @@
     "theme": {
       "locked": {
         "dir": "theming",
-        "lastModified": 1780390990,
-        "narHash": "sha256-zvpDapXvJu5z2cR/EnM+xD8HWRS7UVW8P0llXaI1LmY=",
+        "lastModified": 1781396297,
+        "narHash": "sha256-EMGfgw3tHm2f5e40YwIIsxR92+qAixb28dgZGs48h0k=",
         "owner": "jeansidharta",
         "repo": "configuration.nix",
-        "rev": "affb151a6b4f70bef64ad003faa66ad74441a282",
+        "rev": "0251d5feaa8c35c27d52b63c8d473f979e007ee0",
         "type": "github"
       },
       "original": {

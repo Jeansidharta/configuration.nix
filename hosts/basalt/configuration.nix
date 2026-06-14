@@ -16,7 +16,6 @@
     in
     [
       raspberry-pi-5.base
-      raspberry-pi-5.page-size-16k
       sd-image
       ../../profiles/headless.nix
       ../../modules/wireguard-lsbots.nix
@@ -25,6 +24,7 @@
   nixpkgs.hostPlatform = "aarch64-linux";
 
   boot.loader.raspberry-pi.bootloader = "kernel";
+  boot.zfs.forceImportRoot = false;
 
   swapDevices = [
     {

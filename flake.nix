@@ -4,15 +4,12 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
-    nixpkgs-25_11.url = "github:nixos/nixpkgs/nixos-25.11";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-stable";
-    home-manager-25_11.url = "github:nix-community/home-manager/release-25.11";
-    home-manager-25_11.inputs.nixpkgs.follows = "nixpkgs-25_11";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -132,7 +129,7 @@
     };
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi/main";
-      inputs.nixpkgs.follows = "nixpkgs-25_11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 
@@ -143,7 +140,6 @@
       nixos-generators,
       nixpkgs-stable,
       home-manager,
-      home-manager-25_11,
       self,
       ...
     }@inputs:
@@ -203,7 +199,7 @@
             ssh-pubkeys = import ./ssh-pubkeys.nix;
           };
           modules = [
-            home-manager-25_11.nixosModules.home-manager
+            home-manager.nixosModules.home-manager
             ./hosts/basalt/configuration.nix
           ];
         };

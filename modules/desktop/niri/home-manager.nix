@@ -168,6 +168,17 @@
         }
         {
           window-rule = {
+            "match is-window-cast-target=true" = { };
+            border = {
+              on = { };
+              inactive-color = "#ffff00";
+              active-color = "#ffff00";
+              width = 2;
+            };
+          };
+        }
+        {
+          window-rule = {
             match = {
               _props = {
                 app-id = "^steam.*$";
