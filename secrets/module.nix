@@ -38,6 +38,7 @@ in
     };
     wifi = {
       file = ./wifi.age;
+      owner = lib.mkIf (config.networking.hostName == "basalt") "wpa_supplicant";
     };
     weron-base-password = {
       file = ./weron-base-password.age;

@@ -87,7 +87,7 @@
               done
               echo restarting
               ssh -i /home/sidharta/.ssh/id_ed25519 sidharta@192.168.0.192 -- notify-send "Internet down" &
-              ip --json address show wlan0 | jq '.[0].addr_info.[] | select(.family == "inet") | { local, valid_life_time }' --compact-output 
+              ip --json address show wld0 | jq '.[0].addr_info.[] | select(.family == "inet") | { local, valid_life_time }' --compact-output 
               network=$(wpa_cli list_networks | grep CURRENT | cut --fields=1)
               if [ "$network" == "" ]; then
                   network="1"
@@ -99,7 +99,7 @@
               COUNT=0
               LIMIT=120 # seconds
               while [ "$COUNT" -le "$LIMIT" ]; do
-                IP=$(ip --json address show wlan0 | jq '.[0].addr_info.[] | select(.family == "inet") | .local' --compact-output --raw-output)
+                IP=$(ip --json address show wld0 | jq '.[0].addr_info.[] | select(.family == "inet") | .local' --compact-output --raw-output)
                 if [ "$IP" == "" ]; then
                     COUNT=$((COUNT+1))
                     sleep 1
@@ -145,7 +145,7 @@
       '';
       # This is just to add the -dd flag as a commandline argument for wpa_supplicant.
       driver = "nl80211,wext -dd";
-      interfaces = [ "wlan0" ];
+      interfaces = [ "wld0" ];
       secretsFile = config.age.secrets.wifi.path;
       networks = {
         "rede Mesh 99" = {
@@ -184,7 +184,7 @@
       internalInterfaces = [
         "bridge0"
       ];
-      externalInterface = "wlan0";
+      externalInterface = "wld0";
     };
   };
 
@@ -235,7 +235,7 @@
           WLANInterfaceType = "station";
           Type = "wlan";
           SSID = "'rede Mesh 99_Guest'";
-          Name = "wlan0";
+          Name = "wld0";
         };
         networkConfig = {
           # IPv6LinkLocalAddressGenerationMode = "stable-privacy";
@@ -250,7 +250,7 @@
           WLANInterfaceType = "station";
           Type = "wlan";
           SSID = "'rede Mesh 99'";
-          Name = "wlan0";
+          Name = "wld0";
         };
         DHCP = "ipv4";
         networkConfig.IPv6LinkLocalAddressGenerationMode = "stable-privacy";
