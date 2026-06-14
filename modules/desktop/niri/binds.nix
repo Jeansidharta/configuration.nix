@@ -15,6 +15,7 @@
       leaderKey = "Super";
       wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       grim = lib.getExe pkgs.grim;
+      drawy = lib.getExe pkgs.drawy;
       satty = lib.getExe pkgs.satty;
       wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
       vipe = "${pkgs.moreutils}/bin/vipe";
@@ -70,6 +71,9 @@
           "volume"
           "+10"
         ];
+      };
+      "Super+d" = {
+        spawn = [ "${drawy}" "default-board" ];
       };
       "Super+1" = {
         focus-workspace = "browser";

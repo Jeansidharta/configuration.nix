@@ -28,6 +28,8 @@ let
         lazygit # git tui
         fzf
 
+        drawy # Infinite canvas
+
         wireshark
         yazi # File picker
 
