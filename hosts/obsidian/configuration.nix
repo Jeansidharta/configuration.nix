@@ -77,6 +77,14 @@
 
   hardware.keyboard.qmk.enable = true;
 
+  services.sunshine = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      sunshine_name = "obsidian";
+    };
+  };
+
   # environment.systemPackages = with pkgs; [
   # snapcast
   # ];
