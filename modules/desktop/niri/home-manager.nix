@@ -95,6 +95,12 @@
       hotkey-overlay = {
         skip-at-startup = { };
       };
+      blur = {
+        passes = 4;
+        offset = 5;
+        noise = 0.02;
+        saturation = 2.0;
+      };
       _children = [
         {
           "workspace \"browser\"" = {
