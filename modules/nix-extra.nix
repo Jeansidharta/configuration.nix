@@ -10,12 +10,22 @@
     enable = true;
     option-cache.enable = false;
     settings = {
+      confirmation = {
+        always = true;
+      };
       differ.command = [
         "nvd"
         "diff"
       ];
       apply = {
         use_nom = true;
+        reexec_as_root = true;
+      };
+      ssh = {
+        private_key_cmd = [
+          "cat"
+          "/home/sidharta/.ssh/id_ed25519"
+        ];
       };
     };
   };
