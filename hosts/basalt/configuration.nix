@@ -33,6 +33,154 @@
     }
   ];
 
+  containers.k3s = {
+    autoStart = true;
+    privateNetwork = true;
+    hostBridge = "bridge0";
+    allowedDevices = [
+      {
+        modifier = "rw";
+        node = "/dev/kmsg";
+      }
+    ];
+    additionalCapabilities = [
+      "CAP_AUDIT_CONTRO"
+      "CAP_AUDIT_REA"
+      "CAP_AUDIT_WRIT"
+      "CAP_BLOCK_SUSPEN"
+      "CAP_BP"
+      "CAP_CHECKPOINT_RESTOR"
+      "CAP_CHOWN"
+      "CAP_DAC_OVERRIDE"
+      "CAP_DAC_READ_SEARCH"
+      "CAP_FOWNER"
+      "CAP_FSETID"
+      "CAP_IPC_LOCK"
+      "CAP_IPC_OWNER"
+      "CAP_KILL"
+      "CAP_LEASE"
+      "CAP_LINUX_IMMUTABLE"
+      "CAP_MAC_ADMI"
+      "CAP_MAC_OVERRID"
+      "CAP_MKNO"
+      "CAP_NET_ADMIN"
+      "CAP_NET_BIND_SERVICE"
+      "CAP_NET_BROADCAST"
+      "CAP_NET_RAW"
+      "CAP_PERFMO"
+      "CAP_SETGID"
+      "CAP_SETFCA"
+      "CAP_SETPCAP"
+      "CAP_SETUID"
+      "CAP_SYS_ADMIN"
+      "CAP_SYS_BOOT"
+      "CAP_SYS_CHROOT"
+      "CAP_SYS_MODULE"
+      "CAP_SYS_NICE"
+      "CAP_SYS_PACCT"
+      "CAP_SYS_PTRACE"
+      "CAP_SYS_RAWIO"
+      "CAP_SYS_RESOURCE"
+      "CAP_SYS_TIME"
+      "CAP_SYS_TTY_CONFIG"
+      "CAP_SYSLO"
+      "CAP_WAKE_ALARM"
+    ];
+    # localAddress6 = "fc00::2/64";
+    config =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+
+        networking = {
+          # Use systemd-resolved inside the container
+          # Workaround for bug https://github.com/NixOS/nixpkgs/issues/162686
+          useHostResolvConf = lib.mkForce false;
+        };
+
+        services.resolved.enable = true;
+
+        system.stateVersion = "26.05";
+
+        environment.systemPackages = with pkgs; [
+          kubernetes
+        ];
+
+        virtualisation.podman = {
+          enable = true;
+          dockerSocket.enable = true;
+        };
+
+        networking.interfaces.eth0.ipv4 = {
+          addresses = [
+            {
+              address = "192.168.0.16";
+              prefixLength = 24;
+            }
+          ];
+          routes = [
+            {
+              address = "0.0.0.0";
+              prefixLength = 0;
+              via = "192.168.0.1";
+            }
+          ];
+        };
+
+        boot.kernelParams = [
+          "cgroup_enable=cpuset"
+          "cgroup_enable=memory"
+          "cgroup_memory=1"
+          "hugepages=64"
+        ];
+        networking.firewall.allowedTCPPorts = [
+          6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+          # 2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
+          # 2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
+          80
+        ];
+        networking.firewall.allowedUDPPorts = [
+          # 8472 # k3s, flannel: required if using multi-node for inter-node networking
+        ];
+        services.k3s = {
+          enable = true;
+          role = "server";
+          extraFlags = toString [
+            # "--debug" # Optionally add additional args to k3s
+          ];
+        };
+      };
+  };
+  systemd.services."user@".serviceConfig.Delegate = "cpu cpuset io memory pids";
+
+  services.udev.extraRules = ''
+    KERNEL=="kmsg", OWNER="root", MODE="0666"
+  '';
+
+  boot.kernel.sysctl = {
+    "kernel.dmesg_restrict" = 0;
+  };
+
+  environment.systemPackages = with pkgs; [
+    kubernetes
+  ];
+
+  virtualisation.podman = {
+    enable = true;
+    dockerSocket.enable = true;
+  };
+
+  boot.kernelParams = [
+    "cgroup_enable=cpuset"
+    "cgroup_enable=memory"
+    "cgroup_memory=1"
+    "hugepages=64"
+  ];
+
   users.users.sidharta = {
     isNormalUser = true;
     hashedPassword = "$y$j9T$gBDB9SKOqnh3cnPYEaxgj0$HCawgsRBrhcXvjvg8cSytRYtlExK/yaj219Fm8J7Jx3";
@@ -163,6 +311,16 @@
     hostName = "basalt";
     nftables = {
       enable = true;
+      # tables.nat-k3s = {
+      #   enable = true;
+      #   family = "inet";
+      #   content = ''
+      #     chain postrouting {
+      #       type nat hook postrouting priority srcnat; policy accept;
+      #       iifname "ve-k3s" ip daddr 10.69.26.0/24 counter packets 75 bytes 4596 masquerade
+      #     }
+      #   '';
+      # };
       tables.block-destination-unreachable = {
         enable = true;
         family = "inet";

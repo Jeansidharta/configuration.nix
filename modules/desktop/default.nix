@@ -29,6 +29,7 @@ let
         fzf
 
         drawy # Infinite canvas
+        kubernetes
 
         wireshark
         yazi # File picker
@@ -40,6 +41,14 @@ let
         kdePackages.breeze-icons
         adwaita-icon-theme
       ];
+
+      programs.zsh.initContent = ''
+        if [[ $TERM != "dumb" ]]; then
+           source ${
+             pkgs.runCommand "kubectl-completions-zsh" { } "${pkgs.kubernetes}/bin/kubectl completion zsh > $out"
+           }
+         fi
+      '';
 
       imports = [ ./firefox.nix ];
 
