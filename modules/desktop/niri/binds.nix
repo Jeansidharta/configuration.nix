@@ -38,8 +38,24 @@
       );
     in
     {
+      "Super+e" = {
+        spawn-sh = "${wl-paste} | ${satty} --filename - --initial-tool crop --output-filename \"/home/sidharta/screenshots-niri/%Y-%m-%d_%H:%M:%S.png\" --save-after-copy";
+      };
       "Print" = {
-        spawn-sh = "${grim} - | ${satty} --filename - --initial-tool crop --output-filename \"/home/sidharta/screenshots-niri/%Y-%m-%d_%H:%M:%S.png\" --save-after-copy";
+        spawn = [
+          "${niri}"
+          "msg"
+          "action"
+          "screenshot-screen"
+        ];
+      };
+      "Shift+Print" = {
+        spawn = [
+          "${niri}"
+          "msg"
+          "action"
+          "screenshot-window"
+        ];
       };
       "Shift+XF86AudioLowerVolume" = {
         spawn = [
@@ -73,7 +89,10 @@
         ];
       };
       "Super+d" = {
-        spawn = [ "${drawy}" "default-board" ];
+        spawn = [
+          "${drawy}"
+          "default-board"
+        ];
       };
       "Super+1" = {
         focus-workspace = "browser";
