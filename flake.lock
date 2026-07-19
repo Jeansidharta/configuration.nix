@@ -318,22 +318,6 @@
         "type": "github"
       }
     },
-    "dms-kaomoji-picker": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780677220,
-        "narHash": "sha256-Wy8lBwMw6IXPDFp8tMvEd8iYpIKXg7R4jj3zP8CYh70=",
-        "owner": "hthienloc",
-        "repo": "dms-kaomoji-picker",
-        "rev": "759a780781870fe4d0c5252871bb18ed01172178",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hthienloc",
-        "repo": "dms-kaomoji-picker",
-        "type": "github"
-      }
-    },
     "dms-niri-windows": {
       "flake": false,
       "locked": {
@@ -347,38 +331,6 @@
       "original": {
         "owner": "rochacbruno",
         "repo": "DankNiriWindows",
-        "type": "github"
-      }
-    },
-    "dms-ocr": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780759945,
-        "narHash": "sha256-de3SA+Q955aOcl6iYToFBX0xzl1fL2uYQwSdKzNzmkI=",
-        "owner": "hthienloc",
-        "repo": "dms-ocr-scanner",
-        "rev": "7e0dc5544ae68659f351e258ddfbc022c786e608",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hthienloc",
-        "repo": "dms-ocr-scanner",
-        "type": "github"
-      }
-    },
-    "dms-plugin-translate": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780582640,
-        "narHash": "sha256-CRiQV6RC9Ir827vqKuKCFlmAUG9w/F9B1egDTJdbpQw=",
-        "owner": "alcxyz",
-        "repo": "DankTranslate",
-        "rev": "10d88fc770ec54e27da1d7d112bed0b33ce806d7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "alcxyz",
-        "repo": "DankTranslate",
         "type": "github"
       }
     },
@@ -411,23 +363,6 @@
       "original": {
         "owner": "cwelsys",
         "repo": "dms-volume-mixer",
-        "type": "github"
-      }
-    },
-    "dms-wallpaper-carousel": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1773339262,
-        "narHash": "sha256-UAsb5DsvejSKyf07uCe8iAhe/WURPT7IlsGAMirZ//0=",
-        "owner": "jeansidharta",
-        "repo": "wallpaperCarousel",
-        "rev": "0276727fa0fcfbf0517ddbf7171a8346fe8f3535",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jeansidharta",
-        "ref": "feature-settings",
-        "repo": "wallpaperCarousel",
         "type": "github"
       }
     },
@@ -1396,13 +1331,9 @@
         "disko": "disko",
         "dms-calculator": "dms-calculator",
         "dms-emoji-launcher": "dms-emoji-launcher",
-        "dms-kaomoji-picker": "dms-kaomoji-picker",
         "dms-niri-windows": "dms-niri-windows",
-        "dms-ocr": "dms-ocr",
-        "dms-plugin-translate": "dms-plugin-translate",
         "dms-plugins": "dms-plugins",
         "dms-volume-mixer": "dms-volume-mixer",
-        "dms-wallpaper-carousel": "dms-wallpaper-carousel",
         "dms-web-search": "dms-web-search",
         "home-manager": "home-manager_2",
         "neix": "neix",

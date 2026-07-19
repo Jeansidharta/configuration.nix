@@ -39,13 +39,6 @@ let
             src = "${inputs.dms-plugins}/DankBatteryAlerts";
             settings = { };
           };
-          wallpaperCarousel = {
-            enable = true;
-            src = inputs.dms-wallpaper-carousel;
-            settings = {
-              wallpaperDir = "/home/sidharta/wallpapers/static/";
-            };
-          };
           niriWindows = {
             enable = true;
             src = inputs.dms-niri-windows;
@@ -63,16 +56,6 @@ let
             src = "${inputs.dms-plugins}/DankKDEConnect";
             settings = { };
           };
-          kaomojiPicker = {
-            enable = true;
-            src = inputs.dms-kaomoji-picker;
-            settings = { };
-          };
-          ocrScanner = {
-            enable = true;
-            src = inputs.dms-ocr;
-            settings = { };
-          };
           emojiLauncher = {
             enable = true;
             src = "${inputs.dms-emoji-launcher}";
@@ -82,11 +65,6 @@ let
             enable = true;
             src = "${inputs.dms-calculator}";
             settings = { };
-          };
-          dankTranslate = {
-            enable = true;
-            src = inputs.dms-plugin-translate;
-            # settings = { };
           };
           webSearch = {
             enable = true;
