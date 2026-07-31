@@ -7,6 +7,7 @@
 }:
 let
   inherit (config.lib.overlay-helpers) mkUnstable overlay-flake;
+  inherit (config) age;
 
   hm-module =
     {
@@ -345,6 +346,37 @@ let
       programs.direnv = {
         enable = true;
         nix-direnv.enable = true;
+      };
+
+      programs.mbsync = {
+        enable = true;
+      };
+
+      accounts.email.accounts.jeansidharta = {
+        address = "jeansidharta@gmail.com";
+        userName = "jeansidharta@gmail.com";
+        realName = "Jean Sidharta";
+        enable = true;
+        primary = true;
+        passwordCommand = "cat ${age.secrets.gmail-imap-password.path}";
+        imap = {
+
+          host = "imap.gmail.com";
+          authentication = "login";
+          # User = "jeansidharta@gmail.com";
+          # Pass = "dcfv iasm vbom hymz";
+          # TLSType = "IMAPS";
+          tls.enable = true;
+
+        };
+        mbsync = {
+          enable = true;
+          create = "maildir";
+          extraConfig = {
+            account = {
+            };
+          };
+        };
       };
     };
 in

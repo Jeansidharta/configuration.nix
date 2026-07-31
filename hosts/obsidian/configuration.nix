@@ -46,6 +46,7 @@
       allowedTCPPorts = [
         22
         8001
+        9090
       ];
     };
     interfaces = {

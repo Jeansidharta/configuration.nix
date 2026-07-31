@@ -1,19 +1,14 @@
 { config, lib, ... }:
 {
-  # services.resolved.dnsDelegates."lsbots.com.br".Delegate = {
-  #   DNS = "fd10::1";
-  #   Domains = "lsbots.com.br";
-  # };
-  # services.resolved.dnsDelegates."lsbots".Delegate = {
-  #   DNS = "fd10::1";
-  #   Domains = "lsbots";
-  # };
-  systemd.network.networks."40-wg-lsbots".extraConfig = ''
-    [Network]
-    Domains=lsbots.com.br
-    DNS=[fd10::1]:53
-  '';
   networking = {
+    hosts = {
+      "10.1.0.1" = [
+        "git.lsbots.com.br"
+        "icinga.lsbots.com.br"
+        "wiki.lsbots.com.br"
+        "matrix.lsbots.com.br"
+      ];
+    };
     networkmanager.ensureProfiles = lib.mkIf (config.networking.networkmanager.enable) {
       environmentFiles = [ config.age.secrets.wg-lsbots-key.path ];
       secrets.entries = [
@@ -40,13 +35,9 @@
           allowed-ips = "10.1.0.1/16;fd10::1/64;";
         };
         ipv4 = {
-          dns-data = "10.1.0.1;";
-          dns-search = "~lsbots.com.br";
           method = "manual";
         };
         ipv6 = {
-          dns-data = "fd10::1";
-          dns-search = "~lsbots.com.br";
           addr-gen-mode = "default";
           method = "manual";
         };
