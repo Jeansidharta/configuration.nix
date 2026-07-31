@@ -36,6 +36,10 @@ in
       file = ./coffee-psk.age;
       owner = "sidharta";
     };
+    gmail-imap-password = {
+      file = ./gmail-imap-password.age;
+      owner = "sidharta";
+    };
     wifi = {
       file = ./wifi.age;
       owner = lib.mkIf (config.networking.hostName == "basalt") "wpa_supplicant";
