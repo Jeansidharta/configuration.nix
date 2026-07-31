@@ -23,4 +23,8 @@
     sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII2ewRwnZiuC7knddFvRmDhjLzLgDOhJKLU+0yrOCEHv sidharta@calcite";
     system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEyhxpF1tJfdYPLRHtCXYVqhdxtWxwNQm2aJSVexFDb6 root@calcite";
   };
+  buzz = {
+    sidharta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIINLgv2FtZjgNolPqGu4mX/3uUM9bZcH5ykotEUgUxkR sidharta@buzz";
+    system = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFpLQiJKQKueADRxq1XQtZJOgNIAtPBcy615RXadyUw root@buzz";
+  };
 }
