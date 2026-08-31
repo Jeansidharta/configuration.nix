@@ -1,8 +1,8 @@
 { inputs, pkgs, ... }:
 {
-  nixpkgs.overlays = [
-    inputs.niri.overlays.default
-  ];
+  # nixpkgs.overlays = [
+  #   inputs.niri.overlays.default
+  # ];
   imports = [ ];
 
   home-manager.users.sidharta.imports = [

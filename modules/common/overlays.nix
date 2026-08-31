@@ -15,6 +15,7 @@ in
     (mkUnstable "jujutsu")
     (mkUnstable "jjui")
     (overlay-flake "sqlite-diagram")
+    (overlay-flake "niri")
     (final: prev: {
       nchat =
         inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.nchat.overrideAttrs
