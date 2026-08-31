@@ -17,6 +17,9 @@ let
       ...
     }:
     {
+
+      imports = [ ./firefox.nix ];
+
       home.packages = with pkgs; [
         wl-clipboard # Clipboard software
         libnotify # Send d-bus notification through the terminal
@@ -43,6 +46,10 @@ let
         adwaita-icon-theme
       ];
 
+      home.shellAliases = {
+        "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
+      };
+
       programs.zsh.initContent = ''
         if [[ $TERM != "dumb" ]]; then
            source ${
@@ -50,12 +57,6 @@ let
            }
          fi
       '';
-
-      imports = [ ./firefox.nix ];
-
-      home.shellAliases = {
-        "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
-      };
 
       programs.nchat = {
         enable = true;
@@ -352,6 +353,11 @@ let
         enable = true;
       };
 
+      programs.neomutt = {
+        enable = true;
+        settings = { };
+      };
+
       accounts.email.accounts.jeansidharta = {
         address = "jeansidharta@gmail.com";
         userName = "jeansidharta@gmail.com";
@@ -359,12 +365,20 @@ let
         enable = true;
         primary = true;
         passwordCommand = "cat ${age.secrets.gmail-imap-password.path}";
+        smtp = {
+          host = "smtp.gmail.com";
+          authentication = "login";
+          tls.enable = true;
+        };
         imap = {
 
           host = "imap.gmail.com";
           authentication = "login";
           tls.enable = true;
 
+        };
+        neomutt = {
+          enable = true;
         };
         mbsync = {
           enable = true;
