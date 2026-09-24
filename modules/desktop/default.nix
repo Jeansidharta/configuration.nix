@@ -353,9 +353,23 @@ let
         enable = true;
       };
 
+      programs.himalaya = {
+        enable = true;
+      };
+      programs.aerc = {
+        enable = true;
+        extraConfig = {
+          filters = {
+            "text/plain" = "colorize";
+          };
+          general = {
+            unsafe-accounts-conf = true;
+          };
+        };
+      };
+
       programs.neomutt = {
         enable = true;
-        settings = { };
       };
 
       accounts.email.accounts.jeansidharta = {
@@ -367,27 +381,33 @@ let
         passwordCommand = "cat ${age.secrets.gmail-imap-password.path}";
         smtp = {
           host = "smtp.gmail.com";
+          port = 465;
           authentication = "login";
           tls.enable = true;
         };
         imap = {
-
           host = "imap.gmail.com";
+          port = 993;
           authentication = "login";
           tls.enable = true;
-
         };
-        neomutt = {
+        # neomutt = {
+        #   enable = true;
+        #   mailboxType = "maildir";
+        # };
+        himalaya = {
           enable = true;
         };
-        mbsync = {
+        aerc = {
           enable = true;
-          create = "maildir";
-          extraConfig = {
-            account = {
-            };
+          extraAccounts = {
+            cache-headers = true;
           };
         };
+        # mbsync = {
+        #   enable = true;
+        #   create = "maildir";
+        # };
       };
     };
 in
