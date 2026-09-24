@@ -3,7 +3,6 @@
   "customThemeFile": "/nix/store/6y3i27lrhryg1nygksvmrnc43k10kgwq-theme",
   "radiusStrength": 38,
   "clockFormat": "24h",
-  "useFahrenheit": true,
   "blurBorderEnabled": true,
   "blurBorderOpacity": 1,
   "useAutoLocation": true,
@@ -83,43 +82,44 @@
   "runUserMatugenTemplates": false,
   "widgetBackgroundColor": "sch",
   "widgetColorMode": "colorful",
+  "m3ElevationEnabled": false,
   "barElevationEnabled": false,
   "controlCenterWidgets": [
     {
+      "enabled": true,
+      "h": 1,
       "id": "volumeSlider",
-      "enabled": true,
-      "w": 4,
-      "h": 1
+      "w": 4
     },
     {
+      "enabled": true,
+      "h": 1,
       "id": "brightnessSlider",
-      "enabled": true,
-      "w": 4,
-      "h": 1
+      "w": 4
     },
     {
+      "enabled": true,
+      "h": 1,
       "id": "wifi",
-      "enabled": true,
-      "w": 4,
-      "h": 1
+      "w": 4
     },
     {
+      "enabled": true,
+      "h": 1,
       "id": "bluetooth",
-      "enabled": true,
-      "w": 4,
-      "h": 1
+      "w": 4
     },
     {
+      "enabled": true,
+      "h": 1,
       "id": "audioOutput",
-      "enabled": true,
-      "w": 4,
-      "h": 1
+      "w": 4
     },
     {
-      "id": "audioInput",
       "enabled": true,
-      "w": 4,
-      "h": 1
+      "h": 1,
+      "id": "audioInput",
+      "w": 4
     }
   ],
   "appLauncherGridColumns": 5,
@@ -214,6 +214,9 @@
     },
     "weather": {
       "city": true
+    },
+    "clock": {
+      "seconds": true
     }
   },
   "networkPreference": "wifi",
@@ -311,6 +314,7 @@
       ],
       "islandHomeStatusContent": "battery",
       "islandInteractionMode": "click",
+      "islandMediaClockVisible": true,
       "islandNotificationExpand": false,
       "islandNotificationPopups": true,
       "islandOuterGap": 0,
@@ -382,8 +386,7 @@
       "widgetOutlineThickness": 1,
       "widgetPadding": 8,
       "widgetStyle": "segments",
-      "widgetTransparency": 1,
-      "islandMediaClockVisible": true
+      "widgetTransparency": 1
     },
     {
       "autoHide": false,
