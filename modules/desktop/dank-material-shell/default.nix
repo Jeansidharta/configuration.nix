@@ -211,6 +211,15 @@ let
                 "toggle"
               ];
             };
+            "Super+escape" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "island"
+                "toggle"
+                "0"
+              ];
+            };
             "Super+s" = {
               spawn = [
                 "${dms}"
