@@ -372,42 +372,63 @@ let
         enable = true;
       };
 
-      accounts.email.accounts.jeansidharta = {
-        address = "jeansidharta@gmail.com";
-        userName = "jeansidharta@gmail.com";
-        realName = "Jean Sidharta";
-        enable = true;
-        primary = true;
-        passwordCommand = "cat ${age.secrets.gmail-imap-password.path}";
-        smtp = {
-          host = "smtp.gmail.com";
-          port = 465;
-          authentication = "login";
-          tls.enable = true;
-        };
-        imap = {
-          host = "imap.gmail.com";
-          port = 993;
-          authentication = "login";
-          tls.enable = true;
-        };
-        # neomutt = {
-        #   enable = true;
-        #   mailboxType = "maildir";
-        # };
-        himalaya = {
+      accounts.email.accounts = {
+        jean_lsbots = {
+          address = "jean@lsbots.net";
+          userName = "jean";
+          realName = "Jean Sidharta";
           enable = true;
-        };
-        aerc = {
-          enable = true;
-          extraAccounts = {
-            cache-headers = true;
+          passwordCommand = "cat ${age.secrets.lsbots-imap-password.path}";
+          imap = {
+            host = "mail.lsbots.net";
+            port = 993;
+            authentication = "login";
+            tls.enable = true;
+          };
+          aerc = {
+            enable = true;
+            extraAccounts = {
+              cache-headers = true;
+            };
           };
         };
-        # mbsync = {
-        #   enable = true;
-        #   create = "maildir";
-        # };
+        jeansidharta = {
+          address = "jeansidharta@gmail.com";
+          userName = "jeansidharta@gmail.com";
+          realName = "Jean Sidharta";
+          enable = true;
+          primary = true;
+          passwordCommand = "cat ${age.secrets.gmail-imap-password.path}";
+          smtp = {
+            host = "smtp.gmail.com";
+            port = 465;
+            authentication = "login";
+            tls.enable = true;
+          };
+          imap = {
+            host = "imap.gmail.com";
+            port = 993;
+            authentication = "login";
+            tls.enable = true;
+          };
+          # neomutt = {
+          #   enable = true;
+          #   mailboxType = "maildir";
+          # };
+          himalaya = {
+            enable = true;
+          };
+          aerc = {
+            enable = true;
+            extraAccounts = {
+              cache-headers = true;
+            };
+          };
+          # mbsync = {
+          #   enable = true;
+          #   create = "maildir";
+          # };
+        };
       };
     };
 in

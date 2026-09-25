@@ -20,6 +20,7 @@ in
   "coffee-psk.age".publicKeys = allPublicKeys;
 
   "gmail-imap-password.age".publicKeys = allPublicKeys;
+  "lsbots-imap-password.age".publicKeys = allPublicKeys;
   "weron-base-password.age".publicKeys = allPublicKeys;
   "weron-base-key.age".publicKeys = allPublicKeys;
   "wifi.age".publicKeys = allPublicKeys;

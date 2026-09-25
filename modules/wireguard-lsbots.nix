@@ -7,6 +7,7 @@
         "icinga.lsbots.com.br"
         "wiki.lsbots.com.br"
         "matrix.lsbots.com.br"
+        "mail.lsbots.net"
       ];
     };
     networkmanager.ensureProfiles = lib.mkIf (config.networking.networkmanager.enable) {

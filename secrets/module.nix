@@ -36,6 +36,10 @@ in
       file = ./coffee-psk.age;
       owner = "sidharta";
     };
+    lsbots-imap-password = {
+      file = ./lsbots-imap-password.age;
+      owner = "sidharta";
+    };
     gmail-imap-password = {
       file = ./gmail-imap-password.age;
       owner = "sidharta";
