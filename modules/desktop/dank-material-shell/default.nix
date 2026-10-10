@@ -211,6 +211,14 @@ let
                 "toggle"
               ];
             };
+            "Super+Shift+n" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "notifications"
+                "dismissAllPopups"
+              ];
+            };
             "Super+escape" = {
               spawn = [
                 "${dms}"
@@ -218,6 +226,24 @@ let
                 "island"
                 "toggle"
                 "0"
+              ];
+            };
+            "Super+m" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "island"
+                "toggle"
+                "Media"
+              ];
+            };
+            "Super+y" = {
+              spawn = [
+                "${dms}"
+                "ipc"
+                "island"
+                "toggle"
+                "ControlCenter"
               ];
             };
             "Super+s" = {

@@ -5,6 +5,7 @@
       "10.1.0.1" = [
         "git.lsbots.com.br"
         "icinga.lsbots.com.br"
+        "icinga-test.lsbots.com.br"
         "wiki.lsbots.com.br"
         "matrix.lsbots.com.br"
         "mail.lsbots.net"
