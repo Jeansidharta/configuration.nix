@@ -217,7 +217,7 @@
           window-rule = {
             match = {
               _props = {
-                app-id = "wezterm.clipboard";
+                app-id = "ghostty.clipboard";
               };
             };
             default-column-width = {

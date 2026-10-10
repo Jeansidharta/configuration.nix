@@ -54,9 +54,7 @@ let
         ];
       };
 
-      home.shellAliases = {
-        "dbl" = "${lib.getExe pkgs.wezterm} start --cwd .";
-      };
+      home.shellAliases = { };
 
       programs.zsh.initContent = ''
         if [[ $TERM != "dumb" ]]; then
@@ -148,10 +146,13 @@ let
         systemdTargets = [ "graphical-session.target" ];
       };
 
-      programs.wezterm = {
+      programs.ghostty = {
         enable = true;
         enableZshIntegration = true;
-        extraConfig = builtins.readFile ./wezterm.lua;
+        settings = { };
+        systemd = {
+          enable = true;
+        };
       };
 
       programs.starship = {
@@ -450,7 +451,7 @@ in
   ];
 
   nixpkgs.overlays = [
-    (mkUnstable "wezterm")
+    (mkUnstable "ghostty")
     (overlay-flake "wiremix")
   ];
   hardware.graphics.enable = true;

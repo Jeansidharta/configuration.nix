@@ -11,7 +11,7 @@
       niri = lib.getExe pkgs.niri;
       xargs = "${pkgs.findutils}/bin/xargs";
       jq = lib.getExe pkgs.jq;
-      wezterm = lib.getExe pkgs.wezterm;
+      ghostty = lib.getExe pkgs.ghostty;
       leaderKey = "Super";
       wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       grim = lib.getExe pkgs.grim;
@@ -23,7 +23,7 @@
       mpc = lib.getExe pkgs.mpc;
 
       modifyClipboard = pkgs.writeScript "write-script" ''
-        ${wezterm} start -- bash -c "export EDITOR=${neovim} ; ${wl-paste} | ${vipe} | ${wl-copy} && exit"
+        ${ghostty} --command='-- bash -c "export EDITOR=${neovim} ; ${wl-paste} | ${vipe} | ${wl-copy} && exit'"
       '';
       paste-qrcode = (
         let
@@ -224,7 +224,7 @@
         focus-column-left = { };
       };
       "Super+Return" = {
-        spawn = [ "${wezterm}" ];
+        spawn = [ "${ghostty}" ];
       };
       "Super+Right" = {
         focus-column-right = { };
@@ -327,10 +327,8 @@
       };
       "Super+Shift+Return" = {
         spawn = [
-          "${wezterm}"
-          "start"
-          "--cwd"
-          "/home/sidharta/lsbots/"
+          "${ghostty}"
+          "--working-directory=/home/sidharta/lsbots/"
         ];
       };
       "Super+Shift+Up" = {

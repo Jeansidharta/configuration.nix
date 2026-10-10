@@ -23,7 +23,7 @@ let
         settings = {
           general = {
             apps = {
-              terminal = [ (lib.getExe pkgs.wezterm) ];
+              terminal = [ (lib.getExe pkgs.ghostty) ];
             };
           };
           bar = {

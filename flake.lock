@@ -929,11 +929,11 @@
         "vim-radical_plugin": "vim-radical_plugin"
       },
       "locked": {
-        "lastModified": 1791657296,
-        "narHash": "sha256-hFTSJDewfuuKMtBAvTE6p02Tecs7eRg04OdsLVu27j0=",
+        "lastModified": 1791664326,
+        "narHash": "sha256-F9eYk3LYMB0vc7fy2wRHtyeRGfb18jcC8xS55LzBf8w=",
         "owner": "jeansidharta",
         "repo": "neovim-flake",
-        "rev": "7cf2431297057d1aa02806371e04d3574199afab",
+        "rev": "8090fe00fdf55d8e3d9f4bad6df6f24f94806958",
         "type": "github"
       },
       "original": {

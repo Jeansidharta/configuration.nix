@@ -52,7 +52,8 @@
         { options, lib, ... }:
         lib.mkMerge [
           {
-            programs.wezterm.colorSchemes.mainTheme = {
+            programs.ghostty.settings.theme = "mainTheme";
+            programs.ghostty.themes.mainTheme = {
               # Color order ANSI:
               # black
               # maroon
@@ -71,29 +72,27 @@
               # fuchsia
               # aqua
               # white
-              ansi = [
-                colors.black # 1
-                colors.dark_red # 2
-                colors.dark_green # 3
-                colors.dark_yellow # 4
-                colors.dark_blue # 5
-                colors.dark_pink # 6
-                colors.dark_cyan # 7
-                colors.light_gray # 8
-              ];
-              brights = [
-                colors.gray # 1
-                colors.red # 2
-                colors.green # 3
-                colors.orange # 4
-                colors.blue # 5
-                colors.pink # 6
-                colors.cyan # 7
-                colors.white # 8
+              palette = [
+                "0=${colors.black}"
+                "1=${colors.dark_red}"
+                "2=${colors.dark_green}"
+                "3=${colors.dark_yellow}"
+                "4=${colors.dark_blue}"
+                "5=${colors.dark_pink}"
+                "6=${colors.dark_cyan}"
+                "7=${colors.light_gray}"
+                "8=${colors.gray}"
+                "9=${colors.red}"
+                "10=${colors.green}"
+                "11=${colors.orange}"
+                "12=${colors.blue}"
+                "13=${colors.pink}"
+                "14=${colors.cyan}"
+                "15=${colors.white}"
               ];
 
               foreground = colors.bg_light;
-              cursor_fg = colors.bg_lighter;
+              cursor-color = colors.bg_lighter;
               background = colors.bg_darker;
             };
             xsession.windowManager.bspwm.settings = {
