@@ -6,34 +6,42 @@
 
   programs.dank-material-shell.settings.lockBeforeSuspend = lib.mkForce false;
 
-  # programs.ewwCustom = {
-  #   extraVariables = {
-  #     enableBacklight = "false";
-  #     enableBattery = "false";
-  #     topBarMonitor = "HDMI-A-1";
-  #   };
-  # };
-
-  programs.ssh.matchBlocks = {
-    "nb" = {
-      hostname = "192.168.0.118";
-      user = "sidharta";
-      port = 22;
-    };
-    "rpi" = {
-      hostname = "192.168.0.210";
-      user = "sidharta";
-      port = 22;
-    };
-    "graphite" = {
-      hostname = "192.168.0.186";
-      user = "sidharta";
-      port = 22;
-    };
-    "fixie" = {
-      hostname = "192.168.0.140";
-      user = "fixie";
-      port = 22;
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings = {
+      "nb" = {
+        HostName = "192.168.0.118";
+        User = "sidharta";
+        port = 22;
+      };
+      "rpi" = {
+        HostName = "192.168.0.210";
+        User = "sidharta";
+        Port = 22;
+      };
+      "graphite" = {
+        HostName = "192.168.0.186";
+        User = "sidharta";
+        Port = 22;
+      };
+      "opal" = {
+        HostName = "opal.sidharta.xyz";
+        User = "sidharta";
+        port = 22;
+      };
+      "*" = {
+        ForwardAgent = false;
+        AddKeysToAgent = "no";
+        Compression = false;
+        ServerAliveInterval = 0;
+        ServerAliveCountMax = 3;
+        HashKnownHosts = false;
+        UserKnownHostsFile = "~/.ssh/known_hosts";
+        ControlMaster = "no";
+        ControlPath = "~/.ssh/master-%r@%n:%p";
+        ControlPersist = "no";
+      };
     };
   };
   home.packages = [ ];
