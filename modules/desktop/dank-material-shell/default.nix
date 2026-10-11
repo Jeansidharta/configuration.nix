@@ -98,6 +98,16 @@ let
                     "mercado"
                   ];
                 }
+                {
+                  id = "home-manager";
+                  name = "Home Manager";
+                  icon = "unicode:🏠";
+                  url = "https://home-manager-options.extranix.com/?query=%s";
+                  keywords = [
+                    "home"
+                    "hm"
+                  ];
+                }
               ];
             };
           };
