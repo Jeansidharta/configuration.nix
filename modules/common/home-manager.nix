@@ -22,6 +22,13 @@
     MANPAGER = "nvim +Man!";
     QS_ICON_THEME = "candy-icons";
   };
+  programs.ssh = {
+    settings = {
+      SetEnv = {
+        TERM = "xterm-256color";
+      };
+    };
+  };
 
   systemd.user.startServices = true;
 
@@ -110,7 +117,7 @@
     autosuggestion.enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
     initContent = ''
-        export EDITOR=${pkgs.neovim}/bin/nvim
+      export EDITOR=${pkgs.neovim}/bin/nvim
     '';
   };
 
