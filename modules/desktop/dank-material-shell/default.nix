@@ -201,6 +201,25 @@ let
           ];
       }
     else if is_niri then
+      let
+        ipc = action: arg: {
+          spawn = [
+            dms
+            "ipc"
+            action
+            arg
+          ];
+        };
+        ipc2 = action: arg1: arg2: {
+          spawn = [
+            dms
+            "ipc"
+            action
+            arg1
+            arg2
+          ];
+        };
+      in
       {
         programs.niri.settings = {
           layer-rule = {
@@ -213,132 +232,27 @@ let
             # block-out-from = "screen-capture";
           };
           binds = {
-            "Super+n" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "notifications"
-                "toggle"
-              ];
-            };
-            "Super+Shift+n" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "notifications"
-                "dismissAllPopups"
-              ];
-            };
-            "Super+escape" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "island"
-                "toggle"
-                "0"
-              ];
-            };
-            "Super+m" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "island"
-                "toggle"
-                "Media"
-              ];
-            };
-            "Super+y" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "island"
-                "toggle"
-                "ControlCenter"
-              ];
-            };
-            "Super+s" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "lock"
-                "lock"
-              ];
-            };
-            "Super+period" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "call"
-                "wallpaperCarousel"
-                "toggle"
-              ];
-            };
-            "Super+Space" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "spotlight"
-                "toggle"
-              ];
-            };
-            "Super+v" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "clipboard"
-                "toggle"
-              ];
-            };
-            "XF86AudioRaiseVolume" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "audio"
-                "increment"
-                "5"
-              ];
-            };
-            "XF86AudioPrev" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "mpris"
-                "previous"
-              ];
-            };
-            "XF86AudioPlay" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "mpris"
-                "playPause"
-              ];
-            };
-            "XF86AudioNext" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "mpris"
-                "next"
-              ];
-            };
-            "XF86AudioMute" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "audio"
-                "mute"
-              ];
-            };
-            "XF86AudioLowerVolume" = {
-              spawn = [
-                "${dms}"
-                "ipc"
-                "audio"
-                "decrement"
-                "5"
-              ];
-            };
+            # Notifications
+            "Super+n" = ipc "notifications" "toggle";
+            "Super+Shift+n" = ipc "notifications" "dismissAllPopups";
+
+            # Island
+            "Super+escape" = ipc2 "island" "toggle" "0";
+            "Super+m" = ipc2 "island" "toggle" "Media";
+            "Super+y" = ipc2 "island" "toggle" "ControlCenter";
+
+            "Super+s" = ipc "lock" "lock";
+            "Super+Space" = ipc "spotlight" "toggle";
+
+            "Super+v" = ipc "clipboard" "toggle";
+
+            # Audio / Music
+            "XF86AudioRaiseVolume" = ipc2 "audio" "increment" "5";
+            "XF86AudioLowerVolume" = ipc2 "audio" "decrement" "5";
+            "XF86AudioPrev" = ipc "mpris" "previous";
+            "XF86AudioPlay" = ipc "mpris" "playPause";
+            "XF86AudioNext" = ipc "mpris" "next";
+            "XF86AudioMute" = ipc "audio" "mute";
           };
         };
       }

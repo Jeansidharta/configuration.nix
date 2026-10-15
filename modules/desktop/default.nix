@@ -457,8 +457,13 @@ in
   hardware.graphics.enable = true;
   services.udisks2.enable = true;
 
-  # hint electron apps to use wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment = {
+    sessionVariables = {
+      # hint electron apps to use wayland
+      NIXOS_OZONE_WL = "1";
+    };
+  };
+
   users.users.sidharta = {
     extraGroups = [
       "dialout"
